@@ -1,18 +1,20 @@
 {
-  "template_id": "XE6pV3",
+  "template_id": "UXXshh",
   "template_name": "FC | Matcha latte guide (sliced)",
   "images": [
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/1b8be04e-14ab-4975-aa8c-4507432a6c5f.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/301f5b2a-6248-4f7e-ae56-df721a6dc39b.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/e4cefeb3-8694-40f5-95ca-1a92f850e5a2.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/c8d409ff-5c12-42dc-9c6c-fd3928dd98a6.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/b7ed4103-fc0d-4088-b00b-4e23abcaa7ec.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/375789d0-105d-4942-9a37-8c3f81aabdb1.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/6cf08f2c-3f65-459b-8918-477f1dd4a28a.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/a318c1e4-bd99-4e5a-9738-2020901bdb0a.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/c5a6b3ac-48cc-45f3-97e9-2f69ac84cc87.jpeg"
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/2daeda28-c11b-4838-a43d-8385f6cf9d5a.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/c0bb95ad-2573-4cd3-86e3-e4c52c583112.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/d49c94cc-f920-47ea-a381-f65ec7da547b.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/f9b6e8b3-b872-47d2-bc10-560e724ff9b4.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/3c4e73d6-f5b8-44f5-9588-d26bdb642343.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/4252b071-178b-491b-92ec-a2b23906a5f6.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/b98c850e-c537-4b02-942e-0c1a190da7b3.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/9c4989c5-34b3-49d0-abb7-e9812ef1eb1c.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/4315acad-1448-4567-a1b7-9e3463f455db.jpeg"
   ],
-  "missing_audiences": [],
+  "missing_audiences": [
+    "FC | engaged 120"
+  ],
   "campaign": null,
   "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
 }

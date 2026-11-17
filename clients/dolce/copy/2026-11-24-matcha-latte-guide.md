@@ -2,7 +2,7 @@
 Client: Dolce Superfoods · Campaign · Designed (copy lives in designs/2026-11-24-matcha-latte-guide/design.dc.html) · Brief: Meelad (Slack, Nov 17)
 Status: needs approval · goes live Tue Nov 24, 2026
 From: Hannah from Dolce (pending approval; fallback "Dolce Superfoods")
-Sent to: Engaged 120
+Sent to: FC | engaged 120
 Excluding: FC | Shopify Tags contains wholesale
 
 ---
