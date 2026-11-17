@@ -6,6 +6,7 @@ import { z } from "zod";
 import { db } from "./db";
 import { openComments, publishDesign, replyToComment, reviewByPath } from "./review";
 import { pushEmail } from "../lib/klaviyo/push-email";
+import { buildSegment, findAudiences } from "../lib/klaviyo/audiences";
 import { CLIENTS_DIR } from "./config";
 
 const day = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d);
@@ -103,17 +104,30 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
   const pushKlaviyo = tool(
     "push_to_klaviyo",
     "Build a finished design into this client's Klaviyo as a DRAFT campaign (never sends or schedules): slices it (each section/CTA its own linked image), QC checks every link, uploads the images, creates a drag-and-drop template and a draft campaign with the subject, preview text, sender and audiences from the copy file. Re-pushing updates the same draft (or creates the campaign if an earlier push had no audience). Audience names are matched loosely (e.g. 'engaged 120' finds 'FC | Engaged 120'); say which list each request was matched to. Only works if the client allows drafts.",
-    { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20") },
-    async ({ design_folder }) => {
+    { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), include: z.array(z.string()).optional().describe("Audiences to send to: exact Klaviyo names or ids from find_audiences. Overrides the copy doc."), exclude: z.array(z.string()).optional().describe("Audiences to exclude (names or ids). Overrides the copy doc.") },
+    async ({ design_folder, include, exclude }) => {
       try {
-        const r = await pushEmail({ clientsDir: CLIENTS_DIR, folder, designRel: design_folder.replace(/^\.\//, ""), db: db(), push: true });
+        const r = await pushEmail({ clientsDir: CLIENTS_DIR, folder, designRel: design_folder.replace(/^\.\//, ""), db: db(), push: true, include, exclude });
         const k = r.klaviyo ?? {};
-        return ok({ pushed: r.pushed, campaign: k.campaign?.name ?? null, updated_existing_draft: !!r.reusedDraft, slices: r.slices, missing_audiences: k.missing_audiences ?? [], audience_matches: k.audience_matches ?? [], suggestions: k.suggestions ?? {}, note: k.note, warnings: r.warnings });
+        return ok({ pushed: r.pushed, campaign: k.campaign?.name ?? null, updated_existing_draft: !!r.reusedDraft, slices: r.slices, audiences: k.audiences, missing_audiences: k.missing_audiences ?? [], suggestions: k.suggestions ?? {}, note: k.note, warnings: r.warnings });
       } catch (e: any) { return ok({ error: e.message }); }
     },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo] });
+  const find = tool(
+    "find_audiences",
+    "Search this client's Klaviyo lists and segments by what someone said ('engaged 120', '90 day engaged', 'VIPs', 'early access'). Returns the best matches with their exact names and ids (score 100 = exact).",
+    { query: z.string().min(2) },
+    async ({ query }) => { try { return ok({ matches: await findAudiences(db(), clientId, query) }); } catch (e: any) { return ok({ error: e.message }); } },
+  );
+  const build = tool(
+    "build_segment",
+    "Create a segment from Fluid's segmentation master sheet in this client's Klaviyo when the audience someone asked for doesn't exist: 'engaged <N>' (opened/clicked/checkout/ordered/active on site/added to cart in N days + can receive email), 'new subs' (Engaged 30 ex. Purchasers), 'placed order <N> days', 'lapsed customers' / 'winback'. Reuses it if it already exists. Never sends anything.",
+    { request: z.string().describe("e.g. 'engaged 120'") },
+    async ({ request }) => { try { const r = await buildSegment(db(), clientId, request); return ok("error" in r ? r : { created: r.created, name: r.audience.name, id: r.audience.id, definition: r.spec.purpose, note: "New segments take a few minutes to fill in Klaviyo." }); } catch (e: any) { return ok({ error: e.message }); } },
+  );
+
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, find, build] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__find_audiences", "mcp__fluid__build_segment"];

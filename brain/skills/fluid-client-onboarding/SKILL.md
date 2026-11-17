@@ -67,3 +67,6 @@ Publish the Onboarding Doc for the team (Claude Docs when available, else the ma
 - Avatars come from evidence (brief, reviews, pop-up answers, purchase data), not from demographics guessed from the product.
 - Numbers quoted with their base and window ("31% open rate on 14 campaigns, last 90 days").
 - Read-only in Klaviyo during onboarding. Nothing is created, edited or sent.
+
+### Segments (every client, at onboarding)
+Build Fluid's segmentation master sheet in the client's Klaviyo: `../../../knowledge/sops/segmentation-master.md` (Engaged 90/120/180, Engaged 30 ex. Purchasers (New Subs), Placed Order 7d/14d/30d, Lapsed Customers (Winback)). Only once the client allows Fluid to write drafts in Klaviyo. Dry run first: `npx tsx scripts/klaviyo-segments.ts <folder>`, then `--push`. Campaign briefs use these names in "Sent to" and "Excluding".

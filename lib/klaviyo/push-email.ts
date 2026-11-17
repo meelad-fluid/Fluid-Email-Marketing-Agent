@@ -7,7 +7,7 @@ import { join, resolve, sep } from "node:path";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { dcToHtml, sliceEmail } from "../email/slicer";
 import { draftWriter } from "./write";
-import { klaviyoAll } from "./api";
+import { allAudiences, pick, rank } from "./audiences";
 import { dndDefinition, DND_REVISION } from "../email/klaviyo-dnd";
 
 export type PushResult = { qcMd: string; qcPng: string; preview: string; slices: number; warnings: string[]; linksOk: boolean; pushed: boolean; reusedDraft?: boolean; klaviyo?: any };
@@ -31,7 +31,7 @@ function copyMeta(designDir: string, designRel: string) {
   };
 }
 
-export async function pushEmail(o: { clientsDir: string; folder: string; designRel: string; db: SupabaseClient; push: boolean; code?: boolean; newCampaign?: boolean; log?: (s: string) => void }): Promise<PushResult> {
+export async function pushEmail(o: { clientsDir: string; folder: string; designRel: string; db: SupabaseClient; push: boolean; code?: boolean; newCampaign?: boolean; include?: string[]; exclude?: string[]; log?: (s: string) => void }): Promise<PushResult> {
   const { folder, designRel, db } = o, PUSH = o.push, CODE = !!o.code, NEW_CAMPAIGN = !!o.newCampaign, log = o.log ?? (() => {});
   const clientDir = resolve(o.clientsDir, folder), designDir = resolve(clientDir, designRel), buildDir = join(designDir, "build");
   if (!designDir.startsWith(clientDir + sep)) throw new Error("Design must be inside the client folder");
@@ -79,48 +79,19 @@ export async function pushEmail(o: { clientsDir: string; folder: string; designR
   // Reuse the existing draft (assign the new template to its message) instead of creating another draft.
   const prevFile = join(buildDir, "klaviyo.json");
   const prev = existsSync(prevFile) ? JSON.parse(readFileSync(prevFile, "utf8")) : null;
-  if (prev?.campaign?.message_id && !NEW_CAMPAIGN) {
+  if (prev?.campaign?.message_id && !NEW_CAMPAIGN && !o.include?.length && !o.exclude?.length) {
     await k.post("/campaign-message-assign-template", { data: { type: "campaign-message", id: prev.campaign.message_id, relationships: { template: { data: { type: "template", id: templateId } } } } }, "assign template (reuse draft)");
     const out = { ...prev, template_id: templateId, template_name: tName, editor: CODE ? "CODE" : "SYSTEM_DRAGGABLE", images: urls, previous_template_id: prev.template_id };
     writeFileSync(prevFile, JSON.stringify(out, null, 2));
     return { ...base, pushed: true, reusedDraft: true, klaviyo: out };
   }
 
-  // Audiences by exact name (lists + segments).
-  const { data: key } = await db.rpc("get_connection_secret", { p_client: client.id, p_provider: "klaviyo" });
-  const [lists, segs] = await Promise.all([klaviyoAll<any>(key, "/lists/?fields[list]=name"), klaviyoAll<any>(key, "/segments/?fields[segment]=name")]);
-  // Match on a normalized name (case, spacing, punctuation); fall back to "the group's name starts with this text"
-  // so a copy doc can say "FC | BFCM 2026 free-matcha buyers" for "FC | BFCM 2026 free-matcha buyers ($160+ order Nov 15-19)".
-  const key2 = (s: string) => s.toLowerCase().replace(/\s+/g, " ").replace(/[^a-z0-9$+ |]/g, "").trim();
-  const groupsAll = [...lists.data, ...segs.data].map((g: any) => ({ id: g.id, k: key2(g.attributes.name) }));
-  // Fuzzy fallback: compare the meaningful words ("FC |", "list", "segment", possessives and filler ignored).
-  // A list/segment matches when it contains every meaningful word of the requested name; the shortest such name wins.
-  const STOP = new Set(["fc", "list", "segment", "the", "my", "our", "email", "audience", "group", "of", "for", "and"]);
-  const words = (s: string) => s.toLowerCase().replace(/[’']s\b/g, "").replace(/\(.*?\)/g, " ").split(/[^a-z0-9$+]+/).filter((w) => w && !STOP.has(w));
-  const groupsNamed = [...lists.data, ...segs.data].map((g: any) => ({ id: g.id, name: g.attributes.name as string, w: new Set(words(g.attributes.name)) }));
-  const fuzzy = (n: string) => {
-    const want = words(n).filter((w) => !/^[a-z]+$/.test(w) || groupsNamed.some((g) => g.w.has(w))); // drop names of people etc. that appear nowhere
-    if (!want.length) return undefined;
-    const hits = groupsNamed.filter((g) => want.every((w) => g.w.has(w))).sort((a, b) => a.name.length - b.name.length);
-    if (!hits.length) return undefined;
-    if (hits.length > 1 && hits[1].name.length === hits[0].name.length) return undefined; // genuinely ambiguous
-    return hits[0];
-  };
-  const matched: { asked: string; matched: string }[] = [];
-  const find = (n: string) => {
-    const exact = groupsAll.find((g) => g.k === key2(n))?.id;
-    if (exact) return exact;
-    const pre = groupsAll.filter((g) => g.k.startsWith(key2(n.replace(/\(.*?\)/g, ""))));
-    if (pre.length === 1) return pre[0].id;
-    const f = fuzzy(n);
-    if (f) { matched.push({ asked: n, matched: f.name }); return f.id; }
-    return undefined;
-  };
-  const resolveNames = (ns: string[]) => ns.map((n) => ({ n, id: find(n) }));
-  const inc = resolveNames(meta.included), exc = resolveNames(meta.excluded);
+  // Audiences: the ones asked for in Slack (include/exclude), else the copy doc's "Sent to" / "Excluding".
+  const all = await allAudiences(db, client.id);
+  const resolveNames = (ns: string[]) => ns.map((n) => { const a = pick(n, all); return { n, id: a?.id, matched: a?.name }; });
+  const inc = resolveNames(o.include?.length ? o.include : meta.included), exc = resolveNames(o.exclude?.length ? o.exclude : meta.excluded);
   const missing = [...inc, ...exc].filter((x) => !x.id).map((x) => x.n);
-  const suggest = (n: string) => groupsNamed.filter((g) => words(n).some((w) => g.w.has(w))).slice(0, 4).map((g) => g.name);
-  const out: any = { template_id: templateId, template_name: tName, images: urls, missing_audiences: missing, audience_matches: matched, suggestions: Object.fromEntries(missing.map((m) => [m, suggest(m)])) };
+  const out: any = { template_id: templateId, template_name: tName, images: urls, audiences: { included: inc.filter((x) => x.id).map((x) => x.matched), excluded: exc.filter((x) => x.id).map((x) => x.matched) }, missing_audiences: missing, suggestions: Object.fromEntries(missing.map((m) => [m, rank(m, all).slice(0, 4).map((r) => r.name)])) };
   if (!inc.some((x) => x.id)) {
     out.campaign = null;
     out.note = "No included audience matched a Klaviyo list/segment name, so only the template was created.";
