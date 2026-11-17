@@ -3,7 +3,12 @@
     "PreToolUse": [
       {
         "matcher": "Read|Edit|Write|MultiEdit|NotebookEdit|Glob|Grep|Bash",
-        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/../_guard.py\" arq8" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/../_guard.py\" arq8"
+          }
+        ]
       }
     ]
   }
