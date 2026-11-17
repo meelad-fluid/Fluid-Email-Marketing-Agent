@@ -8,6 +8,9 @@ export const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const envFile = join(ROOT, ".env.local");
 if (existsSync(envFile)) for (const [, k, v] of readFileSync(envFile, "utf8").matchAll(/^([A-Z_]+)=(.*)$/gm)) process.env[k] ??= v.trim();
 
+// Hosting dashboards make it easy to paste a value with a trailing newline or space: trim every variable.
+for (const [k, v] of Object.entries(process.env)) if (typeof v === "string" && v !== v.trim()) process.env[k] = v.trim();
+
 export const CLIENTS_DIR = join(ROOT, "clients");
 
 function need(k: string) {

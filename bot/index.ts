@@ -192,6 +192,8 @@ async function syncStale() {
 }
 
 (async () => {
+  const missing = ["ANTHROPIC_API_KEY", "NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "SLACK_BOT_TOKEN", "SLACK_APP_TOKEN", "SLACK_ADMIN_USER_IDS"].filter((k) => !process.env[k]);
+  if (missing.length) console.error(`⚠️  Missing variable(s): ${missing.join(", ")}. The bot can't work until they're set.`);
   const auth = await app.client.auth.test();
   TEAM_ID = auth.team_id!; BOT_USER_ID = auth.user_id!;
   await app.start();
