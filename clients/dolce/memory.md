@@ -58,3 +58,4 @@ Read before any work for Dolce Superfoods. Append (dated) after every change. Ru
 - 2026-11-17 · design · Matcha win-back 20% (Dec 3) designed via Slack; published to Claude Design from Claude Code: https://claude.ai/artifact/FAgMrjqhqPxxEHPUzA6KQj
 - 2026-11-17 · design · Meelad asked for the win-back campaign; published review link (v2, in review): https://fluid-email-marketing-agent-production.up.railway.app/r/p7pT9hgWE-lgEIqWVKRZ0NNH
 - 2026-11-17 · design · Meelad asked to resend the win-back; resent the same review link (no changes).
+- 2026-11-17 · strategy · Meelad asked for campaign ideas for engaged matcha buyers. Pitched 4: Reserve upgrade (ceremonial buyers), restock reminder (55-day cycle), matcha + coconut milk powder latte pairing, holiday matcha gift guide. Awaiting pick.
