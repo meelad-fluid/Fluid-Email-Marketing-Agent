@@ -66,13 +66,10 @@ Read before any work for Dolce Superfoods. Append (dated) after every change. Ru
 - 2026-11-16 · tools · Tool test: design references and product_images both work. Cacao nibs photos saved to brand/assets/products/organic-cacao-nibs/ (1–3.jpg 1200x1200, 4.jpg 1200x675, each with a -cutout.png).
 - 2026-11-16 · tools · Tool test 2: product_images for "ceremonial matcha" works (Reserve matcha, 4 photos in brand/assets/products/bulk-ceremonial-reserve-matcha-powder/). generate_image failed because image generation isn't set up yet (KIE_API_KEY missing), so no image was made.
 - 2026-11-17 · tools · Tool test 3: product_images (Reserve matcha) and generate_image both work now. Test scene brand/assets/generated/2026-11-17-strawberry-matcha-latte-counter.jpg (iced strawberry matcha latte, 1400x939, left side left empty for a headline) came out very realistic.
-<<<<<<< Updated upstream
 - 2026-11-17 · klaviyo · Meelad asked to push the matcha latte guide. Added copy/2026-11-24-matcha-latte-guide.md (subject/preview/sender/audience, which push needs) and pushed: template created (9 slices) but no draft campaign, because "Engaged 120" matched no Klaviyo list/segment. Need the exact segment name to re-push.
-<<<<<<< HEAD
 - 2026-11-17 · klaviyo · Re-pushed with "FC | engaged 120" (Meelad); still no match in Klaviyo, so template only again. Need the segment name copied exactly from Klaviyo.
-=======
+- 2026-11-16 · copy+design · Nibs, powder or butter (Fri Nov 20, BFCM #3): copy/2026-11-20-nibs-powder-or-butter.md (AIDA, Hannah, no offer) + designs/2026-11-20-nibs-powder-or-butter/ v1, review link https://fluid-email-marketing-agent-production.up.railway.app/r/J7dgo_S8nNR0lP7FZESWieAJ. 3 new generated scenes (three bowls, bark, holiday brownies/cocoa). Open: which cacao powder listing (used Organic $14.99), no cacao collection page (links to /search?q=cacao), bark ratios need team OK.
 =======
 - 2026-11-16 · copy+design · Nibs, powder or butter (Fri Nov 20, BFCM #3): copy/2026-11-20-nibs-powder-or-butter.md (AIDA, Hannah, no offer) + designs/2026-11-20-nibs-powder-or-butter/ v1, review link https://fluid-email-marketing-agent-production.up.railway.app/r/J7dgo_S8nNR0lP7FZESWieAJ. 3 new generated scenes (three bowls, bark, holiday brownies/cocoa). Open: which cacao powder listing (used Organic $14.99), no cacao collection page (links to /search?q=cacao), bark ratios need team OK.
->>>>>>> Stashed changes
->>>>>>> 564dde3 (Design agent: style picked from the whole library per email (no repeats per client), technique menu, render-and-critique loop; fuzzy audience matching for Klaviyo pushes; dolce: Nibs, powder or butter design)
+>>>>>>> 45e6422 (dolce: merge memory notes)
 - 2026-11-17 · design · CTA casing = Title Case (matches the site buttons: "Shop All", "Shop Best Sellers"). All email buttons, e.g. "Restock My Matcha".
