@@ -17,11 +17,33 @@ Read before any work for Arq8. Append (dated) after every change. Rules here out
 - 2026-11-16 · verified: gummy prices on arq-8.com are $59 / $99 / $145 one-time (1/2/3 packs); subscribe $45 / $83 / $118. BF20 (20%) gives exactly the copy's numbers ($47.20/$79.20/$116 one-time; $36/$66.40/$94.40 subscribed).
 - 2026-11-16 · conflict (unresolved): onboarding form says "1000 mesh" nano-creatine; a site listing image says "500 mesh particles". Ask client before any copy about particle size.
 - 2026-11-16 · the "Brand Guidelines" PDF is the onboarding form — no visual guidelines. Visual identity taken from arq-8.com (see brand/brand-kit.md). Client said design inspiration Figma is available from their manager — not received.
+- 2026-11-17 · onboarding run (Meelad): audits pulled (research/klaviyo-audit-2026-11-17.json, klaviyo-orders-2026-11-17.json); wrote research/onboarding-doc.md, strategy/2026-11-17-month-1-plan.md (12 emails + 5 SMS, Nov 18–Dec 17), strategy/flow-plan.md (22 emails + 7 SMS); published all three.
+- 2026-11-17 · key numbers: email+SMS = $65,497 of $650,513 store revenue (10%) Sep 18–Nov 16; SMS Welcome best flow ($1.40 RPR), 0 SMS campaigns in 60d; 57 email campaigns in 60d, 0.48% click. Gummies = 83% of 90d revenue; AOV $71.17 (median $59); 55.2% repeat, median 31 days to 2nd order, 88.6% same product. Promos/deadlines earn best (Prime Day, Halloween $0.056–0.092 RPR); particle-tech and scientist-credential sends earn ~0; "4 gummies a day" routine send best value ($0.051).
+- 2026-11-17 · proposed (awaiting client approval): sender persona "Claire from Arq8"; welcome 15% → 20% for 24h; winback day 60 at 20%; mystery "up to 20%" real 15%.
+- 2026-11-17 · Klaviyo is read-only for Fluid (klaviyo_write = none): master-sheet segments (FC | Engaged 90/120/180, New Subs, Lapsed) NOT built; existing FC | Email/Site Engaged 90d/180d and FC | Placed Order 7/14/21/30d exist. Admin must allow drafts.
+- 2026-11-17 · new conflicts: studies "over 1000" (form) vs "700+" (site); "10x better cellular uptake" on site; site banner "up to 55% off + free gifts" vs 20% cap; WELCOME code value unknown; founder name unknown.
+
+- 2026-11-17 · onboarding run: brand kit updated (CTA casing ALL CAPS — site buttons "SHOP NOW", "CHECK OUT", "JOIN NOW"; trust points; persona); research/onboarding-doc.md, strategy/2026-11-17-month-1-plan.md (12 emails + 5 SMS, Nov 18–Dec 17), strategy/flow-plan.md (22 emails + 7 SMS) written and published. Reporting sync failed during onboarding audits.
+- 2026-11-17 · Klaviyo (60d): 48 campaigns, 0 SMS campaigns, 5.6/wk, open 56.6% / click 0.48%; campaign median RPR ≈ $0.023; best = offer sends (Prime Day bundles $0.092, Halloween 15% $0.088); best value send "4 gummies a day. That is the routine." $0.051; science/spec sends near $0. Top flow SMS Welcome $17,829 @ $1.40 RPR; Opensend welcome $0.04 RPR on 40,943.
+- 2026-11-17 · Orders (90d): $922,873, 12,968 orders, AOV $71.17 (p50 $59). Gummies 83% of revenue. Repeat 55.2%, days to 2nd order median 31 (p75 61), 88.6% reorder same product. First-order gifts: Guide for Women 3,887 vs Men 3,850 (≈50/50 women/men). Cohorts: lapsed repeat 1,991, VIP 1,309 ($249+), due to reorder 1,222.
+- 2026-11-17 · Proposed (awaiting approval): sender persona "Claire from Arq8"; offer ladder WELCOME 15% → WELCOME20 24h → BROWSE15 → MYSTERY 20% (no inflated teaser, max is 20%) → NEXT15 / subscribe → COMEBACK20; winback at day 60; pop-up question "What do you want creatine to help with?" (stay strong as I get older / sharper focus and steadier energy / better results from my workouts).
+- 2026-11-17 · Site facts: no founder named on site; scientist is "Prof. Sergej M. Ostojic, MD, PhD" (spell exactly); site says 700+ studies, form says 1000+; "500+ five star reviews"; 30-day guarantee first orders up to 3 packs; announcement bar "BLACK FRIDAY SALE⚡️Up to 55% OFF + Free Gifts".
+- 2026-11-17 · Competitors: Create (sour, NSF Sport, ~$2/day), OMNI (3 g/3 gummies, NSF Contents, $38/mo, healthy ageing + women).
 
 ## Open questions
+- BF20 go-live for email/SMS (copy offer table says Nov 19, email says "is live" Nov 25) and how it relates to the site's "Up to 55% OFF + Free Gifts" and past 25% Prime Day / COVE25 vs the 20% max.
+- Founder's first name (plain-text founder emails in welcome + post-purchase).
+- Approve "Claire from Arq8", the offer ladder, COMEBACK20 (Dec 10) and free Magnesium+ with 2+ packs (Dec 16). Current value of WELCOME code?
+- Studies count to quote (700+ vs 1000+) and source for "10x better cellular uptake"; particle size "5–8x" vs "5x".
+- Grams of creatine per 4-gummy serving; can codes stack on subscribe pricing outside BF20?
+- What is flow WEc9Mm ($1,661 in 60d, not in the live list)?
 - Which mesh figure is right (1000 vs 500)?
 - Access to the Brand Assets Drive folder and reviews Drive folder (linked in onboarding form) for higher-res photography and real reviews.
 - Footer: unsubscribe/preferences links and business address.
+- 700+ vs 1000+ studies; source for "10x uptake"; is 20% a hard cap given the site's "up to 55%"?
+- Founder's first name for founder notes; WELCOME code value; grams per 4-gummy serve, servings per jar.
+- What is flow WEc9Mm? Are the Longevity Guides / bottle / travel case free gifts, and at what threshold?
+- Approve "Claire from Arq8" and the offer ladder; switch on Klaviyo drafts.
 
 ## Assets
 - brand/assets/hero-jars2.webp — strawberry + mango jars composite (mango in front), transparent.

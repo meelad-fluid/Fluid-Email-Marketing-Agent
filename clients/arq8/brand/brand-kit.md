@@ -21,6 +21,23 @@ Pulled from arq-8.com and Arq8's Shopify product imagery on 2026-11-16 (no visua
 - **Cards:** square corners, white on grey or #191919 for the highlighted tier.
 - **Color:** every email carries strawberry/mango color — splashes behind product, floating gummies, gradient band (see memory.md preferences).
 
+## CTA casing
+**ALL CAPS.** arq-8.com writes its primary buttons in caps: "SHOP NOW", "CHECK OUT", "JOIN NOW" (home, about, 2026-11-17). Secondary text links are lower/title case on the site ("learn more", "science behind", "Shop All"); in email every button is ALL CAPS.
+
+## Trust points (use as icon rows / proof strips)
+- Informed Sport certified · Clean Label Project certified (Shopify listing images; badges in assets/)
+- ~96% of creatine retained through stability testing (listing image / BF20 copy)
+- Every batch tested by an ISO/IEC 17025 accredited lab; FDA-registered, cGMP facility; Made in USA (site: /pages/about, home)
+- Zero sugar, vegan, pectin-based, gluten-free, no artificial flavors or sweeteners (site: /pages/about)
+- "Swiss patent-pending technology" — FullDissolve™ nano-refinement (home)
+- "500+ five star reviews" (home)
+- Backed by Prof. Sergej M. Ostojic, MD, PhD (home) — spell exactly so
+- 30-day money-back guarantee on first orders, up to 3 packs (home)
+- Required footer: "Individual results may vary. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease."
+
+## Sender persona (proposed 2026-11-17, not yet approved)
+**Claire from Arq8** — campaigns, flows, SMS sign-offs. Founder notes from the founder (name still needed).
+
 ## Photography
 Silver jars with the black Arq8 "wave" graphic, gummies visible through the frosted base; studio white/grey. Use transparent cutouts from `assets/`. Lifestyle/doctor imagery exists on Shopify listings (with baked-in text — crop or avoid).
 
