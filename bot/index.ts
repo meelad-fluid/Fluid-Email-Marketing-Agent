@@ -60,6 +60,12 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
   // 3. What
   const names = await foreignNames(CLIENTS_DIR, client.folder, db());
   const screen = await screenRequest(request, client.name, names);
+  if (!screen.allowed && screen.reason.startsWith("screen unavailable")) {
+    // Our own setup problem (e.g. a missing API key), not the request: fail closed, but say what's wrong.
+    await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "error", reason: screen.reason });
+    await ephemeral(`Only you can see this: I couldn't run my safety check, so I didn't answer. Setup problem: ${screen.reason.replace(/^screen unavailable \((.*)\)$/, "$1").replace(/ from \.env\.local/, "")}.`);
+    return;
+  }
   if (!screen.allowed) {
     await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "refused_request", reason: screen.reason });
     await web.chat.postMessage({ channel, thread_ts: threadTs, text: REFUSAL(client.name) });
