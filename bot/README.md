@@ -30,3 +30,8 @@ The bot runs 24/7 on Railway from the GitHub repo `meelad-fluid/Fluid-Email-Mark
 - Railway variables: `ANTHROPIC_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN`, `SLACK_ADMIN_USER_IDS`, `GITHUB_TOKEN` (fine-grained, Contents read/write on this repo), `GITHUB_REPO=meelad-fluid/Fluid-Email-Marketing-Agent`.
 - Working on a Mac too? `git pull` before, commit + push after, so the server and the Mac never drift.
 - Only one copy of the bot may run: stop `npm run bot` on any Mac once the server is up.
+
+## Design review links
+Every design the bot makes or changes is published to a review link on this server: `<PUBLIC_URL>/r/<token>`. The page shows the real email at full quality with a mobile view and version history. People click to leave pinned comments, reply, resolve, and approve. "comments added" in the Slack thread makes the bot apply every open comment, publish a new version at the same link, and reply under each comment. Approvals update the design README's Status line (committed to GitHub) and post in the thread.
+- Railway: Settings → Networking → **Generate Domain**, then set `PUBLIC_URL` to that https address. Railway sets `PORT` itself.
+- Tables: design_reviews, design_review_versions, review_comments. Self-test: `npx tsx bot/test-review.ts` (local, port 8090).

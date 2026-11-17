@@ -12,6 +12,7 @@ import { audit, clientForChannel, db, isBotThread, linkChannel, saveThread, thre
 import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder } from "./git";
+import { startWeb } from "./web";
 import { foreignNames, scanText } from "../lib/leaks";
 
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
@@ -102,7 +103,7 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   const prompt = `${who ? `${who} (Fluid team) asks in Slack:` : "Request from Slack:"}\n\n${a.request}`;
 
   await pullLatest();
-  const res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, prompt, sessionId, onProgress: progress });
+  const res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs }, prompt, sessionId, onProgress: progress });
   await saveThread(a.channel, a.threadTs, client.id, res.sessionId);
   await saveClientFolder(client.folder, `${client.folder}: ${a.request.replace(/\s+/g, " ").slice(0, 80)} (via Slack)`);
 
@@ -204,6 +205,7 @@ async function syncStale() {
   TEAM_ID = auth.team_id!; BOT_USER_ID = auth.user_id!;
   await app.start();
   console.log(`Fluid bot is running in ${auth.team} as @${auth.user}. Ctrl+C to stop.`);
+  startWeb(async (channel, thread, text) => { await app.client.chat.postMessage({ channel, thread_ts: thread ?? undefined, text }); });
   syncStale();
   setInterval(syncStale, 3 * 3600_000);
 })();

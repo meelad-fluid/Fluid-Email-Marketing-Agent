@@ -70,7 +70,7 @@ const SKILLS = `
 
 export type RunResult = { text: string; sessionId?: string; costUsd?: number; changed: string[]; error?: string };
 
-export async function runAgent(opts: { folder: string; clientId: string; clientName: string; prompt: string; sessionId?: string; onProgress?: (label: string) => void; signal?: AbortSignal }): Promise<RunResult> {
+export async function runAgent(opts: { folder: string; clientId: string; clientName: string; slack?: { channel: string; thread: string }; prompt: string; sessionId?: string; onProgress?: (label: string) => void; signal?: AbortSignal }): Promise<RunResult> {
   const clientDir = join(CLIENTS_DIR, opts.folder);
   const before = snapshot(clientDir);
   const abortController = new AbortController();
@@ -114,6 +114,9 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
   No description of what's in it, no audiences, no open questions, no sign-off.
 - When work gets approved or scheduled in the conversation, update its "Status:" line (e.g. "Status: approved · goes live Wed Nov 18, 2026").
 - Asked a question? Answer it in a sentence or two.
+- Designs: build them in this folder (designs/<date>-<name>/design.dc.html + README.md + assets.json, same system as the existing designs; reuse their asset ids), then ALWAYS call publish_design and hand over the review link it returns ("Here's the <name>: <link>" + status line). Never say you can't publish or render; the review link is how designs are shared.
+- "comments added" (or similar) on a design: call design_comments, make every change in design.dc.html, call publish_design (note = what changed), then reply_to_comment under each comment saying what you did (resolve=true). Reply in Slack with one line: "Updated: <link> (v<N>)". If a comment can't be done, reply under it explaining why and leave it open.
+- Approvals happen on the review link; the README's Status line shows them. Never mark something approved yourself.
 - Weekly or monthly recap (use email_report; "this week" = Monday to today, "last week" = the previous Monday–Sunday, "this month" = the 1st to today). Reply in exactly this shape, with real numbers, $ rounded to whole dollars with commas:
   Hey <asker's first name>, here's a quick recap for this week:   (or "this month" / "last week")
 
@@ -149,7 +152,7 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
         systemPrompt: { type: "preset", preset: "claude_code", append },
         tools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite"],
         allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite", ...DATA_TOOLS],
-        mcpServers: { fluid: clientDataServer(opts.clientId) },
+        mcpServers: { fluid: clientDataServer(opts.clientId, opts.folder, opts.slack) },
         permissionMode: "dontAsk",
         hooks: { PreToolUse: [{ hooks: [sandbox(clientDir)] }] },
         maxTurns: config.maxTurns,

@@ -13,20 +13,7 @@ export type SliceResult = { slices: Slice[]; footer: { bg: string; legal: string
 
 const MAX_SLICE = 900; // CSS px; a taller region is split into slices that share its link
 
-/** .dc.html → plain HTML with local file paths for /_blob/ assets (assets.json maps blob id → path under clientDir). */
-export function dcToHtml(dcFile: string, clientDir: string): string {
-  const src = readFileSync(dcFile, "utf8");
-  const mapFile = join(dirname(dcFile), "assets.json");
-  const map: Record<string, string> = existsSync(mapFile) ? JSON.parse(readFileSync(mapFile, "utf8")) : {};
-  const inner = src.match(/<x-dc>([\s\S]*?)<\/x-dc>/)?.[1] ?? src;
-  const css = inner.match(/<helmet>[\s\S]*?<style>([\s\S]*?)<\/style>[\s\S]*?<\/helmet>/)?.[1] ?? "";
-  const body = inner.replace(/<helmet>[\s\S]*?<\/helmet>/, "");
-  let html = `<!doctype html><html><head><meta charset="utf-8"><style>${css}</style></head><body style="margin:0">${body}</body></html>`;
-  html = html.replace(/\/_blob\/([0-9a-f]{32})/g, (m, id) => (map[id] ? pathToFileURL(resolve(clientDir, map[id])).href : m));
-  const missing = [...html.matchAll(/\/_blob\/([0-9a-f]{32})/g)].map((m) => m[1]);
-  if (missing.length) throw new Error(`assets.json is missing ${missing.length} image(s): ${[...new Set(missing)].join(", ")}`);
-  return html;
-}
+export { dcToHtml } from "./dc";
 
 export async function sliceEmail(htmlFile: string, outDir: string, meta: { subject: string; preview: string }): Promise<SliceResult> {
   mkdirSync(outDir, { recursive: true });

@@ -4,12 +4,13 @@
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import { db } from "./db";
+import { openComments, publishDesign, replyToComment, reviewByPath } from "./review";
 
 const day = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d);
 const money = (n: number) => Math.round(n * 100) / 100;
 const ok = (o: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(o) }] });
 
-export function clientDataServer(clientId: string) {
+export function clientDataServer(clientId: string, folder: string, slack?: { channel: string; thread: string }) {
   const lastSync = async () => (await db().from("klaviyo_attributed_revenue_daily").select("synced_at").eq("client_id", clientId).order("synced_at", { ascending: false }).limit(1).maybeSingle()).data?.synced_at ?? null;
 
   const emailReport = tool(
@@ -67,7 +68,37 @@ export function clientDataServer(clientId: string) {
     },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults] });
+  const publish = tool(
+    "publish_design",
+    "Publish (or update) a design's review link: the client-facing page where people see the email at full quality, leave pinned comments and approve. Call it every time you create or change a design. Same design folder = same link, new version. Returns the link.",
+    { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), note: z.string().optional().describe("What changed in this version, one line") },
+    async ({ design_folder, note }) => {
+      try { const r = await publishDesign({ clientId, folder, designPath: design_folder, note, slack }); return ok({ link: r.url, version: r.version, status: r.review.status }); }
+      catch (e: any) { return ok({ error: e.message }); }
+    },
+  );
+  const comments = tool(
+    "design_comments",
+    "Open (unresolved) comments on a design's review link, with pin position (x,y in px on the 600px email), the version they were left on, and replies so far.",
+    { design_folder: z.string() },
+    async ({ design_folder }) => {
+      const r = await reviewByPath(clientId, design_folder);
+      if (!r) return ok({ error: "This design has no review link yet. Publish it first." });
+      return ok({ link: `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/r/${r.token}`, current_version: r.current_version, status: r.status, comments: await openComments(r.id) });
+    },
+  );
+  const reply = tool(
+    "reply_to_comment",
+    "Reply under a review comment (signed as Fluid). Set resolve=true once the change is made and published.",
+    { design_folder: z.string(), comment_id: z.string(), text: z.string().min(1), resolve: z.boolean().default(true) },
+    async ({ design_folder, comment_id, text, resolve }) => {
+      const r = await reviewByPath(clientId, design_folder);
+      if (!r) return ok({ error: "No review link for this design." });
+      try { await replyToComment(r.id, comment_id, text, resolve); return ok({ ok: true }); } catch (e: any) { return ok({ error: e.message }); }
+    },
+  );
+
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment"];
