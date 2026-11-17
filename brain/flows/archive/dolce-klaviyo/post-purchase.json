@@ -1,0 +1,148 @@
+{
+  "key": "post-purchase",
+  "name": "Post-Purchase",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Improve the customer journey: thank them, help them use the product, check in, and upsell.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Core flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Shopify Tags don't contain any of {{exclusions.customer_tags}} (wholesale, test accounts)",
+      "klaviyo": {
+        "type": "profile-property",
+        "property": "properties['Shopify Tags']",
+        "filter": {
+          "type": "list",
+          "operator": "not-contains-any",
+          "value": "{{exclusions.customer_tags}}"
+        }
+      }
+    }
+  ],
+  "reentry": null,
+  "entry": "delay-4",
+  "actions": [
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "minutes"
+      },
+      "next": "post-1"
+    },
+    {
+      "id": "post-1",
+      "type": "send-email",
+      "job": "Thank you + order confirmation, from the founder: thank them for trusting us, personal connection, offer support",
+      "template": "post-purchase/01-thank-you-plain",
+      "subject": [
+        "Your {{brand.name}} order is confirmed"
+      ],
+      "smartSending": false,
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "post-2"
+    },
+    {
+      "id": "post-2",
+      "type": "send-email",
+      "job": "How to use the product, or an upsell",
+      "template": "post-purchase/02-get-ready",
+      "subject": [
+        "{{copy.post_upsell_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 10,
+        "unit": "days"
+      },
+      "next": "post-3"
+    },
+    {
+      "id": "post-3",
+      "type": "send-email",
+      "job": "Plain-text check-in from the founder",
+      "template": "post-purchase/03-check-in-plain",
+      "subject": [
+        "Just checking in…how’s everything tasting?"
+      ],
+      "smartSending": false,
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 2,
+        "unit": "days"
+      },
+      "next": "post-4"
+    },
+    {
+      "id": "post-4",
+      "type": "send-email",
+      "job": "Upsell offer / thank-you gift",
+      "template": "post-purchase/04-complete-the-kit",
+      "subject": [
+        "A little thank-you gift, straight from the source"
+      ],
+      "smartSending": false,
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "exclusions.customer_tags",
+      "description": "Shopify customer tags to exclude (wholesale, test, partner accounts)",
+      "example": "wholesale, ISTEST"
+    },
+    {
+      "key": "copy.post_upsell_subject",
+      "description": "Email 2 subject",
+      "example": "Round out your pantry & skip the shipping cost"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$1.91",
+    "reference order rate": "0.69%"
+  }
+}

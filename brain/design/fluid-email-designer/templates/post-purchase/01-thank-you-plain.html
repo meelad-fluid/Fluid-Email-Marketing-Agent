@@ -1,0 +1,23 @@
+<!-- POST-PURCHASE 1: Thank you, PLAIN TEXT, from the founder or team (strategy doc: "Design: Plain text").
+     No hero, no buttons, no images in the body. Paste the letter exactly as written, one <p> per paragraph.
+     The returning-customer line is a Klaviyo conditional: keep the marker so it's built as one. -->
+<div class="email" data-plain="true">
+  <div class="letter">
+    <img class="letter-logo" src="{{LOGO_DARK}}" alt="">
+    <p>{{OPENING}}</p>
+    <p>{{THANK_YOU_LINE}}</p>
+    <p><i style="color:#c0392b">(Conditional line for returning customers:)</i><br>{{RETURNING_CUSTOMER_LINE}}</p>
+    <p>{{PARAGRAPH_1}}</p>
+    <p>{{WHAT_HAPPENS_NEXT}}</p>
+    <p>{{SUPPORT_INVITE}}</p>
+    <p><a href="#">{{TEXT_LINK_1}}</a></p>
+    <p><a href="#">{{TEXT_LINK_2}}</a></p>
+    <p><b>{{SIGN_OFF}}</b></p>
+  </div>
+  <div class="tx tx--fade" style="--from:#ffffff;--to:var(--footer-bg);--tx-h:56px"></div>
+  <footer class="footer footer--slim">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

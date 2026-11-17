@@ -1,0 +1,68 @@
+<!-- POST-PURCHASE 2: Get ready. How to use what they bought: their order, setup and care guides,
+     support. A next-order offer is optional: if the doc has one, it goes in the subheadline with the code.
+     data-offer="optional": no code pill unless the doc has an offer. -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: headline, subheadline (optional next-order offer), button. Photo after, rounded bottom. -->
+  <section class="hero hero--stacked hero--scrim hero--rounded" style="--hero-img:url('{{HERO_BG_IMAGE}}')">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-photo" src="{{HERO_IMAGE}}" alt="" style="--photo-h:380px">
+  </section>
+
+  <!-- YOUR ORDER: the purchased items (built in Klaviyo) -->
+  <section class="section">
+    <h2 class="section-title">{{ORDER_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC ORDER BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--squiggle" style="--to:var(--bg)"></div>
+
+  <!-- THE GUIDES: 3-4 folder-tab cards by category or task, one line each, then one button. -->
+  <section class="section" style="padding-top:20px">
+    <h2 class="section-title">{{GUIDES_TITLE}}</h2>
+    <div class="tabcard"><div class="tabcard-label">{{GUIDE_1_LABEL}}</div><img class="tabcard-img" src="{{GUIDE_1_IMAGE}}" alt=""><p class="tabcard-text"><b>{{GUIDE_1_LEAD}}</b> {{GUIDE_1_TEXT}}</p></div>
+    <div class="tabcard"><div class="tabcard-label">{{GUIDE_2_LABEL}}</div><img class="tabcard-img" src="{{GUIDE_2_IMAGE}}" alt=""><p class="tabcard-text"><b>{{GUIDE_2_LEAD}}</b> {{GUIDE_2_TEXT}}</p></div>
+    <div class="tabcard"><div class="tabcard-label">{{GUIDE_3_LABEL}}</div><img class="tabcard-img" src="{{GUIDE_3_IMAGE}}" alt=""><p class="tabcard-text"><b>{{GUIDE_3_LEAD}}</b> {{GUIDE_3_TEXT}}</p></div>
+    <div class="center"><a class="btn" href="#">{{GUIDES_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- OPTIONAL: pro / expert spotlight with a technique tip. Delete if the doc has none. -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{SPOTLIGHT_TITLE}}</h2>
+    <div class="split">
+      <img class="split-img" src="{{SPOTLIGHT_IMAGE}}" alt="">
+      <div class="split-body">
+        <div class="split-title">{{SPOTLIGHT_NAME}}</div>
+        <p class="split-text">{{SPOTLIGHT_TIP}}</p>
+        <a class="btn btn--sm" href="#">{{SPOTLIGHT_BUTTON}}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- IF SOMETHING IS OFF: the returns / damage policy, contact + guides -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{SUPPORT_IMAGE}}');--banner-scrim:.55">
+    <div class="banner-title" style="--bt-size:44px">{{SUPPORT_TITLE}}</div>
+    <p>{{SUPPORT_TEXT}}</p>
+    <a class="btn" href="#">{{SUPPORT_BUTTON}}</a><br>
+    <a class="btn" href="#" style="margin-top:14px">{{SUPPORT_BUTTON_2}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

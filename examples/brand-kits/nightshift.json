@@ -1,0 +1,20 @@
+{
+  "name": "Night Shift",
+  "status": "confirmed",
+  "colors": {
+    "primary": "#2A1B5C", "secondary": "#E4DBFF", "background": "#FFFFFF", "surface": "#F3EEFF",
+    "text": "#17112E", "textMuted": "#5A5375", "accent": "#FF3D7F", "onAccent": "#FFFFFF", "onPrimary": "#FFFFFF"
+  },
+  "fonts": {
+    "display": { "family": "Anton", "weight": 400, "transform": "uppercase" },
+    "body": { "family": "DM Sans", "weight": 400 }
+  },
+  "logo": { "src": null, "wordmark": "Night Shift" },
+  "button": { "shape": "pill", "borderColor": "#17112E", "shadowColor": "#17112E" },
+  "photoStyle": "High-contrast studio shots, neon rim light",
+  "footer": {
+    "address": "Night Shift Co, 456 Example Ave, Los Angeles, CA 90012",
+    "socials": ["instagram", "tiktok", "youtube"],
+    "trustBadges": ["Vegan", "Zero sugar"]
+  }
+}

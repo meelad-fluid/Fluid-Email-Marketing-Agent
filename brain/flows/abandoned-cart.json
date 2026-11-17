@@ -1,0 +1,204 @@
+{
+  "key": "abandoned-cart",
+  "name": "Abandoned Cart Flow (4 Emails + 1 SMS)",
+  "version": 2,
+  "status": "active",
+  "purpose": "Push them over the edge. They're already interested: remind them, add proof, then a mystery discount they can't resist.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill). Fluid's docs call this Abandoned Checkout; it triggers on Started Checkout and shows the cart in a dynamic table."
+  },
+  "tier": "core",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "metric",
+    "source": "Started Checkout",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow"
+    }
+  ],
+  "reentry": {
+    "value": 1,
+    "unit": "days"
+  },
+  "entry": "delay-1",
+  "actions": [
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 30,
+        "unit": "minutes"
+      },
+      "next": "email-1"
+    },
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "Simple reminder, no discount",
+      "template": "abandoned-checkout/01-reminder",
+      "subject": [
+        "I think you forgot this…"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "name": "Email #1: Simple Reminder",
+      "topic": "I think you forgot this…",
+      "format": "designed",
+      "sendingTo": "People who abandoned their cart",
+      "offer": "None",
+      "structure": "Headline → Sub headline → Button → Dynamic Table → Button",
+      "goals": {
+        "all": [
+          "Simple reminder, no discount",
+          "Dynamic table showing their cart"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": "sms-1"
+    },
+    {
+      "id": "sms-1",
+      "type": "send-sms",
+      "job": "Simple reminder about the items in their cart",
+      "body": "You left something in your cart at {{brand.name}}. Finish checking out: {{event.extra.checkout_url}}",
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Reviews for what's in the cart, plus the attach item",
+      "template": "abandoned-checkout/02-reviews",
+      "subject": [
+        "Here's what people are saying about {{brand.name}}"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "name": "Email #2: Reminder + Social Proof",
+      "topic": "Here's what people are saying about {{brand.name}}",
+      "format": "designed",
+      "sendingTo": "People who abandoned their cart",
+      "offer": "None",
+      "goals": {
+        "all": [
+          "Dynamic table",
+          "Bundle or attach item (DATA: what's most often bought with it)"
+        ],
+        "replenishable": [
+          "Reviews for what's in the cart"
+        ],
+        "one_off": [
+          "Reviews about quality, fit and service",
+          "Expert help before they complete the order"
+        ]
+      },
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-3"
+    },
+    {
+      "id": "email-3",
+      "type": "send-email",
+      "job": "Excitement and urgency: a mystery discount revealed at checkout",
+      "template": "abandoned-checkout/03-mystery-discount",
+      "subject": [
+        "Grab your MYSTERY Discount"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "name": "Email #3: Mystery Discount",
+      "topic": "Grab your MYSTERY Discount",
+      "format": "designed",
+      "sendingTo": "People who abandoned their cart",
+      "offer": "Teaser above the real value: \"Get up to 30% off\", real 15% (20% when W is 15%+). Code MYSTERY",
+      "goals": {
+        "all": [
+          "Excitement and urgency",
+          "\"Get up to {{offers.mystery_teaser}} off\"; the code reveals the real value at checkout",
+          "Code: {{offers.mystery_code}}"
+        ],
+        "replenishable": [],
+        "one_off": [
+          "State exclusions where they apply"
+        ]
+      },
+      "next": "delay-4"
+    },
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-4"
+    },
+    {
+      "id": "email-4",
+      "type": "send-email",
+      "job": "The mystery code expires at midnight",
+      "template": "abandoned-checkout/04-last-chance",
+      "subject": [
+        "Last chance for your mystery discount"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "name": "Email #4: Mystery Discount (last chance)",
+      "topic": "Last chance for your mystery discount",
+      "format": "designed",
+      "sendingTo": "People who abandoned their cart",
+      "offer": "Same mystery code, expires at midnight",
+      "goals": {
+        "all": [
+          "The code expires at midnight",
+          "Dynamic table",
+          "One checkout button"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "offers.mystery_code",
+      "description": "Mystery discount code",
+      "example": "MYSTERY"
+    },
+    {
+      "key": "offers.mystery_teaser",
+      "description": "The 'up to' teaser",
+      "example": "30%"
+    },
+    {
+      "key": "offers.mystery_value",
+      "description": "Real value behind the code",
+      "example": "15%"
+    }
+  ],
+  "benchmarks": {}
+}

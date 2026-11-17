@@ -1,0 +1,73 @@
+<!-- WELCOME 1: Welcome offer. One design for every interest version; only the copy (and named products) change.
+     Replace every {{...}}. {{LOGO}} and {{LOGO_FOOTER}} are filled by assemble.py. Delete any block that has no copy.
+     Pick the transitions so each one goes FROM the section above TO the section below. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: headline, subheadline + offer, button, code. Product shot comes after. -->
+  <section class="hero hero--stacked hero--scrim hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg-alt)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_OFFER}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-product" src="{{HERO_PRODUCT_CUTOUT}}" alt="">
+  </section>
+
+  <!-- MISSION STORY: problem, the fix, 3 benefits, closing line -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{STORY_TITLE}}</h2>
+    <div class="prose">
+      <p>{{STORY_PARAGRAPH_1}}</p>
+      <p>{{STORY_PARAGRAPH_2}}</p>
+      <ol class="benefits">
+        <li><b>{{BENEFIT_1_TITLE}}</b> {{BENEFIT_1_TEXT}}</li>
+        <li><b>{{BENEFIT_2_TITLE}}</b> {{BENEFIT_2_TEXT}}</li>
+        <li><b>{{BENEFIT_3_TITLE}}</b> {{BENEFIT_3_TEXT}}</li>
+      </ol>
+      <p>{{STORY_CLOSING_LINE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- THE INTEREST THEY PICKED: the image bleeds edge to edge and fades out -->
+  <section class="section">
+    <img class="deco deco--tr" src="{{DECO_IMAGE}}" alt="">
+    <h2 class="section-title">{{INTEREST_TITLE}}</h2>
+    <div class="prose center">
+      <p>{{INTEREST_TEXT}}</p>
+    </div>
+    <img class="bleed-img" src="{{INTEREST_IMAGE}}" alt="">
+  </section>
+
+  <!-- BEST SELLERS FOR THIS INTEREST: name + button only -->
+  <section class="section section--blur fade-top fade-bottom" style="--sec-img:url('{{PRODUCTS_BG_IMAGE}}');--sec-scrim:.6;--from:var(--bg);--to:var(--footer-bg)">
+    <h2 class="section-title">{{PRODUCTS_TITLE}}</h2>
+    <div class="pgrid pgrid--3">
+      <div class="pcard"><div class="pcard-frame"><img class="pcard-img" src="{{PRODUCT_1_CUTOUT}}" alt=""></div>
+        <h3 class="pname">{{PRODUCT_1_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_1_BUTTON}}</a></div>
+      <div class="pcard"><div class="pcard-frame"><img class="pcard-img" src="{{PRODUCT_2_CUTOUT}}" alt=""></div>
+        <h3 class="pname">{{PRODUCT_2_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_2_BUTTON}}</a></div>
+      <div class="pcard"><div class="pcard-frame"><img class="pcard-img" src="{{PRODUCT_3_CUTOUT}}" alt=""></div>
+        <h3 class="pname">{{PRODUCT_3_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_3_BUTTON}}</a></div>
+    </div>
+    <div class="center"><a class="btn" href="#">{{SHOP_ALL_BUTTON}}</a></div>
+  </section>
+
+  <!-- TRUST ICONS + FOOTER -->
+  <div class="usp" style="--sec-bg:var(--footer-bg);--sec-ink:var(--footer-ink)">
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_1_ICON}}" alt=""></div><div class="usp-label">{{USP_1}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_2_ICON}}" alt=""></div><div class="usp-label">{{USP_2}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_3_ICON}}" alt=""></div><div class="usp-label">{{USP_3}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_4_ICON}}" alt=""></div><div class="usp-label">{{USP_4}}</div></div>
+  </div>
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

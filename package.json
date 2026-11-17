@@ -1,0 +1,45 @@
+{
+  "name": "fluid-email-agent",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "design:demo": "tsx --tsconfig tsconfig.scripts.json scripts/design-demo.ts",
+    "brain:flows": "tsx scripts/build-core-flows.ts && tsx scripts/describe-flows.ts",
+    "brain:design": "tsx scripts/import-designer-skill.ts",
+    "brain:design:test": "tsx scripts/test-design-templates.ts",
+    "smoke:supabase": "tsx scripts/smoke-supabase.ts",
+    "sync:klaviyo": "tsx scripts/sync-klaviyo.ts",
+    "brain:package": "tsx scripts/package-skills.ts",
+    "plan:month": "tsx scripts/plan-month.ts",
+    "brain:references": "tsx scripts/import-references.ts",
+    "brain:flows:archive": "tsx scripts/build-flow-frameworks.ts",
+    "brain:flows:push": "tsx scripts/push-flows.ts",
+    "check:isolation": "tsx scripts/check-isolation.ts",
+    "check:leaks": "tsx scripts/check-client-leaks.ts",
+    "bot": "tsx bot/index.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.326",
+    "@anthropic-ai/sdk": "^0.137.0",
+    "@slack/bolt": "^5.1.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
+    "next": "^15.5.28",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "playwright": "^1.64.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

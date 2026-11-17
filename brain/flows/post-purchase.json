@@ -1,0 +1,195 @@
+{
+  "key": "post-purchase",
+  "name": "Post-Purchase Flow (4 Emails)",
+  "version": 2,
+  "status": "active",
+  "purpose": "Replenishable: make the first order go well, teach them to use it, collect the review, drive the second order. One-off: make them glad they bought, get the review and photo, cross-sell into the next core product.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)"
+  },
+  "tier": "core",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order equals 1 over all time (new customers)"
+    }
+  ],
+  "reentry": null,
+  "entry": "delay-1",
+  "actions": [
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "minutes"
+      },
+      "next": "email-1"
+    },
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "Personal thank-you from the founder; no offer",
+      "template": "post-purchase/01-thank-you-plain",
+      "subject": [
+        "Thank you, {{first_name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #1: Thank You + Order Confirmation",
+      "topic": "Thank you, {{first_name}}",
+      "format": "plain_text",
+      "sendingTo": "New customers",
+      "offer": "None",
+      "goals": {
+        "all": [
+          "Plain text, from the founder",
+          "Thank them for trusting the brand",
+          "Build a personal connection",
+          "Set shipping expectations so nobody has to email support",
+          "Offer support",
+          "Don't duplicate the store's transactional confirmation"
+        ],
+        "replenishable": [],
+        "one_off": [
+          "Offer help with sizing, setup, care or styling",
+          "No second-purchase offer yet: reassurance and a good first impression"
+        ]
+      },
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Teach them to use what they bought; second-purchase code held below the teaching",
+      "template": "post-purchase/02-get-ready",
+      "subject": [
+        "How to get the best results from your {{event.ProductName}}"
+      ],
+      "smartSending": false,
+      "name": "Email #2: How to use it / get the most out of it (+ second-purchase offer)",
+      "topic": "How to get the best results from your {{event.ProductName}}",
+      "format": "designed",
+      "sendingTo": "New customers",
+      "offer": "Second-purchase code below the teaching ({{offers.second_purchase_code}}, 10–20% / 10–25%)",
+      "goals": {
+        "all": [],
+        "replenishable": [
+          "How to use it for the best result: how much, when, with what, what to expect and when (category version in industries-replenishable.md)",
+          "This is the email that protects the reorder: people who use it wrong don't see results",
+          "Below the teaching: the second-purchase code; subscription or membership first if the client has it"
+        ],
+        "one_off": [
+          "The ownership guide for what they bought, per product type: apparel styling/try-on/care/exchanges; jewelry care/sizing/warranty/layering; home installation/placement/care; gear setup/safety/storage/maintenance; digital how-to",
+          "Below the guide: the second-purchase code and complementary recommendations from the pairing map (DATA)"
+        ]
+      },
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 7,
+        "unit": "days"
+      },
+      "next": "email-3"
+    },
+    {
+      "id": "email-3",
+      "type": "send-email",
+      "job": "The check-in only this brand can ask, plus the review ask",
+      "template": "post-purchase/03-check-in-plain",
+      "subject": [
+        "How's it going?"
+      ],
+      "smartSending": false,
+      "name": "Email #3: Plain text email from the founder",
+      "topic": "How's it going?",
+      "format": "plain_text",
+      "sendingTo": "New customers",
+      "offer": "None",
+      "goals": {
+        "all": [
+          "Plain text from the founder",
+          "Ask for the review at the moment they've formed an opinion",
+          "Invite a reply so problems get caught early",
+          "No discount, no product grid"
+        ],
+        "replenishable": [
+          "\"How's it going?\" as the specific question only this brand can ask (\"Did you finish the can?\", \"Did the COA check out?\")"
+        ],
+        "one_off": [
+          "The check-in (\"How did it go?\" after an occasion; \"I can't wait for you to wear it\")",
+          "Ask for a review WITH a photo",
+          "Warranty or upgrade reminders where they exist"
+        ]
+      },
+      "next": "delay-4"
+    },
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 2,
+        "unit": "days"
+      },
+      "next": "email-4"
+    },
+    {
+      "id": "email-4",
+      "type": "send-email",
+      "job": "Recommend the next product from what they bought",
+      "template": "post-purchase/04-complete-the-kit",
+      "subject": [
+        "Picked for you: what goes with your {{event.ProductName}}"
+      ],
+      "smartSending": false,
+      "name": "Email #4: Upsell Offer",
+      "topic": "Picked for you: what goes with your {{event.ProductName}}",
+      "format": "designed",
+      "sendingTo": "New customers",
+      "offer": "Second-purchase code with a clear expiry",
+      "goals": {
+        "all": [],
+        "replenishable": [
+          "Recommend the next product written as a pairing map: Bought X → Y and Z (DATA: product paths)",
+          "The second-purchase code",
+          "Subscription, bundle or volume set as the better standing deal",
+          "Free-shipping threshold as a basket builder"
+        ],
+        "one_off": [
+          "Cross-sell into a complementary core product as pairing modules (DATA): e.g. Chain + Bracelet; kayaks → paddles, PFDs, roof racks",
+          "\"Need another color?\" for single-style hits",
+          "Second-purchase code with a clear expiry; any ongoing bundle offer as the alternative"
+        ]
+      },
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "offers.second_purchase_code",
+      "description": "Second-purchase code",
+      "example": "SECOND15"
+    }
+  ],
+  "benchmarks": {}
+}

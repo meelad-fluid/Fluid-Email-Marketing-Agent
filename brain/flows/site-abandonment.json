@@ -1,0 +1,121 @@
+{
+  "key": "site-abandonment",
+  "name": "Site Abandonment Flow (2 Emails)",
+  "version": 2,
+  "status": "active",
+  "purpose": "Get them back onto the site and remind them the brand exists. Top of funnel: no new discount; mention the welcome offer only if they still hold it.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)"
+  },
+  "tier": "core",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "metric",
+    "source": "Active on Site",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Viewed Product zero times since starting this flow"
+    },
+    {
+      "description": "Added to Cart zero times since starting this flow"
+    },
+    {
+      "description": "Started Checkout zero times since starting this flow"
+    },
+    {
+      "description": "Placed Order zero times since starting this flow"
+    },
+    {
+      "description": "Not in the Browse Abandonment or Abandoned Cart flow (one retargeting flow at a time)"
+    }
+  ],
+  "reentry": {
+    "value": 7,
+    "unit": "days"
+  },
+  "entry": "delay-1",
+  "actions": [
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 2,
+        "unit": "hours"
+      },
+      "next": "email-1"
+    },
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "Answer a first-time visitor's questions and hook them on what makes the brand the brand",
+      "template": "site-abandonment/01-find-your-way",
+      "subject": [
+        "Were you just checking us out?"
+      ],
+      "smartSending": false,
+      "name": "Email #1",
+      "topic": "Were you just checking us out?",
+      "format": "designed",
+      "sendingTo": "Site visitors who left without viewing a product",
+      "offer": "None (welcome code only if still valid)",
+      "goals": {
+        "all": [
+          "Hook them with what's popular about the brand: the unique mechanism or the reason the brand is the brand (BRAND)",
+          "Social proof"
+        ],
+        "replenishable": [
+          "Answer the questions a first-time visitor has"
+        ],
+        "one_off": [
+          "Lead with helpfulness, not pressure: what the brand is, why people trust it",
+          "Soft CTA (\"Find your setup\", \"Explore the collection\") or \"reply for help\""
+        ]
+      },
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Best sellers and the problem each solves",
+      "template": "site-abandonment/02-best-sellers",
+      "subject": [
+        "Take a look at these best sellers"
+      ],
+      "smartSending": false,
+      "name": "Email #2",
+      "topic": "Take a look at these best sellers",
+      "format": "designed",
+      "sendingTo": "Site visitors who left without viewing a product",
+      "offer": "None",
+      "goals": {
+        "all": [
+          "Best sellers (DATA: what new customers buy first)"
+        ],
+        "replenishable": [
+          "The problem each one solves"
+        ],
+        "one_off": [
+          "One practical line each (best-selling products or categories)"
+        ]
+      },
+      "next": null
+    }
+  ],
+  "variables": [],
+  "benchmarks": {}
+}

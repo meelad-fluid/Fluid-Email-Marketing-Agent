@@ -1,0 +1,74 @@
+<!-- WELCOME 3: Reviews / trust. Full-bleed customer or lifestyle photo in the hero.
+     Keep 3-5 review cards (delete extras). The --product card has a product cutout overlapping it. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD -->
+  <section class="hero hero--overlay hero--scrim hero--rounded" style="--hero-img:url('{{HERO_PHOTO}}')">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_OFFER}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+  </section>
+
+  <!-- REVIEWS over a soft background photo -->
+  <section class="section section--blur fade-bottom" style="--sec-img:url('{{REVIEWS_BG_IMAGE}}');--sec-scrim:.62;--to:var(--bg-alt)">
+    <div class="prose center"><p>{{FRAMING_LINE}}</p></div>
+    <div class="review">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_1_QUOTE}}</p>
+      <p class="review-name">&mdash; {{REVIEW_1_NAME}}</p>
+    </div>
+    <div class="review review--product">
+      <div class="review-mark">&ldquo;</div>
+      <img class="review-product" src="{{REVIEW_2_PRODUCT_CUTOUT}}" alt="">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_2_QUOTE}}</p>
+      <p class="review-name">&mdash; {{REVIEW_2_NAME}}</p>
+    </div>
+    <div class="review">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_3_QUOTE}}</p>
+      <p class="review-name">&mdash; {{REVIEW_3_NAME}}</p>
+    </div>
+  </section>
+
+  <!-- WHY PEOPLE SWITCH + mid-email offer -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{WHY_TITLE}}</h2>
+    <ul class="ticks">
+      <li><b>{{WHY_1_TITLE}}</b> {{WHY_1_TEXT}}</li>
+      <li><b>{{WHY_2_TITLE}}</b> {{WHY_2_TEXT}}</li>
+      <li><b>{{WHY_3_TITLE}}</b> {{WHY_3_TEXT}}</li>
+    </ul>
+    <div class="prose center"><p>{{CODE_REMINDER_LINE}}</p></div>
+    <div class="center"><a class="btn" href="#">{{MID_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- TOP PRODUCTS: name + button only -->
+  <section class="section">
+    <h2 class="section-title">{{PRODUCTS_TITLE}}</h2>
+    <div class="pgrid pgrid--2">
+      <div class="pcard"><div class="pcard-frame"><img class="pcard-img" src="{{PRODUCT_1_CUTOUT}}" alt=""></div>
+        <h3 class="pname">{{PRODUCT_1_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_1_BUTTON}}</a></div>
+      <div class="pcard"><div class="pcard-frame"><img class="pcard-img" src="{{PRODUCT_2_CUTOUT}}" alt=""></div>
+        <h3 class="pname">{{PRODUCT_2_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_2_BUTTON}}</a></div>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

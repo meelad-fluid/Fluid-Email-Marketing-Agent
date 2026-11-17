@@ -1,0 +1,150 @@
+{
+  "key": "vip",
+  "name": "VIP (3rd order)",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Welcome customers into VIP status on their third order and turn them into referrers.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Optional flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order exactly 3 times over all time",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 3
+        },
+        "timeframe_filter": null,
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Shopify Tags don't contain any of {{exclusions.customer_tags}} (wholesale, test accounts)",
+      "klaviyo": {
+        "type": "profile-property",
+        "property": "properties['Shopify Tags']",
+        "filter": {
+          "type": "list",
+          "operator": "not-contains-any",
+          "value": "{{exclusions.customer_tags}}"
+        }
+      }
+    }
+  ],
+  "reentry": null,
+  "entry": "delay-4",
+  "actions": [
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "minutes"
+      },
+      "next": "vip-1"
+    },
+    {
+      "id": "vip-1",
+      "type": "send-email",
+      "job": "Welcome to VIP: a gift from the brand",
+      "template": "vip/01-welcome",
+      "subject": [
+        "Our gift to you: welcome to {{brand.name}} VIP"
+      ],
+      "smartSending": false,
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "days"
+      },
+      "next": "vip-2"
+    },
+    {
+      "id": "vip-2",
+      "type": "send-email",
+      "job": "VIP perks",
+      "template": "vip/02-perks",
+      "subject": [
+        "Your VIP perks begin"
+      ],
+      "smartSending": false,
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 10,
+        "unit": "days"
+      },
+      "next": "vip-3"
+    },
+    {
+      "id": "vip-3",
+      "type": "send-email",
+      "job": "Founder note to their best customers",
+      "template": "vip/03-founder-note",
+      "subject": [
+        "{{copy.vip_founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 7,
+        "unit": "days"
+      },
+      "next": "vip-4"
+    },
+    {
+      "id": "vip-4",
+      "type": "send-email",
+      "job": "Referral: invite a friend, earn {{offer.referral_reward}}",
+      "template": "vip/04-referral",
+      "subject": [
+        "Pass the goodness: invite a friend, earn {{offer.referral_reward}}"
+      ],
+      "smartSending": false,
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "exclusions.customer_tags",
+      "description": "Shopify customer tags to exclude (wholesale, test, partner accounts)",
+      "example": "wholesale, ISTEST"
+    },
+    {
+      "key": "copy.vip_founder_subject",
+      "description": "Founder note subject",
+      "example": "Jeff’s counting on you"
+    },
+    {
+      "key": "offer.referral_reward",
+      "description": "Referral reward",
+      "example": "$10"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$0.99"
+  },
+  "notes": "Reference account version is in draft. Its duplicate 'at least 3 orders' condition is dropped (it's implied by 'exactly 3')."
+}

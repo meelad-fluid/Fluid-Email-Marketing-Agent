@@ -1,0 +1,109 @@
+{
+  "key": "sunset",
+  "name": "Sunset",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Last attempt to re-engage subscribers who haven't engaged in 90 days, before they're suppressed.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Optional flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "segment",
+    "source": "{{segments.sunset}}",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Opened Email zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Opened Email}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Clicked Email zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Clicked Email}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    }
+  ],
+  "reentry": null,
+  "entry": "delay-2",
+  "actions": [
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "minutes"
+      },
+      "next": "sunset-1"
+    },
+    {
+      "id": "sunset-1",
+      "type": "send-email",
+      "job": "We miss you: the brand feels empty without them",
+      "template": "sunset/01-we-miss-you",
+      "subject": [
+        "Your {{brand.name}} table feels empty without you"
+      ],
+      "smartSending": false,
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "sunset-2"
+    },
+    {
+      "id": "sunset-2",
+      "type": "send-email",
+      "job": "Final goodbye: last chance to stay subscribed",
+      "template": "sunset/02-goodbye",
+      "subject": [
+        "Our final hello from {{brand.name}}"
+      ],
+      "smartSending": false,
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "segments.sunset",
+      "description": "Segment 'Unengaged 90d': can receive email marketing AND on the newsletter list for 90+ days AND, in the last 90 days, zero opens, zero clicks, zero Active on Site and zero Checkout Started",
+      "example": "FC | Sunset - Unengaged 90d"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$0.21"
+  },
+  "notes": "As built, nothing suppresses people after email 2; they stay subscribed unless removed by hand."
+}

@@ -1,0 +1,39 @@
+<!-- ABANDONED CHECKOUT / CART 4: Last call. Short: the offer expires tonight, their items, one tap to
+     finish. Overlay hero with the text to one side. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: last-call headline, subheadline with the deadline, button, code pill. -->
+  <section class="hero hero--overlay hero--scrim hero--rounded hero--left" style="--hero-img:url('{{HERO_IMAGE}}');min-height:640px">
+    <div class="hero-bg"></div>
+    <div class="hero-inner" style="padding-bottom:120px">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline" style="max-width:340px">{{HEADLINE}}</h1>
+      <p class="subheadline" style="max-width:330px">{{SUBHEADLINE_WITH_DEADLINE}}</p>
+      <p class="subheadline" style="font-size:14px;font-style:italic;margin-top:8px;max-width:330px">{{EXCLUSION_LINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+  </section>
+
+  <!-- THEIR ITEMS -->
+  <section class="section section--blur" style="--sec-img:url('{{SECTION_BG_IMAGE}}');--sec-scrim:.1;--sec-ink:var(--ink)">
+    <h2 class="section-title">{{CART_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC CART BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <!-- ONE TAP AND IT IS DONE -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{BANNER_IMAGE}}');--banner-scrim:.5">
+    <div class="banner-title">{{BANNER_TITLE}}</div>
+    <a class="btn" href="#">{{BANNER_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

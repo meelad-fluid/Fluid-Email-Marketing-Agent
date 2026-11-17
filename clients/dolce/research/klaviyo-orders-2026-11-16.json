@@ -1,0 +1,307 @@
+{
+ "pulled_at": "2026-11-16T21:46:17.822Z",
+ "source": "Klaviyo Shopify Placed Order events",
+ "window_days": 365,
+ "orders": 14762,
+ "customers": 8745,
+ "last_90d": {
+  "orders": 4144,
+  "revenue": 881994,
+  "aov": 212.84,
+  "order_value_p25_p50_p75_p90": [
+   60.34,
+   105.68,
+   200,
+   435
+  ],
+  "share_orders_over_160": 0.31,
+  "b2b_sized_orders_1000_plus": 107,
+  "best_sellers": [
+   {
+    "name": "Bulk Organic Ceremonial Matcha",
+    "units": 966,
+    "revenue": 204204,
+    "orders": 515,
+    "firstOrders": 172
+   },
+   {
+    "name": "Bulk Organic Raw Cacao Nibs",
+    "units": 408,
+    "revenue": 57459,
+    "orders": 316,
+    "firstOrders": 129
+   },
+   {
+    "name": "Bulk Organic Ceremonial Reserve Matcha Powder",
+    "units": 407,
+    "revenue": 48058,
+    "orders": 211,
+    "firstOrders": 89
+   },
+   {
+    "name": "Bulk Organic Cacao Powder",
+    "units": 429,
+    "revenue": 34848,
+    "orders": 340,
+    "firstOrders": 167
+   },
+   {
+    "name": "Bulk Organic Cacao Butter",
+    "units": 327,
+    "revenue": 33473,
+    "orders": 279,
+    "firstOrders": 136
+   },
+   {
+    "name": "Bulk Organic Pea Protein Powder Concentrate, 85%",
+    "units": 78,
+    "revenue": 30607,
+    "orders": 65,
+    "firstOrders": 17
+   },
+   {
+    "name": "Bulk Coconut Water Powder (Evaporated)",
+    "units": 305,
+    "revenue": 28321,
+    "orders": 258,
+    "firstOrders": 99
+   },
+   {
+    "name": "Bulk Organic Coconut Milk Powder",
+    "units": 285,
+    "revenue": 26642,
+    "orders": 199,
+    "firstOrders": 91
+   },
+   {
+    "name": "Whey Protein Concentrate, 80% - Grassfed",
+    "units": 40,
+    "revenue": 25139,
+    "orders": 23,
+    "firstOrders": 11
+   },
+   {
+    "name": "Bulk Organic Blue Spirulina (Phycocyanin) Extract Powder",
+    "units": 589,
+    "revenue": 22957,
+    "orders": 300,
+    "firstOrders": 154
+   },
+   {
+    "name": "Bulk Organic Instant Coffee",
+    "units": 385,
+    "revenue": 20837,
+    "orders": 224,
+    "firstOrders": 103
+   },
+   {
+    "name": "Bulk Organic Strawberry Powder (Freeze Dried)",
+    "units": 131,
+    "revenue": 19848,
+    "orders": 91,
+    "firstOrders": 47
+   },
+   {
+    "name": "Bulk Collagen Peptides Powder (Grass-fed)",
+    "units": 234,
+    "revenue": 19500,
+    "orders": 200,
+    "firstOrders": 105
+   },
+   {
+    "name": "Bulk Cacao Powder",
+    "units": 288,
+    "revenue": 18394,
+    "orders": 205,
+    "firstOrders": 148
+   },
+   {
+    "name": "Bulk Organic Vanilla Powder",
+    "units": 87,
+    "revenue": 16998,
+    "orders": 77,
+    "firstOrders": 18
+   }
+  ],
+  "best_first_order_products": [
+   {
+    "name": "Bulk Organic Ceremonial Matcha",
+    "firstOrders": 172
+   },
+   {
+    "name": "Bulk Organic Cacao Powder",
+    "firstOrders": 167
+   },
+   {
+    "name": "Bulk Organic Blue Spirulina (Phycocyanin) Extract Powder",
+    "firstOrders": 154
+   },
+   {
+    "name": "Bulk Cacao Powder",
+    "firstOrders": 148
+   },
+   {
+    "name": "Bulk Organic Ceylon Cinnamon Powder",
+    "firstOrders": 145
+   },
+   {
+    "name": "Bulk Organic Cacao Butter",
+    "firstOrders": 136
+   },
+   {
+    "name": "Bulk Organic Raw Cacao Nibs",
+    "firstOrders": 129
+   },
+   {
+    "name": "Bulk Collagen Peptides Powder (Grass-fed)",
+    "firstOrders": 105
+   },
+   {
+    "name": "Bulk Organic Instant Coffee",
+    "firstOrders": 103
+   },
+   {
+    "name": "Bulk Coconut Water Powder (Evaporated)",
+    "firstOrders": 99
+   }
+  ],
+  "discount_codes": [
+   {
+    "code": "DOLCE15",
+    "orders": 458,
+    "revenue": 70569
+   },
+   {
+    "code": "mystery",
+    "orders": 238,
+    "revenue": 50084
+   },
+   {
+    "code": "LABORDAY15",
+    "orders": 34,
+    "revenue": 4785
+   },
+   {
+    "code": "CREDIT935",
+    "orders": 20,
+    "revenue": 2085
+   },
+   {
+    "code": "OCTCREDIT",
+    "orders": 6,
+    "revenue": 694
+   },
+   {
+    "code": "GOLDENDOLCE",
+    "orders": 5,
+    "revenue": 493
+   },
+   {
+    "code": "BLUE20",
+    "orders": 2,
+    "revenue": 213
+   },
+   {
+    "code": "NUDGE10",
+    "orders": 2,
+    "revenue": 278
+   },
+   {
+    "code": "Psyllium Husk Powder - Buy One, Get One 15% Off",
+    "orders": 1,
+    "revenue": 131
+   },
+   {
+    "code": "Price adjustment",
+    "orders": 1,
+    "revenue": 216
+   }
+  ]
+ },
+ "repeat": {
+  "first_time_buyers_60d_plus_ago": 5815,
+  "came_back": 1497,
+  "repeat_rate": 0.257,
+  "reordered_same_product": 0.719,
+  "days_to_2nd_order_p25_p50_p75": [
+   25,
+   55,
+   92
+  ],
+  "top_paths": [
+   [
+    "Bulk Organic Ceremonial Matcha → Bulk Organic Ceremonial Matcha (same)",
+    97
+   ],
+   [
+    "Bulk Organic Cacao Butter → Bulk Organic Cacao Butter (same)",
+    55
+   ],
+   [
+    "Bulk Organic Instant Coffee → Bulk Organic Instant Coffee (same)",
+    44
+   ],
+   [
+    "Bulk Organic Raw Cacao Nibs → Bulk Organic Raw Cacao Nibs (same)",
+    43
+   ],
+   [
+    "Bulk Organic Blue Spirulina (Phycocyanin) Extract Powder → Bulk Organic Blue Spirulina (Phycocyanin) Extract Powder (same)",
+    36
+   ],
+   [
+    "Bulk Organic Cacao Powder → Bulk Organic Cacao Powder (same)",
+    32
+   ],
+   [
+    "Bulk Organic Ceremonial Reserve Matcha Powder → Bulk Organic Ceremonial Reserve Matcha Powder (same)",
+    32
+   ],
+   [
+    "Bulk Collagen Peptides Powder (Grass-fed) → Bulk Collagen Peptides Powder (Grass-fed) (same)",
+    25
+   ],
+   [
+    "Bulk Coconut Water Powder (Evaporated) → Bulk Coconut Water Powder (Evaporated) (same)",
+    24
+   ],
+   [
+    "Bulk Coconut water Powder (evaporated) → Bulk Coconut Water Powder (Evaporated)",
+    16
+   ]
+  ]
+ },
+ "cohorts": {
+  "one_time_30_60d": 572,
+  "one_time_60_120d": 1197,
+  "due_to_reorder": 441,
+  "lapsed_repeat_buyers": 838,
+  "vip_top10pct": {
+   "customers": 875,
+   "min_spend": 568
+  },
+  "b2b_sized_buyers": 209,
+  "cross_sell": {
+   "bought coffee, never matcha": 485,
+   "bought coffee, never cacao": 406,
+   "bought coffee, never mushroom": 487,
+   "bought coffee, never vanilla": 512,
+   "bought matcha, never coffee": 1139,
+   "bought matcha, never cacao": 1011,
+   "bought matcha, never mushroom": 1139,
+   "bought matcha, never vanilla": 1141,
+   "bought cacao, never coffee": 2332,
+   "bought cacao, never matcha": 2283,
+   "bought cacao, never mushroom": 2310,
+   "bought cacao, never vanilla": 2336,
+   "bought mushroom, never coffee": 517,
+   "bought mushroom, never matcha": 515,
+   "bought mushroom, never cacao": 414,
+   "bought mushroom, never vanilla": 544,
+   "bought vanilla, never coffee": 565,
+   "bought vanilla, never matcha": 540,
+   "bought vanilla, never cacao": 463,
+   "bought vanilla, never mushroom": 567
+  }
+ }
+}

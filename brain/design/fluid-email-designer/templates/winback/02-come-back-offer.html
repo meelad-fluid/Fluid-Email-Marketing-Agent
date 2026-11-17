@@ -1,0 +1,80 @@
+<!-- WIN-BACK 2: Come-back offer. The offer is the headline; picked for them from purchase history;
+     what's new; where the code applies (keep eligible and excluded products apart); the deadline.
+     Also used for extra offer reminders / last calls in longer win-backs (change the deadline copy). -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: offer headline, subheadline with code + how long it lasts, exclusion line, button, code pill.
+       Overlay photo with the text to one side, rounded bottom. -->
+  <section class="hero hero--overlay hero--scrim hero--rounded hero--left" style="--hero-img:url('{{HERO_IMAGE}}');min-height:660px">
+    <div class="hero-bg"></div>
+    <div class="hero-inner" style="padding-bottom:120px">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline" style="max-width:360px">{{HEADLINE_WITH_OFFER}}</h1>
+      <p class="subheadline" style="max-width:340px">{{SUBHEADLINE_WITH_CODE}}</p>
+      <p class="subheadline" style="font-size:14px;font-style:italic;margin-top:8px;max-width:340px">{{EXCLUSION_LINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+  </section>
+
+  <!-- PICKED FOR YOU + NEW SINCE YOU LAST LOOKED (both built in Klaviyo; the second is optional) -->
+  <section class="section">
+    <h2 class="section-title">{{PICKED_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC RECOMMENDATIONS</div>
+      <p class="dyn-n">{{PICKED_NOTE}}</p>
+    </div>
+    <h2 class="section-title" style="margin-top:46px">{{NEW_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC PRODUCT BLOCK</div>
+      <p class="dyn-n">{{NEW_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- WHERE YOUR OFFER LANDS: eligible categories (only if there's an exclusion), then options or a program -->
+  <section class="section section--alt">
+    <a class="cat cat--offer" href="#" style="--cat-img:url('{{ELIGIBLE_IMAGE}}')">
+      <div class="cat-title" style="font-size:40px">{{ELIGIBLE_TITLE}}</div>
+      <p class="cat-text" style="font-size:16px">{{ELIGIBLE_TEXT}}</p>
+      <span class="btn">{{ELIGIBLE_BUTTON}}</span>
+    </a>
+    <div style="height:36px"></div>
+    <h2 class="section-title" style="--st-size:32px">{{OPTIONS_TITLE}}</h2>
+    <div class="options">
+      <div>{{OPTION_1}}</div>
+      <div>{{OPTION_2}}</div>
+    </div>
+    <div class="center"><a class="btn" href="#">{{OPTIONS_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- REVIEW + HELP -->
+  <section class="section" style="padding-top:10px">
+    <div class="review">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_QUOTE}}</p>
+      <div class="review-name">{{REVIEW_NAME}}</div>
+    </div>
+    <div class="prose center" style="margin-top:34px"><p>{{HELP_LINE}}</p></div>
+    <div class="center"><a class="btn btn--ghost" href="#">{{HELP_BUTTON}}</a></div>
+  </section>
+
+  <!-- DEADLINE -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{DEADLINE_IMAGE}}');--banner-scrim:.55">
+    <div class="banner-title" style="--bt-size:42px">{{DEADLINE_TITLE}}</div>
+    <p>{{DEADLINE_LINE}}</p>
+    <a class="btn" href="#">{{DEADLINE_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

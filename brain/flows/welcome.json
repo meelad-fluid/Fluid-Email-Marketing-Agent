@@ -1,0 +1,719 @@
+{
+  "key": "welcome",
+  "name": "Welcome Flow (7 Emails + 2 SMS)",
+  "version": 2,
+  "status": "active",
+  "purpose": "Engage new subscribers, educate them on the brand, position it as the leader in its space, get past trust doubts, get the first purchase, and keep reminding them of the welcome offer. 7 emails = Email #1's three versions + #2–#5; each subscriber receives 5.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)"
+  },
+  "tier": "core",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "list",
+    "source": "{{lists.popup}}",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow"
+    }
+  ],
+  "reentry": null,
+  "entry": "split-option-1",
+  "actions": [
+    {
+      "id": "split-option-1",
+      "label": "Answered Option #1?",
+      "type": "conditional-split",
+      "condition": {
+        "description": "{{popup.property}} equals {{popup.option_1}}"
+      },
+      "next_if_true": "a-email-1",
+      "next_if_false": "split-option-2"
+    },
+    {
+      "id": "split-option-2",
+      "label": "Answered Option #2?",
+      "type": "conditional-split",
+      "condition": {
+        "description": "{{popup.property}} equals {{popup.option_2}}"
+      },
+      "next_if_true": "b-email-1-v2",
+      "next_if_false": "c-email-1-v3"
+    },
+    {
+      "id": "a-email-1",
+      "type": "send-email",
+      "job": "Welcome + deliver the offer to subscribers who answered Option #1",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "Welcome to {{brand.name}}! Here's your {{offers.welcome}}, or a topic built on their answer (\"Something to reach for at 3pm that isn't coffee\")"
+      ],
+      "smartSending": false,
+      "name": "Email #1: Welcome Offer (Option #1)",
+      "topic": "Welcome to {{brand.name}}! Here's your {{offers.welcome}}, or a topic built on their answer (\"Something to reach for at 3pm that isn't coffee\")",
+      "format": "designed",
+      "sendingTo": "New subscribers who selected \"{{popup.option_1}}\"",
+      "offer": "W (welcome offer) with Code and Value",
+      "goals": {
+        "all": [
+          "Welcome to the brand",
+          "Give them their offer: Code {{offers.welcome_code}}, Value {{offers.welcome}}",
+          "Go over the brand mission (BRAND)",
+          "Highlight the benefit / category they chose (\"{{popup.option_1}}\"), in their words, and how the brand delivers it",
+          "Highlight 3 best-selling products for this option (DATA: top first-order products in option 1), one line each",
+          "Same messaging and offer in all three versions; only the products and the benefit/category paragraph change"
+        ],
+        "replenishable": [
+          "Optional: trust signals (testing, certifications, review count), subscription or bundle options, a secondary CTA"
+        ],
+        "one_off": [
+          "Add any ongoing offer and the \"codes can't be combined\" line (e.g. Buy Any 2, Get the 3rd Free)",
+          "Trust basics for the category: fit and sizing (apparel), materials/warranty/care (jewelry), dimensions/delivery (home), compatibility/expert help (gear)",
+          "Optional: the AOV angle (build a rotation, layer pieces, complete the set); expert-help CTA for high-ticket"
+        ]
+      },
+      "next": "a-sms-1"
+    },
+    {
+      "id": "a-sms-1",
+      "type": "send-sms",
+      "job": "Welcome + the code (Klaviyo skips profiles without SMS consent)",
+      "body": "Welcome to {{brand.name}}! Here's {{offers.welcome}} off your first order: {{offers.welcome_code}}. {{links.shop}}",
+      "next": "a-delay-1"
+    },
+    {
+      "id": "a-delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 4,
+        "unit": "hours"
+      },
+      "next": "a-email-2"
+    },
+    {
+      "id": "a-email-2",
+      "type": "send-email",
+      "job": "Highest-trust email in the flow: the founder in their own words",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "A note from {{brand.founder_first_name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #2: Personal Note from the Founder",
+      "topic": "A note from {{brand.founder_first_name}}",
+      "format": "plain_text",
+      "sendingTo": "New subscribers",
+      "offer": "Soft reminder of W",
+      "goals": {
+        "all": [
+          "Plain text. Never designed: it reads as personal",
+          "The founder's story by name (BRAND)",
+          "Why the brand exists",
+          "Invite a reply",
+          "Soft reminder of the code"
+        ],
+        "replenishable": [
+          "The decision it made on purpose (quality over margin, taking ingredients out)"
+        ],
+        "one_off": [
+          "Why they do things differently; what they won't compromise on (quality, honest advice, never a sale ahead of the right fit)"
+        ]
+      },
+      "next": "a-delay-2"
+    },
+    {
+      "id": "a-delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "a-email-3"
+    },
+    {
+      "id": "a-email-3",
+      "type": "send-email",
+      "job": "Social proof that answers the category's main objection",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "Here's what people are saying about {{brand.name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #3: Customer Reviews",
+      "topic": "Here's what people are saying about {{brand.name}}",
+      "format": "designed",
+      "sendingTo": "New subscribers",
+      "offer": "Reminder of W",
+      "goals": {
+        "all": [
+          "Authentic reviews in the preferred structure: situation → problem → experience → outcome they reported (never fabricated)",
+          "Review count and where it lives (BRAND)",
+          "Remind them of the code without making it the reason to buy"
+        ],
+        "replenishable": [
+          "Before/after stories, customer photos",
+          "Reassure the category's main objection (taste, does it work, will it match my skin)"
+        ],
+        "one_off": [
+          "Reviews and customer photos that answer this category's trust doubts (\"looks better than the photos\", \"fit true to size\", \"they helped me pick the right board\")"
+        ]
+      },
+      "next": "a-delay-3"
+    },
+    {
+      "id": "a-delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "a-email-4"
+    },
+    {
+      "id": "a-email-4",
+      "type": "send-email",
+      "job": "Show the easiest place to start",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "Our best sellers"
+      ],
+      "smartSending": false,
+      "name": "Email #4: Best Seller Showcase",
+      "topic": "Our best sellers",
+      "format": "designed",
+      "sendingTo": "New subscribers",
+      "offer": "Reminder of W",
+      "goals": {
+        "all": [
+          "The core products / best sellers (DATA: what NEW customers buy first, ties broken by repeat rate)"
+        ],
+        "replenishable": [
+          "How each one fits a need",
+          "The easiest place to start"
+        ],
+        "one_off": [
+          "A guided tour of the shop, not a product dump; each with who it's for",
+          "High-ticket catalogs: include an entry-price product"
+        ]
+      },
+      "next": "a-delay-4"
+    },
+    {
+      "id": "a-delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "a-email-5"
+    },
+    {
+      "id": "a-email-5",
+      "type": "send-email",
+      "job": "First direct ask: the upgraded offer, 24 hours only",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "Your offer just went up, for 24 hours"
+      ],
+      "smartSending": false,
+      "name": "Email #5: Upgrade offer for only 24 hours",
+      "topic": "Your offer just went up, for 24 hours",
+      "format": "designed",
+      "sendingTo": "New subscribers who have not purchased",
+      "offer": "W + 5 points for 24 hours (dollar offers double); new code {{offers.welcome_upgrade_code}}",
+      "goals": {
+        "all": [
+          "Upgrade the offer for 24 hours (offer ladder)",
+          "The first direct ask to shop"
+        ],
+        "replenishable": [
+          "Subscription or rewards if the client has them"
+        ],
+        "one_off": [
+          "State exclusions (high-ticket, MAP-restricted, custom quotes) where they apply",
+          "Expert help before ordering for considered purchases"
+        ]
+      },
+      "next": "a-sms-2"
+    },
+    {
+      "id": "a-sms-2",
+      "type": "send-sms",
+      "job": "The upgraded code and the 24-hour deadline",
+      "body": "24 hours only: your {{brand.name}} offer is now {{offers.welcome_upgrade}} off with {{offers.welcome_upgrade_code}}. {{links.shop}}",
+      "next": null
+    },
+    {
+      "id": "b-email-1-v2",
+      "type": "send-email",
+      "job": "Welcome + deliver the offer to subscribers who answered Option #2",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "Welcome to {{brand.name}}! Here's your {{offers.welcome}}, or a topic built on their answer (\"Something to reach for at 3pm that isn't coffee\")"
+      ],
+      "smartSending": false,
+      "name": "Email #1 v2: Welcome Offer (Option #2)",
+      "topic": "Welcome to {{brand.name}}! Here's your {{offers.welcome}}, or a topic built on their answer (\"Something to reach for at 3pm that isn't coffee\")",
+      "format": "designed",
+      "sendingTo": "New subscribers who selected \"{{popup.option_2}}\"",
+      "offer": "W (welcome offer) with Code and Value",
+      "goals": {
+        "all": [
+          "Welcome to the brand",
+          "Give them their offer: Code {{offers.welcome_code}}, Value {{offers.welcome}}",
+          "Go over the brand mission (BRAND)",
+          "Highlight the benefit / category they chose (\"{{popup.option_2}}\"), in their words, and how the brand delivers it",
+          "Highlight 3 best-selling products for this option (DATA: top first-order products in option 2), one line each",
+          "Same messaging and offer in all three versions; only the products and the benefit/category paragraph change"
+        ],
+        "replenishable": [
+          "Optional: trust signals (testing, certifications, review count), subscription or bundle options, a secondary CTA"
+        ],
+        "one_off": [
+          "Add any ongoing offer and the \"codes can't be combined\" line (e.g. Buy Any 2, Get the 3rd Free)",
+          "Trust basics for the category: fit and sizing (apparel), materials/warranty/care (jewelry), dimensions/delivery (home), compatibility/expert help (gear)",
+          "Optional: the AOV angle (build a rotation, layer pieces, complete the set); expert-help CTA for high-ticket"
+        ]
+      },
+      "next": "b-sms-1"
+    },
+    {
+      "id": "b-sms-1",
+      "type": "send-sms",
+      "job": "Welcome + the code (Klaviyo skips profiles without SMS consent)",
+      "body": "Welcome to {{brand.name}}! Here's {{offers.welcome}} off your first order: {{offers.welcome_code}}. {{links.shop}}",
+      "sameAs": "a-sms-1",
+      "next": "b-delay-1"
+    },
+    {
+      "id": "b-delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 4,
+        "unit": "hours"
+      },
+      "next": "b-email-2"
+    },
+    {
+      "id": "b-email-2",
+      "type": "send-email",
+      "job": "Highest-trust email in the flow: the founder in their own words",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "A note from {{brand.founder_first_name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #2: Personal Note from the Founder",
+      "topic": "A note from {{brand.founder_first_name}}",
+      "format": "plain_text",
+      "sendingTo": "New subscribers",
+      "offer": "Soft reminder of W",
+      "goals": {
+        "all": [
+          "Plain text. Never designed: it reads as personal",
+          "The founder's story by name (BRAND)",
+          "Why the brand exists",
+          "Invite a reply",
+          "Soft reminder of the code"
+        ],
+        "replenishable": [
+          "The decision it made on purpose (quality over margin, taking ingredients out)"
+        ],
+        "one_off": [
+          "Why they do things differently; what they won't compromise on (quality, honest advice, never a sale ahead of the right fit)"
+        ]
+      },
+      "sameAs": "a-email-2",
+      "next": "b-delay-2"
+    },
+    {
+      "id": "b-delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "b-email-3"
+    },
+    {
+      "id": "b-email-3",
+      "type": "send-email",
+      "job": "Social proof that answers the category's main objection",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "Here's what people are saying about {{brand.name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #3: Customer Reviews",
+      "topic": "Here's what people are saying about {{brand.name}}",
+      "format": "designed",
+      "sendingTo": "New subscribers",
+      "offer": "Reminder of W",
+      "goals": {
+        "all": [
+          "Authentic reviews in the preferred structure: situation → problem → experience → outcome they reported (never fabricated)",
+          "Review count and where it lives (BRAND)",
+          "Remind them of the code without making it the reason to buy"
+        ],
+        "replenishable": [
+          "Before/after stories, customer photos",
+          "Reassure the category's main objection (taste, does it work, will it match my skin)"
+        ],
+        "one_off": [
+          "Reviews and customer photos that answer this category's trust doubts (\"looks better than the photos\", \"fit true to size\", \"they helped me pick the right board\")"
+        ]
+      },
+      "sameAs": "a-email-3",
+      "next": "b-delay-3"
+    },
+    {
+      "id": "b-delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "b-email-4"
+    },
+    {
+      "id": "b-email-4",
+      "type": "send-email",
+      "job": "Show the easiest place to start",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "Our best sellers"
+      ],
+      "smartSending": false,
+      "name": "Email #4: Best Seller Showcase",
+      "topic": "Our best sellers",
+      "format": "designed",
+      "sendingTo": "New subscribers",
+      "offer": "Reminder of W",
+      "goals": {
+        "all": [
+          "The core products / best sellers (DATA: what NEW customers buy first, ties broken by repeat rate)"
+        ],
+        "replenishable": [
+          "How each one fits a need",
+          "The easiest place to start"
+        ],
+        "one_off": [
+          "A guided tour of the shop, not a product dump; each with who it's for",
+          "High-ticket catalogs: include an entry-price product"
+        ]
+      },
+      "sameAs": "a-email-4",
+      "next": "b-delay-4"
+    },
+    {
+      "id": "b-delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "b-email-5"
+    },
+    {
+      "id": "b-email-5",
+      "type": "send-email",
+      "job": "First direct ask: the upgraded offer, 24 hours only",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "Your offer just went up, for 24 hours"
+      ],
+      "smartSending": false,
+      "name": "Email #5: Upgrade offer for only 24 hours",
+      "topic": "Your offer just went up, for 24 hours",
+      "format": "designed",
+      "sendingTo": "New subscribers who have not purchased",
+      "offer": "W + 5 points for 24 hours (dollar offers double); new code {{offers.welcome_upgrade_code}}",
+      "goals": {
+        "all": [
+          "Upgrade the offer for 24 hours (offer ladder)",
+          "The first direct ask to shop"
+        ],
+        "replenishable": [
+          "Subscription or rewards if the client has them"
+        ],
+        "one_off": [
+          "State exclusions (high-ticket, MAP-restricted, custom quotes) where they apply",
+          "Expert help before ordering for considered purchases"
+        ]
+      },
+      "sameAs": "a-email-5",
+      "next": "b-sms-2"
+    },
+    {
+      "id": "b-sms-2",
+      "type": "send-sms",
+      "job": "The upgraded code and the 24-hour deadline",
+      "body": "24 hours only: your {{brand.name}} offer is now {{offers.welcome_upgrade}} off with {{offers.welcome_upgrade_code}}. {{links.shop}}",
+      "sameAs": "a-sms-2",
+      "next": null
+    },
+    {
+      "id": "c-email-1-v3",
+      "type": "send-email",
+      "job": "Welcome + deliver the offer to subscribers who answered Option #3",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "Welcome to {{brand.name}}! Here's your {{offers.welcome}}, or a topic built on their answer (\"Something to reach for at 3pm that isn't coffee\")"
+      ],
+      "smartSending": false,
+      "name": "Email #1 v3: Welcome Offer (Option #3)",
+      "topic": "Welcome to {{brand.name}}! Here's your {{offers.welcome}}, or a topic built on their answer (\"Something to reach for at 3pm that isn't coffee\")",
+      "format": "designed",
+      "sendingTo": "New subscribers who selected \"{{popup.option_3}}\"",
+      "offer": "W (welcome offer) with Code and Value",
+      "goals": {
+        "all": [
+          "Welcome to the brand",
+          "Give them their offer: Code {{offers.welcome_code}}, Value {{offers.welcome}}",
+          "Go over the brand mission (BRAND)",
+          "Highlight the benefit / category they chose (\"{{popup.option_3}}\"), in their words, and how the brand delivers it",
+          "Highlight 3 best-selling products for this option (DATA: top first-order products in option 3), one line each",
+          "Same messaging and offer in all three versions; only the products and the benefit/category paragraph change"
+        ],
+        "replenishable": [
+          "Optional: trust signals (testing, certifications, review count), subscription or bundle options, a secondary CTA"
+        ],
+        "one_off": [
+          "Add any ongoing offer and the \"codes can't be combined\" line (e.g. Buy Any 2, Get the 3rd Free)",
+          "Trust basics for the category: fit and sizing (apparel), materials/warranty/care (jewelry), dimensions/delivery (home), compatibility/expert help (gear)",
+          "Optional: the AOV angle (build a rotation, layer pieces, complete the set); expert-help CTA for high-ticket"
+        ]
+      },
+      "next": "c-sms-1"
+    },
+    {
+      "id": "c-sms-1",
+      "type": "send-sms",
+      "job": "Welcome + the code (Klaviyo skips profiles without SMS consent)",
+      "body": "Welcome to {{brand.name}}! Here's {{offers.welcome}} off your first order: {{offers.welcome_code}}. {{links.shop}}",
+      "sameAs": "a-sms-1",
+      "next": "c-delay-1"
+    },
+    {
+      "id": "c-delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 4,
+        "unit": "hours"
+      },
+      "next": "c-email-2"
+    },
+    {
+      "id": "c-email-2",
+      "type": "send-email",
+      "job": "Highest-trust email in the flow: the founder in their own words",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "A note from {{brand.founder_first_name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #2: Personal Note from the Founder",
+      "topic": "A note from {{brand.founder_first_name}}",
+      "format": "plain_text",
+      "sendingTo": "New subscribers",
+      "offer": "Soft reminder of W",
+      "goals": {
+        "all": [
+          "Plain text. Never designed: it reads as personal",
+          "The founder's story by name (BRAND)",
+          "Why the brand exists",
+          "Invite a reply",
+          "Soft reminder of the code"
+        ],
+        "replenishable": [
+          "The decision it made on purpose (quality over margin, taking ingredients out)"
+        ],
+        "one_off": [
+          "Why they do things differently; what they won't compromise on (quality, honest advice, never a sale ahead of the right fit)"
+        ]
+      },
+      "sameAs": "a-email-2",
+      "next": "c-delay-2"
+    },
+    {
+      "id": "c-delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "c-email-3"
+    },
+    {
+      "id": "c-email-3",
+      "type": "send-email",
+      "job": "Social proof that answers the category's main objection",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "Here's what people are saying about {{brand.name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #3: Customer Reviews",
+      "topic": "Here's what people are saying about {{brand.name}}",
+      "format": "designed",
+      "sendingTo": "New subscribers",
+      "offer": "Reminder of W",
+      "goals": {
+        "all": [
+          "Authentic reviews in the preferred structure: situation → problem → experience → outcome they reported (never fabricated)",
+          "Review count and where it lives (BRAND)",
+          "Remind them of the code without making it the reason to buy"
+        ],
+        "replenishable": [
+          "Before/after stories, customer photos",
+          "Reassure the category's main objection (taste, does it work, will it match my skin)"
+        ],
+        "one_off": [
+          "Reviews and customer photos that answer this category's trust doubts (\"looks better than the photos\", \"fit true to size\", \"they helped me pick the right board\")"
+        ]
+      },
+      "sameAs": "a-email-3",
+      "next": "c-delay-3"
+    },
+    {
+      "id": "c-delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "c-email-4"
+    },
+    {
+      "id": "c-email-4",
+      "type": "send-email",
+      "job": "Show the easiest place to start",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "Our best sellers"
+      ],
+      "smartSending": false,
+      "name": "Email #4: Best Seller Showcase",
+      "topic": "Our best sellers",
+      "format": "designed",
+      "sendingTo": "New subscribers",
+      "offer": "Reminder of W",
+      "goals": {
+        "all": [
+          "The core products / best sellers (DATA: what NEW customers buy first, ties broken by repeat rate)"
+        ],
+        "replenishable": [
+          "How each one fits a need",
+          "The easiest place to start"
+        ],
+        "one_off": [
+          "A guided tour of the shop, not a product dump; each with who it's for",
+          "High-ticket catalogs: include an entry-price product"
+        ]
+      },
+      "sameAs": "a-email-4",
+      "next": "c-delay-4"
+    },
+    {
+      "id": "c-delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "c-email-5"
+    },
+    {
+      "id": "c-email-5",
+      "type": "send-email",
+      "job": "First direct ask: the upgraded offer, 24 hours only",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "Your offer just went up, for 24 hours"
+      ],
+      "smartSending": false,
+      "name": "Email #5: Upgrade offer for only 24 hours",
+      "topic": "Your offer just went up, for 24 hours",
+      "format": "designed",
+      "sendingTo": "New subscribers who have not purchased",
+      "offer": "W + 5 points for 24 hours (dollar offers double); new code {{offers.welcome_upgrade_code}}",
+      "goals": {
+        "all": [
+          "Upgrade the offer for 24 hours (offer ladder)",
+          "The first direct ask to shop"
+        ],
+        "replenishable": [
+          "Subscription or rewards if the client has them"
+        ],
+        "one_off": [
+          "State exclusions (high-ticket, MAP-restricted, custom quotes) where they apply",
+          "Expert help before ordering for considered purchases"
+        ]
+      },
+      "sameAs": "a-email-5",
+      "next": "c-sms-2"
+    },
+    {
+      "id": "c-sms-2",
+      "type": "send-sms",
+      "job": "The upgraded code and the 24-hour deadline",
+      "body": "24 hours only: your {{brand.name}} offer is now {{offers.welcome_upgrade}} off with {{offers.welcome_upgrade_code}}. {{links.shop}}",
+      "sameAs": "a-sms-2",
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "lists.popup",
+      "description": "The list the pop-up adds subscribers to"
+    },
+    {
+      "key": "popup.property",
+      "description": "Profile property holding the pop-up answer"
+    },
+    {
+      "key": "popup.option_1",
+      "description": "Pop-up answer #1"
+    },
+    {
+      "key": "popup.option_2",
+      "description": "Pop-up answer #2"
+    },
+    {
+      "key": "popup.option_3",
+      "description": "Pop-up answer #3 (also catches anyone with no answer)"
+    },
+    {
+      "key": "offers.welcome",
+      "description": "Welcome offer W",
+      "example": "10%"
+    },
+    {
+      "key": "offers.welcome_code",
+      "description": "Welcome code",
+      "example": "BRAND10"
+    },
+    {
+      "key": "offers.welcome_upgrade",
+      "description": "W + 5 points",
+      "example": "15%"
+    },
+    {
+      "key": "offers.welcome_upgrade_code",
+      "description": "24-hour upgrade code",
+      "example": "BRAND15"
+    },
+    {
+      "key": "links.shop",
+      "description": "Shop link for SMS"
+    }
+  ],
+  "benchmarks": {},
+  "notes": "Klaviyo branches can't merge, so Emails #2–#5 and both SMS repeat on each of the three tracks (sameAs points to track A): write them once. SMS steps are skipped by Klaviyo for profiles without SMS consent, which replaces the docs' 'if subscribed to SMS' split."
+}

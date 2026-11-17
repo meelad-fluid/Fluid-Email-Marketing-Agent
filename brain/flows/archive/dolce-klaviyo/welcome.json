@@ -1,0 +1,1785 @@
+{
+  "key": "welcome",
+  "name": "Welcome Flow",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Convert new subscribers with a welcome offer, build trust (founder, reviews, best sellers), and close with an upgraded 24-hour offer. Email 1 is angled to the answer they picked in the pop-up.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Core flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "list",
+    "source": "{{lists.newsletter}}",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    }
+  ],
+  "reentry": null,
+  "entry": "split-1",
+  "actions": [
+    {
+      "id": "split-1",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Pop-up answer ({{popup.property}}) = {{popup.option_1}}",
+        "klaviyo": {
+          "type": "profile-property",
+          "property": "properties['{{popup.property}}']",
+          "filter": {
+            "type": "string",
+            "operator": "equals",
+            "value": "{{popup.option_1}}"
+          }
+        }
+      },
+      "next_if_true": "welcome-1-o1",
+      "next_if_false": "split-16"
+    },
+    {
+      "id": "split-16",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Pop-up answer ({{popup.property}}) = {{popup.option_2}}",
+        "klaviyo": {
+          "type": "profile-property",
+          "property": "properties['{{popup.property}}']",
+          "filter": {
+            "type": "string",
+            "operator": "equals",
+            "value": "{{popup.option_2}}"
+          }
+        }
+      },
+      "next_if_true": "welcome-1-o2",
+      "next_if_false": "welcome-1-o3"
+    },
+    {
+      "id": "welcome-1-o3",
+      "type": "send-email",
+      "job": "Welcome offer, angled to pop-up answer #3: welcome to the brand, give the {{discount.welcome_value}} code, brand mission, the benefit they picked, best sellers",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "{{copy.welcome_subject_3}}"
+      ],
+      "smartSending": false,
+      "next": "split-44"
+    },
+    {
+      "id": "split-44",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-1-o3",
+      "next_if_false": "delay-27"
+    },
+    {
+      "id": "welcome-sms-1-o3",
+      "type": "send-sms",
+      "job": "Welcome them to the brand and give them the welcome offer",
+      "body": "Welcome to {{brand.name}}! Here's {{discount.welcome_value}} off your first order: {{discount.welcome_code}}",
+      "next": "delay-27"
+    },
+    {
+      "id": "delay-27",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "hours"
+      },
+      "next": "split-43"
+    },
+    {
+      "id": "split-43",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-31",
+      "next_if_false": null
+    },
+    {
+      "id": "split-31",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "delay-22",
+      "next_if_false": "welcome-1-o3-resend"
+    },
+    {
+      "id": "welcome-1-o3-resend",
+      "type": "send-email",
+      "job": "Resend of \"Welcome offer, angled to pop-up answer #3: welcome to the brand, give the {{discount.welcome_value}} code, brand mission, the benefit they picked, best sellers\" to people who didn't open it",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "{{copy.welcome_subject_3}}"
+      ],
+      "smartSending": false,
+      "resendOf": "welcome-1-o3",
+      "next": "delay-26"
+    },
+    {
+      "id": "delay-26",
+      "type": "time-delay",
+      "delay": {
+        "value": 21,
+        "unit": "hours"
+      },
+      "next": "split-37"
+    },
+    {
+      "id": "split-37",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-42",
+      "next_if_false": "update-profile-3"
+    },
+    {
+      "id": "update-profile-3",
+      "type": "update-profile",
+      "property": "Last Flow",
+      "value": "Welcome",
+      "next": null
+    },
+    {
+      "id": "split-42",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-2-o3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-2-o3-b",
+      "type": "send-email",
+      "job": "Personal note from the founder: why the brand exists (resend track)",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "{{copy.founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-25"
+    },
+    {
+      "id": "delay-25",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-41"
+    },
+    {
+      "id": "split-41",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-3-o3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-3-o3-b",
+      "type": "send-email",
+      "job": "Customer reviews: build trust, remind them of the discount, inspirational and reassuring (resend track)",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "What our customers are raving about"
+      ],
+      "smartSending": false,
+      "next": "delay-24"
+    },
+    {
+      "id": "delay-24",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-40"
+    },
+    {
+      "id": "split-40",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-4-o3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-4-o3-b",
+      "type": "send-email",
+      "job": "Best seller showcase (resend track)",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "{{copy.bestseller_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-23"
+    },
+    {
+      "id": "delay-23",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-39"
+    },
+    {
+      "id": "split-39",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-5-o3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-5-o3-b",
+      "type": "send-email",
+      "job": "Upgrade the offer from {{discount.welcome_value}} to {{discount.upgrade_value}} for 24 hours only (resend track)",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "We upgraded your discount…but keep it quiet"
+      ],
+      "smartSending": false,
+      "next": "split-38"
+    },
+    {
+      "id": "split-38",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-2-o3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-sms-2-o3-b",
+      "type": "send-sms",
+      "job": "Upgraded discount, 24 hours only",
+      "body": "Your discount just got upgraded: {{discount.upgrade_value}} off with {{discount.upgrade_code}} for the next 24 hours.",
+      "next": null
+    },
+    {
+      "id": "delay-22",
+      "type": "time-delay",
+      "delay": {
+        "value": 4,
+        "unit": "hours"
+      },
+      "next": "split-36"
+    },
+    {
+      "id": "split-36",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-2-o3",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-2-o3",
+      "type": "send-email",
+      "job": "Personal note from the founder: why the brand exists",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "{{copy.founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-21"
+    },
+    {
+      "id": "delay-21",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-35"
+    },
+    {
+      "id": "split-35",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-3-o3",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-3-o3",
+      "type": "send-email",
+      "job": "Customer reviews: build trust, remind them of the discount, inspirational and reassuring",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "What our customers are raving about"
+      ],
+      "smartSending": false,
+      "next": "delay-20"
+    },
+    {
+      "id": "delay-20",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-34"
+    },
+    {
+      "id": "split-34",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-4-o3",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-4-o3",
+      "type": "send-email",
+      "job": "Best seller showcase",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "{{copy.bestseller_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-19"
+    },
+    {
+      "id": "delay-19",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-33"
+    },
+    {
+      "id": "split-33",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-5-o3",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-5-o3",
+      "type": "send-email",
+      "job": "Upgrade the offer from {{discount.welcome_value}} to {{discount.upgrade_value}} for 24 hours only",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "We upgraded your discount…but keep it quiet"
+      ],
+      "smartSending": false,
+      "next": "split-32"
+    },
+    {
+      "id": "split-32",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-2-o3",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-sms-2-o3",
+      "type": "send-sms",
+      "job": "Upgraded discount, 24 hours only",
+      "body": "Your discount just got upgraded: {{discount.upgrade_value}} off with {{discount.upgrade_code}} for the next 24 hours.",
+      "next": null
+    },
+    {
+      "id": "welcome-1-o2",
+      "type": "send-email",
+      "job": "Welcome offer, angled to pop-up answer #2: welcome to the brand, give the {{discount.welcome_value}} code, brand mission, the benefit they picked, best sellers",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "{{copy.welcome_subject_2}}"
+      ],
+      "smartSending": false,
+      "next": "split-30"
+    },
+    {
+      "id": "split-30",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-1-o2",
+      "next_if_false": "delay-18"
+    },
+    {
+      "id": "welcome-sms-1-o2",
+      "type": "send-sms",
+      "job": "Welcome them to the brand and give them the welcome offer",
+      "body": "Welcome to {{brand.name}}! Here's {{discount.welcome_value}} off your first order: {{discount.welcome_code}}",
+      "next": "delay-18"
+    },
+    {
+      "id": "delay-18",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "hours"
+      },
+      "next": "split-29"
+    },
+    {
+      "id": "split-29",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-17",
+      "next_if_false": null
+    },
+    {
+      "id": "split-17",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "delay-13",
+      "next_if_false": "welcome-1-o2-resend"
+    },
+    {
+      "id": "welcome-1-o2-resend",
+      "type": "send-email",
+      "job": "Resend of \"Welcome offer, angled to pop-up answer #2: welcome to the brand, give the {{discount.welcome_value}} code, brand mission, the benefit they picked, best sellers\" to people who didn't open it",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "{{copy.welcome_subject_2}}"
+      ],
+      "smartSending": false,
+      "resendOf": "welcome-1-o2",
+      "next": "delay-17"
+    },
+    {
+      "id": "delay-17",
+      "type": "time-delay",
+      "delay": {
+        "value": 21,
+        "unit": "hours"
+      },
+      "next": "split-23"
+    },
+    {
+      "id": "split-23",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-28",
+      "next_if_false": "update-profile-2"
+    },
+    {
+      "id": "update-profile-2",
+      "type": "update-profile",
+      "property": "Last Flow",
+      "value": "Welcome",
+      "next": null
+    },
+    {
+      "id": "split-28",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-2-o2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-2-o2-b",
+      "type": "send-email",
+      "job": "Personal note from the founder: why the brand exists (resend track)",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "{{copy.founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-16"
+    },
+    {
+      "id": "delay-16",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-27"
+    },
+    {
+      "id": "split-27",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-3-o2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-3-o2-b",
+      "type": "send-email",
+      "job": "Customer reviews: build trust, remind them of the discount, inspirational and reassuring (resend track)",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "What our customers are raving about"
+      ],
+      "smartSending": false,
+      "next": "delay-15"
+    },
+    {
+      "id": "delay-15",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-26"
+    },
+    {
+      "id": "split-26",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-4-o2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-4-o2-b",
+      "type": "send-email",
+      "job": "Best seller showcase (resend track)",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "{{copy.bestseller_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-14"
+    },
+    {
+      "id": "delay-14",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-25"
+    },
+    {
+      "id": "split-25",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-5-o2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-5-o2-b",
+      "type": "send-email",
+      "job": "Upgrade the offer from {{discount.welcome_value}} to {{discount.upgrade_value}} for 24 hours only (resend track)",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "We upgraded your discount…but keep it quiet"
+      ],
+      "smartSending": false,
+      "next": "split-24"
+    },
+    {
+      "id": "split-24",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-2-o2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-sms-2-o2-b",
+      "type": "send-sms",
+      "job": "Upgraded discount, 24 hours only",
+      "body": "Your discount just got upgraded: {{discount.upgrade_value}} off with {{discount.upgrade_code}} for the next 24 hours.",
+      "next": null
+    },
+    {
+      "id": "delay-13",
+      "type": "time-delay",
+      "delay": {
+        "value": 4,
+        "unit": "hours"
+      },
+      "next": "split-22"
+    },
+    {
+      "id": "split-22",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-2-o2",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-2-o2",
+      "type": "send-email",
+      "job": "Personal note from the founder: why the brand exists",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "{{copy.founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-12"
+    },
+    {
+      "id": "delay-12",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-21"
+    },
+    {
+      "id": "split-21",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-3-o2",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-3-o2",
+      "type": "send-email",
+      "job": "Customer reviews: build trust, remind them of the discount, inspirational and reassuring",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "What our customers are raving about"
+      ],
+      "smartSending": false,
+      "next": "delay-11"
+    },
+    {
+      "id": "delay-11",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-20"
+    },
+    {
+      "id": "split-20",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-4-o2",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-4-o2",
+      "type": "send-email",
+      "job": "Best seller showcase",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "{{copy.bestseller_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-10"
+    },
+    {
+      "id": "delay-10",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-19"
+    },
+    {
+      "id": "split-19",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-5-o2",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-5-o2",
+      "type": "send-email",
+      "job": "Upgrade the offer from {{discount.welcome_value}} to {{discount.upgrade_value}} for 24 hours only",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "We upgraded your discount…but keep it quiet"
+      ],
+      "smartSending": false,
+      "next": "split-18"
+    },
+    {
+      "id": "split-18",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-2-o2",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-sms-2-o2",
+      "type": "send-sms",
+      "job": "Upgraded discount, 24 hours only",
+      "body": "Your discount just got upgraded: {{discount.upgrade_value}} off with {{discount.upgrade_code}} for the next 24 hours.",
+      "next": null
+    },
+    {
+      "id": "welcome-1-o1",
+      "type": "send-email",
+      "job": "Welcome offer, angled to pop-up answer #1: welcome to the brand, give the {{discount.welcome_value}} code, brand mission, the benefit they picked, best sellers",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "{{copy.welcome_subject_1}}"
+      ],
+      "smartSending": false,
+      "next": "split-15"
+    },
+    {
+      "id": "split-15",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-1-o1",
+      "next_if_false": "delay-9"
+    },
+    {
+      "id": "welcome-sms-1-o1",
+      "type": "send-sms",
+      "job": "Welcome them to the brand and give them the welcome offer",
+      "body": "Welcome to {{brand.name}}! Here's {{discount.welcome_value}} off your first order: {{discount.welcome_code}}",
+      "next": "delay-9"
+    },
+    {
+      "id": "delay-9",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "hours"
+      },
+      "next": "split-14"
+    },
+    {
+      "id": "split-14",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-2",
+      "next_if_false": null
+    },
+    {
+      "id": "split-2",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "delay-4",
+      "next_if_false": "welcome-1-o1-resend"
+    },
+    {
+      "id": "welcome-1-o1-resend",
+      "type": "send-email",
+      "job": "Resend of \"Welcome offer, angled to pop-up answer #1: welcome to the brand, give the {{discount.welcome_value}} code, brand mission, the benefit they picked, best sellers\" to people who didn't open it",
+      "template": "welcome/01-welcome-offer",
+      "subject": [
+        "{{copy.welcome_subject_1}}"
+      ],
+      "smartSending": false,
+      "resendOf": "welcome-1-o1",
+      "next": "delay-8"
+    },
+    {
+      "id": "delay-8",
+      "type": "time-delay",
+      "delay": {
+        "value": 21,
+        "unit": "hours"
+      },
+      "next": "split-8"
+    },
+    {
+      "id": "split-8",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-13",
+      "next_if_false": "update-profile-1"
+    },
+    {
+      "id": "update-profile-1",
+      "type": "update-profile",
+      "property": "Last Flow",
+      "value": "Welcome",
+      "next": null
+    },
+    {
+      "id": "split-13",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-2-o1-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-2-o1-b",
+      "type": "send-email",
+      "job": "Personal note from the founder: why the brand exists (resend track)",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "{{copy.founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-7"
+    },
+    {
+      "id": "delay-7",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-12"
+    },
+    {
+      "id": "split-12",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-3-o1-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-3-o1-b",
+      "type": "send-email",
+      "job": "Customer reviews: build trust, remind them of the discount, inspirational and reassuring (resend track)",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "What our customers are raving about"
+      ],
+      "smartSending": false,
+      "next": "delay-6"
+    },
+    {
+      "id": "delay-6",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-11"
+    },
+    {
+      "id": "split-11",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-4-o1-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-4-o1-b",
+      "type": "send-email",
+      "job": "Best seller showcase (resend track)",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "{{copy.bestseller_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-5"
+    },
+    {
+      "id": "delay-5",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-10"
+    },
+    {
+      "id": "split-10",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-5-o1-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-5-o1-b",
+      "type": "send-email",
+      "job": "Upgrade the offer from {{discount.welcome_value}} to {{discount.upgrade_value}} for 24 hours only (resend track)",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "We upgraded your discount…but keep it quiet"
+      ],
+      "smartSending": false,
+      "next": "split-9"
+    },
+    {
+      "id": "split-9",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-2-o1-b",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-sms-2-o1-b",
+      "type": "send-sms",
+      "job": "Upgraded discount, 24 hours only",
+      "body": "Your discount just got upgraded: {{discount.upgrade_value}} off with {{discount.upgrade_code}} for the next 24 hours.",
+      "next": null
+    },
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 4,
+        "unit": "hours"
+      },
+      "next": "split-7"
+    },
+    {
+      "id": "split-7",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-2-o1",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-2-o1",
+      "type": "send-email",
+      "job": "Personal note from the founder: why the brand exists",
+      "template": "welcome/02a-founder-note-plain",
+      "subject": [
+        "{{copy.founder_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-6"
+    },
+    {
+      "id": "split-6",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-3-o1",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-3-o1",
+      "type": "send-email",
+      "job": "Customer reviews: build trust, remind them of the discount, inspirational and reassuring",
+      "template": "welcome/03-reviews",
+      "subject": [
+        "What our customers are raving about"
+      ],
+      "smartSending": false,
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-5"
+    },
+    {
+      "id": "split-5",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-4-o1",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-4-o1",
+      "type": "send-email",
+      "job": "Best seller showcase",
+      "template": "welcome/04-best-sellers",
+      "subject": [
+        "{{copy.bestseller_subject}}"
+      ],
+      "smartSending": false,
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-4"
+    },
+    {
+      "id": "split-4",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "welcome-5-o1",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-5-o1",
+      "type": "send-email",
+      "job": "Upgrade the offer from {{discount.welcome_value}} to {{discount.upgrade_value}} for 24 hours only",
+      "template": "welcome/05-upgrade-offer",
+      "subject": [
+        "We upgraded your discount…but keep it quiet"
+      ],
+      "smartSending": false,
+      "next": "split-3"
+    },
+    {
+      "id": "split-3",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "welcome-sms-2-o1",
+      "next_if_false": null
+    },
+    {
+      "id": "welcome-sms-2-o1",
+      "type": "send-sms",
+      "job": "Upgraded discount, 24 hours only",
+      "body": "Your discount just got upgraded: {{discount.upgrade_value}} off with {{discount.upgrade_code}} for the next 24 hours.",
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "lists.newsletter",
+      "description": "The main email list the sign-up pop-up adds people to",
+      "example": "Newsletter"
+    },
+    {
+      "key": "popup.property",
+      "description": "Profile property the pop-up saves the zero-party answer to",
+      "example": "Looking For"
+    },
+    {
+      "key": "popup.option_1",
+      "description": "Pop-up answer #1",
+      "example": "Better Prices"
+    },
+    {
+      "key": "popup.option_2",
+      "description": "Pop-up answer #2",
+      "example": "Reliable Source"
+    },
+    {
+      "key": "popup.option_3",
+      "description": "Pop-up answer #3 (also gets anyone who didn't answer)",
+      "example": "High Quality Ingredients"
+    },
+    {
+      "key": "discount.welcome_code",
+      "description": "Welcome offer code",
+      "example": "WELCOME10"
+    },
+    {
+      "key": "discount.welcome_value",
+      "description": "Welcome offer",
+      "example": "10%"
+    },
+    {
+      "key": "discount.upgrade_code",
+      "description": "24-hour upgraded offer code",
+      "example": "UPGRADE20"
+    },
+    {
+      "key": "discount.upgrade_value",
+      "description": "Upgraded offer (must be within the client's max discount)",
+      "example": "20%"
+    },
+    {
+      "key": "copy.welcome_subject_1",
+      "description": "Email 1 subject for answer #1",
+      "example": "Superfoods without the super prices? Welcome home"
+    },
+    {
+      "key": "copy.welcome_subject_2",
+      "description": "Email 1 subject for answer #2",
+      "example": "Superfoods that work as hard as you do"
+    },
+    {
+      "key": "copy.welcome_subject_3",
+      "description": "Email 1 subject for answer #3",
+      "example": "Superfoods for your health journey…without the super price"
+    },
+    {
+      "key": "copy.founder_subject",
+      "description": "Founder story subject",
+      "example": "What I learned from six months in Madagascar"
+    },
+    {
+      "key": "copy.bestseller_subject",
+      "description": "Best seller subject",
+      "example": "The coffee that redefines “instant”"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$6.45",
+    "reference order rate": "4.3%"
+  },
+  "notes": "The three answer paths are identical apart from email 1's angle. Fix vs reference account: every path now uses the same splits (one path had an inverted 'placed order' check that stopped emails 4–5 on the resend track)."
+}

@@ -1,0 +1,51 @@
+<!-- WELCOME 5: Upgrade offer (24 hours) or last call. The offer IS the hero: big numerals count as the headline.
+     For a last call on the original offer, keep the same layout with the original number. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: short headline, big offer, deadline, button, code. Product shot after. -->
+  <section class="hero hero--stacked hero--scrim hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg-alt)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline" style="--hl-size:40px">{{HEADLINE}}</h1>
+      <div class="numeral display">{{OFFER_NUMBER}}</div>
+      <p class="subheadline">{{DEADLINE_LINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-product" src="{{HERO_PRODUCT_CUTOUT}}" alt="" style="--product-h:360px">
+  </section>
+
+  <!-- WHY NOW -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{WHY_NOW_TITLE}}</h2>
+    <div class="prose center">
+      <p>{{WHY_NOW_PARAGRAPH_1}}</p>
+      <p>{{WHY_NOW_PARAGRAPH_2}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <div class="usp">
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_1_ICON}}" alt=""></div><div class="usp-label">{{USP_1}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_2_ICON}}" alt=""></div><div class="usp-label">{{USP_2}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_3_ICON}}" alt=""></div><div class="usp-label">{{USP_3}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_4_ICON}}" alt=""></div><div class="usp-label">{{USP_4}}</div></div>
+  </div>
+
+  <!-- CLOSING URGENCY BANNER -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{BANNER_IMAGE}}');--banner-scrim:.55">
+    <div class="kicker">{{BANNER_KICKER}}</div>
+    <div class="numeral display" style="--num-size:110px">{{OFFER_NUMBER}}</div>
+    <p>{{BANNER_LINE}}</p>
+    <a class="btn" href="#">{{BANNER_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

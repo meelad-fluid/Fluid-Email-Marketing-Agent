@@ -1,0 +1,743 @@
+{
+ "pulled_at": "2026-11-16T21:24:53.224Z",
+ "window_days": 60,
+ "account": {
+  "name": "Dolce Super Foods",
+  "sender": "sales@dolcesuperfoods.com",
+  "timezone": "US/Eastern",
+  "currency": "USD"
+ },
+ "lists": [
+  {
+   "id": "Rq5R7M",
+   "name": "FC | Join The SMS List",
+   "created": "2026-11-10"
+  },
+  {
+   "id": "SMbxNu",
+   "name": "FC | Black Friday Early Access",
+   "created": "2026-11-11"
+  },
+  {
+   "id": "SUjC22",
+   "name": "HIGH VALUE - CO-PACKING CLIENTS",
+   "created": "2026-03-05"
+  },
+  {
+   "id": "UQwqx7",
+   "name": "SMS Subscribers",
+   "created": "2023-03-24"
+  },
+  {
+   "id": "V34xhT",
+   "name": "VIP 2025",
+   "created": "2025-11-05"
+  },
+  {
+   "id": "VbevDQ",
+   "name": "Product Restock Notifications",
+   "created": "2025-09-19"
+  },
+  {
+   "id": "WUihdn",
+   "name": "IS | Wholesale Leads (Do not use this list for marketing emails)",
+   "created": "2023-06-14"
+  },
+  {
+   "id": "WbbL7K",
+   "name": "Newsletter",
+   "created": "2023-03-24"
+  },
+  {
+   "id": "XgLBJS",
+   "name": "IS | Co-packing Leads",
+   "created": "2023-12-12"
+  },
+  {
+   "id": "XkAAZB",
+   "name": "Preview List",
+   "created": "2023-03-24"
+  }
+ ],
+ "forms": [
+  {
+   "name": "FC | Black Friday FREEMATCHA_BOGO_Deskop Pop Up",
+   "status": "live"
+  },
+  {
+   "name": "FC | Black Friday FREEMATCHA_Mobile Pop Up",
+   "status": "live"
+  },
+  {
+   "name": "Back in Stock",
+   "status": "live"
+  },
+  {
+   "name": "IS | Co-Packing Form (MOBILE)",
+   "status": "live"
+  },
+  {
+   "name": "IS | Co-Packing Form (DESKTOP)",
+   "status": "live"
+  },
+  {
+   "name": "IS | Wholesale Lead Form",
+   "status": "live"
+  }
+ ],
+ "flows": {
+  "live_count": 25,
+  "live": [
+   "FC | EARLY ACCESS - Post Purchase (2nd Time Purchasers)",
+   "FC | Abandoned Cart - Triple Pixel",
+   "IS | Wholesale Leads (Submit Form Trigger)",
+   "Back In Stock Flow - Standard",
+   "FC | Sunset",
+   "FC | EARLY ACCESS - Abandoned Checkout",
+   "FC | Abandoned Checkout - Triple Pixel",
+   "FC | EARLY ACCESS - Post Purchase",
+   "FC | General Wholesale Flow - First Timer",
+   "FC | General Wholesale Flow— Returning Buyers",
+   "FC | Site Abandonment",
+   "IS | Review Request Flow",
+   "FC | Matcha Wholesale Flow",
+   "IS | Co-packing Leads",
+   "FC | Coconut Wholesale Flow",
+   "FC | Site Abandonment - Triple Pixel",
+   "FC | EARLY ACCESS - Browse Abandonment",
+   "FC | Coffee Wholesale Flow",
+   "FC | EARLY ACCESS - Welcome Flow",
+   "FC | Cacao Wholesale Flow",
+   "FC | EARLY ACCESS - Site Abandonment",
+   "FC | Replenishment Flow",
+   "FC | Winback 90d",
+   "IS | Review Thank You Flow",
+   "FC | Browse Abandonment - Triple Pixel"
+  ],
+  "top10_60d": [
+   {
+    "name": "FC | Welcome Flow",
+    "status": "draft",
+    "trigger": "Added to List",
+    "channels": "sms+email",
+    "recipients": 4613,
+    "revenue": 33943,
+    "rpr": 7.36,
+    "conversions": 226
+   },
+   {
+    "name": "FC | Replenishment Flow",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 6357,
+    "revenue": 13456,
+    "rpr": 2.12,
+    "conversions": 54
+   },
+   {
+    "name": "FC | Post Purchase (2nd Time Purchasers)",
+    "status": "draft",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 3058,
+    "revenue": 11918,
+    "rpr": 3.9,
+    "conversions": 24
+   },
+   {
+    "name": "FC | Matcha Wholesale Flow",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 225,
+    "revenue": 10679,
+    "rpr": 47.46,
+    "conversions": 6
+   },
+   {
+    "name": "FC | Abandoned Checkout",
+    "status": "draft",
+    "trigger": "Metric",
+    "channels": "sms+email",
+    "recipients": 1947,
+    "revenue": 10487,
+    "rpr": 5.39,
+    "conversions": 53
+   },
+   {
+    "name": "FC | Browse Abandonment - Triple Pixel",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "sms+email",
+    "recipients": 1726,
+    "revenue": 10063,
+    "rpr": 5.83,
+    "conversions": 25
+   },
+   {
+    "name": "FC | Site Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 6826,
+    "revenue": 7048,
+    "rpr": 1.03,
+    "conversions": 44
+   },
+   {
+    "name": "FC | Site Abandonment - Triple Pixel",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 3572,
+    "revenue": 3442,
+    "rpr": 0.96,
+    "conversions": 18
+   },
+   {
+    "name": "IS | Review Request Flow",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 1250,
+    "revenue": 3346,
+    "rpr": 2.68,
+    "conversions": 10
+   },
+   {
+    "name": "FC | Browse Abandonment",
+    "status": "draft",
+    "trigger": "Metric",
+    "channels": "sms+email",
+    "recipients": 1513,
+    "revenue": 2793,
+    "rpr": 1.85,
+    "conversions": 15
+   }
+  ]
+ },
+ "campaigns_60d": {
+  "email_sends": 25,
+  "sms_sends": 3,
+  "per_week": 2.9,
+  "avg_open_rate": 0.5058,
+  "avg_click_rate": 0.0103,
+  "best": [
+   {
+    "name": "FC | Your label. Our formula. From 100 units.",
+    "channel": "email",
+    "sent": "2026-09-30T15:32:04.720972+00:00",
+    "status": "Sent",
+    "subject": "Your label. Our floor. From 100 units.",
+    "preview": "Same shelf, your name on it.",
+    "audiences": {
+     "included": [
+      "UkC4F6",
+      "WYRnat"
+     ],
+     "excluded": [
+      "SUjC22",
+      "TxaLK4",
+      "XgLBJS"
+     ]
+    },
+    "recipients": 1425,
+    "open_rate": 0.47339,
+    "click_rate": 0.01987,
+    "conversions": 11,
+    "revenue": 4316,
+    "rpr": 3.06283,
+    "unsub_rate": 0.00142
+   },
+   {
+    "name": "FC | The coffee we sell that isn't instant (Non-Opener)",
+    "channel": "email",
+    "sent": "2026-11-03T17:47:40.466732+00:00",
+    "status": "Sent",
+    "subject": "Coffee for those who grind 🤤☕",
+    "preview": "Have you tried it?",
+    "audiences": {
+     "included": [
+      "TVrGGW"
+     ],
+     "excluded": [
+      "TxaLK4",
+      "XQx3bt",
+      "YyqAaV"
+     ]
+    },
+    "recipients": 3216,
+    "open_rate": 0.22764,
+    "click_rate": 0.00813,
+    "conversions": 6,
+    "revenue": 5660,
+    "rpr": 1.76984,
+    "unsub_rate": 0.00407
+   },
+   {
+    "name": "FC | PT: Most co-packers won't talk to you under 10,000 units",
+    "channel": "email",
+    "sent": "2026-10-02T17:30:51.992854+00:00",
+    "status": "Sent",
+    "subject": "About that minimum",
+    "preview": "It is lower than you think.",
+    "audiences": {
+     "included": [
+      "UeWZvn"
+     ],
+     "excluded": [
+      "SUjC22",
+      "ShKmiu",
+      "XgLBJS"
+     ]
+    },
+    "recipients": 1372,
+    "open_rate": 0.51387,
+    "click_rate": 0.01898,
+    "conversions": 6,
+    "revenue": 1861,
+    "rpr": 1.35842,
+    "unsub_rate": 0.00511
+   },
+   {
+    "name": "FC | You know us for matcha. There are eleven mushrooms.",
+    "channel": "email",
+    "sent": "2026-09-20T20:18:26.394281+00:00",
+    "status": "Sent",
+    "subject": "😳Wait… Dolce has HOW many mushrooms?",
+    "preview": "17 mushroom powders. Yes, really.",
+    "audiences": {
+     "included": [
+      "TVrGGW"
+     ],
+     "excluded": [
+      "TxaLK4"
+     ]
+    },
+    "recipients": 7423,
+    "open_rate": 0.59824,
+    "click_rate": 0.00825,
+    "conversions": 27,
+    "revenue": 6930,
+    "rpr": 0.93778,
+    "unsub_rate": 0.00338
+   },
+   {
+    "name": "FC | National Chocolate Day: hot chocolate from the bean up",
+    "channel": "email",
+    "sent": "2026-10-28T18:06:42.789432+00:00",
+    "status": "Sent",
+    "subject": "Treat yourself, it’s National Chocolate Day! 🍫😋",
+    "preview": "Find the recipe for a perfect hot chocolate inside.”",
+    "audiences": {
+     "included": [
+      "TVrGGW"
+     ],
+     "excluded": [
+      "TxaLK4"
+     ]
+    },
+    "recipients": 7665,
+    "open_rate": 0.58486,
+    "click_rate": 0.01021,
+    "conversions": 26,
+    "revenue": 7098,
+    "rpr": 0.92959,
+    "unsub_rate": 0.00367
+   }
+  ],
+  "worst": [
+   {
+    "name": "FC | Four things to make with the free bag",
+    "channel": "email",
+    "sent": "2026-11-16T16:48:50.269126+00:00",
+    "status": "Sent",
+    "subject": "4 ways you can use your FREE pound of matcha",
+    "preview": "Cookies, cake, frosting, and more!",
+    "audiences": {
+     "included": [
+      "XFjxJg"
+     ],
+     "excluded": []
+    },
+    "recipients": 12862,
+    "open_rate": 0.18922,
+    "click_rate": 0.005,
+    "conversions": 1,
+    "revenue": 497,
+    "rpr": 0.0388,
+    "unsub_rate": 0.00195
+   },
+   {
+    "name": "FC | PT: Our five best sellers that aren't matcha",
+    "channel": "email",
+    "sent": "2026-11-14T17:44:13.143506+00:00",
+    "status": "Sent",
+    "subject": "Our 5 best sellers that aren’t matcha",
+    "preview": "From cacao to coconut powder",
+    "audiences": {
+     "included": [
+      "UsfLfi"
+     ],
+     "excluded": []
+    },
+    "recipients": 16100,
+    "open_rate": 0.32427,
+    "click_rate": 0.00594,
+    "conversions": 8,
+    "revenue": 1156,
+    "rpr": 0.07223,
+    "unsub_rate": 0.00344
+   },
+   {
+    "name": "FC | Will a pound go stale before you finish it?",
+    "channel": "email",
+    "sent": "2026-09-18T17:20:48.966910+00:00",
+    "status": "Sent",
+    "subject": "Will a pound go stale before you finish it? 🤔",
+    "preview": "Not if you store it right.",
+    "audiences": {
+     "included": [
+      "TVrGGW"
+     ],
+     "excluded": [
+      "TxaLK4"
+     ]
+    },
+    "recipients": 7413,
+    "open_rate": 0.60022,
+    "click_rate": 0.01016,
+    "conversions": 10,
+    "revenue": 686,
+    "rpr": 0.09302,
+    "unsub_rate": 0.00352
+   }
+  ],
+  "all": [
+   {
+    "name": "FC | Your label. Our formula. From 100 units.",
+    "sent": "2026-09-30T15:32:04.720972+00:00",
+    "subject": "Your label. Our floor. From 100 units.",
+    "open_rate": 0.47339,
+    "click_rate": 0.01987,
+    "revenue": 4316,
+    "rpr": 3.06283,
+    "recipients": 1425
+   },
+   {
+    "name": "FC | The coffee we sell that isn't instant (Non-Opener)",
+    "sent": "2026-11-03T17:47:40.466732+00:00",
+    "subject": "Coffee for those who grind 🤤☕",
+    "open_rate": 0.22764,
+    "click_rate": 0.00813,
+    "revenue": 5660,
+    "rpr": 1.76984,
+    "recipients": 3216
+   },
+   {
+    "name": "FC | PT: Most co-packers won't talk to you under 10,000 units",
+    "sent": "2026-10-02T17:30:51.992854+00:00",
+    "subject": "About that minimum",
+    "open_rate": 0.51387,
+    "click_rate": 0.01898,
+    "revenue": 1861,
+    "rpr": 1.35842,
+    "recipients": 1372
+   },
+   {
+    "name": "FC | You know us for matcha. There are eleven mushrooms.",
+    "sent": "2026-09-20T20:18:26.394281+00:00",
+    "subject": "😳Wait… Dolce has HOW many mushrooms?",
+    "open_rate": 0.59824,
+    "click_rate": 0.00825,
+    "revenue": 6930,
+    "rpr": 0.93778,
+    "recipients": 7423
+   },
+   {
+    "name": "FC | National Chocolate Day: hot chocolate from the bean up",
+    "sent": "2026-10-28T18:06:42.789432+00:00",
+    "subject": "Treat yourself, it’s National Chocolate Day! 🍫😋",
+    "open_rate": 0.58486,
+    "click_rate": 0.01021,
+    "revenue": 7098,
+    "rpr": 0.92959,
+    "recipients": 7665
+   },
+   {
+    "name": "FC | Four matchas, and which one belongs in your cup",
+    "sent": "2026-10-18T15:30:00+00:00",
+    "subject": "Which matcha are you actually making?",
+    "open_rate": 0.58536,
+    "click_rate": 0.01012,
+    "revenue": 6919,
+    "rpr": 0.90928,
+    "recipients": 7640
+   },
+   {
+    "name": "FC | \"Ordering again\": the reviews from people who came back",
+    "sent": "2026-10-07T16:08:55.903904+00:00",
+    "subject": "\"Will be ordering again\"",
+    "open_rate": 0.60551,
+    "click_rate": 0.01152,
+    "revenue": 6787,
+    "rpr": 0.89852,
+    "recipients": 7590
+   },
+   {
+    "name": "FC | The coffee we sell that isn't instant",
+    "sent": "2026-10-22T17:09:38.391803+00:00",
+    "subject": "You know our instant. Meet the beans.",
+    "open_rate": 0.59047,
+    "click_rate": 0.00864,
+    "revenue": 5394,
+    "rpr": 0.70615,
+    "recipients": 7666
+   },
+   {
+    "name": "FC | Bean, powder or extract: which vanilla your recipe wants",
+    "sent": "2026-10-13T21:33:14.226760+00:00",
+    "subject": "Bean, powder, or extract?",
+    "open_rate": 0.60768,
+    "click_rate": 0.01079,
+    "revenue": 5208,
+    "rpr": 0.68512,
+    "recipients": 7631
+   },
+   {
+    "name": "FC | The dairy-free latte people keep asking us about",
+    "sent": "2026-10-09T17:57:03.630604+00:00",
+    "subject": "The dairy-free latte people keep asking us about ☕🥥",
+    "open_rate": 0.6032,
+    "click_rate": 0.00887,
+    "revenue": 5174,
+    "rpr": 0.685,
+    "recipients": 7589
+   },
+   {
+    "name": "FC | One customer, one tin, one year",
+    "sent": "2026-09-25T17:15:12.107844+00:00",
+    "subject": "Karen's not drinking her coffee. She's baking with it. ☕",
+    "open_rate": 0.60337,
+    "click_rate": 0.00809,
+    "revenue": 3919,
+    "rpr": 0.52859,
+    "recipients": 7447
+   },
+   {
+    "name": "FC | Pumpkin spice has never had any pumpkin in it",
+    "sent": "2026-10-01T16:38:57.841237+00:00",
+    "subject": "Pumpkin spice is 4 spices",
+    "open_rate": 0.60029,
+    "click_rate": 0.00904,
+    "revenue": 3698,
+    "rpr": 0.49186,
+    "recipients": 7550
+   },
+   {
+    "name": "FC | Your $9.35 credit expires tonight",
+    "sent": "2026-10-16T18:20:52.932998+00:00",
+    "subject": "Your $9.35 expires tonight",
+    "open_rate": 0.52292,
+    "click_rate": 0.02722,
+    "revenue": 1880,
+    "rpr": 0.44891,
+    "recipients": 4200
+   },
+   {
+    "name": "FC | National Coffee Day: the first 7 orders are free",
+    "sent": "2026-09-29T16:13:04.992865+00:00",
+    "subject": "We've NEVER done this for National Coffee Day before 😳☕",
+    "open_rate": 0.60275,
+    "click_rate": 0.01221,
+    "revenue": 2900,
+    "rpr": 0.44804,
+    "recipients": 6495
+   },
+   {
+    "name": "FC | Why your matcha tastes like grass",
+    "sent": "2026-11-06T17:04:40.635287+00:00",
+    "subject": "Does your matcha taste like mowed lawn in a mug?😬",
+    "open_rate": 0.39365,
+    "click_rate": 0.00595,
+    "revenue": 5353,
+    "rpr": 0.43049,
+    "recipients": 12510
+   },
+   {
+    "name": "FC | PT: What should we carry next?",
+    "sent": "2026-10-05T17:30:00+00:00",
+    "subject": "What are we missing?",
+    "open_rate": 0.6146,
+    "click_rate": 0.00849,
+    "revenue": 3088,
+    "rpr": 0.4098,
+    "recipients": 7572
+   },
+   {
+    "name": "FC | PT: What's out of stock right now, and what isn't",
+    "sent": "2026-10-24T17:15:52.901442+00:00",
+    "subject": "Sunday stock report 📋",
+    "open_rate": 0.61274,
+    "click_rate": 0.01259,
+    "revenue": 2740,
+    "rpr": 0.35917,
+    "recipients": 7656
+   },
+   {
+    "name": "FC | PT: I'm texting first this year",
+    "sent": "2026-11-10T20:48:30.996411+00:00",
+    "subject": "I’m inviting you",
+    "open_rate": 0.51275,
+    "click_rate": 0.0072,
+    "revenue": 2293,
+    "rpr": 0.2799,
+    "recipients": 8241
+   },
+   {
+    "name": "FC | In their words, in capital letters",
+    "sent": "2026-11-11T18:09:39.067253+00:00",
+    "subject": "4 real reviews. Word for word.",
+    "open_rate": 0.33223,
+    "click_rate": 0.00612,
+    "revenue": 3766,
+    "rpr": 0.23529,
+    "recipients": 16120
+   },
+   {
+    "name": "FC | The periodic table of the pantry",
+    "sent": "2026-11-05T15:30:00+00:00",
+    "subject": "Periodic table? In MY pantry?👀",
+    "open_rate": 0.42596,
+    "click_rate": 0.00762,
+    "revenue": 2864,
+    "rpr": 0.2296,
+    "recipients": 12552
+   },
+   {
+    "name": "FC | PT: If it costs this little, is something wrong with it?",
+    "sent": "2026-09-23T15:45:10.362063+00:00",
+    "subject": "‘’How come your cacao costs so little?🤨’’",
+    "open_rate": 0.66121,
+    "click_rate": 0.01161,
+    "revenue": 711,
+    "rpr": 0.21168,
+    "recipients": 3379
+   },
+   {
+    "name": "FC | There's a free bag waiting. We're not saying what.",
+    "sent": "2026-11-15T18:14:17.034631+00:00",
+    "subject": "We have a FREE 1lb of Culinary Matcha for you 👀😊",
+    "open_rate": 0.25953,
+    "click_rate": 0.00534,
+    "revenue": 2093,
+    "rpr": 0.12546,
+    "recipients": 16811
+   },
+   {
+    "name": "FC | Will a pound go stale before you finish it?",
+    "sent": "2026-09-18T17:20:48.966910+00:00",
+    "subject": "Will a pound go stale before you finish it? 🤔",
+    "open_rate": 0.60022,
+    "click_rate": 0.01016,
+    "revenue": 686,
+    "rpr": 0.09302,
+    "recipients": 7413
+   },
+   {
+    "name": "FC | PT: Our five best sellers that aren't matcha",
+    "sent": "2026-11-14T17:44:13.143506+00:00",
+    "subject": "Our 5 best sellers that aren’t matcha",
+    "open_rate": 0.32427,
+    "click_rate": 0.00594,
+    "revenue": 1156,
+    "rpr": 0.07223,
+    "recipients": 16100
+   },
+   {
+    "name": "FC | Four things to make with the free bag",
+    "sent": "2026-11-16T16:48:50.269126+00:00",
+    "subject": "4 ways you can use your FREE pound of matcha",
+    "open_rate": 0.18922,
+    "click_rate": 0.005,
+    "revenue": 497,
+    "rpr": 0.0388,
+    "recipients": 12862
+   }
+  ],
+  "sms": [
+   {
+    "name": "FC | SMS: Your $9.35 account credit",
+    "channel": "sms",
+    "sent": "2026-10-16T18:22:15.475203+00:00",
+    "status": "Sent",
+    "body": "your $9.35 credit is waiting. Code OCTCREDIT, $70 min. Ends 11:59pm ET Sat Oct 17. https://dolcesuperfoods.com/\n",
+    "audiences": {
+     "included": [
+      "XfLhNx"
+     ],
+     "excluded": [
+      "RCBfA3",
+      "TxaLK4",
+      "UkC4F6",
+      "WYRnat",
+      "XqhNDz"
+     ]
+    },
+    "recipients": 463,
+    "open_rate": 0,
+    "click_rate": 0.04139,
+    "conversions": 3,
+    "revenue": 292,
+    "rpr": 0.63647,
+    "unsub_rate": 0.00218
+   },
+   {
+    "name": "FC | SMS: Hot chocolate from the bean up",
+    "channel": "sms",
+    "sent": "2026-10-28T18:30:00+00:00",
+    "status": "Sent",
+    "body": "Happy National Chocolate Day from Dolce! We just sent you a homemade hot chocolate recipe. Check your inbox. Then grab the ingredients: https://dolcesuperfoods.com/collections/cacao\n ",
+    "audiences": {
+     "included": [
+      "SfXjMA"
+     ],
+     "excluded": [
+      "UkC4F6",
+      "WYRnat"
+     ]
+    },
+    "recipients": 1324,
+    "open_rate": 0,
+    "click_rate": 0.04255,
+    "conversions": 2,
+    "revenue": 148,
+    "rpr": 0.11224,
+    "unsub_rate": 0.01216
+   },
+   {
+    "name": "FC | SMS: Texts first: the free matcha is on",
+    "channel": "sms",
+    "sent": "2026-11-15T18:14:55.622521+00:00",
+    "status": "Sent",
+    "body": "Dolce Superfoods: Early Black Friday treat: get 1lb of Culinary Matcha FREE on any $160+ orders. Add to cart & use code FREEMATCHA: https://dolcesuperfoods.com\n ",
+    "audiences": {
+     "included": [
+      "SfXjMA"
+     ],
+     "excluded": [
+      "SUjC22"
+     ]
+    },
+    "recipients": 1527,
+    "open_rate": 0,
+    "click_rate": 0.0224,
+    "conversions": 1,
+    "revenue": 99,
+    "rpr": 0.06491,
+    "unsub_rate": 0.00922
+   }
+  ]
+ }
+}

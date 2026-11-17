@@ -1,0 +1,134 @@
+{
+  "key": "replenishment",
+  "name": "Replenishment Flow (2 Emails + 1 SMS)",
+  "version": 2,
+  "status": "draft",
+  "purpose": "Catch the reorder at the moment they run out. Propose only when the data shows a real same-product reorder habit and no replenishment flow is running.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill). As run for EVO Labs and PeptiNova."
+  },
+  "tier": "optional",
+  "appliesTo": [
+    "replenishable"
+  ],
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": [
+      {
+        "description": "Per product group (one flow or trigger split per group)"
+      }
+    ]
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow"
+    },
+    {
+      "description": "Not in the Abandoned Cart flow"
+    },
+    {
+      "description": "Not an active subscriber (they get a member version or nothing)"
+    }
+  ],
+  "reentry": {
+    "value": 1,
+    "unit": "days"
+  },
+  "entry": "delay-1",
+  "actions": [
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 30,
+        "unit": "days",
+        "variable": "replenish_days"
+      },
+      "next": "email-1"
+    },
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "Reorder at full price at the moment they run out",
+      "template": "replenishment/01-running-low",
+      "subject": [
+        "Running low on {{event.ProductName}}?"
+      ],
+      "smartSending": false,
+      "name": "Email #1: Running low?",
+      "topic": "Running low on {{event.ProductName}}?",
+      "format": "designed",
+      "sendingTo": "Customers at their product group's reorder window",
+      "offer": "None: a customer who's genuinely low reorders at full price",
+      "goals": {
+        "all": [
+          "Dynamic reorder block",
+          "Attach items",
+          "Subscription"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": "sms-1"
+    },
+    {
+      "id": "sms-1",
+      "type": "send-sms",
+      "job": "Reorder reminder",
+      "body": "Running low on {{event.ProductName}}? Reorder in one tap: {{links.reorder}}",
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 6,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Restock code with a 72-hour expiry",
+      "template": "replenishment/02-last-call",
+      "subject": [
+        "Last call before you run out"
+      ],
+      "smartSending": false,
+      "name": "Email #2: Last call before you run out",
+      "topic": "Last call before you run out",
+      "format": "designed",
+      "sendingTo": "Customers who haven't reordered",
+      "offer": "~15% restock code, 72-hour expiry ({{offers.restock_code}})",
+      "goals": {
+        "all": [
+          "Restock code with 72-hour expiry",
+          "Bundle or volume set side by side as the smarter option"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "replenish_days",
+      "description": "DATA: each product group's median days to second order (EVO: 21 / 30 / 45 by format)",
+      "example": "30"
+    },
+    {
+      "key": "links.reorder",
+      "description": "Reorder link"
+    },
+    {
+      "key": "offers.restock_code",
+      "description": "Restock code",
+      "example": "RESTOCK15"
+    }
+  ],
+  "benchmarks": {}
+}

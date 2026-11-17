@@ -1,0 +1,80 @@
+<!-- WIN-BACK 1b: Check-in, DESIGNED (strategy doc: "Design: Yes"). Restart the routine: the offer in the
+     subheadline, a brand-color review overlapping the hero, why it was worth starting, proof, purchase options. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: headline, subheadline with the offer, button, code pill. Lifestyle photo after. -->
+  <section class="hero hero--stacked hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_OFFER}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="bleed-img" src="{{HERO_LIFESTYLE_IMAGE}}" alt="" style="margin:30px 0 0;width:100%">
+  </section>
+
+  <!-- REVIEW in the brand color, then the "it happens" copy -->
+  <section class="section" style="padding-top:0">
+    <div class="review review--accent" style="margin-top:-70px">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_QUOTE}}</p>
+      <div class="review-name">{{REVIEW_NAME}}</div>
+    </div>
+    <div class="prose center" style="margin-top:30px">
+      <p>{{STORY_PARAGRAPH_1}}</p>
+      <p>{{STORY_PARAGRAPH_2}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- WHY IT WAS WORTH STARTING: 3 ticks over a lifestyle photo -->
+  <section class="section section--image fade-top fade-bottom" style="--sec-img:url('{{WHY_IMAGE}}');--sec-scrim:.55;--from:var(--bg-alt);--to:var(--bg-alt)">
+    <h2 class="section-title">{{WHY_TITLE}}</h2>
+    <ul class="ticks">
+      <li><b>{{WHY_1_TITLE}}</b> {{WHY_1_TEXT}}</li>
+      <li><b>{{WHY_2_TITLE}}</b> {{WHY_2_TEXT}}</li>
+      <li><b>{{WHY_3_TITLE}}</b> {{WHY_3_TEXT}}</li>
+    </ul>
+  </section>
+
+  <!-- PROOF (before/after, results) as guidance cards, then purchase options -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{PROOF_TITLE}}</h2>
+    <div class="guide">
+      <div class="guide-card"><img class="guide-img" src="{{PROOF_1_IMAGE}}" alt=""><div class="guide-title">{{PROOF_1_TITLE}}</div><p class="guide-text">{{PROOF_1_TEXT}}</p></div>
+      <div class="guide-card"><img class="guide-img" src="{{PROOF_2_IMAGE}}" alt=""><div class="guide-title">{{PROOF_2_TITLE}}</div><p class="guide-text">{{PROOF_2_TEXT}}</p></div>
+    </div>
+    <div style="height:40px"></div>
+    <h2 class="section-title" style="--st-size:32px">{{OPTIONS_TITLE}}</h2>
+    <div class="options">
+      <div>{{OPTION_1}}</div>
+      <div>{{OPTION_2}}</div>
+    </div>
+    <div class="center"><a class="btn" href="#">{{OPTIONS_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- AWARDS / TRUST -->
+  <section class="section" style="padding-top:20px">
+    <div class="badges">
+      <div><img src="{{BADGE_1}}" alt=""><span>{{BADGE_1_LABEL}}</span></div>
+      <div><img src="{{BADGE_2}}" alt=""><span>{{BADGE_2_LABEL}}</span></div>
+      <div><img src="{{BADGE_3}}" alt=""><span>{{BADGE_3_LABEL}}</span></div>
+      <div><img src="{{BADGE_4}}" alt=""><span>{{BADGE_4_LABEL}}</span></div>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

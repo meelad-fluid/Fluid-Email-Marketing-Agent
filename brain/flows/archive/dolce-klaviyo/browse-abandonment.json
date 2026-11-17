@@ -1,0 +1,437 @@
+{
+  "key": "browse-abandonment",
+  "name": "Browse Abandonment",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Retarget window shoppers who viewed a product but didn't add to cart: product reminder, social proof, then an incentive.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Core flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "metric",
+    "source": "Viewed Product",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Added to Cart zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Added to Cart}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Checkout Started zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Checkout Started}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Placed Order zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Has not been in this flow in the last 30 days",
+      "klaviyo": {
+        "type": "profile-not-in-flow",
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "in-the-last",
+          "unit": "day",
+          "quantity": 30
+        }
+      }
+    }
+  ],
+  "reentry": {
+    "value": 30,
+    "unit": "days"
+  },
+  "entry": "delay-6",
+  "actions": [
+    {
+      "id": "delay-6",
+      "type": "time-delay",
+      "delay": {
+        "value": 2,
+        "unit": "hours"
+      },
+      "next": "browse-1"
+    },
+    {
+      "id": "browse-1",
+      "type": "send-email",
+      "job": "Reminder of the product they viewed",
+      "template": "browse-abandonment/01-reminder",
+      "subject": [
+        "Still debating? Let’s make it simple"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "next": "split-8"
+    },
+    {
+      "id": "split-8",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "browse-sms-1",
+      "next_if_false": "delay-5"
+    },
+    {
+      "id": "browse-sms-1",
+      "type": "send-sms",
+      "job": "Simple reminder about the items they were viewing",
+      "body": "Left something behind? We don’t blame you…it’s hard to resist {{ event.ProductName }}.",
+      "next": "delay-5"
+    },
+    {
+      "id": "delay-5",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "hours"
+      },
+      "next": "split-7"
+    },
+    {
+      "id": "split-7",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-1",
+      "next_if_false": null
+    },
+    {
+      "id": "split-1",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "delay-2",
+      "next_if_false": "browse-1-resend"
+    },
+    {
+      "id": "browse-1-resend",
+      "type": "send-email",
+      "job": "Resend of \"Reminder of the product they viewed\" to people who didn't open it",
+      "template": "browse-abandonment/01-reminder",
+      "subject": [
+        "Still debating? Let’s make it simple"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "resendOf": "browse-1",
+      "next": "delay-4"
+    },
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 21,
+        "unit": "hours"
+      },
+      "next": "split-4"
+    },
+    {
+      "id": "split-4",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-6",
+      "next_if_false": "update-profile-1"
+    },
+    {
+      "id": "update-profile-1",
+      "type": "update-profile",
+      "property": "Last Flow",
+      "value": "Browse Abandonment",
+      "next": null
+    },
+    {
+      "id": "split-6",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "browse-2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "browse-2-b",
+      "type": "send-email",
+      "job": "Reminder + social proof + incentive: everyone is loving {{brand.name}} (resend track)",
+      "template": "browse-abandonment/02-social-proof",
+      "subject": [
+        "Don’t take our word for it…see what others are saying"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-5"
+    },
+    {
+      "id": "split-5",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "browse-3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "browse-3-b",
+      "type": "send-email",
+      "job": "Reminder + incentive with an expiry (resend track)",
+      "template": "browse-abandonment/03-incentive",
+      "subject": [
+        "A little nudge (with {{discount.browse_value}} off) to seal the deal"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "next": null
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 21,
+        "unit": "hours"
+      },
+      "next": "split-3"
+    },
+    {
+      "id": "split-3",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "browse-2",
+      "next_if_false": null
+    },
+    {
+      "id": "browse-2",
+      "type": "send-email",
+      "job": "Reminder + social proof + incentive: everyone is loving {{brand.name}}",
+      "template": "browse-abandonment/02-social-proof",
+      "subject": [
+        "Don’t take our word for it…see what others are saying"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-2"
+    },
+    {
+      "id": "split-2",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "browse-3",
+      "next_if_false": null
+    },
+    {
+      "id": "browse-3",
+      "type": "send-email",
+      "job": "Reminder + incentive with an expiry",
+      "template": "browse-abandonment/03-incentive",
+      "subject": [
+        "A little nudge (with {{discount.browse_value}} off) to seal the deal"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "discount.browse_code",
+      "description": "Browse abandonment incentive code",
+      "example": "TAKE10"
+    },
+    {
+      "key": "discount.browse_value",
+      "description": "Browse abandonment incentive",
+      "example": "10%"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$1.13",
+    "reference order rate": "0.62%"
+  },
+  "notes": "Email 1 sends 2 hours after the product view. 'Added to Cart zero times' is new: the reference account had no cart flow, and without it a shopper who adds to cart would get Browse and Cart at once."
+}

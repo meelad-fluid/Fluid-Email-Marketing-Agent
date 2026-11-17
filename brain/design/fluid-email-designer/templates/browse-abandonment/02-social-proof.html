@@ -1,0 +1,86 @@
+<!-- BROWSE ABANDONMENT 2: Reminder + proof. Their product again, the objection that stalls people
+     (fit, sizing, legality), reviews of that product, brand trust, help.
+     data-offer="optional": a reminder of an unused code goes in the card near the end, not the hero. -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: headline about proof or the objection, subheadline, button. Photo behind, rounded bottom. -->
+  <section class="hero hero--overlay hero--scrim hero--rounded" style="--hero-img:url('{{HERO_IMAGE}}');min-height:680px">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+    </div>
+  </section>
+
+  <!-- THEIR ITEM -->
+  <section class="section">
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC PRODUCT BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--squiggle" style="--to:var(--bg)"></div>
+
+  <!-- THE OBJECTION, BY CATEGORY: folder-tab image cards, one line each. 2-4 cards. -->
+  <section class="section" style="padding-top:20px">
+    <h2 class="section-title">{{GUIDE_TITLE}}</h2>
+    <div class="tabcard"><div class="tabcard-label">{{GUIDE_1_LABEL}}</div><img class="tabcard-img" src="{{GUIDE_1_IMAGE}}" alt=""><p class="tabcard-text">{{GUIDE_1_TEXT}}</p></div>
+    <div class="tabcard"><div class="tabcard-label">{{GUIDE_2_LABEL}}</div><img class="tabcard-img" src="{{GUIDE_2_IMAGE}}" alt=""><p class="tabcard-text">{{GUIDE_2_TEXT}}</p></div>
+    <div class="tabcard"><div class="tabcard-label">{{GUIDE_3_LABEL}}</div><img class="tabcard-img" src="{{GUIDE_3_IMAGE}}" alt=""><p class="tabcard-text">{{GUIDE_3_TEXT}}</p></div>
+    <div class="center"><a class="btn" href="#">{{GUIDE_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- REVIEWS OF THIS PRODUCT: the Klaviyo reviews block, or 2-3 cards (one with the product overlapping). -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{REVIEWS_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC REVIEWS BLOCK</div>
+      <p class="dyn-n">{{REVIEWS_DYNAMIC_NOTE}}</p>
+    </div>
+    <div class="review review--product">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_1_QUOTE}}</p>
+      <div class="review-name">{{REVIEW_1_NAME}}</div>
+      <img class="review-product" src="{{REVIEW_1_PRODUCT_CUTOUT}}" alt="">
+    </div>
+  </section>
+
+  <!-- BRAND TRUST over an image (made in, years in business, guarantee) -->
+  <section class="banner" style="--banner-img:url('{{TRUST_IMAGE}}');--banner-scrim:.55">
+    <div class="banner-title" style="--bt-size:40px">{{TRUST_TITLE}}</div>
+    <p>{{TRUST_TEXT}}</p>
+  </section>
+
+  <!-- HELP: two buttons, ask + back to the product -->
+  <section class="banner fade-bottom" style="--to:var(--bg);--banner-img:url('{{HELP_IMAGE}}');--banner-scrim:.6">
+    <div class="banner-title" style="--bt-size:44px">{{HELP_TITLE}}</div>
+    <p>{{HELP_TEXT}}</p>
+    <a class="btn" href="#">{{HELP_BUTTON}}</a><br>
+    <a class="btn" href="#" style="margin-top:14px">{{BACK_BUTTON}}</a>
+  </section>
+
+  <!-- OFFER REMINDER CARD: only if they have an unused code. Otherwise delete this section. -->
+  <section class="section">
+    <a class="cat cat--offer" href="#" style="--cat-img:url('{{OFFER_CARD_IMAGE}}')">
+      <div class="cat-title" style="font-size:42px">{{OFFER_HEADLINE}}</div>
+      <p class="cat-text" style="font-size:18px">{{OFFER_LINE}}</p>
+      <span class="btn">{{OFFER_BUTTON}}</span>
+    </a>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

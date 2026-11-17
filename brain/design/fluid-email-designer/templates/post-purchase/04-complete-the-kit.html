@@ -1,0 +1,67 @@
+<!-- POST-PURCHASE 4: Complete the kit. What pairs with what they bought, recommendations from their
+     purchase history, a review request, the next-order offer. Use different product images from email 2. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: headline, subheadline with the next-order offer, button, code pill. Collage after. -->
+  <section class="hero hero--stacked hero--scrim hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_OFFER}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-product" src="{{HERO_COLLAGE_IMAGE}}" alt="" style="--product-h:360px">
+  </section>
+
+  <!-- RECOMMENDED FOR YOU: from purchase history (built in Klaviyo) -->
+  <section class="section">
+    <h2 class="section-title">{{RECOMMENDED_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC RECOMMENDATIONS</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- WHAT PAIRS WITH IT: category tiles (photo, title, one line, button). Or swap for .pfeat featured
+       products with the name in big type behind (name + button only). -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{PAIRS_TITLE}}</h2>
+    <div class="cat-grid">
+      <a class="cat" href="#" style="--cat-img:url('{{PAIR_1_IMAGE}}')"><div class="cat-title">{{PAIR_1_TITLE}}</div><p class="cat-text">{{PAIR_1_TEXT}}</p><span class="btn btn--sm">{{PAIR_1_BUTTON}}</span></a>
+      <a class="cat" href="#" style="--cat-img:url('{{PAIR_2_IMAGE}}')"><div class="cat-title">{{PAIR_2_TITLE}}</div><p class="cat-text">{{PAIR_2_TEXT}}</p><span class="btn btn--sm">{{PAIR_2_BUTTON}}</span></a>
+      <a class="cat" href="#" style="--cat-img:url('{{PAIR_3_IMAGE}}')"><div class="cat-title">{{PAIR_3_TITLE}}</div><p class="cat-text">{{PAIR_3_TEXT}}</p><span class="btn btn--sm">{{PAIR_3_BUTTON}}</span></a>
+    </div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- REVIEW REQUEST -->
+  <section class="section">
+    <div class="split">
+      <div class="split-body">
+        <div class="split-title">{{REVIEW_ASK_TITLE}}</div>
+        <p class="split-text">{{REVIEW_ASK_TEXT}}</p>
+        <a class="btn btn--sm" href="#">{{REVIEW_ASK_BUTTON}}</a>
+      </div>
+      <img class="split-img" src="{{REVIEW_ASK_IMAGE}}" alt="">
+    </div>
+  </section>
+
+  <!-- CLOSING OFFER BANNER -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{BANNER_IMAGE}}');--banner-scrim:.55">
+    <div class="banner-title" style="--bt-size:42px">{{BANNER_TITLE}}</div>
+    <p>{{BANNER_LINE}}</p>
+    <a class="btn" href="#">{{BANNER_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

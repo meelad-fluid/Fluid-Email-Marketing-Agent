@@ -1,0 +1,84 @@
+<!-- SITE ABANDONMENT 1: Help them find their way. They were on the site but never opened a product,
+     so there is nothing personal to show yet: welcome them, then make the next step obvious.
+     data-offer="optional": the hook (explore, quiz, find your fit) leads; a discount appears only if the doc has one.
+     Replace every {{...}}; delete blocks with no copy. Pick ONE of the two "where to start" options. -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: headline, subheadline, button. Code pill only if the doc includes an offer (else delete it). -->
+  <section class="hero hero--overlay hero--scrim hero--rounded" style="--hero-img:url('{{HERO_PHOTO}}')">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+  </section>
+
+  <!-- WHERE TO START, option A: category tiles (photo, title, one line, button) -->
+  <section class="section">
+    <div class="prose center"><p>{{INTRO_LINE}}</p></div>
+    <div style="height:24px"></div>
+    <div class="cat-grid">
+      <a class="cat" href="#" style="--cat-img:url('{{CATEGORY_1_IMAGE}}')"><div class="cat-title">{{CATEGORY_1_TITLE}}</div>
+        <p class="cat-text">{{CATEGORY_1_TEXT}}</p><span class="btn btn--sm">{{CATEGORY_1_BUTTON}}</span></a>
+      <a class="cat" href="#" style="--cat-img:url('{{CATEGORY_2_IMAGE}}')"><div class="cat-title">{{CATEGORY_2_TITLE}}</div>
+        <p class="cat-text">{{CATEGORY_2_TEXT}}</p><span class="btn btn--sm">{{CATEGORY_2_BUTTON}}</span></a>
+      <a class="cat" href="#" style="--cat-img:url('{{CATEGORY_3_IMAGE}}')"><div class="cat-title">{{CATEGORY_3_TITLE}}</div>
+        <p class="cat-text">{{CATEGORY_3_TEXT}}</p><span class="btn btn--sm">{{CATEGORY_3_BUTTON}}</span></a>
+    </div>
+  </section>
+  <!-- WHERE TO START, option B (swap in for the section above): outlined cards with products breaking out
+  <section class="section">
+    <h2 class="section-title">{{CATEGORIES_TITLE}}</h2>
+    <div class="ocard"><img class="ocard-img" src="{{CATEGORY_1_CUTOUT}}" alt=""><div class="ocard-title">{{CATEGORY_1_TITLE}}</div><p class="ocard-text">{{CATEGORY_1_TEXT}}</p></div>
+    <div class="ocard"><img class="ocard-img" src="{{CATEGORY_2_CUTOUT}}" alt=""><div class="ocard-title">{{CATEGORY_2_TITLE}}</div><p class="ocard-text">{{CATEGORY_2_TEXT}}</p></div>
+    <div class="ocard"><img class="ocard-img" src="{{CATEGORY_3_CUTOUT}}" alt=""><div class="ocard-title">{{CATEGORY_3_TITLE}}</div><p class="ocard-text">{{CATEGORY_3_TEXT}}</p></div>
+  </section> -->
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- TRUST: one review + awards / proof points -->
+  <section class="section section--alt">
+    <div class="review review--accent">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_QUOTE}}</p>
+      <p class="review-name">&mdash; {{REVIEW_NAME}}</p>
+    </div>
+    <div style="height:40px"></div>
+    <div class="badges">
+      <div><img src="{{BADGE_1_IMAGE}}" alt=""><span>{{BADGE_1_LABEL}}</span></div>
+      <div><img src="{{BADGE_2_IMAGE}}" alt=""><span>{{BADGE_2_LABEL}}</span></div>
+      <div><img src="{{BADGE_3_IMAGE}}" alt=""><span>{{BADGE_3_LABEL}}</span></div>
+      <div><img src="{{BADGE_4_IMAGE}}" alt=""><span>{{BADGE_4_LABEL}}</span></div>
+    </div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- HELP: questions first? -->
+  <section class="section">
+    <div class="prose center"><p>{{HELP_LINE}}</p></div>
+    <div class="center">
+      <a class="btn btn--ghost" href="#">{{HELP_BUTTON}}</a><br>
+      <a class="btn" href="#" style="margin-top:14px">{{SECOND_BUTTON}}</a>
+    </div>
+  </section>
+
+  <!-- OFFER REMINDER: only if the doc includes one (e.g. their welcome code is still good).
+       If not, delete this banner and put <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div> here instead. -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{OFFER_BANNER_IMAGE}}')">
+    <h2 class="banner-title">{{OFFER_HEADLINE}}</h2>
+    <p>{{OFFER_LINE}}</p>
+    <a class="btn" href="#">{{OFFER_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

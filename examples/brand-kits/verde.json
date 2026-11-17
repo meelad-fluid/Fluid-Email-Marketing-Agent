@@ -1,0 +1,21 @@
+{
+  "name": "Verde Daily",
+  "status": "confirmed",
+  "colors": {
+    "primary": "#1F5C3A", "secondary": "#DCEBD2", "background": "#FBF8F1", "surface": "#EEF4E6",
+    "text": "#14231A", "textMuted": "#4C5E52", "accent": "#F26B3A", "onAccent": "#FFFFFF", "onPrimary": "#FFFFFF"
+  },
+  "fonts": {
+    "display": { "family": "Fraunces", "weight": 800 },
+    "body": { "family": "Inter", "weight": 400 }
+  },
+  "logo": { "src": null, "wordmark": "Verde Daily" },
+  "button": { "shape": "rounded", "borderColor": "#14231A", "shadowColor": "#14231A" },
+  "photoStyle": "Warm natural light, glass of green juice on a kitchen counter, morning",
+  "footer": {
+    "address": "Verde Daily, 123 Example St, Austin, TX 78701",
+    "socials": ["instagram", "tiktok", "facebook"],
+    "trustBadges": ["Organic", "Non-GMO", "3rd-party tested"],
+    "compliance": "These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease."
+  }
+}

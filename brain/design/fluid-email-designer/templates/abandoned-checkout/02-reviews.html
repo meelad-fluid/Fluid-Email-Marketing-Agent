@@ -1,0 +1,64 @@
+<!-- ABANDONED CHECKOUT / CART 2: Reminder + proof. The headline answers the main objection; their
+     items; reviews; the fine print in plain words (returns, exchanges, guarantee); help. No discount yet. -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: objection headline, subheadline with the policy, button. Photo after, rounded bottom. -->
+  <section class="hero hero--stacked hero--scrim hero--rounded" style="--hero-img:url('{{HERO_BG_IMAGE}}')">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+    </div>
+    <img class="hero-photo" src="{{HERO_IMAGE}}" alt="" style="--photo-h:400px">
+  </section>
+
+  <!-- THEIR ITEMS + REVIEWS over one atmospheric photo running behind both -->
+  <section class="section section--blur fade-bottom" style="--sec-img:url('{{SECTION_BG_IMAGE}}');--sec-scrim:.7;--to:var(--bg-alt)">
+    <h2 class="section-title">{{CART_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC CART BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+    <h2 class="section-title" style="margin-top:46px">{{REVIEWS_TITLE}}</h2>
+    <div class="review review--product">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_1_QUOTE}}</p>
+      <div class="review-name">{{REVIEW_1_NAME}}</div>
+      <img class="review-product" src="{{REVIEW_1_PRODUCT_CUTOUT}}" alt="">
+    </div>
+    <div class="review">
+      <div class="review-mark">&ldquo;</div>
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_2_QUOTE}}</p>
+      <div class="review-name">{{REVIEW_2_NAME}}</div>
+    </div>
+  </section>
+
+  <!-- THE FINE PRINT, PLAINLY: returns, exchanges, guarantee -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{POLICY_TITLE}}</h2>
+    <div class="policy">
+      <div class="policy-item"><div class="policy-icon"><img src="{{POLICY_1_ICON}}" alt=""></div><div class="policy-title">{{POLICY_1_TITLE}}</div><p class="policy-text">{{POLICY_1_TEXT}}</p></div>
+      <div class="policy-item"><div class="policy-icon"><img src="{{POLICY_2_ICON}}" alt=""></div><div class="policy-title">{{POLICY_2_TITLE}}</div><p class="policy-text">{{POLICY_2_TEXT}}</p></div>
+      <div class="policy-item"><div class="policy-icon"><img src="{{POLICY_3_ICON}}" alt=""></div><div class="policy-title">{{POLICY_3_TITLE}}</div><p class="policy-text">{{POLICY_3_TEXT}}</p></div>
+    </div>
+  </section>
+
+  <!-- HELP BANNER: fit guide / sizing + return -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{HELP_IMAGE}}');--banner-scrim:.55">
+    <div class="banner-title" style="--bt-size:44px">{{HELP_TITLE}}</div>
+    <p>{{HELP_TEXT}}</p>
+    <a class="btn" href="#">{{HELP_BUTTON}}</a><br>
+    <a class="btn" href="#" style="margin-top:14px">{{RETURN_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

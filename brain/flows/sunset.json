@@ -1,0 +1,125 @@
+{
+  "key": "sunset",
+  "name": "Sunset / Re-engagement Flow (3 Emails)",
+  "version": 2,
+  "status": "draft",
+  "purpose": "Protect sender reputation on large imported or inactive lists: re-engage, then unsubscribe non-confirmers. As run for Beyond Slim.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)"
+  },
+  "tier": "optional",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "segment",
+    "source": "{{segments.unengaged_120}}",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "No opens, clicks or purchases in the last 120 days"
+    }
+  ],
+  "reentry": null,
+  "entry": "email-1",
+  "actions": [
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "Re-engage with an incentive",
+      "template": "sunset/01-we-miss-you",
+      "subject": [
+        "We miss you"
+      ],
+      "smartSending": false,
+      "name": "Email #1: We miss you",
+      "topic": "We miss you",
+      "format": "designed",
+      "sendingTo": "Unengaged 120 days",
+      "offer": "An incentive",
+      "goals": {
+        "all": [
+          "We miss you",
+          "An incentive to come back"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Last chance",
+      "template": "sunset/02-last-chance",
+      "subject": [
+        "Last chance to stay connected"
+      ],
+      "smartSending": false,
+      "name": "Email #2: Last chance to stay connected",
+      "topic": "Last chance to stay connected",
+      "format": "designed",
+      "sendingTo": "Still unengaged",
+      "goals": {
+        "all": [
+          "Last chance to stay on the list"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "days"
+      },
+      "next": "email-3"
+    },
+    {
+      "id": "email-3",
+      "type": "send-email",
+      "job": "Plain-text confirm; non-confirmers get unsubscribed",
+      "template": "sunset/03-confirm-plain",
+      "subject": [
+        "Should we stop emailing you?"
+      ],
+      "smartSending": false,
+      "name": "Email #3: Confirm you want to hear from us",
+      "topic": "Should we stop emailing you?",
+      "format": "plain_text",
+      "sendingTo": "Still unengaged",
+      "goals": {
+        "all": [
+          "Plain text",
+          "Click to confirm you want to hear from us",
+          "Non-confirmers are unsubscribed to protect sender reputation"
+        ],
+        "replenishable": [],
+        "one_off": []
+      },
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "segments.unengaged_120",
+      "description": "Segment: no opens, clicks or orders in 120 days"
+    }
+  ],
+  "benchmarks": {}
+}

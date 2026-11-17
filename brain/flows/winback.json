@@ -1,0 +1,127 @@
+{
+  "key": "winback",
+  "name": "Winback Flow (2 Emails)",
+  "version": 2,
+  "status": "active",
+  "purpose": "Bring back first-time customers who never ordered again, timed to the brand's real lifecycle: past the natural reorder point, before the habit is gone.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)"
+  },
+  "tier": "core",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order equals 1 over all time (first-time customers)"
+    },
+    {
+      "description": "Placed Order zero times since starting this flow"
+    }
+  ],
+  "reentry": null,
+  "entry": "delay-1",
+  "actions": [
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 90,
+        "unit": "days",
+        "variable": "winback_days"
+      },
+      "next": "email-1"
+    },
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "What's new, what they bought before, and the winback code",
+      "template": "winback/01b-check-in-designed",
+      "subject": [
+        "We miss you, {{first_name}}"
+      ],
+      "smartSending": false,
+      "name": "Email #1: We miss you",
+      "topic": "We miss you, {{first_name}}",
+      "format": "designed",
+      "sendingTo": "First-time customers who have never purchased again",
+      "offer": "Winback code, the ceiling offer (15–25%, or $50): {{offers.winback_code}}",
+      "goals": {
+        "all": [],
+        "replenishable": [
+          "What's changed since they left (new products, flavors, batches)",
+          "Reorder block with what they bought before",
+          "The winback code",
+          "An easy way to tell the brand if something went wrong"
+        ],
+        "one_off": [
+          "New arrivals and refreshed best sellers",
+          "Recommendations based on what they bought before (dynamic)",
+          "The reason they chose the brand",
+          "Coming back should feel like a style refresh or upgrade, never a clearance event",
+          "The winback code"
+        ]
+      },
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Same code with a clear expiry",
+      "template": "winback/02-come-back-offer",
+      "subject": [
+        "Your offer expires soon"
+      ],
+      "smartSending": false,
+      "name": "Email #2: Come back offer",
+      "topic": "Your offer expires soon",
+      "format": "designed",
+      "sendingTo": "First-time customers who have never purchased again",
+      "offer": "Same winback code, clear expiry",
+      "goals": {
+        "all": [
+          "The same code with a clear expiry"
+        ],
+        "replenishable": [
+          "Best sellers or the bundle",
+          "Subscription for anyone who'd otherwise lapse again"
+        ],
+        "one_off": [
+          "One primary CTA to their recommended collection",
+          "Exclusions stated"
+        ]
+      },
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "winback_days",
+      "description": "Days after first order. DATA: where ~70% of repeat orders have happened. Replenishable: past the reorder point (30-day supply → ~45 days); split by product group when cycles differ (SPQR 60/90). One-off: 60–180, 90 most often; split by segment",
+      "example": "90"
+    },
+    {
+      "key": "offers.winback_code",
+      "description": "Winback code",
+      "example": "COMEBACK20"
+    }
+  ],
+  "benchmarks": {},
+  "notes": "Email #2 lands 3–7 days after #1 (replenishable) or 3–14 (one-off); 5 is the default. Liquid Surf used plain text for a check-in tone (template winback/01a-check-in-plain)."
+}

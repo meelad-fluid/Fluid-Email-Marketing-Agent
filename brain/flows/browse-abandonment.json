@@ -1,0 +1,173 @@
+{
+  "key": "browse-abandonment",
+  "name": "Browse Abandonment Flow (3 Emails + 1 SMS)",
+  "version": 2,
+  "status": "active",
+  "purpose": "Window shoppers are comparing with competitors. Position the brand as the better, safer choice.",
+  "source": {
+    "kind": "fluid-written",
+    "note": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)"
+  },
+  "tier": "core",
+  "appliesTo": [
+    "replenishable",
+    "one_off"
+  ],
+  "trigger": {
+    "type": "metric",
+    "source": "Viewed Product",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Added to Cart zero times since starting this flow"
+    },
+    {
+      "description": "Started Checkout zero times since starting this flow"
+    },
+    {
+      "description": "Placed Order zero times since starting this flow"
+    },
+    {
+      "description": "Not in the Abandoned Cart flow"
+    }
+  ],
+  "reentry": {
+    "value": 7,
+    "unit": "days"
+  },
+  "entry": "delay-1",
+  "actions": [
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 2,
+        "unit": "hours"
+      },
+      "next": "email-1"
+    },
+    {
+      "id": "email-1",
+      "type": "send-email",
+      "job": "Show the viewed product and why this one beats the alternatives",
+      "template": "browse-abandonment/01-reminder",
+      "subject": [
+        "Still thinking about this?"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "name": "Email #1: Reminder",
+      "topic": "Still thinking about this?",
+      "format": "designed",
+      "sendingTo": "Window shoppers",
+      "offer": "None",
+      "goals": {
+        "all": [
+          "Dynamic block with the viewed product"
+        ],
+        "replenishable": [
+          "Why this one beats the alternatives (ingredients, testing, results, value)"
+        ],
+        "one_off": [
+          "Acknowledge it's a considered purchase",
+          "Answer the doubt for that category (fit, sizing, compatibility, quality)",
+          "Invite questions"
+        ]
+      },
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-2"
+    },
+    {
+      "id": "email-2",
+      "type": "send-email",
+      "job": "Reviews for what they viewed, plus the browse incentive",
+      "template": "browse-abandonment/02-social-proof",
+      "subject": [
+        "Everyone is loving {{brand.name}}"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "name": "Email #2: Reminder + Social Proof + Incentive",
+      "topic": "Everyone is loving {{brand.name}}",
+      "format": "designed",
+      "sendingTo": "Window shoppers",
+      "offer": "About W, smaller on high-ticket ({{offers.browse_code}})",
+      "goals": {
+        "all": [
+          "Reviews tied to the viewed product or category",
+          "The browse incentive (code + value)"
+        ],
+        "replenishable": [
+          "Reduce friction: guarantee, free-shipping threshold"
+        ],
+        "one_off": [
+          "Customer photos",
+          "Keep the incentive light on high-ticket items",
+          "Contact-us CTA for considered purchases"
+        ]
+      },
+      "next": "sms-1"
+    },
+    {
+      "id": "sms-1",
+      "type": "send-sms",
+      "job": "Simple reminder of what they were viewing",
+      "body": "Still thinking about {{event.ProductName}}? It's waiting for you: {{event.URL}}",
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "email-3"
+    },
+    {
+      "id": "email-3",
+      "type": "send-email",
+      "job": "The viewed product is still waiting; the code expires tonight",
+      "template": "browse-abandonment/03-incentive",
+      "subject": [
+        "Sh… Don't tell anyone about this"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "viewed-product",
+      "name": "Email #3: Reminder + Incentive Expiry",
+      "topic": "Sh… Don't tell anyone about this",
+      "format": "designed",
+      "sendingTo": "Window shoppers",
+      "offer": "Same browse code, expiring tonight",
+      "goals": {
+        "all": [
+          "The viewed product is still waiting",
+          "The code expires tonight"
+        ],
+        "replenishable": [],
+        "one_off": [
+          "\"Buy right the first time\""
+        ]
+      },
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "offers.browse_code",
+      "description": "Browse code at about W",
+      "example": "BRAND10"
+    }
+  ],
+  "benchmarks": {},
+  "notes": "SMS #1 follows Email #2 (what most reference docs do; a few pair it with Email #1)."
+}

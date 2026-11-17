@@ -1,0 +1,81 @@
+<!-- SITE ABANDONMENT 2: Where everyone else starts. Social proof and best sellers, then answer what's
+     holding them back (fit, price, shipping, how to buy). Use different product images from email 1.
+     data-offer="optional": the hook leads; a discount appears only if the doc has one. -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: headline, subheadline (social proof or the reason to click), button. Code pill only if the doc has an offer. -->
+  <section class="hero hero--stacked hero--scrim hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-product" src="{{HERO_PRODUCT_IMAGE}}" alt="">
+  </section>
+
+  <!-- BEST SELLERS: Klaviyo block pulling the best-sellers collection (built in Klaviyo). For static
+       products instead, replace .dyn with a .pgrid of pop-out cards (name + button only). -->
+  <section class="section">
+    <h2 class="section-title">{{BEST_SELLERS_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC PRODUCT BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--squiggle" style="--to:var(--bg)"></div>
+
+  <!-- WHY EACH ONE SELLS: reason cards (the product breaks out of the outline) -->
+  <section class="section">
+    <h2 class="section-title">{{REASONS_TITLE}}</h2>
+    <div class="ocard"><img class="ocard-img" src="{{REASON_1_CUTOUT}}" alt=""><div class="ocard-title">{{REASON_1_TITLE}}</div><p class="ocard-text">{{REASON_1_TEXT}}</p></div>
+    <div class="ocard"><img class="ocard-img" src="{{REASON_2_CUTOUT}}" alt=""><div class="ocard-title">{{REASON_2_TITLE}}</div><p class="ocard-text">{{REASON_2_TEXT}}</p></div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- HOW TO BUY: purchase options, shipping threshold, or bundles. Delete if the doc has none. -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{OPTIONS_TITLE}}</h2>
+    <div class="options">
+      <div>{{OPTION_1}}</div>
+      <div>{{OPTION_2}}</div>
+      <div>{{OPTION_3}}</div>
+    </div>
+    <div class="center"><a class="btn" href="#">{{OPTIONS_BUTTON}}</a></div>
+    <div style="height:40px"></div>
+    <!-- STILL DECIDING: help with fit, sizing or questions -->
+    <div class="split">
+      <img class="split-img" src="{{HELP_IMAGE}}" alt="">
+      <div class="split-body">
+        <div class="split-title">{{HELP_TITLE}}</div>
+        <p class="split-text">{{HELP_TEXT}}</p>
+        <a class="btn btn--sm" href="#">{{HELP_BUTTON}}</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="tx tx--drip" style="--from:var(--bg-alt);--to:var(--bg)"></div>
+
+  <!-- OFFER REMINDER CARD: only if the doc includes one. Otherwise delete this section. -->
+  <section class="section">
+    <a class="cat cat--offer" href="#" style="--cat-img:url('{{OFFER_CARD_IMAGE}}')">
+      <div class="cat-title" style="font-size:44px">{{OFFER_HEADLINE}}</div>
+      <p class="cat-text" style="font-size:18px">{{OFFER_LINE}}</p>
+      <span class="btn">{{OFFER_BUTTON}}</span>
+    </a>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

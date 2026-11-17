@@ -1,0 +1,72 @@
+<!-- BROWSE ABANDONMENT 1: Reminder. The product they viewed, why it stands out, help choosing.
+     data-offer="optional": no discount in this email unless the doc puts one up top.
+     The dynamic block sits right under the hero: the email is about their item. -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: headline about the product they viewed, subheadline, button. -->
+  <section class="hero hero--stacked hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+    </div>
+    <div style="height:40px"></div>
+  </section>
+
+  <!-- THEIR ITEM: Klaviyo viewed-product block (built in Klaviyo) -->
+  <section class="section" style="padding-top:10px">
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC PRODUCT BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <!-- WHY IT STANDS OUT: a dynamic features block, or 3 benefit rows. Delete the one you don't use. -->
+  <section class="section" style="padding-top:0">
+    <h2 class="section-title">{{FEATURES_TITLE}}</h2>
+    <ul class="ticks">
+      <li>{{FEATURE_1}}</li>
+      <li>{{FEATURE_2}}</li>
+      <li>{{FEATURE_3}}</li>
+    </ul>
+    <div class="center"><a class="btn" href="#">{{FEATURES_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- HELP CHOOSING: category tiles (photo, title, one line, button), then a help split card -->
+  <section class="section section--alt">
+    <h2 class="section-title">{{HELP_TITLE}}</h2>
+    <div class="cat-grid cat-grid--2">
+      <a class="cat" href="#" style="--cat-img:url('{{CATEGORY_1_IMAGE}}')"><div class="cat-title">{{CATEGORY_1_TITLE}}</div><p class="cat-text">{{CATEGORY_1_TEXT}}</p><span class="btn btn--sm">{{CATEGORY_1_BUTTON}}</span></a>
+      <a class="cat" href="#" style="--cat-img:url('{{CATEGORY_2_IMAGE}}')"><div class="cat-title">{{CATEGORY_2_TITLE}}</div><p class="cat-text">{{CATEGORY_2_TEXT}}</p><span class="btn btn--sm">{{CATEGORY_2_BUTTON}}</span></a>
+    </div>
+    <div style="height:30px"></div>
+    <div class="split">
+      <img class="split-img" src="{{ASK_IMAGE}}" alt="">
+      <div class="split-body">
+        <div class="split-title">{{ASK_TITLE}}</div>
+        <p class="split-text">{{ASK_TEXT}}</p>
+        <a class="btn btn--sm" href="#">{{ASK_BUTTON}}</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="tx tx--fade" style="--from:var(--bg-alt);--to:var(--footer-bg);--tx-h:70px"></div>
+
+  <div class="usp" style="--sec-bg:var(--footer-bg);--sec-ink:var(--footer-ink)">
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_1_ICON}}" alt=""></div><div class="usp-label">{{USP_1}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_2_ICON}}" alt=""></div><div class="usp-label">{{USP_2}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_3_ICON}}" alt=""></div><div class="usp-label">{{USP_3}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_4_ICON}}" alt=""></div><div class="usp-label">{{USP_4}}</div></div>
+  </div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

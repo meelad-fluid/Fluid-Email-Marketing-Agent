@@ -1,0 +1,495 @@
+{
+  "key": "abandoned-checkout",
+  "name": "Abandoned Checkout",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Convert people who started checkout but didn't order: urgency, simplicity, reviews, then a mystery discount.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Core flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "metric",
+    "source": "Checkout Started",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Has not been in this flow in the last 7 days",
+      "klaviyo": {
+        "type": "profile-not-in-flow",
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "in-the-last",
+          "unit": "day",
+          "quantity": 7
+        }
+      }
+    }
+  ],
+  "reentry": {
+    "value": 7,
+    "unit": "days"
+  },
+  "entry": "delay-8",
+  "actions": [
+    {
+      "id": "delay-8",
+      "type": "time-delay",
+      "delay": {
+        "value": 30,
+        "unit": "minutes"
+      },
+      "next": "checkout-1"
+    },
+    {
+      "id": "checkout-1",
+      "type": "send-email",
+      "job": "Simple reminder to get them back. Structure: headline, sub-headline, button, dynamic checkout table, button",
+      "template": "abandoned-checkout/01-reminder",
+      "subject": [
+        "Your cart’s looking a little lonely…",
+        "I think you forgot this…"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": "split-10"
+    },
+    {
+      "id": "split-10",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Can receive SMS marketing",
+        "klaviyo": {
+          "type": "profile-marketing-consent",
+          "consent": {
+            "channel": "sms",
+            "can_receive_marketing": true,
+            "consent_status": {
+              "subscription": "subscribed",
+              "filters": null
+            }
+          }
+        }
+      },
+      "next_if_true": "checkout-sms-1",
+      "next_if_false": "delay-7"
+    },
+    {
+      "id": "checkout-sms-1",
+      "type": "send-sms",
+      "job": "Simple reminder about the items in their cart",
+      "body": "Still thinking it over? Your {{brand.name}} cart hasn’t given up on you: {{ checkout_url }}",
+      "next": "delay-7"
+    },
+    {
+      "id": "delay-7",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "hours"
+      },
+      "next": "split-9"
+    },
+    {
+      "id": "split-9",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-1",
+      "next_if_false": null
+    },
+    {
+      "id": "split-1",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "delay-3",
+      "next_if_false": "checkout-1-resend"
+    },
+    {
+      "id": "checkout-1-resend",
+      "type": "send-email",
+      "job": "Resend of \"Simple reminder to get them back. Structure: headline, sub-headline, button, dynamic checkout table, button\" to people who didn't open it",
+      "template": "abandoned-checkout/01-reminder",
+      "subject": [
+        "Your cart’s looking a little lonely…",
+        "I think you forgot this…"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "resendOf": "checkout-1",
+      "next": "delay-6"
+    },
+    {
+      "id": "delay-6",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "hours"
+      },
+      "next": "split-5"
+    },
+    {
+      "id": "split-5",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Opened Email at least once since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Opened Email}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "greater-than",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "split-8",
+      "next_if_false": "update-profile-1"
+    },
+    {
+      "id": "update-profile-1",
+      "type": "update-profile",
+      "property": "Last Flow",
+      "value": "Abandoned Checkout",
+      "next": null
+    },
+    {
+      "id": "split-8",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "checkout-2-b",
+      "next_if_false": null
+    },
+    {
+      "id": "checkout-2-b",
+      "type": "send-email",
+      "job": "Reminder + social proof: their items plus reviews and testimonials (resend track)",
+      "template": "abandoned-checkout/02-reviews",
+      "subject": [
+        "Can’t decide? Let the reviews do the talking"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": "delay-5"
+    },
+    {
+      "id": "delay-5",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-7"
+    },
+    {
+      "id": "split-7",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "checkout-3-b",
+      "next_if_false": null
+    },
+    {
+      "id": "checkout-3-b",
+      "type": "send-email",
+      "job": "Mystery discount: create excitement and urgency (get up to {{discount.mystery_value}} off) (resend track)",
+      "template": "abandoned-checkout/03-mystery-discount",
+      "subject": [
+        "Your cart’s still dreaming…here’s a little mystery to sweeten the deal",
+        "Grab your MYSTERY discount"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": "delay-4"
+    },
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-6"
+    },
+    {
+      "id": "split-6",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "checkout-4-b",
+      "next_if_false": null
+    },
+    {
+      "id": "checkout-4-b",
+      "type": "send-email",
+      "job": "Last chance: the mystery discount expires at midnight (resend track)",
+      "template": "abandoned-checkout/04-last-chance",
+      "subject": [
+        "Your mystery discount turns into a pumpkin at midnight"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": null
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 3,
+        "unit": "hours"
+      },
+      "next": "split-4"
+    },
+    {
+      "id": "split-4",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "checkout-2",
+      "next_if_false": null
+    },
+    {
+      "id": "checkout-2",
+      "type": "send-email",
+      "job": "Reminder + social proof: their items plus reviews and testimonials",
+      "template": "abandoned-checkout/02-reviews",
+      "subject": [
+        "Can’t decide? Let the reviews do the talking"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-3"
+    },
+    {
+      "id": "split-3",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "checkout-3",
+      "next_if_false": null
+    },
+    {
+      "id": "checkout-3",
+      "type": "send-email",
+      "job": "Mystery discount: create excitement and urgency (get up to {{discount.mystery_value}} off)",
+      "template": "abandoned-checkout/03-mystery-discount",
+      "subject": [
+        "Your cart’s still dreaming…here’s a little mystery to sweeten the deal",
+        "Grab your MYSTERY discount"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "split-2"
+    },
+    {
+      "id": "split-2",
+      "type": "conditional-split",
+      "condition": {
+        "description": "Placed Order zero times since starting this flow",
+        "klaviyo": {
+          "type": "profile-metric",
+          "metric_id": "{{metric:Placed Order}}",
+          "measurement": "count",
+          "measurement_filter": {
+            "type": "numeric",
+            "operator": "equals",
+            "value": 0
+          },
+          "timeframe_filter": {
+            "type": "date",
+            "operator": "flow-start"
+          },
+          "metric_filters": null
+        }
+      },
+      "next_if_true": "checkout-4",
+      "next_if_false": null
+    },
+    {
+      "id": "checkout-4",
+      "type": "send-email",
+      "job": "Last chance: the mystery discount expires at midnight",
+      "template": "abandoned-checkout/04-last-chance",
+      "subject": [
+        "Your mystery discount turns into a pumpkin at midnight"
+      ],
+      "smartSending": false,
+      "dynamicBlock": "checkout-items",
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "discount.mystery_code",
+      "description": "Mystery discount code",
+      "example": "MYSTERY"
+    },
+    {
+      "key": "discount.mystery_value",
+      "description": "Mystery discount (up to the client's max discount)",
+      "example": "15%"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$6.92",
+    "reference order rate": "2.8%"
+  },
+  "notes": "Email 1 sends 30 minutes after the trigger. Uses the checkout line items for the dynamic table."
+}

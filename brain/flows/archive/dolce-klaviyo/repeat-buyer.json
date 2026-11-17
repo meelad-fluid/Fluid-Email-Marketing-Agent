@@ -1,0 +1,152 @@
+{
+  "key": "repeat-buyer",
+  "name": "Repeat Buyer (2nd order)",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Welcome back second-time buyers and push the third order with a time-limited offer.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Optional flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order more than 1 times over all time",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "greater-than",
+          "value": 1
+        },
+        "timeframe_filter": null,
+        "metric_filters": null
+      }
+    },
+    {
+      "description": "Shopify Tags don't contain any of {{exclusions.customer_tags}} (wholesale, test accounts)",
+      "klaviyo": {
+        "type": "profile-property",
+        "property": "properties['Shopify Tags']",
+        "filter": {
+          "type": "list",
+          "operator": "not-contains-any",
+          "value": "{{exclusions.customer_tags}}"
+        }
+      }
+    }
+  ],
+  "reentry": null,
+  "entry": "delay-4",
+  "actions": [
+    {
+      "id": "delay-4",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "minutes"
+      },
+      "next": "repeat-1"
+    },
+    {
+      "id": "repeat-1",
+      "type": "send-email",
+      "job": "Welcome back: a sneak peek at the perks ahead",
+      "template": "repeat-buyer/01-welcome-back",
+      "subject": [
+        "Welcome back, {{ first_name|title|default:'there' }}"
+      ],
+      "preview": "Take a sneak peek at the VIP perks ahead.",
+      "smartSending": false,
+      "next": "delay-3"
+    },
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 1,
+        "unit": "days"
+      },
+      "next": "repeat-2"
+    },
+    {
+      "id": "repeat-2",
+      "type": "send-email",
+      "job": "Offer for the next order: {{discount.repeat_value}} off",
+      "template": "repeat-buyer/02-offer",
+      "subject": [
+        "Save {{discount.repeat_value}} on your next {{brand.name}} discovery"
+      ],
+      "smartSending": false,
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 10,
+        "unit": "days"
+      },
+      "next": "repeat-3"
+    },
+    {
+      "id": "repeat-3",
+      "type": "send-email",
+      "job": "Offer reminder: 3 days left",
+      "template": "repeat-buyer/03-reminder",
+      "subject": [
+        "Three days left to claim"
+      ],
+      "smartSending": false,
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 2,
+        "unit": "days"
+      },
+      "next": "repeat-4"
+    },
+    {
+      "id": "repeat-4",
+      "type": "send-email",
+      "job": "Offer expires tomorrow",
+      "template": "repeat-buyer/04-last-chance",
+      "subject": [
+        "Your {{discount.repeat_code}} expires tomorrow"
+      ],
+      "smartSending": false,
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "exclusions.customer_tags",
+      "description": "Shopify customer tags to exclude (wholesale, test, partner accounts)",
+      "example": "wholesale, ISTEST"
+    },
+    {
+      "key": "discount.repeat_code",
+      "description": "Repeat-buyer offer code",
+      "example": "FAMILY15"
+    },
+    {
+      "key": "discount.repeat_value",
+      "description": "Repeat-buyer offer",
+      "example": "15%"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$1.61",
+    "reference order rate": "0.51%"
+  },
+  "notes": "Re-entry is once only, so this runs on the 2nd order. The reference account had an A/B test on email 1 (two designs) set up but never started; left out here."
+}

@@ -1,0 +1,41 @@
+<!-- ABANDONED CHECKOUT / CART 1: Simple reminder. No discount yet. Their items right under the hero,
+     then what's holding them up and a person to ask. For the cart flow, change only the block note
+     (Added to Cart items) and the button copy (Return to cart). -->
+<div class="email" data-offer="optional">
+
+  <!-- ABOVE THE FOLD: headline, subheadline, button. Lifestyle photo after the button, rounded bottom. -->
+  <section class="hero hero--stacked hero--scrim hero--rounded" style="--hero-img:url('{{HERO_BG_IMAGE}}')">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+    </div>
+    <img class="hero-photo" src="{{HERO_IMAGE}}" alt="" style="--photo-h:380px">
+  </section>
+
+  <!-- THEIR ITEMS: Klaviyo cart block (built in Klaviyo) -->
+  <section class="section section--blur" style="--sec-img:url('{{SECTION_BG_IMAGE}}');--sec-scrim:.1;--sec-ink:var(--ink)">
+    <h2 class="section-title">{{CART_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC CART BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <!-- SOMETHING HOLDING YOU UP? one line, then talk to us + return to checkout -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{HELP_IMAGE}}');--banner-scrim:.55">
+    <div class="banner-title" style="--bt-size:44px">{{HELP_TITLE}}</div>
+    <p>{{HELP_TEXT}}</p>
+    <a class="btn" href="#">{{HELP_BUTTON}}</a><br>
+    <a class="btn" href="#" style="margin-top:14px">{{RETURN_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

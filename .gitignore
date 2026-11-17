@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+.env*
+!.env.example
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+# Regenerated email builds (slices, previews); keep the Klaviyo ids + QC notes
+clients/**/designs/**/build/*
+!clients/**/designs/**/build/klaviyo.json
+!clients/**/designs/**/build/qc.md
+# Local-only
+.claude/settings.local.json

@@ -1,0 +1,63 @@
+{
+  "campaignType": "sale",
+  "subject": "25% off ends Sunday",
+  "preview": "Your 3pm crash called. We answered.",
+  "sections": [
+    {
+      "id": "hero", "type": "hero", "bg": "surface", "edge": "wave",
+      "announcement": "Free shipping on orders $50+",
+      "headline": "25% off the fix for your 3pm crash",
+      "highlight": "25% off",
+      "subheadline": "Everything sitewide, this week only. Stock up before it ends.",
+      "offer": { "code": "GREEN25", "deadline": "Ends Sunday, Oct 26" },
+      "cta": { "label": "Claim my 25% off", "url": "https://example.com/sale" },
+      "image": { "src": null, "description": "Lifestyle: greens drink on a sunny kitchen counter, pouch beside it" }
+    },
+    {
+      "id": "bridge", "type": "icon-row", "bg": "background", "edge": "curve",
+      "title": "One scoop. Three wins.",
+      "items": [
+        { "icon": "bolt", "label": "Steady energy", "detail": "No jitters, no crash" },
+        { "icon": "leaf", "label": "Gut support", "detail": "Prebiotics + probiotics" },
+        { "icon": "brain", "label": "Clear focus", "detail": "Adaptogens for the afternoon" }
+      ],
+      "cta": { "label": "Get my energy back", "url": "https://example.com/sale" }
+    },
+    {
+      "id": "compare", "type": "comparison", "bg": "primary", "edge": "wave",
+      "title": "Why it beats your second coffee",
+      "us": "Verde", "them": "Coffee #2",
+      "rows": [
+        { "label": "Energy without a crash", "us": true, "them": false },
+        { "label": "Supports digestion", "us": true, "them": false },
+        { "label": "Won't wreck your sleep", "us": true, "them": false }
+      ],
+      "cta": { "label": "Swap my second coffee", "url": "https://example.com/sale" }
+    },
+    {
+      "id": "reviews", "type": "reviews", "bg": "surface", "edge": "wave",
+      "title": "12,000+ afternoons saved",
+      "reviews": [
+        { "quote": "I stopped needing an afternoon nap by week two. Tastes way better than I expected.", "name": "Jess M." },
+        { "quote": "Replaced my 3pm latte. My stomach is calmer and I sleep better.", "name": "Daniel R." }
+      ],
+      "cta": { "label": "Try it at 25% off", "url": "https://example.com/sale" }
+    },
+    {
+      "id": "products", "type": "product-grid", "bg": "background", "edge": "fade",
+      "title": "Pick your starter",
+      "products": [
+        { "name": "Daily Greens", "blurb": "The original. 30 servings.", "price": "$44 → $33", "image": { "src": null, "description": "Product: Daily Greens pouch on cream" }, "cta": { "label": "Shop greens", "url": "https://example.com/greens" } },
+        { "name": "Greens + Berry", "blurb": "Same formula, berry flavor.", "price": "$44 → $33", "image": { "src": null, "description": "Product: Berry pouch on cream" }, "cta": { "label": "Shop berry", "url": "https://example.com/berry" } }
+      ]
+    },
+    {
+      "id": "recap", "type": "offer-recap", "bg": "surface", "edge": "wave",
+      "headline": "25% off ends Sunday",
+      "code": "GREEN25",
+      "deadline": "Ends Sunday, Oct 26 at midnight",
+      "cta": { "label": "Use my 25% off", "url": "https://example.com/sale" }
+    },
+    { "id": "footer", "type": "footer", "bg": "primary", "edge": "straight" }
+  ]
+}

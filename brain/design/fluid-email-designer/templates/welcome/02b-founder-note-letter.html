@@ -1,0 +1,36 @@
+<!-- WELCOME 2b: Founder note as a BRANDED LETTER (strategy doc says "Design: Yes").
+     Brand background and type, opens with the first-name merge tag, closes with a founder photo signature.
+     Paste the letter exactly as written, one <p> per paragraph. -->
+<div class="email" data-plain="true">
+  <div class="letter letter--branded">
+    <img class="letter-logo" src="{{LOGO}}" alt="" style="height:70px">
+    <p>{{ first_name }},</p>
+    <p>{{PARAGRAPH_1}}</p>
+    <p>{{PARAGRAPH_2}}</p>
+    <p>{{PARAGRAPH_3}}</p>
+    <p>{{REPLY_QUESTION}}</p>
+    <p>{{OFFER_LINE}}</p>
+    <p>{{SIGN_OFF}}</p>
+    <div class="signature">
+      <img class="sig-photo" src="{{FOUNDER_PHOTO}}" alt="">
+      <div>
+        <div class="sig-name">{{FOUNDER_NAME}}</div>
+        <div class="sig-title">{{FOUNDER_TITLE}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="tx tx--squiggle" style="--to:var(--bg)"></div>
+  <div class="usp" style="--sec-bg:var(--bg);--sec-ink:var(--ink)">
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_1_ICON}}" alt=""></div><div class="usp-label">{{USP_1}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_2_ICON}}" alt=""></div><div class="usp-label">{{USP_2}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_3_ICON}}" alt=""></div><div class="usp-label">{{USP_3}}</div></div>
+    <div class="usp-item"><div class="usp-icon"><img src="{{USP_4_ICON}}" alt=""></div><div class="usp-label">{{USP_4}}</div></div>
+  </div>
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

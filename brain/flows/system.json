@@ -1,0 +1,72 @@
+{
+  "version": 2,
+  "source": "Fluid flow system v2, distilled from 31 client strategies (fluid-flow-strategist skill)",
+  "coreFlows": [
+    "popup",
+    "welcome",
+    "site-abandonment",
+    "browse-abandonment",
+    "abandoned-cart",
+    "post-purchase",
+    "winback"
+  ],
+  "optionalFlows": [
+    "replenishment",
+    "sunset"
+  ],
+  "versions": {
+    "replenishable": "Used up and rebought (supplements, peptides, skin/hair care, cosmetics, CPG). Post-purchase teaches use; upsell = reorder / next step in the routine; winback when supply runs out.",
+    "one_off": "Lasts (apparel, jewelry, home, gear, digital). Post-purchase makes them glad they bought; upsell = complementary core product; winback = longer style-refresh / upgrade window."
+  },
+  "offerLadder": [
+    {
+      "where": "Pop-up, Welcome #1–#4, SMS #1",
+      "default": "W (5–20%, most often 10%; $ off or no discount for high-ticket / expert-led one-off brands)"
+    },
+    {
+      "where": "Welcome #5 + SMS #2",
+      "default": "W + 5 points for 24 hours (dollar offers double)"
+    },
+    {
+      "where": "Site Abandonment",
+      "default": "None (welcome code mentioned if still valid)"
+    },
+    {
+      "where": "Browse #2–#3",
+      "default": "About W; smaller on high-ticket"
+    },
+    {
+      "where": "Abandoned Cart #3–#4",
+      "default": "Mystery: teaser above the real value. 'Up to 30%' → real 15% (20% when W ≥ 15%)"
+    },
+    {
+      "where": "Post-Purchase #2 and #4",
+      "default": "Second-purchase code 10–20% (one-off up to 25%)"
+    },
+    {
+      "where": "Winback #1–#2",
+      "default": "The ceiling: 15–25% (or $50)"
+    },
+    {
+      "where": "Replenishment #2 (optional)",
+      "default": "~15%, 72-hour expiry; none in #1"
+    }
+  ],
+  "offerRules": [
+    "Every amount is proposed for client approval",
+    "Subscription, membership and rewards lead where the client has them; codes become the fallback",
+    "High-ticket brands discount less, or in dollars; state exclusions (MAP, custom quotes)",
+    "Ongoing offers sit beside codes, never stacked: 'codes can't be combined'",
+    "Gift framing over discount framing for emotional / occasion purchases"
+  ],
+  "flowRules": [
+    "A purchase exits Welcome, Site Abandonment, Browse Abandonment and Abandoned Cart",
+    "One retargeting flow at a time, by intent: Cart beats Browse, Browse beats Site Abandonment",
+    "Flow filter on Welcome and the abandonment flows: placed order 0 times since starting the flow. Smart Sending off",
+    "Re-entry off for Welcome; on for the abandonment flows",
+    "Non-converters from the discount flows are suppressed from further flow discounts for a period (LEVL: 60 days)",
+    "SMS only to contacts with SMS consent",
+    "Category rules from the industries files (peptide compliance review before every send, age gating, claims rules)",
+    "One-off: offer exclusions stated on every email that carries a code"
+  ]
+}

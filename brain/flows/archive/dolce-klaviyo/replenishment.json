@@ -1,0 +1,120 @@
+{
+  "key": "replenishment",
+  "name": "Replenishment",
+  "version": 1,
+  "status": "draft",
+  "purpose": "Remind customers to reorder around when they'd run out.",
+  "source": {
+    "kind": "klaviyo-import",
+    "note": "Optional flow. Built from the Fluid flow in the reference Klaviyo account (2026-10-20), with Fluid-approved fixes noted in notes."
+  },
+  "trigger": {
+    "type": "metric",
+    "source": "Placed Order",
+    "filters": []
+  },
+  "profileFilter": [
+    {
+      "description": "Placed Order zero times since starting this flow",
+      "klaviyo": {
+        "type": "profile-metric",
+        "metric_id": "{{metric:Placed Order}}",
+        "measurement": "count",
+        "measurement_filter": {
+          "type": "numeric",
+          "operator": "equals",
+          "value": 0
+        },
+        "timeframe_filter": {
+          "type": "date",
+          "operator": "flow-start"
+        },
+        "metric_filters": null
+      }
+    }
+  ],
+  "reentry": {
+    "value": 1,
+    "unit": "days"
+  },
+  "entry": "delay-3",
+  "actions": [
+    {
+      "id": "delay-3",
+      "type": "time-delay",
+      "delay": {
+        "value": 25,
+        "unit": "days"
+      },
+      "next": "replenish-1"
+    },
+    {
+      "id": "replenish-1",
+      "type": "send-email",
+      "job": "Did you run out? Reorder reminder",
+      "template": "replenishment/01-reminder",
+      "subject": [
+        "Did your pantry run dry?"
+      ],
+      "smartSending": false,
+      "next": "delay-2"
+    },
+    {
+      "id": "delay-2",
+      "type": "time-delay",
+      "delay": {
+        "value": 5,
+        "unit": "days"
+      },
+      "next": "replenish-2"
+    },
+    {
+      "id": "replenish-2",
+      "type": "send-email",
+      "job": "Running low: keep the routine on track",
+      "template": "replenishment/02-running-low",
+      "subject": [
+        "Running low? Keep your {{copy.winback_ritual}} on track"
+      ],
+      "smartSending": false,
+      "next": "delay-1"
+    },
+    {
+      "id": "delay-1",
+      "type": "time-delay",
+      "delay": {
+        "value": 10,
+        "unit": "days"
+      },
+      "next": "replenish-3"
+    },
+    {
+      "id": "replenish-3",
+      "type": "send-email",
+      "job": "Stash is running low, let's fix that",
+      "template": "replenishment/03-last-reminder",
+      "subject": [
+        "Your stash is running low…let’s fix that"
+      ],
+      "smartSending": false,
+      "next": null
+    }
+  ],
+  "variables": [
+    {
+      "key": "replenishment.first_reminder_days",
+      "description": "Days after the order for the first reminder (about when a typical order runs out)",
+      "example": "25"
+    },
+    {
+      "key": "copy.winback_ritual",
+      "description": "What the customer's routine with the product is called",
+      "example": "superfood ritual"
+    }
+  ],
+  "benchmarks": {
+    "reference revenue per recipient": "$3.35",
+    "reference order rate": "1.1%"
+  },
+  "notes": "First wait is {{replenishment.first_reminder_days}} days (default 25). Re-entry is daily so each new order restarts the timer; the earlier entry exits on the new order."
+}

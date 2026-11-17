@@ -1,0 +1,75 @@
+<!-- WELCOME 4: Best sellers / where to start. Make the first choice easy, then handle objections.
+     Guidance cards may carry a line of text (they are not product blocks). Featured products: name + button only. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD -->
+  <section class="hero hero--stacked hero--scrim hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_OFFER}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-product" src="{{LINEUP_IMAGE}}" alt="">
+  </section>
+
+  <!-- HOW TO CHOOSE -->
+  <section class="section">
+    <h2 class="section-title">{{CHOOSE_TITLE}}</h2>
+    <div class="guide">
+      <div class="guide-card"><img class="guide-img" src="{{OPTION_1_IMAGE}}" alt="">
+        <div class="guide-title">{{OPTION_1_TITLE}}</div><p class="guide-text">{{OPTION_1_TEXT}}</p></div>
+      <div class="guide-card"><img class="guide-img" src="{{OPTION_2_IMAGE}}" alt="">
+        <div class="guide-title">{{OPTION_2_TITLE}}</div><p class="guide-text">{{OPTION_2_TEXT}}</p></div>
+    </div>
+  </section>
+
+  <div class="tx tx--squiggle" style="--to:var(--bg)"></div>
+
+  <!-- FEATURED BEST SELLERS: product name repeated big behind each product -->
+  <section class="section">
+    <h2 class="section-title">{{BEST_SELLERS_TITLE}}</h2>
+    <div class="pfeat">
+      <div class="pfeat-type" aria-hidden="true"><span>{{PRODUCT_1_NAME}}</span><span>{{PRODUCT_1_NAME}}</span><span>{{PRODUCT_1_NAME}}</span><span>{{PRODUCT_1_NAME}}</span><span>{{PRODUCT_1_NAME}}</span></div>
+      <img class="pfeat-img" src="{{PRODUCT_1_CUTOUT}}" alt="">
+      <h3 class="pname">{{PRODUCT_1_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_1_BUTTON}}</a>
+    </div>
+    <div class="pfeat">
+      <div class="pfeat-type" aria-hidden="true"><span>{{PRODUCT_2_NAME}}</span><span>{{PRODUCT_2_NAME}}</span><span>{{PRODUCT_2_NAME}}</span><span>{{PRODUCT_2_NAME}}</span><span>{{PRODUCT_2_NAME}}</span></div>
+      <img class="pfeat-img" src="{{PRODUCT_2_CUTOUT}}" alt="">
+      <h3 class="pname">{{PRODUCT_2_NAME}}</h3><a class="btn btn--sm" href="#">{{PRODUCT_2_BUTTON}}</a>
+    </div>
+  </section>
+
+  <!-- OBJECTION HANDLING over a behind-the-scenes or texture photo -->
+  <section class="section section--image fade-top" style="--sec-img:url('{{OBJECTION_BG_IMAGE}}');--sec-scrim:.6;--from:var(--bg)">
+    <h2 class="section-title">{{OBJECTION_TITLE}}</h2>
+    <div class="prose center">
+      <p>{{OBJECTION_PARAGRAPH_1}}</p>
+      <p>{{OBJECTION_PARAGRAPH_2}}</p>
+    </div>
+    <div style="height:30px"></div>
+    <!-- OPTIONAL: Klaviyo recommendations. Delete this block if the strategy doesn't call for it. -->
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC PRODUCT BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+  </section>
+
+  <!-- CLOSING OFFER BANNER (overlaps the section above with rounded corners) -->
+  <section class="banner fade-bottom" style="--to:var(--footer-bg);--banner-img:url('{{BANNER_IMAGE}}')">
+    <h2 class="banner-title">{{BANNER_HEADLINE}}</h2>
+    <p>{{BANNER_LINE}}</p>
+    <a class="btn" href="#">{{BANNER_BUTTON}}</a>
+  </section>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="tagline">{{TAGLINE}}</div>
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

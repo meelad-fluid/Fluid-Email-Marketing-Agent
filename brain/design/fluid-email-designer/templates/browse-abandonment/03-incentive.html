@@ -1,0 +1,78 @@
+<!-- BROWSE ABANDONMENT 3: Incentive + expiry. The offer is the headline; their product right after;
+     alternatives in the same category; the deadline. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: offer headline, subheadline with code + deadline, button, code pill. -->
+  <section class="hero hero--stacked hero--scrim hero--fade" style="--hero-img:url('{{HERO_BG_IMAGE}}');--to:var(--bg)">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE_WITH_OFFER}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_DEADLINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <div style="height:56px"></div>
+  </section>
+
+  <!-- THEIR ITEM, then one review line -->
+  <section class="section" style="padding-top:12px">
+    <h2 class="section-title" style="--st-size:30px">{{ITEM_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC PRODUCT BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+    <div class="center"><a class="btn" href="#">{{ITEM_BUTTON}}</a></div>
+    <div class="center" style="margin-top:30px">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-quote">{{REVIEW_QUOTE}}</p>
+      <div class="review-name">{{REVIEW_NAME}}</div>
+    </div>
+  </section>
+
+  <div class="tx tx--squiggle" style="--to:var(--bg)"></div>
+
+  <!-- YOU MIGHT ALSO LIKE: same-category recommendations (built in Klaviyo) -->
+  <section class="section" style="padding-top:20px">
+    <h2 class="section-title">{{ALSO_LIKE_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC RECOMMENDATIONS</div>
+      <p class="dyn-n">{{ALSO_LIKE_NOTE}}</p>
+    </div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--bg-alt)"></div>
+
+  <!-- OBJECTION CHECKLIST over a photo: 3 ticks -->
+  <section class="section section--image fade-top fade-bottom" style="--sec-img:url('{{CHECKLIST_IMAGE}}');--sec-scrim:.62;--from:var(--bg-alt);--to:var(--bg-alt)">
+    <h2 class="section-title">{{CHECKLIST_TITLE}}</h2>
+    <ul class="ticks">
+      <li><b>{{CHECK_1_TITLE}}</b> {{CHECK_1_TEXT}}</li>
+      <li><b>{{CHECK_2_TITLE}}</b> {{CHECK_2_TEXT}}</li>
+      <li><b>{{CHECK_3_TITLE}}</b> {{CHECK_3_TEXT}}</li>
+    </ul>
+  </section>
+
+  <!-- EXPIRY BANNER: restate the code and deadline -->
+  <section class="banner" style="--banner-img:url('{{EXPIRY_IMAGE}}');--banner-scrim:.5">
+    <div class="banner-title">{{EXPIRY_TITLE}}</div>
+    <p>{{EXPIRY_LINE}}</p>
+    <a class="btn" href="#">{{EXPIRY_BUTTON}}</a>
+  </section>
+
+  <!-- HELP -->
+  <section class="section" style="padding-top:40px">
+    <div class="prose center"><p>{{HELP_LINE}}</p></div>
+    <div class="center"><a class="btn btn--ghost" href="#">{{HELP_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>

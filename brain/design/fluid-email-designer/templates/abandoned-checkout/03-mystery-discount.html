@@ -1,0 +1,53 @@
+<!-- ABANDONED CHECKOUT / CART 3: Mystery discount (or the flow's offer). The offer is the headline;
+     code pill above the fold; their items; how it works; the deadline. Exclusions go in a small line
+     under the subheadline so the design never implies the code covers them. -->
+<div class="email">
+
+  <!-- ABOVE THE FOLD: offer headline, subheadline with the offer + deadline, exclusion line, button, code pill. -->
+  <section class="hero hero--stacked hero--scrim hero--rounded" style="--hero-img:url('{{HERO_BG_IMAGE}}')">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <img class="logo" src="{{LOGO}}" alt="">
+      <h1 class="headline">{{HEADLINE_WITH_OFFER}}</h1>
+      <p class="subheadline">{{SUBHEADLINE_WITH_OFFER}}</p>
+      <p class="subheadline" style="font-size:14px;font-style:italic;margin-top:8px">{{EXCLUSION_LINE}}</p>
+      <a class="btn" href="#">{{BUTTON}}</a>
+      <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+    </div>
+    <img class="hero-photo" src="{{HERO_IMAGE}}" alt="" style="--photo-h:340px">
+  </section>
+
+  <!-- THEIR ITEMS + HOW IT WORKS -->
+  <section class="section section--blur fade-bottom" style="--sec-img:url('{{SECTION_BG_IMAGE}}');--sec-scrim:.7;--to:var(--bg)">
+    <h2 class="section-title">{{CART_TITLE}}</h2>
+    <div class="dyn">
+      <div class="dyn-k">KLAVIYO</div>
+      <div class="dyn-t">DYNAMIC CART BLOCK</div>
+      <p class="dyn-n">{{DYNAMIC_NOTE}}</p>
+    </div>
+    <h2 class="section-title" style="margin-top:46px">{{HOW_TITLE}}</h2>
+    <div class="prose center"><p>{{HOW_TEXT}}</p></div>
+  </section>
+
+  <!-- DEADLINE BANNER with the code again -->
+  <section class="banner" style="--banner-img:url('{{DEADLINE_IMAGE}}');--banner-scrim:.5">
+    <div class="banner-title">{{DEADLINE_TITLE}}</div>
+    <p>{{DEADLINE_LINE}}</p>
+    <a class="btn" href="#">{{DEADLINE_BUTTON}}</a>
+    <div class="code">{{CODE_LABEL}} <b>{{CODE}}</b></div>
+  </section>
+
+  <!-- HELP -->
+  <section class="section" style="padding-top:40px">
+    <div class="prose center"><p>{{HELP_LINE}}</p></div>
+    <div class="center"><a class="btn btn--ghost" href="#">{{HELP_BUTTON}}</a></div>
+  </section>
+
+  <div class="tx tx--wave" style="--from:var(--bg);--to:var(--footer-bg)"></div>
+
+  <footer class="footer">
+    <img class="footer-logo" src="{{LOGO_FOOTER}}" alt="">
+    <div class="social"><span>IG</span><span>FB</span><span>TT</span><span>YT</span></div>
+    <div class="legal"><a href="#">Manage preferences</a> | <a href="#">Unsubscribe</a><br>{{LEGAL_LINE}}</div>
+  </footer>
+</div>
