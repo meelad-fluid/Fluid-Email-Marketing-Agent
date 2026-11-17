@@ -39,17 +39,26 @@ export async function startNewClient(web: WebClient, o: { name: string; website:
   const name = o.name.trim();
   const website = /^https?:\/\//.test(o.website.trim()) ? o.website.trim() : `https://${o.website.trim()}`;
   new URL(website); // throws on a bad URL
-  let slug = slugify(name);
+  // Reuse an existing folder for this brand (matched by website domain), else make one from the name.
+  const domain = new URL(website).hostname.replace(/^www\./, "").toLowerCase();
+  const existingFolder = readdirSync(CLIENTS_DIR, { withFileTypes: true }).filter((d) => d.isDirectory() && !d.name.startsWith("_"))
+    .find((d) => ["README.md", "memory.md", "brand/brand-kit.md"].some((f) => existsSync(join(CLIENTS_DIR, d.name, f)) && readFileSync(join(CLIENTS_DIR, d.name, f), "utf8").toLowerCase().includes(domain)))?.name;
+  const slug = existingFolder ?? slugify(name);
   if (!slug) throw new Error("That brand name doesn't make a usable folder name.");
-  // An existing folder (set up by hand earlier) is kept as it is and connected; only a client already in the database clashes.
-  const { data: clash } = await db().from("clients").select("id, folder").or(`folder.eq.${slug},slug.eq.${slug}`).maybeSingle();
-  if (clash) throw new Error(`A client with the folder "${slug}" already exists.`);
 
-  const { data: client, error } = await db().from("clients").insert({ name, slug, folder: slug, website_url: website, status: "onboarding" }).select("id").single();
-  if (error) throw error;
+  // A client already in the database is resumed if an earlier attempt stopped before its channel was made.
+  let { data: client } = await db().from("clients").select("id, folder").or(`folder.eq.${slug},slug.eq.${slug}`).maybeSingle();
+  if (client) {
+    const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", client.id).limit(1).maybeSingle();
+    if (ch) throw new Error(`${name} is already set up in <#${ch.channel_id}>.`);
+  } else {
+    const ins = await db().from("clients").insert({ name, slug, folder: slug, website_url: website, status: "onboarding" }).select("id, folder").single();
+    if (ins.error) throw ins.error;
+    client = ins.data;
+  }
   makeFolder(slug, name);
-  writeFileSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"), `# Onboarding\nWebsite: ${website}\nStarted from Slack by <@${o.requestedBy}> on ${new Date().toISOString().slice(0, 10)}.\n`);
-  await saveClientFolder(slug, `${slug}: new client ${name} (via Slack)`);
+  if (!existsSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"))) writeFileSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"), `# Onboarding\nWebsite: ${website}\nStarted from Slack by <@${o.requestedBy}> on ${new Date().toISOString().slice(0, 10)}.\n`);
+  await saveClientFolder(slug, `${slug}: ${existingFolder ? "connected existing client" : "new client"} ${name} (via Slack)`);
 
   // Private channel, Fluid team only, locked to this client.
   let channelId: string;
