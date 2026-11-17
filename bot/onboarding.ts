@@ -85,6 +85,19 @@ export async function startNewClient(web: WebClient, o: { name: string; website:
   return { slug, channelId, url, clientId: client.id };
 }
 
+/** True when the client's form is already in the folder (filled outside the app), so the link only needs the Klaviyo key. */
+export function hasExistingForm(folder: string) {
+  const onb = join(CLIENTS_DIR, folder, "onboarding");
+  return existsSync(onb) && readdirSync(onb).some((f) => /form/i.test(f) && !/^form-answers\.md$/.test(f));
+}
+
+/** A fresh one-use link for this client (e.g. to connect Klaviyo after someone pasted a key in Slack). */
+export async function newConnectLink(clientId: string) {
+  const token = randomBytes(24).toString("base64url");
+  await db().from("onboarding_links").insert({ client_id: clientId, token_hash: hashToken(token) });
+  return `${publicUrl()}/onboard/${token}`;
+}
+
 /** Questions shown on the client form (files are replaced by a shared-folder link; Shopify is connected later). */
 export const formSections = () => SECTIONS.map((s) => ({ ...s, questions: s.questions.filter((q) => q.type !== "files" && !(q.type === "connection" && q.provider === "shopify")) })).filter((s) => s.questions.length);
 
@@ -99,7 +112,8 @@ export async function formLink(token: string) {
 export async function saveForm(token: string, answers: Record<string, unknown>, klaviyoKey?: string) {
   const l = await formLink(token);
   if (!l) throw new Error("This onboarding link has expired or was already used.");
-  const allowed = new Map(formSections().flatMap((s) => s.questions).map((q) => [q.id, q]));
+  const allowed = new Map<string, unknown>(formSections().flatMap((s) => s.questions).map((q) => [q.id, q]));
+  allowed.set("notes", { id: "notes" });
   const rows = Object.entries(answers).filter(([k, v]) => allowed.has(k) && v != null && String(v).trim() !== "").map(([k, v]) => ({ client_id: l.client_id, question_id: k, answer: typeof v === "string" ? v.slice(0, 8000) : v }));
   if (rows.length) await db().from("profile_answers").upsert(rows);
   let klaviyo = "not provided";
@@ -118,7 +132,9 @@ export async function saveForm(token: string, answers: Record<string, unknown>, 
     md.push(`## ${s.title}`);
     for (const q of s.questions) if (q.type !== "connection") md.push(`**${q.label}**\n${String((answers as any)[q.id] ?? "").trim() || "_(blank)_"}\n`);
   }
-  writeFileSync(join(CLIENTS_DIR, l.clients.folder, "onboarding", "form-answers.md"), md.join("\n"));
+  if (String((answers as any).notes ?? "").trim()) md.push(`## Notes from the client\n${String((answers as any).notes).trim()}\n`);
+  const keyOnly = hasExistingForm(l.clients.folder);
+  writeFileSync(join(CLIENTS_DIR, l.clients.folder, "onboarding", keyOnly ? "klaviyo-connected.md" : "form-answers.md"), keyOnly ? md.filter((x, i) => i < 2 || x.startsWith("## Notes") || md[i - 1]?.startsWith("## Notes")).join("\n") : md.join("\n"));
   await db().from("onboarding_links").update({ revoked_at: new Date().toISOString() }).eq("id", l.id); // one submission per link
   return { clientId: l.client_id, folder: l.clients.folder, name: l.clients.name, klaviyo };
 }

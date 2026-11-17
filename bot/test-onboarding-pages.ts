@@ -6,11 +6,11 @@ import { readFileSync } from "node:fs";
 import { formPage, docPage } from "./web";
 (async () => {
   const out = process.argv[2] ?? "/tmp";
-  writeFileSync(`${out}/form.html`, formPage("Test Brand"));
+  writeFileSync(`${out}/form.html`, formPage("Test Brand")); writeFileSync(`${out}/key.html`, formPage("Arq 8 Creatine", true));
   writeFileSync(`${out}/doc.html`, docPage("Onboarding Doc", "Dolce Superfoods", marked.parse(readFileSync("clients/dolce/research/onboarding-doc.md", "utf8")) as string));
   const b = await chromium.launch();
-  for (const f of ["form", "doc"]) {
-    const p = await (await b.newContext(devices["iPhone 14"])).newPage();
+  for (const f of ["form", "key", "doc"]) {
+    const p = await (await b.newContext(f === "key" ? { viewport: { width: 1440, height: 900 } } : devices["iPhone 14"])).newPage();
     await p.goto(`file://${out}/${f}.html`);
     const o = await p.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
     console.log(f, o[0] > o[1] ? "✗ sideways scroll" : "✓ fits the phone", o);

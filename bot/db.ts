@@ -55,6 +55,8 @@ export async function isBotThread(channelId: string, threadTs: string) {
 }
 
 export async function audit(row: { team_id?: string; channel_id?: string; thread_ts?: string; user_id?: string; client_id?: string | null; request?: string; outcome: string; reason?: string; cost_usd?: number }) {
-  const { error } = await db().from("slack_audit").insert({ ...row, request: row.request?.slice(0, 4000) });
+  // Never store credentials, even when someone pastes one into Slack.
+  const request = row.request?.replace(/pk_[A-Za-z0-9_]{12,}|sk-ant-[A-Za-z0-9_-]{8,}|shp(at|ss)_[A-Za-z0-9_]{8,}|github_pat_[A-Za-z0-9_]{8,}|xox[bpa]-[A-Za-z0-9-]{8,}/g, "[key removed]").slice(0, 4000);
+  const { error } = await db().from("slack_audit").insert({ ...row, request });
   if (error) console.error("audit failed:", error.message);
 }

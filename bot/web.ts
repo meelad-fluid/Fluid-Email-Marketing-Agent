@@ -14,7 +14,7 @@ import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
 import { reviewLink, type Review } from "./review";
-import { formLink, formSections, saveForm } from "./onboarding";
+import { formLink, formSections, hasExistingForm, saveForm } from "./onboarding";
 import { marked } from "marked";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
@@ -52,7 +52,7 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
       if (ob) {
         const l = await formLink(ob[1]);
         if (!l) return send(res, 404, "This onboarding link has expired or was already used. Ask your Fluid contact for a new one.");
-        if (req.method === "GET" && !ob[2]) return send(res, 200, formPage(l.clients.name), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        if (req.method === "GET" && !ob[2]) return send(res, 200, formPage(l.clients.name, hasExistingForm(l.clients.folder)), "text/html; charset=utf-8", { "cache-control": "no-store" });
         if (req.method === "POST" && ob[2]) {
           if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
           let raw = ""; for await (const c of req) { raw += c; if (raw.length > 200_000) return json(res, 413, { error: "Too long" }); }
@@ -209,7 +209,7 @@ setInterval(()=>load(true).catch(()=>{}),30000);
 </script></body></html>`;
 
 const esc = (s: string) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
-const BASE_CSS = `:root{--ink:#1d1d1d;--muted:#666;--line:#e4e0d8;--accent:#E03400}*{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:0;background:#f6f4ef;color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}.wrap{max-width:760px;margin:0 auto;padding:28px 16px 64px}h1{font-size:28px;line-height:1.2;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 28px}`;
+const BASE_CSS = `:root{--ink:#1d1d1d;--muted:#666;--line:#e4e0d8;--accent:#E03400}*{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:0;background:#f6f4ef;color:var(--ink);font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}.wrap{max-width:980px;margin:0 auto;padding:40px 20px 80px}h1{font-size:36px;line-height:1.15;margin:0 0 10px}.sub{color:var(--muted);margin:0 0 32px;font-size:19px}`;
 
 export function docPage(title: string, client: string, html: string) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${esc(title)}</title>
@@ -217,7 +217,7 @@ export function docPage(title: string, client: string, html: string) {
 <body><div class="wrap"><p class="sub">${esc(client)} · prepared by Fluid Creatives</p><div class="doc">${html}</div></div></body></html>`;
 }
 
-export function formPage(client: string) {
+export function formPage(client: string, keyOnly = false) {
   const field = (q: any) => {
     const req = q.required ? " required" : "";
     const label = `<label for="${q.id}">${esc(q.label)}${q.required ? ' <span class="req">*</span>' : ""}</label>${q.help ? `<div class="help">${esc(q.help)}</div>` : ""}`;
@@ -227,11 +227,14 @@ export function formPage(client: string) {
     const type = q.type === "url" ? "url" : q.type === "email" ? "email" : q.type === "number" || q.type === "percent" ? "number" : "text";
     return `<div class="q">${label}<input id="${q.id}" name="${q.id}" type="${type}"${req} placeholder="${esc(q.placeholder ?? "")}"></div>`;
   };
-  const sections = formSections().map((s) => `<section><h2>${esc(s.title)}</h2>${s.intro ? `<p class="help">${esc(s.intro)}</p>` : ""}${s.questions.map(field).join("")}</section>`).join("");
+  const keyQ = formSections().flatMap((x) => x.questions).find((q) => q.type === "connection");
+  const sections = keyOnly
+    ? `<section><h2>Connect Klaviyo</h2><p class="help">We already have your onboarding answers, so this is all we need: a Klaviyo key, so we can review your flows, campaigns and results.</p>${keyQ ? field(keyQ) : ""}<div class="q"><label for="notes">Anything new since your onboarding form? (optional)</label><textarea id="notes" name="notes" rows="3" placeholder="New products, offers, dates…"></textarea></div></section>`
+    : formSections().map((s) => `<section><h2>${esc(s.title)}</h2>${s.intro ? `<p class="help">${esc(s.intro)}</p>` : ""}${s.questions.map(field).join("")}</section>`).join("");
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${esc(client)} onboarding</title>
-<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}h2{font-size:18px;margin:0 0 4px}.q{margin-top:16px}label{display:block;font-weight:600;font-size:15px}.req{color:var(--accent)}.help{color:var(--muted);font-size:13.5px;margin:2px 0 6px}input,textarea,select{width:100%;font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;min-height:44px}button{font:inherit;font-weight:600;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:14px 22px;min-height:48px;cursor:pointer;width:100%}#msg{margin-top:12px;font-weight:600}</style></head>
-<body><div class="wrap"><h1>${esc(client)} × Fluid Creatives</h1><p class="sub">Tell us about your brand. It takes about 15 minutes, and it's what everything we write and design for you is built on.</p>
-<form id="f">${sections}<button type="submit" id="go">Send to Fluid</button><div id="msg"></div></form></div>
+<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:20px}h2{font-size:24px;margin:0 0 6px}.q{margin-top:24px}label{display:block;font-weight:650;font-size:18px}.req{color:var(--accent)}.help{color:var(--muted);font-size:16px;margin:4px 0 8px}input,textarea,select{width:100%;font:inherit;font-size:18px;border:1px solid #d9d4ca;border-radius:10px;padding:14px 16px;background:#fff;min-height:54px}textarea{min-height:120px}button{font:inherit;font-weight:650;font-size:19px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:18px 24px;min-height:60px;cursor:pointer;width:100%}#msg{margin-top:14px;font-weight:600}@media(max-width:600px){section{padding:22px 18px}h1{font-size:28px}}</style></head>
+<body><div class="wrap"><h1>${esc(client)} × Fluid Creatives</h1><p class="sub">${keyOnly ? "One last step to finish your onboarding." : "Tell us about your brand. It takes about 15 minutes, and it's what everything we write and design for you is built on."}</p>
+<form id="f">${sections}<button type="submit" id="go">${keyOnly ? "Connect Klaviyo" : "Send to Fluid"}</button><div id="msg"></div></form></div>
 <script>
 const f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go");
 f.onsubmit=async(e)=>{e.preventDefault();go.disabled=true;msg.textContent="Sending…";const a={};for(const el of f.elements){if(!el.name||el.name==="klaviyo_key")continue;a[el.name]=el.value}

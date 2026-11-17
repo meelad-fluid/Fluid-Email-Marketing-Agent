@@ -13,7 +13,7 @@ import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb } from "./web";
-import { ONBOARDING_PROMPT, runAudits, startNewClient } from "./onboarding";
+import { newConnectLink, ONBOARDING_PROMPT, runAudits, startNewClient } from "./onboarding";
 import { foreignNames, scanText } from "../lib/leaks";
 
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
@@ -58,6 +58,14 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
     return;
   }
   if (!request) { await ephemeral(`Tell me what you need for ${client.name}, like "write the copy for the Nov 20 cacao guide".`); return; }
+
+  // Keys pasted into Slack: never used. Point to a private link instead.
+  if (/\bpk_[A-Za-z0-9_]{12,}|\bsk-ant-[A-Za-z0-9_-]{10,}|\bshp(at|ss)_[A-Za-z0-9]{10,}|\bxox[bpa]-|\bgithub_pat_/.test(request)) {
+    await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request: "[message with an API key, not stored]", outcome: "refused_request", reason: "API key pasted in Slack" });
+    const link = await newConnectLink(client.id).catch(() => null);
+    await ephemeral(`Only you can see this: please don't paste API keys in Slack (they stay in the channel history). I didn't use it. ${link ? `Paste it here instead, it's stored encrypted: ${link}` : "Use the client's onboarding link instead."} Then say "run the onboarding". Since this key was posted, it's safest to delete that message and create a new key in Klaviyo.`);
+    return;
+  }
 
   // 3. What
   const names = await foreignNames(CLIENTS_DIR, client.folder, db());
