@@ -29,3 +29,21 @@ export const saveClientFolder = (folder: string, message: string) => serial(asyn
     console.error("[git] push failed after 3 tries; changes are committed locally and go out with the next push");
   } catch (e: any) { console.error("[git] save failed:", e.stderr || e.message); }
 });
+
+// Self-update: Railway may skip a deploy when a newer commit only touched client folders. Every few minutes
+// (and after each pull) check whether code changed since this process started; if so and nothing is running,
+// exit so Railway restarts the container, which clones the latest code (bot/start.sh).
+const CODE = ["bot", "lib", "scripts", "brain", "knowledge", "package.json", "package-lock.json"];
+let startHead: string | null = null;
+export async function watchForCodeUpdates(isIdle: () => boolean) {
+  if (!enabled()) return;
+  startHead = (await git("rev-parse", "HEAD")).stdout.trim();
+  const check = () => serial(async () => {
+    try {
+      await git("pull", "--rebase", "--autostash", "--quiet");
+      const { stdout } = await git("diff", "--name-only", startHead!, "HEAD", "--", ...CODE);
+      if (stdout.trim() && isIdle()) { console.log("[update] new code on GitHub, restarting to load it"); process.exit(0); }
+    } catch (e: any) { console.error("[update] check failed:", e.stderr || e.message); }
+  });
+  setInterval(check, 3 * 60_000);
+}

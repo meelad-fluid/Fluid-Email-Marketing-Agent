@@ -11,7 +11,7 @@ import { CLIENTS_DIR, config } from "./config";
 import { audit, clientForChannel, db, isBotThread, linkChannel, saveThread, threadSession, unlinkChannel, type LinkedClient } from "./db";
 import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
-import { pullLatest, saveClientFolder } from "./git";
+import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb } from "./web";
 import { foreignNames, scanText } from "../lib/leaks";
 
@@ -208,4 +208,5 @@ async function syncStale() {
   startWeb(async (channel, thread, text) => { await app.client.chat.postMessage({ channel, thread_ts: thread ?? undefined, text }); });
   syncStale();
   setInterval(syncStale, 3 * 3600_000);
+  watchForCodeUpdates(() => busy.size === 0);
 })();
