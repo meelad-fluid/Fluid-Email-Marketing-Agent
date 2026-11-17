@@ -19,6 +19,42 @@ import { foreignNames, scanText } from "../lib/leaks";
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
 let TEAM_ID = "", BOT_USER_ID = "";
 const busy = new Set<string>();
+const onboardingActive = new Set<string>();
+
+// Rough time each kind of job takes, from the words in the request.
+function estimateMinutes(text: string) {
+  const t = text.toLowerCase();
+  if (/onboard/.test(t)) return 20;
+  if (/design|redesign|rebuild|mock ?up|layout/.test(t)) return 10;
+  if (/strategy|plan|calendar|flows?\b/.test(t)) return 7;
+  if (/klaviyo|push|draft|segment/.test(t)) return 4;
+  if (/copy|write|rewrite|subject/.test(t)) return 4;
+  if (/recap|report|numbers|how did/.test(t)) return 2;
+  return 5;
+}
+
+/** After 2 minutes, post one "still working" note in the thread and keep it updated with the step and time left. */
+function progressNotes(web: typeof app.client, channel: string, thread: string, estimate: number) {
+  const started = Date.now();
+  let msgTs: string | undefined, step = "";
+  const text = () => {
+    const mins = Math.round((Date.now() - started) / 60000);
+    const left = Math.max(1, Math.round(estimate - mins));
+    return `Still working on it (${mins} min so far${step ? `, ${step.charAt(0).toLowerCase() + step.slice(1)}` : ""}). About ${left} more minute${left === 1 ? "" : "s"}.`;
+  };
+  const tick = async () => {
+    try {
+      if (!msgTs) msgTs = (await web.chat.postMessage({ channel, thread_ts: thread, text: text() })).ts;
+      else await web.chat.update({ channel, ts: msgTs, text: text() });
+    } catch {}
+  };
+  const first = setTimeout(() => { tick(); timer = setInterval(tick, 3 * 60_000); }, 2 * 60_000);
+  let timer: NodeJS.Timeout | undefined;
+  return {
+    step: (label: string) => { step = label; },
+    done: async () => { clearTimeout(first); if (timer) clearInterval(timer); if (msgTs) await web.chat.delete({ channel, ts: msgTs }).catch(() => {}); },
+  };
+}
 
 const toSlack = (md: string) =>
   md
@@ -106,7 +142,9 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "eyes" }).catch(() => {});
   const status = await web.chat.postMessage({ channel: a.channel, thread_ts: a.threadTs, text: "On it…" });
   let last = 0, lastLabel = "";
+  const notes = progressNotes(web, a.channel, a.threadTs, estimateMinutes(a.request));
   const progress = (label: string) => {
+    notes.step(label);
     // Minimal by design: no step-by-step updates in the channel (they go to the console only).
     if (label === lastLabel || Date.now() - last < 4000) return;
     last = Date.now(); lastLabel = label;
@@ -132,6 +170,7 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
     res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs },
       prompt: history ? `Earlier in this Slack thread:\n${history}\n\n---\n${prompt}` : prompt, onProgress: progress });
   }
+  await notes.done();
   await saveThread(a.channel, a.threadTs, client.id, res.sessionId);
   await saveClientFolder(client.folder, `${client.folder}: ${a.request.replace(/\s+/g, " ").slice(0, 80)} (via Slack)`);
 
@@ -223,12 +262,19 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   const web = app.client;
   const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", f.clientId).limit(1).maybeSingle();
   if (!ch) return console.error("[onboard] no channel for", f.folder);
-  const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.name} submitted the onboarding form (Klaviyo ${f.klaviyo}). Running onboarding now: Klaviyo audit, order data, website research, then the Onboarding Doc and first month's plan. This takes a while.` });
+  onboardingActive.add(f.clientId);
+  const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.name} submitted the onboarding form (Klaviyo ${f.klaviyo}). Running onboarding now, about 20–25 minutes:\n1. Klaviyo audit and order data (~10 min)\n2. Website research, Onboarding Doc, month-1 plan and flow plan (~10–15 min)\nI'll post updates here as it goes.` });
+  const notes = progressNotes(web, ch.channel_id, head.ts!, 25);
+  notes.step("Step 1 of 2: Klaviyo audit and order data");
   await db().from("onboarding_runs").update({ status: "running", updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "waiting_for_form");
   await saveClientFolder(f.folder, `${f.folder}: onboarding form submitted`);
   const audits = await runAudits(f.clientId, f.folder);
   await saveClientFolder(f.folder, `${f.folder}: onboarding audits`);
-  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes) });
+  await web.chat.postMessage({ channel: ch.channel_id, thread_ts: head.ts!, text: `Step 1 done: ${audits.notes.join(" · ")}.\nStep 2: researching the website and writing the Onboarding Doc and plans, about 10–15 minutes.` });
+  notes.step("Step 2 of 2: writing the Onboarding Doc and plans");
+  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes), onProgress: (l) => notes.step(`Step 2 of 2: ${l.toLowerCase()}`) });
+  await notes.done();
+  onboardingActive.delete(f.clientId);
   await saveClientFolder(f.folder, `${f.folder}: onboarding doc and plans`);
   const names = await foreignNames(CLIENTS_DIR, f.folder, db());
   const problems = res.error ? [] : scanText(res.text, names);
@@ -264,5 +310,5 @@ async function syncStale() {
     (f) => { runOnboarding(f).catch((e) => console.error("[onboard]", e)); });
   syncStale();
   setInterval(syncStale, 3 * 3600_000);
-  watchForCodeUpdates(() => busy.size === 0);
+  watchForCodeUpdates(() => busy.size === 0 && onboardingActive.size === 0);
 })();
