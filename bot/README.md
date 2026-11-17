@@ -22,3 +22,11 @@
 | Audit | Every request, refusal, block and link goes to `slack_audit`, with cost. |
 
 Self-test: `npx tsx bot/test-security.ts` (add `--agent` to also test the sandbox, about $0.10).
+
+## Running on a server (Railway)
+The bot runs 24/7 on Railway from the GitHub repo `meelad-fluid/Fluid-Email-Marketing-Agent`.
+- `Dockerfile` (Playwright image + git + python3), `bot/start.sh` (fresh clone of the repo at start, then the bot), `railway.json` (one instance, always restart, redeploy only when code changes, not client folders).
+- Client folders sync through git: the bot pulls before each Slack request and commits + pushes that client's folder after it (`bot/git.ts`, on when `GIT_SYNC=1`).
+- Railway variables: `ANTHROPIC_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN`, `SLACK_ADMIN_USER_IDS`, `GITHUB_TOKEN` (fine-grained, Contents read/write on this repo), `GITHUB_REPO=meelad-fluid/Fluid-Email-Marketing-Agent`.
+- Working on a Mac too? `git pull` before, commit + push after, so the server and the Mac never drift.
+- Only one copy of the bot may run: stop `npm run bot` on any Mac once the server is up.
