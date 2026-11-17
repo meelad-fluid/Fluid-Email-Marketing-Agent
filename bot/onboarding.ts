@@ -18,7 +18,7 @@ import { publicUrl } from "./review";
 import { SECTIONS } from "../lib/onboarding/questions";
 
 const run = promisify(execFile);
-export const TEAM = () => (process.env.SLACK_TEAM_USER_IDS || "U06KZ9CP5Q9,U080GFJPXRB,U0AHL0NQ99C").split(",").map((s) => s.trim()).filter(Boolean);
+export const TEAM = () => (process.env.SLACK_TEAM_USER_IDS || "").split(",").map((s) => s.trim()).filter(Boolean);
 export const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
 export const hashToken = (t: string) => createHash("sha256").update(t).digest("hex");
 

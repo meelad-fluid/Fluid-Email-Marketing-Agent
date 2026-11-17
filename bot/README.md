@@ -37,7 +37,7 @@ Every design the bot makes or changes is published to a review link on this serv
 - Tables: design_reviews, design_review_versions, review_comments. Self-test: `npx tsx bot/test-review.ts` (local, port 8090).
 
 ## Onboarding a new client
-`/fluid onboard Brand Name | brand.com` (admins). Creates the client in Supabase and its folder (from clients/_template, with the guard), saved to GitHub. Opens a private channel `#client-<slug>` with the team (`SLACK_TEAM_USER_IDS`, default Meelad, Mohammad, Riley) and the requester, linked to that client, and posts the client's onboarding link (`<PUBLIC_URL>/onboard/<token>`, one use, 90 days).
+`/fluid onboard Brand Name | brand.com` (admins). Creates the client in Supabase and its folder (from clients/_template, with the guard), saved to GitHub. Opens a private channel `#client-<slug>` with the person who ran the command (add others with `SLACK_TEAM_USER_IDS`, comma-separated), linked to that client, and posts the client's onboarding link (`<PUBLIC_URL>/onboard/<token>`, one use, 90 days).
 When the client submits:
 - answers go to profile_answers and onboarding/form-answers.md, and the Klaviyo key is checked live and stored in the vault
 - the read-only Klaviyo audit and order data run, plus the reporting sync
