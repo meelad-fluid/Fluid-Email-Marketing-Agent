@@ -44,3 +44,8 @@ When the client submits:
 - the agent runs the onboarding skill: brand kit, Onboarding Doc, month-1 plan (12 email + 5 SMS), flow plan (22 emails + 7 SMS)
 - the doc links (`<PUBLIC_URL>/d/<token>`) are posted in the channel
 Needs Slack scopes groups:write, groups:write.invites (in slack-manifest.json; reinstall the app after updating).
+
+## Current clients (internal setup)
+`/fluid add Brand Name | brand.com` (admins): makes the client, its private channel and posts an internal link (Fluid team only, one use, 14 days).
+The link takes the brand guidelines (PDF, images, Word, PowerPoint; saved to `brand/guidelines/`), the Klaviyo key (vault) and notes, then runs the onboarding in the channel with the guidelines as the source of truth and the flow plan written as keep / fix / build against their live flows.
+`/fluid add` with nothing after it, inside a client channel, gives you a fresh internal link for that client.

@@ -14,7 +14,7 @@ import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
 import { reviewLink, type Review } from "./review";
-import { formLink, formSections, hasExistingForm, saveForm } from "./onboarding";
+import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveUpload } from "./onboarding";
 import { marked } from "marked";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
@@ -39,7 +39,7 @@ async function load(token: string) {
   return data as (Review & { clients: { name: string; folder: string } }) | null;
 }
 
-export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string; folder: string; name: string; klaviyo: string }) => void = () => {}) {
+export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string; folder: string; name: string; klaviyo: string; internal?: boolean }) => void = () => {}) {
   const port = Number(process.env.PORT || 8080);
   const server = createServer(async (req, res) => {
     try {
@@ -48,16 +48,24 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
       if (url.pathname === "/health") return send(res, 200, "ok");
 
       // ── Client onboarding form ──
-      const ob = url.pathname.match(/^\/onboard\/([A-Za-z0-9_-]+)(\/submit)?$/);
+      const ob = url.pathname.match(/^\/onboard\/([A-Za-z0-9_-]+)(\/submit|\/upload)?$/);
       if (ob) {
         const l = await formLink(ob[1]);
         if (!l) return send(res, 404, "This onboarding link has expired or was already used. Ask your Fluid contact for a new one.");
-        if (req.method === "GET" && !ob[2]) return send(res, 200, formPage(l.clients.name, hasExistingForm(l.clients.folder)), "text/html; charset=utf-8", { "cache-control": "no-store" });
-        if (req.method === "POST" && ob[2]) {
+        const internal = l.kind === "internal";
+        if (req.method === "GET" && !ob[2]) return send(res, 200, internal ? internalPage(l.clients.name) : formPage(l.clients.name, hasExistingForm(l.clients.folder)), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        if (req.method === "POST" && ob[2] === "/upload" && internal) {
+          if (limited(ip)) return json(res, 429, { error: "Too many uploads, wait a few minutes." });
+          const chunks: Buffer[] = []; let n = 0;
+          for await (const c of req) { n += c.length; if (n > MAX_UPLOAD) return json(res, 413, { error: "That file is too big (30 MB max)." }); chunks.push(c as Buffer); }
+          try { return json(res, 200, { ok: true, name: await saveUpload(ob[1], String(url.searchParams.get("name") ?? "file"), Buffer.concat(chunks)) }); }
+          catch (e: any) { return json(res, 400, { error: e.message }); }
+        }
+        if (req.method === "POST" && ob[2] === "/submit") {
           if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
           let raw = ""; for await (const c of req) { raw += c; if (raw.length > 200_000) return json(res, 413, { error: "Too long" }); }
           const b = JSON.parse(raw || "{}");
-          try { const r = await saveForm(ob[1], b.answers ?? {}, b.klaviyo_key); onFormSubmitted(r); return json(res, 200, { ok: true }); }
+          try { const r = internal ? await saveInternalForm(ob[1], b.answers ?? {}, b.klaviyo_key) : await saveForm(ob[1], b.answers ?? {}, b.klaviyo_key); onFormSubmitted(r); return json(res, 200, { ok: true }); }
           catch (e: any) { return json(res, 400, { error: e.message }); }
         }
       }
@@ -239,5 +247,35 @@ export function formPage(client: string, keyOnly = false) {
 const f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go");
 f.onsubmit=async(e)=>{e.preventDefault();go.disabled=true;msg.textContent="Sending…";const a={};for(const el of f.elements){if(!el.name||el.name==="klaviyo_key")continue;a[el.name]=el.value}
 try{const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({answers:a,klaviyo_key:f.elements.klaviyo_key?f.elements.klaviyo_key.value:""})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");f.innerHTML="<section><h2>Thank you!</h2><p>We've got everything. Your Fluid team will be in touch with your onboarding doc and first campaigns shortly.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
+</script></body></html>`;
+}
+
+/** Internal setup page (Fluid team only): brand guidelines + Klaviyo key for a client we already work with. */
+export function internalPage(client: string) {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${esc(client)} setup</title>
+<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:20px}h2{font-size:24px;margin:0 0 6px}.q{margin-top:24px}label{display:block;font-weight:650;font-size:18px}.help{color:var(--muted);font-size:16px;margin:4px 0 8px}input,textarea{width:100%;font:inherit;font-size:18px;border:1px solid #d9d4ca;border-radius:10px;padding:14px 16px;background:#fff;min-height:54px}textarea{min-height:120px}
+.drop{border:2px dashed #cfc8bb;border-radius:12px;padding:28px 18px;text-align:center;cursor:pointer;color:var(--muted)}.drop.over{border-color:var(--accent);background:#fff6f2}.drop b{color:var(--ink)}#files{list-style:none;padding:0;margin:10px 0 0}#files li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:16px}#files li span:last-child{color:var(--muted);white-space:nowrap}
+button{font:inherit;font-weight:650;font-size:19px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:18px 24px;min-height:60px;cursor:pointer;width:100%}#msg{margin-top:14px;font-weight:600}.tag{display:inline-block;background:#1d1d1d;color:#fff;border-radius:999px;font-size:13px;padding:3px 10px;margin-bottom:12px}@media(max-width:600px){section{padding:22px 18px}h1{font-size:28px}}</style></head>
+<body><div class="wrap"><span class="tag">Fluid team only</span><h1>Set up ${esc(client)}</h1><p class="sub">For a client we already work with. Add their brand guidelines and Klaviyo key, and the onboarding runs in their Slack channel.</p>
+<form id="f"><section><h2>Brand guidelines</h2><p class="help">PDF, images, Word or PowerPoint, up to 30 MB each. Add as many as you have.</p>
+<div class="drop" id="drop"><b>Drop files here</b> or click to choose<input id="pick" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.svg,.docx,.pptx,.txt,.md" hidden></div><ul id="files"></ul>
+<div class="q"><label for="guidelines_url">Or a link to them (optional)</label><div class="help">Only works if it's public, like a Google Drive file shared with "anyone with the link".</div><input id="guidelines_url" name="guidelines_url" type="url" placeholder="https://…"></div></section>
+<section><h2>Klaviyo</h2><div class="q"><label for="klaviyo_key">Private API key</label><div class="help">Klaviyo → Settings → API keys → Create Private API Key. Read-only is enough for the audit; Full access if we'll build drafts and segments. Stored encrypted.</div><input id="klaviyo_key" type="password" autocomplete="off" placeholder="pk_…"></div></section>
+<section><h2>Anything the agent should know</h2><div class="q"><label for="sender">Sender name</label><input id="sender" name="sender" placeholder="e.g. Sarah from Brand"></div>
+<div class="q"><label for="notes">Notes (optional)</label><div class="help">What's running now, current offers, products to push, things the client doesn't want.</div><textarea id="notes" name="notes"></textarea></div></section>
+<button type="submit" id="go">Save and start onboarding</button><div id="msg"></div></form></div>
+<script>
+const f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go"),drop=document.getElementById("drop"),pick=document.getElementById("pick"),list=document.getElementById("files");let queue=[];
+const kb=(n)=>n>1048576?(n/1048576).toFixed(1)+" MB":Math.ceil(n/1024)+" KB";
+function add(fs){for(const x of fs){if(x.size>30*1048576){alert(x.name+" is over 30 MB");continue}queue.push(x)}show()}
+function show(){list.innerHTML=queue.map((x,i)=>"<li><span>"+x.name.replace(/</g,"&lt;")+"</span><span id='s"+i+"'>"+kb(x.size)+"</span></li>").join("")}
+drop.onclick=()=>pick.click();pick.onchange=()=>add(pick.files);
+drop.ondragover=(e)=>{e.preventDefault();drop.classList.add("over")};drop.ondragleave=()=>drop.classList.remove("over");drop.ondrop=(e)=>{e.preventDefault();drop.classList.remove("over");add(e.dataTransfer.files)};
+f.onsubmit=async(e)=>{e.preventDefault();if(!queue.length&&!f.elements.guidelines_url.value.trim()){msg.textContent="Add the brand guidelines (a file or a link) first.";return}go.disabled=true;
+try{for(let i=0;i<queue.length;i++){const x=queue[i];if(x.done)continue;document.getElementById("s"+i).textContent="Uploading…";msg.textContent="Uploading "+(i+1)+" of "+queue.length+"…";
+const r=await fetch(location.pathname+"/upload?name="+encodeURIComponent(x.name),{method:"POST",body:x});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||"Upload failed");x.done=true;document.getElementById("s"+i).textContent="✓ Uploaded"}
+msg.textContent="Saving…";const a={guidelines_url:f.elements.guidelines_url.value,sender:f.elements.sender.value,notes:f.elements.notes.value};
+const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({answers:a,klaviyo_key:f.elements.klaviyo_key.value})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");
+f.innerHTML="<section><h2>Saved</h2><p>The onboarding is starting in ${esc(client)}'s Slack channel. Updates and the doc links will be posted there.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
 </script></body></html>`;
 }

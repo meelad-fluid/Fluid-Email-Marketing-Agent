@@ -9,7 +9,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { basename, extname, join } from "node:path";
 import type { WebClient } from "@slack/web-api";
 import { CLIENTS_DIR, ROOT } from "./config";
 import { db, linkChannel } from "./db";
@@ -35,7 +35,7 @@ function makeFolder(slug: string, name: string) {
   return dir;
 }
 
-export async function startNewClient(web: WebClient, o: { name: string; website: string; requestedBy: string; teamId: string }) {
+export async function startNewClient(web: WebClient, o: { name: string; website: string; requestedBy: string; teamId: string; internal?: boolean }) {
   const name = o.name.trim();
   const website = /^https?:\/\//.test(o.website.trim()) ? o.website.trim() : `https://${o.website.trim()}`;
   new URL(website); // throws on a bad URL
@@ -50,7 +50,12 @@ export async function startNewClient(web: WebClient, o: { name: string; website:
   let { data: client } = await db().from("clients").select("id, folder").or(`folder.eq.${slug},slug.eq.${slug}`).maybeSingle();
   if (client) {
     const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", client.id).limit(1).maybeSingle();
-    if (ch) throw new Error(`${name} is already set up in <#${ch.channel_id}>.`);
+    if (ch && !o.internal) throw new Error(`${name} is already set up in <#${ch.channel_id}>.`);
+    if (ch) {
+      const url = await internalLink(client.id);
+      await web.chat.postMessage({ channel: ch.channel_id, text: INTERNAL_MSG(name, url) });
+      return { slug: client.folder as string, channelId: ch.channel_id as string, url, clientId: client.id as string };
+    }
   } else {
     const ins = await db().from("clients").insert({ name, slug, folder: slug, website_url: website, status: "onboarding" }).select("id, folder").single();
     if (ins.error) throw ins.error;
@@ -74,9 +79,13 @@ export async function startNewClient(web: WebClient, o: { name: string; website:
   await linkChannel(channelId, o.teamId, slug, name, o.requestedBy);
 
   const token = randomBytes(24).toString("base64url");
-  const { data: link } = await db().from("onboarding_links").insert({ client_id: client.id, token_hash: hashToken(token) }).select("id").single();
+  const { data: link } = await db().from("onboarding_links").insert({ client_id: client.id, token_hash: hashToken(token), ...(o.internal ? { kind: "internal", expires_at: new Date(Date.now() + 14 * 86400_000).toISOString() } : {}) }).select("id").single();
   await db().from("onboarding_runs").insert({ client_id: client.id, link_id: link?.id ?? null, started_by: o.requestedBy });
   const url = `${publicUrl()}/onboard/${token}`;
+  if (o.internal) {
+    await web.chat.postMessage({ channel: channelId, text: INTERNAL_MSG(name, url) });
+    return { slug, channelId, url, clientId: client.id };
+  }
   const onb = join(CLIENTS_DIR, slug, "onboarding");
   const hasForm = existsSync(onb) && readdirSync(onb).some((f) => /form/i.test(f) && !/form-answers/.test(f));
   await web.chat.postMessage({ channel: channelId, text: hasForm
@@ -91,6 +100,15 @@ export function hasExistingForm(folder: string) {
   return existsSync(onb) && readdirSync(onb).some((f) => /form/i.test(f) && !/^form-answers\.md$/.test(f));
 }
 
+const INTERNAL_MSG = (name: string, url: string) => `*${name}* internal setup link (Fluid team only, don't send it to the client): ${url}\nUpload their brand guidelines and paste the Klaviyo key, and I'll run the onboarding here. The link works once and expires in 14 days.`;
+
+/** A one-use link for the Fluid team: brand guidelines upload + Klaviyo key, for clients we already work with. */
+export async function internalLink(clientId: string) {
+  const token = randomBytes(24).toString("base64url");
+  await db().from("onboarding_links").insert({ client_id: clientId, token_hash: hashToken(token), kind: "internal", expires_at: new Date(Date.now() + 14 * 86400_000).toISOString() });
+  return `${publicUrl()}/onboard/${token}`;
+}
+
 /** A fresh one-use link for this client (e.g. to connect Klaviyo after someone pasted a key in Slack). */
 export async function newConnectLink(clientId: string) {
   const token = randomBytes(24).toString("base64url");
@@ -103,9 +121,63 @@ export const formSections = () => SECTIONS.map((s) => ({ ...s, questions: s.ques
 
 export async function formLink(token: string) {
   if (!/^[A-Za-z0-9_-]{20,64}$/.test(token)) return null;
-  const { data } = await db().from("onboarding_links").select("id, client_id, expires_at, revoked_at, clients(name, folder, website_url)").eq("token_hash", hashToken(token)).maybeSingle();
+  const { data } = await db().from("onboarding_links").select("id, client_id, kind, expires_at, revoked_at, clients(name, folder, website_url)").eq("token_hash", hashToken(token)).maybeSingle();
   if (!data || data.revoked_at || Date.parse(data.expires_at) < Date.now()) return null;
-  return data as any as { id: string; client_id: string; clients: { name: string; folder: string; website_url: string } };
+  return data as any as { id: string; client_id: string; kind: "client" | "internal"; clients: { name: string; folder: string; website_url: string } };
+}
+
+async function storeKlaviyoKey(clientId: string, klaviyoKey?: string) {
+  if (!klaviyoKey?.trim()) return "not provided";
+  const key = klaviyoKey.trim();
+  const r = await fetch("https://a.klaviyo.com/api/accounts/", { headers: { Authorization: `Klaviyo-API-Key ${key}`, revision: "2025-10-15", accept: "application/vnd.api+json" } });
+  if (!r.ok) throw new Error("That Klaviyo key didn't work. It should be a Private API key that starts with pk_.");
+  const acct: any = await r.json();
+  const org = acct.data?.[0]?.attributes?.contact_information?.organization_name ?? null;
+  const { error } = await db().rpc("store_connection_secret", { p_client: clientId, p_provider: "klaviyo", p_secret: key, p_meta: {}, p_account_name: org });
+  if (error) throw new Error("Couldn't store the Klaviyo key securely.");
+  return `connected (${org ?? "account"})`;
+}
+
+// ── Internal setup (current clients): brand guidelines upload + Klaviyo key ──
+const UPLOAD_TYPES = new Set([".pdf", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".docx", ".pptx", ".txt", ".md"]);
+export const MAX_UPLOAD = 30 * 1024 * 1024;
+
+/** Save one brand-guidelines file into brand/guidelines/ (Word/PowerPoint also get a .txt copy the agent can read). */
+export async function saveUpload(token: string, filename: string, data: Buffer) {
+  const l = await formLink(token);
+  if (!l || l.kind !== "internal") throw new Error("This link has expired or was already used.");
+  const ext = extname(filename).toLowerCase();
+  if (!UPLOAD_TYPES.has(ext)) throw new Error(`${filename}: use PDF, images, Word, PowerPoint or text files.`);
+  if (!data.length || data.length > MAX_UPLOAD) throw new Error(`${filename} is too big (30 MB max per file).`);
+  const safe = basename(filename, ext).replace(/[^A-Za-z0-9._ -]+/g, "").trim().replace(/\s+/g, "-").slice(0, 80) || "guidelines";
+  const dir = join(CLIENTS_DIR, l.clients.folder, "brand", "guidelines");
+  mkdirSync(dir, { recursive: true });
+  let name = `${safe}${ext}`;
+  for (let i = 2; existsSync(join(dir, name)); i++) name = `${safe}-${i}${ext}`;
+  writeFileSync(join(dir, name), data);
+  if (ext === ".docx" || ext === ".pptx") {
+    const py = `import sys,zipfile,re\nz=zipfile.ZipFile(sys.argv[1]);out=[]\nnames=sorted([n for n in z.namelist() if n=="word/document.xml" or re.match(r"ppt/slides/slide\\d+\\.xml$",n)],key=lambda n:int(re.sub(r"\\D","",n) or 0))\nfor n in names:\n  x=z.read(n).decode("utf8","ignore");x=re.sub(r"</(w|a):p>","\\n",x);out.append(re.sub(r"<[^>]+>","",x))\nprint("\\n\\n".join(out))`;
+    try { const { stdout } = await run("python3", ["-I", "-c", py, join(dir, name)], { maxBuffer: 20 * 1024 * 1024, timeout: 60_000 }); writeFileSync(join(dir, `${name}.txt`), stdout); } catch { /* the original file is still there */ }
+  }
+  return name;
+}
+
+/** Save the internal setup form: key → vault, notes → onboarding/internal-setup.md, link used up. */
+export async function saveInternalForm(token: string, answers: Record<string, unknown>, klaviyoKey?: string) {
+  const l = await formLink(token);
+  if (!l || l.kind !== "internal") throw new Error("This link has expired or was already used.");
+  const dir = join(CLIENTS_DIR, l.clients.folder, "brand", "guidelines");
+  const files = existsSync(dir) ? readdirSync(dir).filter((f) => !f.endsWith(".txt") || !existsSync(join(dir, f.slice(0, -4)))) : [];
+  const link = String(answers.guidelines_url ?? "").trim().slice(0, 500);
+  if (!files.length && !link) throw new Error("Add the brand guidelines (a file or a link) first.");
+  const klaviyo = await storeKlaviyoKey(l.client_id, klaviyoKey);
+  const field = (k: string) => String(answers[k] ?? "").trim().slice(0, 8000);
+  const md = [`# ${l.clients.name} — internal setup (current client)`, `Submitted ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC by the Fluid team · Klaviyo: ${klaviyo}`, "",
+    "## Brand guidelines", ...(files.length ? files.map((f) => `- brand/guidelines/${f}`) : ["_(no files)_"]), link ? `- Link: ${link}` : "", "",
+    `## Sender name\n${field("sender") || "_(not given)_"}\n`, `## Notes from the team\n${field("notes") || "_(none)_"}\n`];
+  writeFileSync(join(CLIENTS_DIR, l.clients.folder, "onboarding", "internal-setup.md"), md.join("\n"));
+  await db().from("onboarding_links").update({ revoked_at: new Date().toISOString() }).eq("id", l.id);
+  return { clientId: l.client_id, folder: l.clients.folder, name: l.clients.name, klaviyo, internal: true };
 }
 
 /** Save the form: answers → profile_answers + onboarding/form-answers.md; Klaviyo key → vault (after a live check). */
@@ -116,17 +188,7 @@ export async function saveForm(token: string, answers: Record<string, unknown>, 
   allowed.set("notes", { id: "notes" });
   const rows = Object.entries(answers).filter(([k, v]) => allowed.has(k) && v != null && String(v).trim() !== "").map(([k, v]) => ({ client_id: l.client_id, question_id: k, answer: typeof v === "string" ? v.slice(0, 8000) : v }));
   if (rows.length) await db().from("profile_answers").upsert(rows);
-  let klaviyo = "not provided";
-  if (klaviyoKey?.trim()) {
-    const key = klaviyoKey.trim();
-    const r = await fetch("https://a.klaviyo.com/api/accounts/", { headers: { Authorization: `Klaviyo-API-Key ${key}`, revision: "2025-10-15", accept: "application/vnd.api+json" } });
-    if (!r.ok) throw new Error("That Klaviyo key didn't work. It should be a Private API key that starts with pk_.");
-    const acct: any = await r.json();
-    const org = acct.data?.[0]?.attributes?.contact_information?.organization_name ?? null;
-    const { error } = await db().rpc("store_connection_secret", { p_client: l.client_id, p_provider: "klaviyo", p_secret: key, p_meta: {}, p_account_name: org });
-    if (error) throw new Error("Couldn't store the Klaviyo key securely.");
-    klaviyo = `connected (${org ?? "account"})`;
-  }
+  const klaviyo = await storeKlaviyoKey(l.client_id, klaviyoKey);
   const md = [`# ${l.clients.name} — onboarding form`, `Submitted ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC · Klaviyo: ${klaviyo}`, ""];
   for (const s of formSections()) {
     md.push(`## ${s.title}`);
@@ -154,7 +216,9 @@ export async function runAudits(clientId: string, folder: string) {
   return { klaviyo: true, notes, files: existsSync(research) ? readdirSync(research) : [] };
 }
 
-export const ONBOARDING_PROMPT = (name: string, auditNotes: string[]) => `Onboard ${name}. This is the automatic onboarding run after the client submitted the form (onboarding/form-answers.md).
+export const ONBOARDING_PROMPT = (name: string, auditNotes: string[], internal = false) => `Onboard ${name}. ${internal
+  ? "This is a CURRENT Fluid client set up internally by the team (onboarding/internal-setup.md): there is no client form. Brand guidelines are in brand/guidelines/ (read every PDF and image; Word/PowerPoint files have a .txt copy). The guidelines are the source of truth for fonts, colours, voice and rules; use the website to fill gaps. In the flow plan, compare their live flows (from the audit) with the core system and mark each flow/email as keep, fix or build."
+  : "This is the automatic onboarding run after the client submitted the form (onboarding/form-answers.md)."}
 Audit status: ${auditNotes.join("; ")}. The audit and order JSON (if any) are in research/.
 Follow ../../brain/skills/fluid-client-onboarding/SKILL.md fully and produce, in this folder:
 1. brand/brand-kit.md from the website (fonts, colors, button style and CTA casing exactly as the site writes its buttons, imagery, trust points).

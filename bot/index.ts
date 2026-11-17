@@ -13,7 +13,7 @@ import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb } from "./web";
-import { newConnectLink, ONBOARDING_PROMPT, runAudits, startNewClient } from "./onboarding";
+import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, startNewClient } from "./onboarding";
 import { foreignNames, scanText } from "../lib/leaks";
 
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
@@ -237,6 +237,24 @@ app.command("/fluid", async ({ command, ack, respond }) => {
       return reply(`Done. <#${r.channelId}> is ready for ${name}, and the client's onboarding link is posted there.`);
     } catch (e: any) { return reply(`Couldn't set up ${name}: ${e.message}`); }
   }
+  // Current clients: an internal link (brand guidelines + Klaviyo key) for the Fluid team, not the client.
+  if (sub === "add" || sub === "current") {
+    if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can set up clients.");
+    const rest = command.text.trim().slice(sub.length).trim();
+    if (!rest) {
+      const c = await clientForChannel(command.channel_id, TEAM_ID);
+      if (!c) return reply("Use: `/fluid add Brand Name | brand.com` (or run `/fluid add` inside a client's channel).");
+      return reply(`Internal setup link for ${c.name} (only you can see this, works once, 14 days): ${await internalLink(c.id)}`);
+    }
+    const [name, website] = rest.split("|").map((x) => x.trim());
+    if (!name || !website) return reply("Use: `/fluid add Brand Name | brand.com`");
+    await reply(`Setting up ${name}…`);
+    try {
+      const r = await startNewClient(app.client, { name, website, requestedBy: command.user_id, teamId: TEAM_ID, internal: true });
+      await audit({ team_id: TEAM_ID, channel_id: r.channelId, user_id: command.user_id, client_id: r.clientId, outcome: "linked", reason: `current client ${name}` });
+      return reply(`Done. The internal setup link for ${name} is in <#${r.channelId}>.`);
+    } catch (e: any) { return reply(`Couldn't set up ${name}: ${e.message}`); }
+  }
   if (sub === "link" || sub === "unlink") {
     const admins = config.adminUserIds();
     if (!admins.includes(command.user_id)) return reply(admins.length ? "Only Fluid admins can link channels." : "No admins are set yet. Add your Slack member ID to SLACK_ADMIN_USER_IDS in .env.local and restart the bot.");
@@ -254,16 +272,16 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Brand Name | brand.com` sets up a new client (folder, private channel, onboarding link). Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
+  return reply("`/fluid onboard Brand Name | brand.com` sets up a new client (folder, private channel, onboarding link for the client). `/fluid add Brand Name | brand.com` sets up a current client with an internal link for us (brand guidelines + Klaviyo key). Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
-async function runOnboarding(f: { clientId: string; folder: string; name: string; klaviyo: string }) {
+async function runOnboarding(f: { clientId: string; folder: string; name: string; klaviyo: string; internal?: boolean }) {
   const web = app.client;
   const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", f.clientId).limit(1).maybeSingle();
   if (!ch) return console.error("[onboard] no channel for", f.folder);
   onboardingActive.add(f.clientId);
-  const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.name} submitted the onboarding form (Klaviyo ${f.klaviyo}). Running onboarding now, about 20–25 minutes:\n1. Klaviyo audit and order data (~10 min)\n2. Website research, Onboarding Doc, month-1 plan and flow plan (~10–15 min)\nI'll post updates here as it goes.` });
+  const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.internal ? `${f.name}'s brand guidelines are in` : `${f.name} submitted the onboarding form`} (Klaviyo ${f.klaviyo}). Running onboarding now, about 20–25 minutes:\n1. Klaviyo audit and order data (~10 min)\n2. Website research, Onboarding Doc, month-1 plan and flow plan (~10–15 min)\nI'll post updates here as it goes.` });
   const notes = progressNotes(web, ch.channel_id, head.ts!, 25);
   notes.step("Step 1 of 2: Klaviyo audit and order data");
   await db().from("onboarding_runs").update({ status: "running", updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "waiting_for_form");
@@ -272,7 +290,7 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   await saveClientFolder(f.folder, `${f.folder}: onboarding audits`);
   await web.chat.postMessage({ channel: ch.channel_id, thread_ts: head.ts!, text: `Step 1 done: ${audits.notes.join(" · ")}.\nStep 2: researching the website and writing the Onboarding Doc and plans, about 10–15 minutes.` });
   notes.step("Step 2 of 2: writing the Onboarding Doc and plans");
-  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes), onProgress: (l) => notes.step(`Step 2 of 2: ${l.toLowerCase()}`) });
+  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes, f.internal), onProgress: (l) => notes.step(`Step 2 of 2: ${l.toLowerCase()}`) });
   await notes.done();
   onboardingActive.delete(f.clientId);
   await saveClientFolder(f.folder, `${f.folder}: onboarding doc and plans`);
