@@ -7,7 +7,7 @@
   - Peach tint #FBE8DF (site #FDF3F0)
   - Footer black #050505
   - Card tints: matcha #E4EACF / #3F5A17, cocoa #F1E3D4 / #5B3018, blue #E2E6F4 / #24389E
-- **Buttons:** 8px radius, filled.
+- **Buttons:** 8px radius, filled. **CTA casing: Title Case** ("Shop All", "Shop Best Sellers" on the site; no uppercase transform). Every email button follows it, e.g. "Restock My Matcha".
 - **Logo:** black serif "dolce" with SUPERFOODS (brand/assets/logo-dark.png; logo-light.png is the reversed version).
 - **Imagery:** premium studio product photos: powder in white bowls on white (consistent set, cut out in brand/assets/bowls), dramatic spoon, sieve and texture shots on dark or gray, and an orange pouch for packaging.
 - **Trust points:** Certified Organic · matcha from Nishio and Kagoshima · SQF-certified facility. Never "FDA Approved".

@@ -5,6 +5,8 @@ import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import { db } from "./db";
 import { openComments, publishDesign, replyToComment, reviewByPath } from "./review";
+import { pushEmail } from "../lib/klaviyo/push-email";
+import { CLIENTS_DIR } from "./config";
 
 const day = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d);
 const money = (n: number) => Math.round(n * 100) / 100;
@@ -98,7 +100,20 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply] });
+  const pushKlaviyo = tool(
+    "push_to_klaviyo",
+    "Build a finished design into this client's Klaviyo as a DRAFT campaign (never sends or schedules): slices it (each section/CTA its own linked image), QC checks every link, uploads the images, creates a drag-and-drop template and a draft campaign with the subject, preview text, sender and audiences from the copy file. Re-pushing updates the same draft. Only works if the client allows drafts.",
+    { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20") },
+    async ({ design_folder }) => {
+      try {
+        const r = await pushEmail({ clientsDir: CLIENTS_DIR, folder, designRel: design_folder.replace(/^\.\//, ""), db: db(), push: true });
+        const k = r.klaviyo ?? {};
+        return ok({ pushed: r.pushed, campaign: k.campaign?.name ?? null, updated_existing_draft: !!r.reusedDraft, slices: r.slices, missing_audiences: k.missing_audiences ?? [], note: k.note, warnings: r.warnings });
+      } catch (e: any) { return ok({ error: e.message }); }
+    },
+  );
+
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo"];

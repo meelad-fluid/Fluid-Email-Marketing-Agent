@@ -137,13 +137,7 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   const parts = chunks(toSlack(res.text || "Done."));
   await web.chat.update({ channel: a.channel, ts: status.ts!, text: parts[0] });
   for (const p of parts.slice(1)) await web.chat.postMessage({ channel: a.channel, thread_ts: a.threadTs, text: p });
-  if (files.length) {
-    await web.files.uploadV2({
-      channel_id: a.channel,
-      thread_ts: a.threadTs,
-            file_uploads: files.map((f) => ({ file: f, filename: basename(f), title: relative(join(CLIENTS_DIR, client.folder), f) })),
-    } as any).catch((e: any) => console.error("upload failed:", e.data?.error ?? e.message));
-  }
+  // No file attachments in Slack: work is shared as links (review links), never as .md/.html files.
   await web.reactions.remove({ channel: a.channel, timestamp: a.ts, name: "eyes" }).catch(() => {});
   await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "white_check_mark" }).catch(() => {});
   await audit({ team_id: a.team, channel_id: a.channel, thread_ts: a.threadTs, user_id: a.user, client_id: client.id, request: a.request, outcome: "ran", cost_usd: res.costUsd });

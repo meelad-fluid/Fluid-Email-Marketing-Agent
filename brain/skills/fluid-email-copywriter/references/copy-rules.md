@@ -9,7 +9,7 @@ Sources: `knowledge/sops/email-design-sop.md` (SOP), `brain/skills/fluid-email-s
 - **Headline** names a specific customer pain point or problem (SOP). Short and punchy, usually 2-4 lines at email size (design rules). Exceptions: on sale emails the sale is the headline; on upgrade and last-call emails the offer numerals are the headline.
 - **Subheadline**: 1-2 sentences. Usually where the offer is stated (design rules).
 - **Offer**: the code, discount or deal, in the subheadline or as the code pill under the button (design rules). Always with a real deadline.
-- **Button**: states the action *and* the solution (SOP). One primary button above the fold. The first CTA sits within two sentences of the opening copy (SOP).
+- **Button**: states the action *and* the solution (SOP). Cased like the brand's website buttons (brand kit "CTA casing": ALL CAPS if the site uses all caps, otherwise Title Case). One primary button above the fold. The first CTA sits within two sentences of the opening copy (SOP).
 
 ## The body
 

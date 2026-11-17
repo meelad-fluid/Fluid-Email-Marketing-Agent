@@ -6,9 +6,12 @@
 export const DND_REVISION = "2026-10-15";
 
 type Img = { src: string; assetId?: string; href?: string; alt: string };
+export type DndRow = Img | { cols: Img[] };
 
 const zeroPad = { block_padding_top: 0, block_padding_bottom: 0, block_padding_left: 0, block_padding_right: 0 };
 const row = (block: unknown) => ({ data: { styles: { column_layout: "1-column-full-width" } }, columns: [{ data: {}, blocks: [block] }] });
+const LAYOUT: Record<number, string> = { 2: "2-columns-equal-width", 3: "3-columns-equal-width", 4: "4-columns-equal-width" };
+const colRow = (imgs: Img[]) => ({ data: { styles: { column_layout: LAYOUT[imgs.length] } }, columns: imgs.map((i) => ({ data: {}, blocks: [image(i)] })) });
 const image = (i: Img, styles: Record<string, unknown> = {}) => ({
   content_type: "block",
   type: "image",
@@ -24,7 +27,7 @@ export function rgbToHex(c: string) {
   return m ? "#" + m.slice(1, 4).map((n) => Number(n).toString(16).padStart(2, "0")).join("") : c;
 }
 
-export function dndDefinition(slices: Img[], footer: { bg: string; legal: string; logo?: Img }) {
+export function dndDefinition(slices: DndRow[], footer: { bg: string; legal: string; logo?: Img }) {
   const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
   const bg = rgbToHex(footer.bg);
   const footerText = [
@@ -40,7 +43,7 @@ export function dndDefinition(slices: Img[], footer: { bg: string; legal: string
         {
           content_type: "section", type: "section",
           data: { properties: {}, display_options: {}, styles: { stack_on_mobile: false } },
-          rows: slices.map((s) => row(image(s))),
+          rows: slices.map((s) => ('cols' in s ? colRow(s.cols) : row(image(s)))),
         },
         {
           content_type: "section", type: "section",

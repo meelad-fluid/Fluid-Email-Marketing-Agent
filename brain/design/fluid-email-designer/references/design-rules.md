@@ -127,3 +127,10 @@ remove the block.
 - **Fonts in real inboxes**: Gmail ignores most custom web fonts, so the team may bake
   headlines into images when building in Klaviyo. Design in the brand font; note any
   font that is a stand-in.
+
+## 10. CTA casing matches the brand's website
+
+Buttons are written the way the brand writes its own website buttons. Check the site (button text and any
+uppercase styling) and record it in the brand kit as "CTA casing". ALL CAPS on the site → ALL CAPS in the
+emails; Title Case on the site → Title Case ("Shop The Sale"). If the site is mixed or unclear, use Title Case.
+Never lowercase or sentence-case buttons ("Shop the sale") unless that's exactly how the site does it.
