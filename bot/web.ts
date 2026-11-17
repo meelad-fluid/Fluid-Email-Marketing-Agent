@@ -123,7 +123,7 @@ const PAGE = `<!doctype html>
 <meta name="robots" content="noindex, nofollow"><title>Design review</title>
 <style>
 :root{--bg:#f4f2ee;--panel:#fff;--ink:#1d1d1d;--muted:#6b6b6b;--line:#e4e0d8;--accent:#E03400;--ok:#1a7f37}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
 header{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 16px}
 header h1{font-size:16px;margin:0;flex:1 1 220px}header small{color:var(--muted);font-weight:400;display:block}
 .pill{border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}.pill.review{background:#fff3e0;color:#9a4b00}.pill.ok{background:#e7f6ec;color:var(--ok)}
@@ -139,9 +139,10 @@ aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padd
 .c .who{font-weight:600;font-size:13px}.c .who em{font-style:normal;color:var(--muted);font-weight:400}.c p{margin:4px 0;white-space:pre-wrap;word-wrap:break-word}
 .r{margin:6px 0 0 14px;padding-left:10px;border-left:2px solid var(--line)}.r.bot .who{color:var(--accent)}
 .row{display:flex;gap:6px;margin-top:6px}textarea{font:inherit;width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;min-height:60px;resize:vertical}
-.hint{color:var(--muted);font-size:13px}.mobile .stage{transform:scale(.625);transform-origin:top center;margin-bottom:-37.5%}
+.hint{color:var(--muted);font-size:13px}
+#fit{flex:0 0 auto;max-width:100%;overflow:hidden}.stage{transform-origin:top left}
 #composer{position:absolute;z-index:4;width:280px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;box-shadow:0 8px 30px rgba(0,0,0,.18);display:none}
-@media (max-width:700px){.stage{transform:scale(calc((100vw - 32px)/600));transform-origin:top left}}
+@media (max-width:700px){main{padding:12px 8px}aside{max-width:none}}
 </style></head><body>
 <header><h1 id="t">Loading…<small id="sub"></small></h1>
 <span id="status" class="pill review"></span>
@@ -149,7 +150,7 @@ aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padd
 <button id="view">Mobile view</button>
 <button id="cm" class="on">Comment</button>
 <button id="ap" class="primary">Approve</button></header>
-<main id="main"><div class="stage" id="stage"><iframe id="f" title="Email design" scrolling="no"></iframe><div class="overlay" id="ov"></div><div id="composer"><textarea id="ctext" placeholder="What should change here?"></textarea><div class="row"><button class="primary" id="csave">Comment</button><button id="ccancel">Cancel</button></div></div></div>
+<main id="main"><div id="fit"><div class="stage" id="stage"><iframe id="f" title="Email design" scrolling="no"></iframe><div class="overlay" id="ov"></div><div id="composer"><textarea id="ctext" placeholder="What should change here?"></textarea><div class="row"><button class="primary" id="csave">Comment</button><button id="ccancel">Cancel</button></div></div></div></div>
 <aside><h2>Comments</h2><div class="hint" id="hint">Click anywhere on the email to leave a comment. Turn "Comment" off to click the email's links.</div><div id="list"></div></aside></main>
 <script>
 const token=location.pathname.split("/")[2];let S=null,ver=null,sel=null,pending=null;
@@ -160,16 +161,19 @@ async function api(p,b){const r=await fetch("/r/"+token+p,b?{method:"POST",heade
 async function load(keep){S=await api("/data");if(!keep||ver===null)ver=S.current;$("t").firstChild.nodeValue=S.title;$("sub").textContent=S.client+" · design review";
 const ok=S.status==="approved"&&S.approved_version===S.current;$("status").className="pill "+(ok?"ok":"review");$("status").textContent=ok?"Approved by "+S.approved_by:"Waiting for approval";$("ap").disabled=ok;
 $("ver").innerHTML=S.versions.map(v=>'<option value="'+v.version+'"'+(v.version===ver?" selected":"")+">Version "+v.version+(v.version===S.current?" (latest)":"")+"</option>").join("");render()}
-function frame(){const f=$("f");f.onload=()=>{const h=f.contentDocument.documentElement.scrollHeight;f.style.height=h+"px";$("ov").style.height=h+"px";pins()};f.src="/r/"+token+"/frame?v="+ver}
+let H=0,mobile=false;
+function fit(){const avail=Math.min(document.documentElement.clientWidth-16,mobile?375:600),k=Math.min(1,avail/600);$("stage").style.transform="scale("+k+")";$("fit").style.width=600*k+"px";$("fit").style.height=H*k+"px"}
+function frame(){const f=$("f");f.onload=()=>{H=f.contentDocument.documentElement.scrollHeight;f.style.height=H+"px";$("ov").style.height=H+"px";fit();pins()};f.src="/r/"+token+"/frame?v="+ver}
+addEventListener("resize",fit);
 function tops(){return S.comments.filter(c=>!c.parent_id&&c.version===ver)}
 function pins(){document.querySelectorAll(".pin").forEach(p=>p.remove());tops().forEach((c,i)=>{const p=document.createElement("div");p.className="pin"+(c.resolved?" done":"")+(sel===c.id?" sel":"");p.style.left=c.x+"px";p.style.top=c.y+"px";p.textContent=i+1;p.onclick=(e)=>{e.stopPropagation();sel=c.id;render()};$("stage").appendChild(p)})}
 function render(){pins();const list=tops();$("list").innerHTML=list.length?list.map((c,i)=>{const rs=S.comments.filter(x=>x.parent_id===c.id);return '<div class="c'+(sel===c.id?" sel":"")+'" data-id="'+c.id+'"><div class="who">'+(i+1)+". "+esc(c.author_name)+(c.resolved?" <em>· resolved</em>":"")+'</div><p>'+esc(c.body)+"</p>"+rs.map(r=>'<div class="r'+(r.author_kind==="bot"?" bot":"")+'"><div class="who">'+esc(r.author_kind==="bot"?"Fluid":r.author_name)+"</div><p>"+esc(r.body)+"</p></div>").join("")+'<div class="row"><button data-reply="'+c.id+'">Reply</button><button data-res="'+c.id+'">'+(c.resolved?"Reopen":"Resolve")+"</button></div></div>"}).join(""):'<p class="hint">No comments on this version yet.</p>';}
 $("list").onclick=async(e)=>{const id=e.target.dataset.reply,rid=e.target.dataset.res;if(id){const n=who();if(!n)return;const t=(prompt("Your reply:")||"").trim();if(!t)return;await api("/comments",{author:n,body:t,parent_id:id,version:ver}).catch(a=>alert(a.message));await load(true)}if(rid){const c=S.comments.find(x=>x.id===rid);await api("/resolve",{author:who()||"Reviewer",comment_id:rid,resolved:!c.resolved});await load(true)}const box=e.target.closest(".c");if(box&&!id&&!rid){sel=box.dataset.id;render()}};
-$("ov").onclick=(e)=>{const r=$("ov").getBoundingClientRect(),k=600/r.width;pending={x:Math.round((e.clientX-r.left)*k),y:Math.round((e.clientY-r.top)*k)};const c=$("composer");c.style.left=Math.min(pending.x+12,320)+"px";c.style.top=pending.y+"px";c.style.display="block";$("ctext").value="";$("ctext").focus()};
+$("ov").onclick=(e)=>{const r=$("ov").getBoundingClientRect(),k=600/r.width;pending={x:Math.round((e.clientX-r.left)*k),y:Math.round((e.clientY-r.top)*k)};const c=$("composer");c.style.left=Math.max(0,Math.min(pending.x-140,320))+"px";c.style.top=pending.y+"px";c.style.display="block";$("ctext").value="";$("ctext").focus()};
 $("ccancel").onclick=()=>{$("composer").style.display="none";pending=null};
 $("csave").onclick=async()=>{const n=who();if(!n||!pending)return;const t=$("ctext").value.trim();if(!t)return;try{await api("/comments",{author:n,body:t,x:pending.x,y:pending.y,version:ver});$("composer").style.display="none";pending=null;await load(true)}catch(a){alert(a.message)}};
 $("cm").onclick=()=>{$("main").classList.toggle("commenting");$("cm").classList.toggle("on")};$("main").classList.add("commenting");
-$("view").onclick=()=>{const m=$("main").classList.toggle("mobile");$("view").textContent=m?"Desktop view":"Mobile view"};
+$("view").onclick=()=>{mobile=!mobile;$("view").textContent=mobile?"Desktop view":"Mobile view";fit()};
 $("ver").onchange=()=>{ver=Number($("ver").value);sel=null;frame();render()};
 $("ap").onclick=async()=>{const n=who();if(!n)return;if(!confirm("Approve version "+S.current+" of this email as it is now?"))return;await api("/approve",{author:n}).catch(a=>alert(a.message));await load(true)};
 load().then(frame).catch(e=>{document.body.innerHTML="<p style='padding:24px'>"+esc(e.message)+"</p>"});
