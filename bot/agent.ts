@@ -9,6 +9,7 @@ import { readdirSync, statSync } from "node:fs";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { CLIENTS_DIR, ROOT, SHARED_READ, config } from "./config";
 import { clientDataServer, DATA_TOOLS } from "./data";
+import { designToolsServer, DESIGN_TOOLS, REF_DIR } from "./design-tools";
 
 const inside = (p: string, root: string) => p === root || p.startsWith(root + sep);
 const READ_TOOLS = new Set(["Read", "Glob", "Grep"]);
@@ -34,7 +35,7 @@ function sandbox(clientDir: string): HookCallback {
       const p = resolve(clientDir, String(raw).replace(/^~/, "/nonexistent"));
       if (WRITE_TOOLS.has(tool)) {
         if (!inside(p, clientDir) || inside(p, guardDir) || p === join(clientDir, "CLAUDE.md")) return deny("writes go only inside this client's folder (not its settings)");
-      } else if (!inside(p, clientDir) && !SHARED_READ.some((r) => inside(p, r))) {
+      } else if (!inside(p, clientDir) && !inside(p, REF_DIR) && !SHARED_READ.some((r) => inside(p, r))) {
         return deny(`${relative(ROOT, p) || p} is outside this client's folder and Fluid's shared SOPs`);
       }
     }
@@ -114,6 +115,15 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
   No description of what's in it, no audiences, no open questions, no sign-off.
 - When work gets approved or scheduled in the conversation, update its "Status:" line (e.g. "Status: approved · goes live Wed Nov 18, 2026").
 - Asked a question? Answer it in a sentence or two.
+- Designing an email: EVERY campaign gets its own new design built for its job. Never reuse another email's layout.
+  1. Read brand/brand-kit.md, memory.md (Design log) and the "Layout:" lines in the READMEs of the last 3 designs in designs/. Your hero type and section mix must clearly differ from them.
+  2. Name the email's job and pick a structure that serves it, e.g. sale/offer: big offer numerals hero, products with prices, urgency strip, offer FAQ · education/guide: editorial hero with a lifestyle photo, "which one is right for you" comparison, how-to steps or recipe cards · launch: product hero on color, 3-benefit icon row, what's inside, first reviews · social proof: review-quote hero, rating bar, customer photos · bundle: what's included, price math (separately vs together) · winback: personal "it's been a while" hero, what's new, their usual product, the incentive · restock: their usual product big, one-click reorder, bulk savings math.
+  3. Call design_references for that type and open 2-3 of the images with Read for structure ideas. Borrow structure only, never words, claims, products or another brand's look, and never mention them.
+  4. Fresh imagery every time: call product_images for the products the copy features (cutout=true for products floating on color) and pick shots you haven't used in the last emails.
+  5. Keep the brand system (fonts, colors, buttons) and Fluid's rules in ../../brain/design/fluid-email-designer/references/design-rules.md (headline, subheadline, offer and button above the fold; every section a visual; no text walls; transitions; product blocks = image + name + button; everything linked).
+  6. In design.dc.html reference images as asset:<path in this folder>, e.g. src="asset:brand/assets/products/organic-cacao-nibs/1-cutout.png" or url("asset:brand/assets/hero-texture.jpg").
+  7. Put items that link to different pages in full-width rows (stacked), not side by side: side-by-side items can't each keep their own link in Klaviyo yet.
+  8. In the README add "Layout: <hero> → <section> → … → <close>".
 - Designs: build them in this folder (designs/<date>-<name>/design.dc.html + README.md + assets.json, same system as the existing designs; reuse their asset ids), then ALWAYS call publish_design and hand over the review link it returns ("Here's the <name>: <link>" + status line). Never say you can't publish or render; the review link is how designs are shared.
 - "comments added" (or similar) on a design: call design_comments, make every change in design.dc.html, call publish_design (note = what changed), then reply_to_comment under each comment saying what you did (resolve=true). Reply in Slack with one line: "Updated: <link> (v<N>)". If a comment can't be done, reply under it explaining why and leave it open.
 - Approvals happen on the review link; the README's Status line shows them. Never mark something approved yourself.
@@ -151,8 +161,8 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
         settingSources: ["project"],
         systemPrompt: { type: "preset", preset: "claude_code", append },
         tools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite"],
-        allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite", ...DATA_TOOLS],
-        mcpServers: { fluid: clientDataServer(opts.clientId, opts.folder, opts.slack) },
+        allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite", ...DATA_TOOLS, ...DESIGN_TOOLS],
+        mcpServers: { fluid: clientDataServer(opts.clientId, opts.folder, opts.slack), fluid_design: designToolsServer(opts.clientId, opts.folder) },
         permissionMode: "dontAsk",
         hooks: { PreToolUse: [{ hooks: [sandbox(clientDir)] }] },
         maxTurns: config.maxTurns,

@@ -14,6 +14,8 @@ export function dcToHtml(dcFile: string, clientDir: string, assetUrl: (relPath: 
   const body = inner.replace(/<helmet>[\s\S]*?<\/helmet>/, "");
   let html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=600"><style>${css}</style></head><body style="margin:0">${body}</body></html>`;
   html = html.replace(/\/_blob\/([0-9a-f]{32})/g, (m, id) => (map[id] ? assetUrl(map[id]) : m));
+  // Direct references to files in the client folder: src="asset:brand/assets/x.png" or url("asset:...").
+  html = html.replace(/asset:([A-Za-z0-9_./-]+)/g, (m, rel) => (rel.includes("..") ? m : assetUrl(rel)));
   const missing = [...html.matchAll(/\/_blob\/([0-9a-f]{32})/g)].map((m) => m[1]);
   if (missing.length) throw new Error(`assets.json is missing ${missing.length} image(s): ${[...new Set(missing)].join(", ")}`);
   return html;
