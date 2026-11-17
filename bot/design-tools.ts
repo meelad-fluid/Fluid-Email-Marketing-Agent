@@ -95,7 +95,7 @@ export function designToolsServer(clientId: string, folder: string) {
           const name = `${i + 1}.jpg`;
           writeFileSync(join(dir, name), await sharp(buf).flatten({ background: "#ffffff" }).jpeg({ quality: 85 }).toBuffer());
           const meta = await sharp(buf).metadata();
-          const entry: any = { file: `brand/assets/products/${p.handle}/${name}`, width: meta.width, height: meta.height };
+          const entry: any = { file: `brand/assets/products/${p.handle}/${name}`, width: meta.width, height: meta.height, source_url: img.src };
           if (doCut) {
             const cut = await cutout(buf);
             writeFileSync(join(dir, `${i + 1}-cutout.png`), cut);
@@ -105,11 +105,57 @@ export function designToolsServer(clientId: string, folder: string) {
         }
         saved.push({ title: p.title, handle: p.handle, url: `${origin}/products/${p.handle}`, price: p.variants?.[0]?.price, variants: (p.variants ?? []).slice(0, 4).map((v: any) => ({ title: v.title, price: v.price, id: v.id })), images: files });
       }
-      return ok({ saved, tip: "Open the images with Read to choose the best shot. Cutouts only work well on plain white studio backgrounds." });
+      return ok({ saved, tip: "Open the images with Read to choose the best shot. Cutouts only work well on plain white studio backgrounds. Pass a source_url to generate_image as a reference to put the real product into a generated scene." });
     },
   );
 
-  return createSdkMcpServer({ name: "fluid_design", version: "1.0.0", tools: [references, products] });
+  let generatedThisRun = 0;
+  const generate = tool(
+    "generate_image",
+    "Generate a photorealistic image for this email (Nano Banana Pro via Kie): recipe and lifestyle scenes, seasonal backgrounds, textures. Write a detailed photo brief: subject, setting, light, camera, mood, colors, and where to leave empty space for text. To show the brand's real product (packaging, bag, bowl) pass its photo URL in reference_urls (source_url from product_images): never invent packaging or labels without a reference. No text, logos or people's faces in the image unless asked. Saves into brand/assets/generated/ and returns the path. Max 4 per request; takes ~30-90 s each.",
+    {
+      prompt: z.string().min(40),
+      aspect_ratio: z.enum(["16:9", "3:2", "4:3", "1:1", "4:5", "3:4", "2:3", "9:16", "21:9"]).default("3:2"),
+      reference_urls: z.array(z.string().url()).max(6).optional().describe("Photos of the real product to place in the scene"),
+      name: z.string().min(2).max(60).describe("Short file name, e.g. strawberry-matcha-counter"),
+    },
+    async ({ prompt, aspect_ratio, reference_urls, name }) => {
+      const key = process.env.KIE_API_KEY;
+      if (!key) return ok({ error: "Image generation isn't set up (KIE_API_KEY missing)." });
+      if (generatedThisRun >= 4) return ok({ error: "Limit of 4 generated images per request reached." });
+      generatedThisRun++;
+      const kie = async (path: string, init?: RequestInit) => {
+        const r = await fetch(`https://api.kie.ai${path}`, { ...init, headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" } });
+        const b: any = await r.json().catch(() => ({ code: r.status, msg: r.statusText }));
+        if (b.code !== 200) throw new Error(`Kie ${b.code}: ${b.msg || "request failed"}`);
+        return b.data;
+      };
+      try {
+        const input: Record<string, unknown> = { prompt: `${prompt}\n\nPhotorealistic, natural light, high detail, no text, no watermark.`, aspect_ratio, resolution: "2K", output_format: "jpg" };
+        if (reference_urls?.length) input.image_input = reference_urls;
+        const { taskId } = await kie("/api/v1/jobs/createTask", { method: "POST", body: JSON.stringify({ model: "nano-banana-pro", input }) });
+        for (let i = 0; i < 60; i++) {
+          await new Promise((r) => setTimeout(r, 5000));
+          const d = await kie(`/api/v1/jobs/recordInfo?taskId=${encodeURIComponent(taskId)}`);
+          if (d.state === "fail") return ok({ error: d.failMsg || "Generation failed" });
+          if (d.state !== "success") continue;
+          const url = ((d.resultJson ? JSON.parse(d.resultJson) : d.response || {}).resultUrls || [])[0];
+          if (!url) return ok({ error: "No image came back" });
+          const buf = Buffer.from(await (await fetch(url)).arrayBuffer());
+          const dir = join(CLIENTS_DIR, folder, "brand/assets/generated");
+          mkdirSync(dir, { recursive: true });
+          const file = `${new Date().toISOString().slice(0, 10)}-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
+          const out = await sharp(buf).resize({ width: 1400, withoutEnlargement: true }).jpeg({ quality: 84, mozjpeg: true }).toBuffer();
+          writeFileSync(join(dir, file), out);
+          const meta = await sharp(out).metadata();
+          return ok({ file: `brand/assets/generated/${file}`, width: meta.width, height: meta.height, tip: "Open it with Read to check it before using it." });
+        }
+        return ok({ error: "Timed out waiting for the image" });
+      } catch (e: any) { return ok({ error: e.message }); }
+    },
+  );
+
+  return createSdkMcpServer({ name: "fluid_design", version: "1.0.0", tools: [references, products, generate] });
 }
 
-export const DESIGN_TOOLS = ["mcp__fluid_design__design_references", "mcp__fluid_design__product_images"];
+export const DESIGN_TOOLS = ["mcp__fluid_design__design_references", "mcp__fluid_design__product_images", "mcp__fluid_design__generate_image"];
