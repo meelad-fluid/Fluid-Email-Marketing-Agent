@@ -18,7 +18,8 @@ function copyMeta(designDir: string, designRel: string) {
   const copyFile = copyRel ? resolve(designDir, copyRel) : "";
   const c = copyFile && existsSync(copyFile) ? readFileSync(copyFile, "utf8") : "";
   const pick = (re: RegExp) => c.match(re)?.[1]?.trim() ?? "";
-  const names = (s: string) => s.split(/\s\+\s|;\s*/).map((x) => x.trim()).filter((x) => x && /^FC \||^[A-Z]{2,} \||^HIGH VALUE|^[A-Z][\w ]+ - /.test(x) && !/segment to build/i.test(x));
+  // Audience names from the copy doc: "A + B" or "A; B". Long descriptive phrases (segment definitions) are skipped.
+  const names = (s: string) => s.split(/\s\+\s|;\s*|,\s+(?=FC \|)/).map((x) => x.replace(/\((?:segment to build|needs OK)[^)]*\)/gi, "").trim()).filter((x) => x && x.split(/\s+/).length <= 9 && !/segment to build|purchasers in the last|anyone who/i.test(x));
   return {
     name: (readme.match(/^# (.+?)(:| —|$)/m)?.[1] ?? designRel).trim(),
     subject: pick(/^SUBJECT \(pick\):\s*(.+)$/m),
@@ -92,11 +93,34 @@ export async function pushEmail(o: { clientsDir: string; folder: string; designR
   // so a copy doc can say "FC | BFCM 2026 free-matcha buyers" for "FC | BFCM 2026 free-matcha buyers ($160+ order Nov 15-19)".
   const key2 = (s: string) => s.toLowerCase().replace(/\s+/g, " ").replace(/[^a-z0-9$+ |]/g, "").trim();
   const groupsAll = [...lists.data, ...segs.data].map((g: any) => ({ id: g.id, k: key2(g.attributes.name) }));
-  const find = (n: string) => groupsAll.find((g) => g.k === key2(n))?.id ?? (() => { const hits = groupsAll.filter((g) => g.k.startsWith(key2(n.replace(/\(.*?\)/g, "")))); return hits.length === 1 ? hits[0].id : undefined; })();
+  // Fuzzy fallback: compare the meaningful words ("FC |", "list", "segment", possessives and filler ignored).
+  // A list/segment matches when it contains every meaningful word of the requested name; the shortest such name wins.
+  const STOP = new Set(["fc", "list", "segment", "the", "my", "our", "email", "audience", "group", "of", "for", "and"]);
+  const words = (s: string) => s.toLowerCase().replace(/[’']s\b/g, "").replace(/\(.*?\)/g, " ").split(/[^a-z0-9$+]+/).filter((w) => w && !STOP.has(w));
+  const groupsNamed = [...lists.data, ...segs.data].map((g: any) => ({ id: g.id, name: g.attributes.name as string, w: new Set(words(g.attributes.name)) }));
+  const fuzzy = (n: string) => {
+    const want = words(n).filter((w) => !/^[a-z]+$/.test(w) || groupsNamed.some((g) => g.w.has(w))); // drop names of people etc. that appear nowhere
+    if (!want.length) return undefined;
+    const hits = groupsNamed.filter((g) => want.every((w) => g.w.has(w))).sort((a, b) => a.name.length - b.name.length);
+    if (!hits.length) return undefined;
+    if (hits.length > 1 && hits[1].name.length === hits[0].name.length) return undefined; // genuinely ambiguous
+    return hits[0];
+  };
+  const matched: { asked: string; matched: string }[] = [];
+  const find = (n: string) => {
+    const exact = groupsAll.find((g) => g.k === key2(n))?.id;
+    if (exact) return exact;
+    const pre = groupsAll.filter((g) => g.k.startsWith(key2(n.replace(/\(.*?\)/g, ""))));
+    if (pre.length === 1) return pre[0].id;
+    const f = fuzzy(n);
+    if (f) { matched.push({ asked: n, matched: f.name }); return f.id; }
+    return undefined;
+  };
   const resolveNames = (ns: string[]) => ns.map((n) => ({ n, id: find(n) }));
   const inc = resolveNames(meta.included), exc = resolveNames(meta.excluded);
   const missing = [...inc, ...exc].filter((x) => !x.id).map((x) => x.n);
-  const out: any = { template_id: templateId, template_name: tName, images: urls, missing_audiences: missing };
+  const suggest = (n: string) => groupsNamed.filter((g) => words(n).some((w) => g.w.has(w))).slice(0, 4).map((g) => g.name);
+  const out: any = { template_id: templateId, template_name: tName, images: urls, missing_audiences: missing, audience_matches: matched, suggestions: Object.fromEntries(missing.map((m) => [m, suggest(m)])) };
   if (!inc.some((x) => x.id)) {
     out.campaign = null;
     out.note = "No included audience matched a Klaviyo list/segment name, so only the template was created.";

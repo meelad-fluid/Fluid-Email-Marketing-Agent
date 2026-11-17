@@ -102,13 +102,13 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
 
   const pushKlaviyo = tool(
     "push_to_klaviyo",
-    "Build a finished design into this client's Klaviyo as a DRAFT campaign (never sends or schedules): slices it (each section/CTA its own linked image), QC checks every link, uploads the images, creates a drag-and-drop template and a draft campaign with the subject, preview text, sender and audiences from the copy file. Re-pushing updates the same draft. Only works if the client allows drafts.",
+    "Build a finished design into this client's Klaviyo as a DRAFT campaign (never sends or schedules): slices it (each section/CTA its own linked image), QC checks every link, uploads the images, creates a drag-and-drop template and a draft campaign with the subject, preview text, sender and audiences from the copy file. Re-pushing updates the same draft (or creates the campaign if an earlier push had no audience). Audience names are matched loosely (e.g. 'engaged 120' finds 'FC | Engaged 120'); say which list each request was matched to. Only works if the client allows drafts.",
     { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20") },
     async ({ design_folder }) => {
       try {
         const r = await pushEmail({ clientsDir: CLIENTS_DIR, folder, designRel: design_folder.replace(/^\.\//, ""), db: db(), push: true });
         const k = r.klaviyo ?? {};
-        return ok({ pushed: r.pushed, campaign: k.campaign?.name ?? null, updated_existing_draft: !!r.reusedDraft, slices: r.slices, missing_audiences: k.missing_audiences ?? [], note: k.note, warnings: r.warnings });
+        return ok({ pushed: r.pushed, campaign: k.campaign?.name ?? null, updated_existing_draft: !!r.reusedDraft, slices: r.slices, missing_audiences: k.missing_audiences ?? [], audience_matches: k.audience_matches ?? [], suggestions: k.suggestions ?? {}, note: k.note, warnings: r.warnings });
       } catch (e: any) { return ok({ error: e.message }); }
     },
   );

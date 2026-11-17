@@ -12,6 +12,8 @@ import { join } from "node:path";
 import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { foreignNames } from "../lib/leaks";
+import { dcToHtml } from "../lib/email/dc";
+import { chromium } from "playwright";
 
 export const REF_DIR = "/tmp/fluid-refs";
 const ok = (o: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(o) }] });
@@ -62,6 +64,86 @@ export function designToolsServer(clientId: string, folder: string) {
         out.push({ n: i + 1, image, industry: r.industry, above_the_fold: t.above_the_fold, sections: t.sections, design: t.design, reuse: t.steal, summary: r.summary });
       }
       return ok({ note: "Layout ideas only. Brand names removed. Never mention where these come from.", references: JSON.parse(scrub(JSON.stringify(out))) });
+    },
+  );
+
+  // ---- Style selection: every email starts from a style picked out of the whole library, never one this client saw recently.
+  const scrubber = async () => { const names = await foreignNames(CLIENTS_DIR, folder, db()); return (s: string) => { let t = s; for (const n of names.foreign.keys()) t = t.replace(new RegExp(`\\b${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "[\\s\\W]+")}\\b`, "gi"), "[brand]"); return t; }; };
+  const refImage = async (r: { id: string; image_path: string | null }) => {
+    if (!r.image_path) return undefined;
+    mkdirSync(REF_DIR, { recursive: true });
+    const file = join(REF_DIR, `style-${r.id.slice(0, 8)}.png`);
+    if (!existsSync(file)) {
+      const dl = await db().storage.from("brain").download(r.image_path);
+      if (dl.data) writeFileSync(file, await sharp(Buffer.from(await dl.data.arrayBuffer())).resize({ width: 600 }).png().toBuffer());
+    }
+    return existsSync(file) ? file : undefined;
+  };
+  let offered: { id: string }[] = [];
+  const styleOptions = tool(
+    "style_options",
+    "STEP 1 of every design (internal, never mention it). Shows 3 very different past Fluid email designs to take the style direction from: hero treatment, typography, how images and products float, section shapes, color blocking. Picks from the whole library (any industry, campaigns and flows), weighted to this email's type, and never repeats a style this client got in its recent emails. Open each image with Read, then call choose_style. Call again for 3 new options if none fit.",
+    { email_type: z.string().describe("e.g. educational, product, sale, holiday, launch, bundle, social_proof, winback, welcome, post_purchase"), mood: z.string().optional().describe("Optional: e.g. bold, editorial, playful, premium, minimal") },
+    async ({ email_type, mood }) => {
+      const [{ data: all }, { data: used }] = await Promise.all([
+        db().from("reference_emails").select("id, campaign_type, flow_type, kind, industry, tags, summary, image_path, teardown").neq("quality", "anti_example").not("image_path", "is", null),
+        db().from("design_style_usage").select("reference_id").eq("client_id", clientId).order("created_at", { ascending: false }).limit(40),
+      ]);
+      const recent = new Set((used ?? []).map((u) => u.reference_id));
+      const skip = new Set([...recent, ...offered.map((o) => o.id)]);
+      const pool = (all ?? []).filter((r) => !skip.has(r.id));
+      const t = email_type.toLowerCase();
+      const m = (mood ?? "").toLowerCase();
+      const score = (r: any) => (r.campaign_type === t || r.flow_type === t ? 3 : 0) + (m && JSON.stringify(r.tags ?? []).toLowerCase().includes(m) ? 1 : 0) + Math.random() * 2.5;
+      const ranked = pool.sort((a, b) => score(b) - score(a));
+      // Spread the 3 picks across different industries/types so they look nothing alike.
+      const picks: any[] = [];
+      for (const r of ranked) { if (picks.length === 3) break; if (picks.some((p) => p.industry === r.industry && (p.campaign_type ?? p.flow_type) === (r.campaign_type ?? r.flow_type))) continue; picks.push(r); }
+      offered = picks;
+      const scrub = await scrubber();
+      const out = [];
+      for (const [i, r] of picks.entries()) {
+        const d = r.teardown?.design ?? {};
+        out.push({ option: i + 1, image: await refImage(r), style: d, above_the_fold: r.teardown?.above_the_fold, sections: (r.teardown?.sections ?? []).map((x: any) => (typeof x === "string" ? x : x.name ?? x.type ?? x)).slice(0, 10) });
+      }
+      return ok({ note: "Style direction only: never copy words, products, claims or another brand's colors/logo. Never mention where these come from.", options: JSON.parse(scrub(JSON.stringify(out))) });
+    },
+  );
+  const chooseStyle = tool(
+    "choose_style",
+    "STEP 2: lock in one style option from style_options for this design. Returns its full breakdown to follow closely (adapted to this brand's fonts, colors and photos). Recorded so this client doesn't get the same style again soon.",
+    { option: z.number().int().min(1).max(3), design_folder: z.string() },
+    async ({ option, design_folder }) => {
+      const r: any = offered[option - 1];
+      if (!r) return ok({ error: "Call style_options first." });
+      await db().from("design_style_usage").insert({ client_id: clientId, reference_id: r.id, design_path: design_folder });
+      const scrub = await scrubber();
+      return ok({ image: await refImage(r), breakdown: JSON.parse(scrub(JSON.stringify({ above_the_fold: r.teardown?.above_the_fold, sections: r.teardown?.sections, design: r.teardown?.design, what_makes_it_work: r.teardown?.steal }))) });
+    },
+  );
+  const renderPreview = tool(
+    "render_preview",
+    "Render your design.dc.html exactly as it will look (600px email) and save a screenshot you can open with Read. Use it after building and after each round of fixes: compare against the chosen style and Fluid's rules, then improve.",
+    { design_folder: z.string() },
+    async ({ design_folder }) => {
+      const base = join(CLIENTS_DIR, folder);
+      const dc = join(base, design_folder.replace(/^\.\//, ""), "design.dc.html");
+      if (!dc.startsWith(base + "/") || !existsSync(dc)) return ok({ error: "No design.dc.html in that folder." });
+      let html: string;
+      try { html = dcToHtml(dc, base); } catch (e: any) { return ok({ error: e.message }); }
+      const outDir = join(REF_DIR, "previews"); mkdirSync(outDir, { recursive: true });
+      const htmlFile = join(outDir, `${folder}-preview.html`); writeFileSync(htmlFile, html);
+      const browser = await chromium.launch();
+      try {
+        const page = await browser.newPage({ viewport: { width: 600, height: 1000 }, deviceScaleFactor: 1 });
+        await page.goto(`file://${htmlFile}`, { waitUntil: "load" });
+        await page.evaluate(async () => { await (document as any).fonts.ready; });
+        const missing = await page.evaluate(() => [...document.images].filter((i) => !i.complete || !i.naturalWidth).map((i) => i.getAttribute("src")));
+        const shot = join(outDir, `${folder}-${Date.now()}.png`);
+        await page.locator("body > *:first-child").screenshot({ path: shot });
+        const meta = await sharp(shot).metadata();
+        return ok({ screenshot: shot, height: meta.height, broken_images: missing, tip: "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
+      } finally { await browser.close(); }
     },
   );
 
@@ -155,7 +237,7 @@ export function designToolsServer(clientId: string, folder: string) {
     },
   );
 
-  return createSdkMcpServer({ name: "fluid_design", version: "1.0.0", tools: [references, products, generate] });
+  return createSdkMcpServer({ name: "fluid_design", version: "1.0.0", tools: [styleOptions, chooseStyle, renderPreview, references, products, generate] });
 }
 
-export const DESIGN_TOOLS = ["mcp__fluid_design__design_references", "mcp__fluid_design__product_images", "mcp__fluid_design__generate_image"];
+export const DESIGN_TOOLS = ["mcp__fluid_design__style_options", "mcp__fluid_design__choose_style", "mcp__fluid_design__render_preview", "mcp__fluid_design__design_references", "mcp__fluid_design__product_images", "mcp__fluid_design__generate_image"];
