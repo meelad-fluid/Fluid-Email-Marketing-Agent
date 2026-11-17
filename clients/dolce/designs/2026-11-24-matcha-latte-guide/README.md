@@ -1,7 +1,8 @@
 # Matcha latte guide: design
+Copy: ../../copy/2026-11-24-matcha-latte-guide.md (subject, preview, sender, audience; body copy lives in the design)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/h81RrbvovGCe13bRWMpuWfI5
 Audience: Meelad's engaged 120 list (set 2026-11-17, replaces the 90-day engaged matcha buyers idea). Exclude FC | Shopify Tags contains wholesale.
-Klaviyo: not pushed yet (no Klaviyo write access from Slack on 2026-11-17).
+Klaviyo: DnD template pushed 2026-11-17 (9 slices). No draft campaign yet: "Engaged 120" didn't match any Klaviyo list/segment name; need the exact name, then re-push.
 Sender: Hannah from Dolce (proposed) · No discount · Send: Tue Nov 24, 2026 (proposed, the day before VIP early access, so add-ons land in Black Friday baskets)
 Status: needs approval · goes live Tue Nov 24, 2026
 
