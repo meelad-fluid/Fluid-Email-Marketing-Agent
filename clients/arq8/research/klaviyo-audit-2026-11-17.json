@@ -1,0 +1,851 @@
+{
+ "pulled_at": "2026-11-17T09:17:55.413Z",
+ "window_days": 60,
+ "account": {
+  "name": "ARQ8 DISTRIBUTION LLC",
+  "sender": "wecare@arq-8.com",
+  "timezone": "US/Eastern",
+  "currency": "USD"
+ },
+ "lists": [
+  {
+   "id": "RXwaS8",
+   "name": "Drop Campaign (100 free bottles)",
+   "created": "2025-12-09"
+  },
+  {
+   "id": "SSGVvG",
+   "name": "Orange Launch",
+   "created": "2026-09-18"
+  },
+  {
+   "id": "SzwmjV",
+   "name": "Preview List",
+   "created": "2025-12-08"
+  },
+  {
+   "id": "ThaEhW",
+   "name": "SMS List",
+   "created": "2025-12-08"
+  },
+  {
+   "id": "U4f4GE",
+   "name": "Arq8 Affiliates Base",
+   "created": "2026-03-16"
+  },
+  {
+   "id": "UZ67Q8",
+   "name": "Opensend",
+   "created": "2026-04-15"
+  },
+  {
+   "id": "V5AxNr",
+   "name": "Email List",
+   "created": "2025-12-08"
+  },
+  {
+   "id": "W8rk5n",
+   "name": "Jugme_Positive reviews",
+   "created": "2026-07-29"
+  }
+ ],
+ "forms": [
+  {
+   "name": "New Launch Pop Up",
+   "status": "live"
+  },
+  {
+   "name": "Footer form",
+   "status": "live"
+  },
+  {
+   "name": "Email Embed",
+   "status": "live"
+  }
+ ],
+ "flows": {
+  "live_count": 12,
+  "live": [
+   "Shipment Delivered - N8",
+   "Email Welcome Series - N8* [Opensend]",
+   "Site Abandonment",
+   "Email Welcome Series - N8*",
+   "Browse Abandonment - N8",
+   "SMS Welcome Series - N8",
+   "SKIO Cancellation flow",
+   "SKIO Payment Reanimation",
+   "Abandoned Cart - N8*",
+   "Abandoned Checkout - N8*",
+   "Reactivation - N8",
+   "Thank You - N8"
+  ],
+  "top10_60d": [
+   {
+    "name": "SMS Welcome Series - N8",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "sms",
+    "recipients": 12743,
+    "revenue": 17829,
+    "rpr": 1.4,
+    "conversions": 235
+   },
+   {
+    "name": "Email Welcome Series - N8*",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email",
+    "recipients": 48825,
+    "revenue": 15335,
+    "rpr": 0.31,
+    "conversions": 199
+   },
+   {
+    "name": "Shipment Delivered - N8",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "sms+email",
+    "recipients": 35230,
+    "revenue": 2732,
+    "rpr": 0.08,
+    "conversions": 35
+   },
+   {
+    "name": "Email Welcome Series - N8* [Opensend]",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email",
+    "recipients": 40943,
+    "revenue": 1809,
+    "rpr": 0.04,
+    "conversions": 26
+   },
+   {
+    "name": "WEc9Mm",
+    "channels": "sms+email",
+    "recipients": 5828,
+    "revenue": 1661,
+    "rpr": 0.29,
+    "conversions": 19
+   },
+   {
+    "name": "Abandoned Cart - N8*",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "sms+email",
+    "recipients": 5793,
+    "revenue": 1114,
+    "rpr": 0.19,
+    "conversions": 16
+   },
+   {
+    "name": "Abandoned Checkout - N8*",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "sms+email",
+    "recipients": 1257,
+    "revenue": 894,
+    "rpr": 0.71,
+    "conversions": 10
+   },
+   {
+    "name": "Site Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 3707,
+    "revenue": 701,
+    "rpr": 0.19,
+    "conversions": 7
+   },
+   {
+    "name": "Thank You - N8",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 9377,
+    "revenue": 535,
+    "rpr": 0.06,
+    "conversions": 12
+   },
+   {
+    "name": "SKIO Payment Reanimation",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "sms",
+    "recipients": 878,
+    "revenue": 410,
+    "rpr": 0.47,
+    "conversions": 5
+   }
+  ]
+ },
+ "campaigns_60d": {
+  "email_sends": 48,
+  "sms_sends": 0,
+  "per_week": 5.6,
+  "avg_open_rate": 0.5655,
+  "avg_click_rate": 0.0048,
+  "best": [
+   {
+    "name": "Campaign Oct 9, 2026 [Bundle Promotion 5]",
+    "channel": "email",
+    "sent": "2026-10-08T23:00:00+00:00",
+    "status": "Sent",
+    "subject": "8 hours left. 🚨 Shop your favorite bundle",
+    "preview": "Our Prime Day sale is coming to an end",
+    "audiences": {
+     "included": [
+      "WEGp2K"
+     ],
+     "excluded": []
+    },
+    "recipients": 14083,
+    "open_rate": 0.70963,
+    "click_rate": 0.00627,
+    "conversions": 17,
+    "revenue": 1290,
+    "rpr": 0.09195,
+    "unsub_rate": 0.00549
+   },
+   {
+    "name": "Campaign Oct 27, 2026 [Halloween Jam]",
+    "channel": "email",
+    "sent": "2026-10-28T15:37:24.441291+00:00",
+    "status": "Sent",
+    "subject": "Here’s your Halloween treat 🎃 15% off for a limited time.",
+    "preview": "FullDissolve™ treats at a better price. ",
+    "audiences": {
+     "included": [
+      "T3e9sw"
+     ],
+     "excluded": [
+      "Y7ZtAu"
+     ]
+    },
+    "recipients": 16506,
+    "open_rate": 0.68345,
+    "click_rate": 0.00346,
+    "conversions": 14,
+    "revenue": 1443,
+    "rpr": 0.08756,
+    "unsub_rate": 0.00394
+   },
+   {
+    "name": "Campaign Oct 6, 2026 [Bundle Promotion 2]",
+    "channel": "email",
+    "sent": "2026-10-06T18:11:39.618854+00:00",
+    "status": "Sent",
+    "subject": "Prime Day is live. 🔴 Bundle prices just dropped.",
+    "preview": "Our best performance stacks, now 25% off.",
+    "audiences": {
+     "included": [
+      "WEGp2K"
+     ],
+     "excluded": []
+    },
+    "recipients": 23059,
+    "open_rate": 0.42622,
+    "click_rate": 0.00791,
+    "conversions": 24,
+    "revenue": 1833,
+    "rpr": 0.07965,
+    "unsub_rate": 0.00274
+   },
+   {
+    "name": "Campaign Oct 6, 2026 [Bundle Promotion 3.2]",
+    "channel": "email",
+    "sent": "2026-10-07T15:56:03.003474+00:00",
+    "status": "Sent",
+    "subject": "Unlock our best-selling supplement stack. 🤫",
+    "preview": "Prime Day deal: claim up to $60 in extra savings. Ends Oct 8.",
+    "audiences": {
+     "included": [
+      "T3e9sw"
+     ],
+     "excluded": []
+    },
+    "recipients": 17111,
+    "open_rate": 0.55634,
+    "click_rate": 0.00544,
+    "conversions": 12,
+    "revenue": 983,
+    "rpr": 0.05756,
+    "unsub_rate": 0.00363
+   },
+   {
+    "name": "Campaign Oct 5, 2026 [Bundle Promotion]",
+    "channel": "email",
+    "sent": "2026-10-05T21:10:09.219457+00:00",
+    "status": "Sent",
+    "subject": "Claim your Prime Day deals tomorrow.",
+    "preview": "Smart supplement stacks for savvy shoppers",
+    "audiences": {
+     "included": [
+      "T3e9sw"
+     ],
+     "excluded": []
+    },
+    "recipients": 16743,
+    "open_rate": 0.5705,
+    "click_rate": 0.01053,
+    "conversions": 10,
+    "revenue": 944,
+    "rpr": 0.05647,
+    "unsub_rate": 0.00287
+   }
+  ],
+  "worst": [
+   {
+    "name": "Campaign Nov 09, 2026 [Team CustDev Invite] Powder",
+    "channel": "email",
+    "sent": "2026-11-10T01:34:18.742138+00:00",
+    "status": "Sent",
+    "subject": "Get a free product for an Arq8 interview.",
+    "preview": "",
+    "audiences": {
+     "included": [
+      "SXA6Ju"
+     ],
+     "excluded": []
+    },
+    "recipients": 823,
+    "open_rate": 0.61876,
+    "click_rate": 0.01218,
+    "conversions": 0,
+    "revenue": 0,
+    "rpr": 0,
+    "unsub_rate": 0.00487
+   },
+   {
+    "name": "Campaign Nov 1, 2026 [Upgraded delivery]",
+    "channel": "email",
+    "sent": "2026-11-01T16:44:26.516063+00:00",
+    "status": "Sent",
+    "subject": "5x smaller particles than regular creatine. ",
+    "preview": "Solves six common creatine complaints.",
+    "audiences": {
+     "included": [
+      "T3e9sw"
+     ],
+     "excluded": [
+      "Y7ZtAu",
+      "YdPXK4"
+     ]
+    },
+    "recipients": 16078,
+    "open_rate": 0.71218,
+    "click_rate": 0.00299,
+    "conversions": 0,
+    "revenue": 0,
+    "rpr": 0,
+    "unsub_rate": 0.00461
+   },
+   {
+    "name": "Campaign Oct 04, 2026 [Team CustDev Invite] 8",
+    "channel": "email",
+    "sent": "2026-10-04T23:32:41.917232+00:00",
+    "status": "Sent",
+    "subject": "Any product for free. How about a creatine upgrade?",
+    "preview": "",
+    "audiences": {
+     "included": [
+      "W6RDdk",
+      "Y7ZtAu"
+     ],
+     "excluded": []
+    },
+    "recipients": 4603,
+    "open_rate": 0.51874,
+    "click_rate": 0.00697,
+    "conversions": 0,
+    "revenue": 0,
+    "rpr": 0,
+    "unsub_rate": 0.00327
+   }
+  ],
+  "all": [
+   {
+    "name": "Campaign Oct 9, 2026 [Bundle Promotion 5]",
+    "sent": "2026-10-08T23:00:00+00:00",
+    "subject": "8 hours left. 🚨 Shop your favorite bundle",
+    "open_rate": 0.70963,
+    "click_rate": 0.00627,
+    "revenue": 1290,
+    "rpr": 0.09195,
+    "recipients": 14083
+   },
+   {
+    "name": "Campaign Oct 27, 2026 [Halloween Jam]",
+    "sent": "2026-10-28T15:37:24.441291+00:00",
+    "subject": "Here’s your Halloween treat 🎃 15% off for a limited time.",
+    "open_rate": 0.68345,
+    "click_rate": 0.00346,
+    "revenue": 1443,
+    "rpr": 0.08756,
+    "recipients": 16506
+   },
+   {
+    "name": "Campaign Oct 6, 2026 [Bundle Promotion 2]",
+    "sent": "2026-10-06T18:11:39.618854+00:00",
+    "subject": "Prime Day is live. 🔴 Bundle prices just dropped.",
+    "open_rate": 0.42622,
+    "click_rate": 0.00791,
+    "revenue": 1833,
+    "rpr": 0.07965,
+    "recipients": 23059
+   },
+   {
+    "name": "Campaign Oct 6, 2026 [Bundle Promotion 3.2]",
+    "sent": "2026-10-07T15:56:03.003474+00:00",
+    "subject": "Unlock our best-selling supplement stack. 🤫",
+    "open_rate": 0.55634,
+    "click_rate": 0.00544,
+    "revenue": 983,
+    "rpr": 0.05756,
+    "recipients": 17111
+   },
+   {
+    "name": "Campaign Oct 5, 2026 [Bundle Promotion]",
+    "sent": "2026-10-05T21:10:09.219457+00:00",
+    "subject": "Claim your Prime Day deals tomorrow.",
+    "open_rate": 0.5705,
+    "click_rate": 0.01053,
+    "revenue": 944,
+    "rpr": 0.05647,
+    "recipients": 16743
+   },
+   {
+    "name": "Campaign Sep 24, 2026 [Autumn vibes]",
+    "sent": "2026-09-24T00:00:00+00:00",
+    "subject": "Step into autumn with a better stack.",
+    "open_rate": 0.57636,
+    "click_rate": 0.004,
+    "revenue": 715,
+    "rpr": 0.05205,
+    "recipients": 13761
+   },
+   {
+    "name": "Campaign Oct 7, 2026 [Bundle Promotion 3.1]",
+    "sent": "2026-10-07T23:00:00+00:00",
+    "subject": "Prime Day ⏱️ bundle price on your first month.",
+    "open_rate": 0.42148,
+    "click_rate": 0.0045,
+    "revenue": 1187,
+    "rpr": 0.05086,
+    "recipients": 23386
+   },
+   {
+    "name": "FC | Strength You Keep",
+    "sent": "2026-11-05T19:45:00+00:00",
+    "subject": "4 gummies a day. That is the routine. ",
+    "open_rate": 0.51442,
+    "click_rate": 0.00387,
+    "revenue": 946,
+    "rpr": 0.05083,
+    "recipients": 18627
+   },
+   {
+    "name": "Campaign Sep 22, 2026 [ICP survey]",
+    "sent": "2026-09-22T15:12:27.390680+00:00",
+    "subject": "Tell us about yourself and get a free product. 🎁",
+    "open_rate": 0.47187,
+    "click_rate": 0.02764,
+    "revenue": 196,
+    "rpr": 0.04802,
+    "recipients": 4103
+   },
+   {
+    "name": "Campaign Oct 8, 2026 [Bundle Promotion 4]",
+    "sent": "2026-10-08T17:10:08.688172+00:00",
+    "subject": "Final 24 hours of Prime Day deals.",
+    "open_rate": 0.51999,
+    "click_rate": 0.00533,
+    "revenue": 1006,
+    "rpr": 0.04292,
+    "recipients": 23519
+   },
+   {
+    "name": "Campaign Oct 30, 2026 [Halloween Jam 2]",
+    "sent": "2026-10-30T15:00:00+00:00",
+    "subject": "15% off for Halloween — less than 48 hours left. ",
+    "open_rate": 0.55006,
+    "click_rate": 0.00329,
+    "revenue": 760,
+    "rpr": 0.03791,
+    "recipients": 20090
+   },
+   {
+    "name": "Campaign Oct 14, 2026 [Swiss nano-refinement]",
+    "sent": "2026-10-14T15:02:26.378145+00:00",
+    "subject": "Get all the benefits of 🇨🇭 nano-refined creatine.",
+    "open_rate": 0.58531,
+    "click_rate": 0.0033,
+    "revenue": 590,
+    "rpr": 0.03301,
+    "recipients": 17939
+   },
+   {
+    "name": "Campaign Oct 18, 2026 [5 facts convinced millions]",
+    "sent": "2026-10-18T15:12:44.577470+00:00",
+    "subject": "5 facts that convinced millions to take creatine.",
+    "open_rate": 0.62569,
+    "click_rate": 0.0043,
+    "revenue": 571,
+    "rpr": 0.03111,
+    "recipients": 18385
+   },
+   {
+    "name": "Campaign Sep 25, 2026 [Sleep deprivation]",
+    "sent": "2026-09-27T15:00:00+00:00",
+    "subject": "Short nights ahead? Stay sharp all week.",
+    "open_rate": 0.58613,
+    "click_rate": 0.00308,
+    "revenue": 468,
+    "rpr": 0.03002,
+    "recipients": 15636
+   },
+   {
+    "name": "Campaign Oct 19, 2026 [Bundle Promotion 8]",
+    "sent": "2026-10-19T00:00:00+00:00",
+    "subject": "Better together. 💯 All in one delivery.",
+    "open_rate": 0.59672,
+    "click_rate": 0.00366,
+    "revenue": 542,
+    "rpr": 0.02962,
+    "recipients": 18332
+   },
+   {
+    "name": "Campaign Sep 20, 2026 [Travel pack]",
+    "sent": "2026-09-20T15:00:00+00:00",
+    "subject": "New travel case: never miss a day. ✅",
+    "open_rate": 0.56341,
+    "click_rate": 0.00558,
+    "revenue": 428,
+    "rpr": 0.02882,
+    "recipients": 14881
+   },
+   {
+    "name": "Campaign Oct 1, 2026 [Falls Gummies]",
+    "sent": "2026-10-01T20:58:23.368167+00:00",
+    "subject": "Don't cut corners on your supplements.",
+    "open_rate": 0.55819,
+    "click_rate": 0.00256,
+    "revenue": 448,
+    "rpr": 0.02795,
+    "recipients": 16065
+   },
+   {
+    "name": "Campaign Sep 24, 2026 [Autumn vibes] [Subscribers]",
+    "sent": "2026-09-24T15:00:00+00:00",
+    "subject": "Autumn raises the load. Magnesium+ backs the recovery.",
+    "open_rate": 0.47419,
+    "click_rate": 0.01158,
+    "revenue": 56,
+    "rpr": 0.02701,
+    "recipients": 2078
+   },
+   {
+    "name": "Campaign Oct 17 [Guarantee 1.]",
+    "sent": "2026-10-17T18:09:03.560878+00:00",
+    "subject": "A reminder about your first order.",
+    "open_rate": 0.65398,
+    "click_rate": 0.00403,
+    "revenue": 379,
+    "rpr": 0.02635,
+    "recipients": 14429
+   },
+   {
+    "name": "Campaign Sep 22, 2026 [Most people quit before it shows]",
+    "sent": "2026-09-22T00:00:00+00:00",
+    "subject": "4 reasons you're not seeing results.",
+    "open_rate": 0.58159,
+    "click_rate": 0.00527,
+    "revenue": 381,
+    "rpr": 0.02506,
+    "recipients": 15209
+   },
+   {
+    "name": "Campaign Oct 22, 2026 [Third-gen. creatine]",
+    "sent": "2026-10-22T15:00:00+00:00",
+    "subject": "Creatine that solves a million complaints.",
+    "open_rate": 0.61235,
+    "click_rate": 0.00273,
+    "revenue": 383,
+    "rpr": 0.02492,
+    "recipients": 15404
+   },
+   {
+    "name": "Campaign Oct 10, 2026 [Bundle Promotion 7]",
+    "sent": "2026-10-14T23:00:00+00:00",
+    "subject": "Experienced users choose Arq8™ bundles.",
+    "open_rate": 0.43238,
+    "click_rate": 0.00365,
+    "revenue": 612,
+    "rpr": 0.02458,
+    "recipients": 24971
+   },
+   {
+    "name": "Campaign Sep 18, 2026 [Electrolytes]",
+    "sent": "2026-09-18T15:00:00+00:00",
+    "subject": "New Electrolyte Drink. 🫐",
+    "open_rate": 0.56266,
+    "click_rate": 0.00464,
+    "revenue": 344,
+    "rpr": 0.02351,
+    "recipients": 14667
+   },
+   {
+    "name": "Campaign Oct 27, 2026 [Gummies promo]",
+    "sent": "2026-10-27T15:00:00+00:00",
+    "subject": "Creatine gummies with no chalky aftertaste.",
+    "open_rate": 0.60054,
+    "click_rate": 0.00275,
+    "revenue": 373,
+    "rpr": 0.02335,
+    "recipients": 16007
+   },
+   {
+    "name": "FC | My Biggest Bet For Staying Strong",
+    "sent": "2026-11-07T20:43:37.214844+00:00",
+    "subject": "My biggest bet for staying strong for life",
+    "open_rate": 0.47212,
+    "click_rate": 0.00357,
+    "revenue": 424,
+    "rpr": 0.0226,
+    "recipients": 18780
+   },
+   {
+    "name": "Campaign Oct 16, 2026 [Proofs]",
+    "sent": "2026-10-16T15:13:48.591479+00:00",
+    "subject": "Every claim needs to be backed up. ✅",
+    "open_rate": 0.55373,
+    "click_rate": 0.00248,
+    "revenue": 380,
+    "rpr": 0.02094,
+    "recipients": 18170
+   },
+   {
+    "name": "FC | How Subscribing Works",
+    "sent": "2026-11-12T17:25:03.724722+00:00",
+    "subject": "4 gummies a day. That is the routine.",
+    "open_rate": 0.45039,
+    "click_rate": 0.00232,
+    "revenue": 420,
+    "rpr": 0.02073,
+    "recipients": 20292
+   },
+   {
+    "name": "Campaign Oct 31, 2026 [Halloween Jam 3]",
+    "sent": "2026-10-31T15:00:05.538091+00:00",
+    "subject": "Last call 🔔 for your Halloween treat.",
+    "open_rate": 0.57564,
+    "click_rate": 0.00253,
+    "revenue": 413,
+    "rpr": 0.02051,
+    "recipients": 20183
+   },
+   {
+    "name": "Campaign Oct 22, 2026 [Third-gen. creatine + Q&A]",
+    "sent": "2026-10-22T23:15:05.936339+00:00",
+    "subject": "A top creatine scientist answers your questions. ",
+    "open_rate": 0.64737,
+    "click_rate": 0.00317,
+    "revenue": 317,
+    "rpr": 0.0201,
+    "recipients": 15790
+   },
+   {
+    "name": "Campaign Oct 31, 2026 [Final Halloween Jam]",
+    "sent": "2026-11-01T01:00:00+00:00",
+    "subject": "The witching-hour deal ends at 6 AM PT 🦇",
+    "open_rate": 0.58464,
+    "click_rate": 0.00285,
+    "revenue": 381,
+    "rpr": 0.0197,
+    "recipients": 19353
+   },
+   {
+    "name": "Campaign Sep 29, 2026 [6 tips for immune system]",
+    "sent": "2026-09-29T00:00:00+00:00",
+    "subject": "6 ways to support your immune system. 🍁",
+    "open_rate": 0.61579,
+    "click_rate": 0.0036,
+    "revenue": 306,
+    "rpr": 0.01931,
+    "recipients": 15867
+   },
+   {
+    "name": "Campaign Oct 04, 2026 [Variety Pack]",
+    "sent": "2026-10-04T15:00:00+00:00",
+    "subject": "Can't pick a flavor? Try two at once. 🍓 + 🥭",
+    "open_rate": 0.43626,
+    "click_rate": 0.00408,
+    "revenue": 408,
+    "rpr": 0.01831,
+    "recipients": 22352
+   },
+   {
+    "name": "Campaign Oct 20, 2026 [Healthy Aging]",
+    "sent": "2026-10-20T14:48:15.362556+00:00",
+    "subject": "They call it “just getting older.”",
+    "open_rate": 0.65985,
+    "click_rate": 0.00395,
+    "revenue": 289,
+    "rpr": 0.01565,
+    "recipients": 18503
+   },
+   {
+    "name": "Campaign Oct 13, 2026 [Creatine's extras]",
+    "sent": "2026-10-13T16:00:11.958725+00:00",
+    "subject": "Maximize your creatine results.",
+    "open_rate": 0.56663,
+    "click_rate": 0.00325,
+    "revenue": 249,
+    "rpr": 0.01395,
+    "recipients": 17876
+   },
+   {
+    "name": "Campaign Sep 25, 2026 [Sergey Ostovich]",
+    "sent": "2026-09-25T16:29:01.211071+00:00",
+    "subject": "World's top 2% scientist 🌎 joins Arq8™. 📈",
+    "open_rate": 0.55825,
+    "click_rate": 0.00395,
+    "revenue": 213,
+    "rpr": 0.0138,
+    "recipients": 15471
+   },
+   {
+    "name": "Campaign Oct 17 [Value Bump]",
+    "sent": "2026-10-16T23:13:39.597257+00:00",
+    "subject": "Bring even more value to your creatine routine.",
+    "open_rate": 0.41413,
+    "click_rate": 0.00228,
+    "revenue": 300,
+    "rpr": 0.01314,
+    "recipients": 22892
+   },
+   {
+    "name": "Campaign Oct 02, 2026 [Arq8 Longevity #1] [P.2]",
+    "sent": "2026-10-02T15:24:31.505289+00:00",
+    "subject": "When recovery slows and strength fades. 📉",
+    "open_rate": 0.57806,
+    "click_rate": 0.0023,
+    "revenue": 85,
+    "rpr": 0.01306,
+    "recipients": 6527
+   },
+   {
+    "name": "Campaign Oct 18 [Guarantee 2.]",
+    "sent": "2026-10-18T23:06:38.569166+00:00",
+    "subject": "Try Arq8™ risk-free for 30 days.",
+    "open_rate": 0.54323,
+    "click_rate": 0.00259,
+    "revenue": 177,
+    "rpr": 0.01206,
+    "recipients": 14668
+   },
+   {
+    "name": "FC | What Makes ARQ8 Different",
+    "sent": "2026-11-10T17:10:57.621509+00:00",
+    "subject": "5 things that set these apart",
+    "open_rate": 0.56597,
+    "click_rate": 0.00247,
+    "revenue": 179,
+    "rpr": 0.00942,
+    "recipients": 19069
+   },
+   {
+    "name": "Campaign Oct 02, 2026 [Arq8 Longevity #1]",
+    "sent": "2026-10-02T15:00:00+00:00",
+    "subject": "When recovery takes longer and strength fades.",
+    "open_rate": 0.5669,
+    "click_rate": 0.00278,
+    "revenue": 89,
+    "rpr": 0.00885,
+    "recipients": 10107
+   },
+   {
+    "name": "Campaign Oct 23, 2026 [Sergey Os. joined Arq8]",
+    "sent": "2026-10-23T15:40:26.654119+00:00",
+    "subject": "A Top 2% Stanford-ranked scientist joins Arq8™",
+    "open_rate": 0.70617,
+    "click_rate": 0.0028,
+    "revenue": 128,
+    "rpr": 0.00813,
+    "recipients": 15817
+   },
+   {
+    "name": "Campaign Oct 9, 2026 [Menopause]",
+    "sent": "2026-10-09T15:27:49.802800+00:00",
+    "subject": "Why women 40+ are taking creatine.",
+    "open_rate": 0.5729,
+    "click_rate": 0.00288,
+    "revenue": 136,
+    "rpr": 0.00785,
+    "recipients": 17365
+   },
+   {
+    "name": "Campaign Nov 2, 2026 [New research] [OTP buyers]",
+    "sent": "2026-11-03T21:44:51.939607+00:00",
+    "subject": "+2.4 lb lean tissue with no workout program",
+    "open_rate": 0.63069,
+    "click_rate": 0.00336,
+    "revenue": 122,
+    "rpr": 0.00756,
+    "recipients": 16103
+   },
+   {
+    "name": "Campaign Oct 25, 2026 [No bloat]",
+    "sent": "2026-10-25T15:00:00+00:00",
+    "subject": "No bloat. No breaks. ",
+    "open_rate": 0.63727,
+    "click_rate": 0.00271,
+    "revenue": 36,
+    "rpr": 0.00227,
+    "recipients": 15899
+   },
+   {
+    "name": "Campaign Sep 28, 2026 [Team CustDev Invite] 7",
+    "sent": "2026-09-27T23:00:00+00:00",
+    "subject": "Free product for a short live chat with our team.",
+    "open_rate": 0.5237,
+    "click_rate": 0.007,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 4299
+   },
+   {
+    "name": "Campaign Oct 04, 2026 [Team CustDev Invite] 8",
+    "sent": "2026-10-04T23:32:41.917232+00:00",
+    "subject": "Any product for free. How about a creatine upgrade?",
+    "open_rate": 0.51874,
+    "click_rate": 0.00697,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 4603
+   },
+   {
+    "name": "Campaign Nov 1, 2026 [Upgraded delivery]",
+    "sent": "2026-11-01T16:44:26.516063+00:00",
+    "subject": "5x smaller particles than regular creatine. ",
+    "open_rate": 0.71218,
+    "click_rate": 0.00299,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 16078
+   },
+   {
+    "name": "Campaign Nov 09, 2026 [Team CustDev Invite] Powder",
+    "sent": "2026-11-10T01:34:18.742138+00:00",
+    "subject": "Get a free product for an Arq8 interview.",
+    "open_rate": 0.61876,
+    "click_rate": 0.01218,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 823
+   }
+  ],
+  "sms": []
+ }
+}

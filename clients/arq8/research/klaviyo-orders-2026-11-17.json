@@ -1,0 +1,286 @@
+{
+ "pulled_at": "2026-11-17T09:23:01.717Z",
+ "source": "Klaviyo Shopify Placed Order events",
+ "window_days": 365,
+ "orders": 24439,
+ "customers": 13072,
+ "last_90d": {
+  "orders": 12968,
+  "revenue": 922873,
+  "aov": 71.17,
+  "order_value_p25_p50_p75_p90": [
+   45,
+   59,
+   84.15,
+   118
+  ],
+  "share_orders_over_160": 0.022,
+  "b2b_sized_orders_1000_plus": 0,
+  "best_sellers": [
+   {
+    "name": "Arq8™ Creatine Monohydrate Gummies",
+    "units": 11497,
+    "revenue": 763496,
+    "orders": 11147,
+    "firstOrders": 5783
+   },
+   {
+    "name": "Arq8™ Creatine Monohydrate Powder",
+    "units": 1166,
+    "revenue": 57278,
+    "orders": 1111,
+    "firstOrders": 523
+   },
+   {
+    "name": "Arq8™ Magnesium Gummies - 60 pcs",
+    "units": 2449,
+    "revenue": 45712,
+    "orders": 2380,
+    "firstOrders": 1579
+   },
+   {
+    "name": "Arq8™ Creatine Gummies - Variety Pack",
+    "units": 395,
+    "revenue": 34928,
+    "orders": 371,
+    "firstOrders": 198
+   },
+   {
+    "name": "Arq8™ Creatine + Magnesium Gummies",
+    "units": 250,
+    "revenue": 27152,
+    "orders": 245,
+    "firstOrders": 93
+   },
+   {
+    "name": "Arq8™ Creatine Powder + Monohydrate Gummies",
+    "units": 69,
+    "revenue": 8081,
+    "orders": 69,
+    "firstOrders": 37
+   },
+   {
+    "name": "Arq8™ Creatine Monohydrate Gummies.",
+    "units": 118,
+    "revenue": 8019,
+    "orders": 114,
+    "firstOrders": 10
+   },
+   {
+    "name": "Arq8™ Creatine Monohydrate Gummies 2",
+    "units": 92,
+    "revenue": 5477,
+    "orders": 80,
+    "firstOrders": 1
+   },
+   {
+    "name": "Arq8 Creatine Monohydrate Powder 5000 mg - 450",
+    "units": 38,
+    "revenue": 2711,
+    "orders": 37,
+    "firstOrders": 25
+   },
+   {
+    "name": "HYDRO™ Effervescent Electrolytes",
+    "units": 1132,
+    "revenue": 2577,
+    "orders": 1126,
+    "firstOrders": 921
+   },
+   {
+    "name": "Arq8™ Creatine Powder + Magnesium+ Gummies",
+    "units": 22,
+    "revenue": 2240,
+    "orders": 22,
+    "firstOrders": 13
+   },
+   {
+    "name": "Shipping Protection",
+    "units": 500,
+    "revenue": 1499,
+    "orders": 500,
+    "firstOrders": 413
+   },
+   {
+    "name": "Arq8™ Creatine Monohydrate Powder 2",
+    "units": 19,
+    "revenue": 842,
+    "orders": 19,
+    "firstOrders": 0
+   },
+   {
+    "name": "FullDissolve™ Nano-Creatine Monohydrate Gummies  (3-Day Trial Pack)",
+    "units": 31,
+    "revenue": 450,
+    "orders": 31,
+    "firstOrders": 19
+   },
+   {
+    "name": "FullDissolve™ Nano-Creatine Monohydrate Gummies  (3-Day Trial Pack) Second",
+    "units": 6,
+    "revenue": 6,
+    "orders": 6,
+    "firstOrders": 0
+   }
+  ],
+  "best_first_order_products": [
+   {
+    "name": "Arq8™ Creatine Monohydrate Gummies",
+    "firstOrders": 5783
+   },
+   {
+    "name": "Arq8™ Longevity Guide for Women",
+    "firstOrders": 3887
+   },
+   {
+    "name": "Arq8™ Longevity Guide for Men",
+    "firstOrders": 3850
+   },
+   {
+    "name": "Arq8 water bottle",
+    "firstOrders": 2267
+   },
+   {
+    "name": "Arq8 Travel Case",
+    "firstOrders": 2000
+   },
+   {
+    "name": "Arq8™ Magnesium Gummies - 60 pcs",
+    "firstOrders": 1579
+   },
+   {
+    "name": "HYDRO™ Effervescent Electrolytes",
+    "firstOrders": 921
+   },
+   {
+    "name": "Arq8™ Creatine Monohydrate Powder",
+    "firstOrders": 523
+   },
+   {
+    "name": "Arq8 Towel",
+    "firstOrders": 499
+   },
+   {
+    "name": "Shipping Protection",
+    "firstOrders": 413
+   }
+  ],
+  "discount_codes": [
+   {
+    "code": "WELCOME",
+    "orders": 481,
+    "revenue": 35487
+   },
+   {
+    "code": "FREE-SHIPPING-SUB",
+    "orders": 378,
+    "revenue": 23188
+   },
+   {
+    "code": "DENISE20ZV",
+    "orders": 361,
+    "revenue": 26074
+   },
+   {
+    "code": "txt15",
+    "orders": 285,
+    "revenue": 24615
+   },
+   {
+    "code": "TrueLabor",
+    "orders": 161,
+    "revenue": 12387
+   },
+   {
+    "code": "txt20",
+    "orders": 98,
+    "revenue": 7952
+   },
+   {
+    "code": "COVE25",
+    "orders": 74,
+    "revenue": 5362
+   },
+   {
+    "code": "Labor15",
+    "orders": 70,
+    "revenue": 5476
+   },
+   {
+    "code": "PAYMENTRECOVERY15",
+    "orders": 68,
+    "revenue": 3840
+   },
+   {
+    "code": "DENISE20ZVX",
+    "orders": 48,
+    "revenue": 2143
+   }
+  ]
+ },
+ "repeat": {
+  "first_time_buyers_60d_plus_ago": 8665,
+  "came_back": 4785,
+  "repeat_rate": 0.552,
+  "reordered_same_product": 0.886,
+  "days_to_2nd_order_p25_p50_p75": [
+   29,
+   31,
+   61
+  ],
+  "top_paths": [
+   [
+    "Arq8™ Longevity Guide for Women → Arq8™ Creatine Monohydrate Gummies (same)",
+    2115
+   ],
+   [
+    "Arq8™ Creatine Monohydrate Gummies → Arq8™ Creatine Monohydrate Gummies (same)",
+    866
+   ],
+   [
+    "Shipping Protection → Arq8™ Creatine Monohydrate Gummies (same)",
+    217
+   ],
+   [
+    "Arq8™ Creatine Monohydrate Gummies → Arq8™ Longevity Guide for Women",
+    208
+   ],
+   [
+    "Arq8™ Longevity Guide for Men → Arq8™ Creatine Monohydrate Gummies (same)",
+    175
+   ],
+   [
+    "Arq8 water bottle → Arq8™ Creatine Monohydrate Gummies (same)",
+    151
+   ],
+   [
+    "Arq8™ Longevity Guide for Women → Arq8™ Creatine Monohydrate Powder (same)",
+    129
+   ],
+   [
+    "Arq8™ Longevity Guide for Women → Arq8™ Longevity Guide for Women (same)",
+    85
+   ],
+   [
+    "Arq8™ Magnesium Gummies - 60 pcs → Arq8™ Creatine Monohydrate Gummies (same)",
+    81
+   ],
+   [
+    "Arq8™ Magnesium Gummies - 60 pcs → Arq8™ Magnesium Gummies - 60 pcs (same)",
+    80
+   ]
+  ]
+ },
+ "cohorts": {
+  "one_time_30_60d": 1792,
+  "one_time_60_120d": 1606,
+  "due_to_reorder": 1222,
+  "lapsed_repeat_buyers": 1991,
+  "vip_top10pct": {
+   "customers": 1309,
+   "min_spend": 249
+  },
+  "b2b_sized_buyers": 1,
+  "cross_sell": {}
+ }
+}
