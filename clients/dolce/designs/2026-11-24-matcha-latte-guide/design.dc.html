@@ -13,16 +13,19 @@
 @font-face{font-family:"Karl";src:url("/_blob/10aa8dd37a051737c6538b2adee0de66") format("woff");font-weight:400;font-style:normal}
 body{margin:0;background:#e9e5dc}
 a{color:inherit}a:hover{color:inherit}
-.tex{background-image:url("/_blob/5f027b894b28968bd3693b756b79b3d8");background-size:640px auto;background-position:center 35%}
+.photo{position:relative;width:600px;overflow:hidden}
+.photo img{display:block;width:600px;height:auto}
 .sieve{background-image:url("/_blob/0d5a323cf89779d1159d391a01206433");background-size:600px auto;background-position:center top;background-repeat:no-repeat}
 .scrim{background:linear-gradient(180deg,rgba(5,5,5,0) 0%,rgba(5,5,5,0.8) 28%,#050505 50%)}
-.step{display:flex;gap:12px;align-items:flex-start;margin-top:10px;font-size:15px;line-height:1.5}
-.num{flex:none;width:24px;height:24px;border-radius:50%;background:#3F5A17;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.tag{display:inline-block;padding:6px 14px;border-radius:999px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+.steps{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:14px;align-items:flex-start;background:#ffffff;border-radius:12px;padding:14px 18px;font-size:15px;line-height:1.5;text-align:left;box-shadow:0 1px 0 rgba(0,0,0,0.04)}
+.num{flex:none;width:28px;height:28px;border-radius:50%;background:#3F5A17;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center}
 </style>
 </helmet>
 <div style="width: 600px; background: #F9F8F4; font-family: Karl, Manrope, Helvetica, sans-serif; color: #1d1d1d; overflow: hidden">
 
-  <!-- HERO -->
+  <!-- HERO: text block, then the full-bleed pour photo -->
   <div style="padding: 30px 40px 0; display: flex; flex-direction: column; align-items: center; text-align: center">
     <img src="/_blob/78b2dd7a802e97db8280b16f04b21186" alt="Dolce Superfoods" style="width: 108px; height: auto; display: block">
     <div style="margin-top: 24px; padding: 7px 16px; border: 1.5px solid #3F5A17; border-radius: 999px; color: #3F5A17; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase">Three recipes for your matcha</div>
@@ -31,76 +34,91 @@ a{color:inherit}a:hover{color:inherit}
     <a href="https://dolcesuperfoods.com/products/bulk-organic-matcha" style="margin-top: 24px; display: flex; align-items: center; justify-content: center; width: 300px; height: 56px; background: #E03400; color: #ffffff; border-radius: 8px; font-size: 17px; letter-spacing: 0.02em; text-decoration: none">Stock up on matcha</a>
   </div>
 
-  <!-- HERO VISUAL: full-bleed matcha texture with the ceremonial bowl -->
-  <div style="position: relative; margin-top: 34px; width: 600px; height: 330px">
-    <div class="tex" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0"></div>
-    <svg viewBox="0 0 600 40" width="600" height="40" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: -1px; display: block"><path d="M0 0 L600 0 L600 14 C 540 30, 460 32, 380 18 S 200 2, 110 16 S 30 28, 0 18 Z" fill="#F9F8F4"></path></svg>
-    <img src="/_blob/93f44f10d9858afaf301f367c90d7aa3" alt="A bowl of Ceremonial Matcha" style="position: absolute; left: 150px; top: 30px; width: 300px; height: auto">
+  <a href="https://dolcesuperfoods.com/products/bulk-organic-matcha" class="photo" style="display: block; margin-top: 34px">
+    <img src="asset:brand/assets/generated/2026-11-17-matcha-latte-hero-pour.jpg" alt="A matcha latte being poured at home">
+    <div style="position: absolute; left: 0; right: 0; top: 0; height: 70px; background: linear-gradient(180deg,#F9F8F4 0%,rgba(249,248,244,0) 100%)"></div>
     <svg viewBox="0 0 600 40" width="600" height="40" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; bottom: -1px; display: block"><path d="M0 22 C 80 4, 160 4, 240 18 S 400 36, 480 18 S 570 6, 600 14 L600 40 L0 40 Z" fill="#F9F8F4"></path></svg>
-  </div>
+  </a>
 
-  <!-- RECIPE 1: coconut matcha latte -->
-  <div style="padding: 30px 40px 44px; display: flex; gap: 22px; align-items: center">
-    <img src="/_blob/93f44f10d9858afaf301f367c90d7aa3" alt="Ceremonial Matcha" style="flex: none; width: 200px; height: auto; display: block">
-    <div style="flex: 1">
-      <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #3F5A17">01 · Hot</div>
-      <h2 style="margin: 6px 0 0; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.08">The coconut matcha latte</h2>
-      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #4a4a4a">Creamy without any dairy, and it's the one we make most mornings.</p>
+  <!-- RECIPE 1: coconut matcha latte (cream) -->
+  <div style="padding: 26px 0 0; text-align: center">
+    <span class="tag" style="background: #E4EACF; color: #3F5A17">01 · Hot</span>
+    <h2 style="margin: 14px 40px 0; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">The coconut matcha latte</h2>
+    <p style="margin: 10px auto 0; max-width: 440px; font-size: 16px; line-height: 1.5; color: #4a4a4a">Creamy without any dairy, and it's the one we make most mornings.</p>
+  </div>
+  <a href="https://dolcesuperfoods.com/products/organic-coconut-milk-powder" style="display: block; margin: 24px 40px 0; border-radius: 18px; overflow: hidden">
+    <img src="asset:brand/assets/generated/2026-11-17-coconut-matcha-latte-mug.jpg" alt="A hot coconut matcha latte" style="display: block; width: 520px; height: auto">
+  </a>
+  <div style="padding: 0 40px 56px; display: flex; flex-direction: column; align-items: center">
+    <div class="steps" style="width: 520px">
       <div class="step"><span class="num">1</span><span>Whisk 1 tsp Ceremonial Matcha into 2 oz of hot water (not boiling) until it's frothy.</span></div>
       <div class="step"><span class="num">2</span><span>Stir 2 tbsp Coconut Milk Powder into 6 oz of hot water.</span></div>
       <div class="step"><span class="num">3</span><span>Pour the coconut milk over the matcha and sweeten it if you like.</span></div>
-      <a href="https://dolcesuperfoods.com/products/bulk-organic-coconut-milk-powder" style="margin-top: 18px; display: flex; align-items: center; justify-content: center; width: 240px; height: 48px; background: #3F5A17; color: #ffffff; border-radius: 8px; font-size: 15px; text-decoration: none">Add Coconut Milk Powder</a>
     </div>
+    <a href="https://dolcesuperfoods.com/products/organic-coconut-milk-powder" style="margin-top: 22px; display: flex; align-items: center; justify-content: center; width: 280px; height: 52px; background: #3F5A17; color: #ffffff; border-radius: 8px; font-size: 16px; text-decoration: none">Add Coconut Milk Powder</a>
   </div>
 
-  <!-- RECIPE 2: strawberry matcha latte (pink band) -->
-  <div style="position: relative; background: #FBE8DF; padding: 62px 40px 70px; display: flex; gap: 22px; align-items: center">
+  <!-- RECIPE 2: strawberry matcha latte (peach band, photo full-bleed) -->
+  <div style="position: relative; background: #FBE8DF; padding: 64px 0 0; text-align: center">
     <svg viewBox="0 0 600 36" width="600" height="36" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: -1px; display: block"><path d="M0 0 L600 0 L600 12 C 520 30, 430 30, 350 16 S 160 2, 80 18 S 20 26, 0 20 Z" fill="#F9F8F4"></path></svg>
-    <div style="flex: 1">
-      <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #E03400">02 · Iced</div>
-      <h2 style="margin: 6px 0 0; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.08">The strawberry matcha latte</h2>
-      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #4a4a4a">It's the pink and green one from the café menu, and it costs a lot less to make at home.</p>
+    <span class="tag" style="background: #E03400; color: #ffffff">02 · Iced</span>
+    <h2 style="margin: 14px 40px 0; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">The strawberry matcha latte</h2>
+    <p style="margin: 10px auto 0; max-width: 440px; font-size: 16px; line-height: 1.5; color: #4a4a4a">It's the pink and green one from the café menu, and it costs a lot less to make at home.</p>
+  </div>
+  <a href="https://dolcesuperfoods.com/cart/43163452506297:1,43163486978233:1" class="photo" style="display: block; background: #FBE8DF; padding-top: 22px">
+    <img src="asset:brand/assets/generated/2026-11-17-iced-strawberry-matcha-latte.jpg" alt="An iced strawberry matcha latte being layered">
+    <div style="position: absolute; left: 0; right: 0; top: 22px; height: 60px; background: linear-gradient(180deg,#FBE8DF 0%,rgba(251,232,223,0) 100%)"></div>
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 80px; background: linear-gradient(0deg,#FBE8DF 0%,rgba(251,232,223,0) 100%)"></div>
+  </a>
+  <div style="position: relative; background: #FBE8DF; padding: 0 40px 76px; display: flex; flex-direction: column; align-items: center">
+    <div class="steps" style="width: 520px; margin-top: 0">
       <div class="step"><span class="num" style="background: #E03400">1</span><span>Stir 1 tbsp Freeze-Dried Strawberry Powder into 6 oz of cold milk and pour it over ice.</span></div>
       <div class="step"><span class="num" style="background: #E03400">2</span><span>Whisk 1 tsp Ceremonial Matcha into 2 oz of water.</span></div>
       <div class="step"><span class="num" style="background: #E03400">3</span><span>Pour the matcha slowly over the top so the layers stay separate.</span></div>
-      <a href="https://dolcesuperfoods.com/cart/43163452506297:1,43163486978233:1" style="margin-top: 18px; display: flex; align-items: center; justify-content: center; width: 240px; height: 48px; background: #E03400; color: #ffffff; border-radius: 8px; font-size: 15px; text-decoration: none">Add both to my cart</a>
     </div>
-    <div style="flex: none; position: relative; width: 200px; height: 230px">
-      <img src="/_blob/c2f1a84e7b6d4e0a9c3b5d8f1e2a7c40" alt="Freeze-Dried Strawberry Powder" style="position: absolute; left: 0; top: 0; width: 170px; height: auto; display: block">
-      <img src="/_blob/93f44f10d9858afaf301f367c90d7aa3" alt="Ceremonial Matcha" style="position: absolute; right: -10px; bottom: 0; width: 150px; height: auto; display: block">
-    </div>
+    <a href="https://dolcesuperfoods.com/cart/43163452506297:1,43163486978233:1" style="margin-top: 22px; display: flex; align-items: center; justify-content: center; width: 280px; height: 52px; background: #E03400; color: #ffffff; border-radius: 8px; font-size: 16px; text-decoration: none">Add both to my cart</a>
     <svg viewBox="0 0 600 40" width="600" height="40" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; bottom: -1px; display: block"><path d="M0 24 C 90 6, 190 8, 280 22 S 470 38, 600 16 L600 40 L0 40 Z" fill="#F9F8F4"></path></svg>
   </div>
 
-  <!-- RECIPE 3: Reserve, just water -->
-  <div style="padding: 40px 40px 56px; display: flex; gap: 22px; align-items: center">
-    <img src="/_blob/a559b7f3c6d840b6753ba0f2b4a26096" alt="Ceremonial Reserve Matcha" style="flex: none; width: 200px; height: auto; display: block">
-    <div style="flex: 1">
-      <div style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #3F5A17">03 · Simple</div>
-      <h2 style="margin: 6px 0 0; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.08">Just matcha and water</h2>
-      <p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #4a4a4a">This is the traditional way to drink it. It's smooth enough that it doesn't need milk, which is why we use our Ceremonial Reserve for it.</p>
+  <!-- RECIPE 3: Reserve, just water (cream, rounded photo) -->
+  <div style="padding: 36px 0 0; text-align: center">
+    <span class="tag" style="background: #E4EACF; color: #3F5A17">03 · Simple</span>
+    <h2 style="margin: 14px 40px 0; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Just matcha and water</h2>
+    <p style="margin: 10px auto 0; max-width: 460px; font-size: 16px; line-height: 1.5; color: #4a4a4a">This is the traditional way to drink it. It's smooth enough that it doesn't need milk, which is why we use our Ceremonial Reserve for it.</p>
+  </div>
+  <a href="https://dolcesuperfoods.com/cart/45363296469177:1" style="display: block; margin: 24px 40px 0; border-radius: 18px; overflow: hidden">
+    <img src="asset:brand/assets/generated/2026-11-17-reserve-matcha-whisked-bowl.jpg" alt="Whisked Ceremonial Reserve matcha in a bowl" style="display: block; width: 520px; height: auto">
+  </a>
+  <div style="padding: 0 40px 60px; display: flex; flex-direction: column; align-items: center">
+    <div class="steps" style="width: 520px">
       <div class="step"><span class="num">1</span><span>Sift 1 tsp Ceremonial Reserve into a bowl.</span></div>
       <div class="step"><span class="num">2</span><span>Add 3 oz of water at about 175°F.</span></div>
       <div class="step"><span class="num">3</span><span>Whisk it quickly in a zigzag until a fine foam forms on top.</span></div>
-      <a href="https://dolcesuperfoods.com/cart/45363296469177:1" style="margin-top: 18px; display: flex; align-items: center; justify-content: center; width: 240px; height: 48px; background: #3F5A17; color: #ffffff; border-radius: 8px; font-size: 15px; text-decoration: none">Try Ceremonial Reserve</a>
     </div>
+    <a href="https://dolcesuperfoods.com/cart/45363296469177:1" style="margin-top: 22px; display: flex; align-items: center; justify-content: center; width: 280px; height: 52px; background: #3F5A17; color: #ffffff; border-radius: 8px; font-size: 16px; text-decoration: none">Try Ceremonial Reserve</a>
   </div>
 
-  <!-- TIPS -->
-  <div style="position: relative; background: #E4EACF; padding: 58px 50px 74px">
+  <!-- TIPS: icon cards on matcha tint -->
+  <div style="position: relative; background: #E4EACF; padding: 58px 40px 78px">
     <svg viewBox="0 0 600 36" width="600" height="36" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: -1px; display: block"><path d="M0 0 L600 0 L600 12 C 520 30, 430 30, 350 16 S 160 2, 80 18 S 20 26, 0 20 Z" fill="#F9F8F4"></path></svg>
-    <h2 style="margin: 0; text-align: center; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.1; color: #2E3B12">Three small things that make a big difference</h2>
-    <div style="margin-top: 24px; display: flex; flex-direction: column">
-      <div style="display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px dashed rgba(63,90,23,0.35)">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3F5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"></path><path d="M5 19l7-7"></path></svg>
+    <h2 style="margin: 0 auto; max-width: 460px; text-align: center; font-family: 'Bigola Display', Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.1; color: #2E3B12">Three small things that make a big difference</h2>
+    <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; gap: 18px; align-items: center; background: #F9F8F4; border-radius: 14px; padding: 16px 20px">
+        <div style="flex: none; width: 52px; height: 52px; border-radius: 50%; background: #3F5A17; display: flex; align-items: center; justify-content: center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 1 1 4 0z"></path><path d="M12 9v6"></path></svg>
+        </div>
         <p style="margin: 0; font-size: 16px; line-height: 1.5">Keep the water just off the boil, because boiling water makes matcha taste bitter.</p>
       </div>
-      <div style="display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px dashed rgba(63,90,23,0.35)">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3F5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"></path><path d="M5 19l7-7"></path></svg>
+      <div style="display: flex; gap: 18px; align-items: center; background: #F9F8F4; border-radius: 14px; padding: 16px 20px">
+        <div style="flex: none; width: 52px; height: 52px; border-radius: 50%; background: #3F5A17; display: flex; align-items: center; justify-content: center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><path d="M14.5 14.5L20 20"></path><path d="M7 9h6M7 11.5h6"></path></svg>
+        </div>
         <p style="margin: 0; font-size: 16px; line-height: 1.5">Sift it first so you don't end up with little clumps at the bottom of the cup.</p>
       </div>
-      <div style="display: flex; gap: 16px; align-items: flex-start; padding: 16px 0">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3F5A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15"></path><path d="M5 19l7-7"></path></svg>
+      <div style="display: flex; gap: 18px; align-items: center; background: #F9F8F4; border-radius: 14px; padding: 16px 20px">
+        <div style="flex: none; width: 52px; height: 52px; border-radius: 50%; background: #3F5A17; display: flex; align-items: center; justify-content: center">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </div>
         <p style="margin: 0; font-size: 16px; line-height: 1.5">Store your bag sealed in a cool, dark spot so it stays bright green.</p>
       </div>
     </div>
@@ -127,7 +145,7 @@ a{color:inherit}a:hover{color:inherit}
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":600,"height":3000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":600,"height":4200}}'>
 class Component extends DCLogic {
   renderVals() {
     return {};
