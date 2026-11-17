@@ -55,3 +55,4 @@ Read before any work for Dolce Superfoods. Append (dated) after every change. Ru
 - 2026-11-17 · design · Meelad asked for the matcha win-back canvas link. There isn't one yet because the design was never published, so it still needs publishing from the bot.
 - 2026-11-17 · design · Meelad asked to publish the matcha win-back and send the campaign. Not possible from this session because it has no shell or publish tool, and no Klaviyo write tool. Still unpublished, with no Klaviyo draft.
 - 2026-11-16 · klaviyo · Preference: emails go into Klaviyo as drag-and-drop templates (SYSTEM_DRAGGABLE, one image block per slice), not custom HTML. FREEMATCHA draft now uses DnD template XEkEXR.
+- 2026-11-17 · design · Matcha win-back 20% (Dec 3) designed via Slack; published to Claude Design from Claude Code: https://claude.ai/artifact/FAgMrjqhqPxxEHPUzA6KQj
