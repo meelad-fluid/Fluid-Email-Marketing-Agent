@@ -74,10 +74,15 @@ export async function reviewByPath(clientId: string, designPath: string) {
   return data as Review | null;
 }
 
-export async function openComments(reviewId: string) {
+export async function openComments(reviewId: string, currentVersion: number) {
   const { data } = await db().from("review_comments").select("id, version, parent_id, x, y, body, author_name, author_kind, resolved, created_at").eq("review_id", reviewId).order("created_at");
   const all = data ?? [];
-  return all.filter((c) => !c.parent_id && !c.resolved).map((c) => ({ ...c, replies: all.filter((x) => x.parent_id === c.id).map((x) => ({ author: x.author_name, kind: x.author_kind, body: x.body })) }));
+  // To do = top-level comments Fluid hasn't answered yet. Reviewers sometimes click Resolve on their own
+  // comment to mean "done writing", so resolved-but-unanswered comments on the current version still count;
+  // resolved comments from older versions are treated as settled.
+  const answered = new Set(all.filter((x) => x.parent_id && x.author_kind === "bot").map((x) => x.parent_id));
+  return all.filter((c) => !c.parent_id && !answered.has(c.id) && (!c.resolved || c.version >= currentVersion))
+    .map((c) => ({ ...c, replies: all.filter((x) => x.parent_id === c.id).map((x) => ({ author: x.author_name, kind: x.author_kind, body: x.body })) }));
 }
 
 export async function replyToComment(reviewId: string, commentId: string, text: string, resolve: boolean) {

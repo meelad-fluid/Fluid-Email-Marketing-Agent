@@ -86,7 +86,6 @@ export function startWeb(notify: Notify) {
           }
           const ins = await db().from("review_comments").insert({ review_id: r.id, version: Number(b.version) || r.current_version, parent_id: parent, x: parent ? null : Number(b.x), y: parent ? null : Number(b.y), body: text, author_name: author, author_kind: "reviewer" }).select("id").single();
           if (ins.error) return json(res, 500, { error: "Couldn't save the comment." });
-          if (r.slack_channel) notify(r.slack_channel, r.slack_thread, `💬 ${author} commented on *${r.title}*: "${text.slice(0, 200)}"\n${reviewLink(r.token)}\nReply "comments added" here when you want me to make the changes.`).catch(() => {});
           return json(res, 200, { ok: true, id: ins.data.id });
         }
         if (sub === "/resolve") {

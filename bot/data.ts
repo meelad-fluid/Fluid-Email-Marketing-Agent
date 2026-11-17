@@ -84,7 +84,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     async ({ design_folder }) => {
       const r = await reviewByPath(clientId, design_folder);
       if (!r) return ok({ error: "This design has no review link yet. Publish it first." });
-      return ok({ link: `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/r/${r.token}`, current_version: r.current_version, status: r.status, comments: await openComments(r.id) });
+      return ok({ link: `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/r/${r.token}`, current_version: r.current_version, status: r.status, comments: await openComments(r.id, r.current_version) });
     },
   );
   const reply = tool(

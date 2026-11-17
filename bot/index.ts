@@ -103,7 +103,18 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   const prompt = `${who ? `${who} (Fluid team) asks in Slack:` : "Request from Slack:"}\n\n${a.request}`;
 
   await pullLatest();
-  const res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs }, prompt, sessionId, onProgress: progress });
+  let res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs }, prompt, sessionId, onProgress: progress });
+  if (res.error && sessionId && !res.costUsd) {
+    // The saved conversation is gone (the server restarted). Start fresh, with the thread so far as context.
+    let history = "";
+    try {
+      const h = await web.conversations.replies({ channel: a.channel, ts: a.threadTs, limit: 30 });
+      history = (h.messages ?? []).filter((m: any) => m.ts !== a.ts && m.text && m.text !== "On it…").slice(-20)
+        .map((m: any) => `${m.bot_id ? "Fluid" : "Team"}: ${String(m.text).replace(new RegExp(`<@${BOT_USER_ID}>`, "g"), "").trim()}`).join("\n");
+    } catch {}
+    res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs },
+      prompt: history ? `Earlier in this Slack thread:\n${history}\n\n---\n${prompt}` : prompt, onProgress: progress });
+  }
   await saveThread(a.channel, a.threadTs, client.id, res.sessionId);
   await saveClientFolder(client.folder, `${client.folder}: ${a.request.replace(/\s+/g, " ").slice(0, 80)} (via Slack)`);
 
