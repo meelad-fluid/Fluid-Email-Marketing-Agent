@@ -67,6 +67,14 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
     return;
   }
 
+  // Asking how to connect Klaviyo (or for a key/onboarding link): answer with a fresh secure link.
+  if (/(link|connect|send|add|give|share|paste|submit|where)[^.?!]{0,60}(klaviyo|api)[^.?!]{0,20}(key|access|account)?|klaviyo[^.?!]{0,30}(key|connect)[^.?!]{0,40}(link|where|how)|onboarding link|connect link/i.test(request) && !/\b(draft|push|build|template|campaign|email|design|segment|audience)\b/i.test(request)) {
+    const link = await newConnectLink(client.id).catch(() => null);
+    await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "ran", reason: "sent a connect link" });
+    await web.chat.postMessage({ channel, thread_ts: threadTs, text: link ? `Here's a secure link to connect Klaviyo (works once, key stored encrypted): ${link}\nOnce it's in, I'll start the onboarding automatically.` : "I couldn't make a link right now, try again in a minute." });
+    return;
+  }
+
   // 3. What
   const names = await foreignNames(CLIENTS_DIR, client.folder, db());
   const screen = await screenRequest(request, client.name, names);
