@@ -41,6 +41,7 @@ export async function startNewClient(web: WebClient, o: { name: string; website:
   new URL(website); // throws on a bad URL
   let slug = slugify(name);
   if (!slug) throw new Error("That brand name doesn't make a usable folder name.");
+  // An existing folder (set up by hand earlier) is kept as it is and connected; only a client already in the database clashes.
   const { data: clash } = await db().from("clients").select("id, folder").or(`folder.eq.${slug},slug.eq.${slug}`).maybeSingle();
   if (clash) throw new Error(`A client with the folder "${slug}" already exists.`);
 
@@ -67,7 +68,11 @@ export async function startNewClient(web: WebClient, o: { name: string; website:
   const { data: link } = await db().from("onboarding_links").insert({ client_id: client.id, token_hash: hashToken(token) }).select("id").single();
   await db().from("onboarding_runs").insert({ client_id: client.id, link_id: link?.id ?? null, started_by: o.requestedBy });
   const url = `${publicUrl()}/onboard/${token}`;
-  await web.chat.postMessage({ channel: channelId, text: `New client: *${name}* (${website}).\nSend this onboarding link to the client: ${url}\nOnce they submit it I'll run the Klaviyo audit and research, then post the Onboarding Doc and the first month's plan here.` });
+  const onb = join(CLIENTS_DIR, slug, "onboarding");
+  const hasForm = existsSync(onb) && readdirSync(onb).some((f) => /form/i.test(f) && !/form-answers/.test(f));
+  await web.chat.postMessage({ channel: channelId, text: hasForm
+    ? `*${name}* is set up (${website}). Their onboarding form is already in the folder, so they don't need to fill it in again.\nSend them this link only to connect Klaviyo: ${url}\nOr say \`@fluid run the onboarding\` to start now from the form and the website, and I'll add the Klaviyo audit once they connect.`
+    : `New client: *${name}* (${website}).\nSend this onboarding link to the client: ${url}\nOnce they submit it I'll run the Klaviyo audit and research, then post the Onboarding Doc and the first month's plan here.` });
   return { slug, channelId, url, clientId: client.id };
 }
 

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { db } from "./db";
 import { openComments, publishDesign, replyToComment, reviewByPath } from "./review";
 import { pushEmail } from "../lib/klaviyo/push-email";
+import { runAudits } from "./onboarding";
 import { buildSegment, findAudiences } from "../lib/klaviyo/audiences";
 import { CLIENTS_DIR } from "./config";
 import { randomBytes } from "node:crypto";
@@ -146,7 +147,14 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, find, build, publishDoc] });
+  const audits = tool(
+    "run_onboarding_audits",
+    "Run the read-only Klaviyo audit (top flows, last 60 days of campaigns, lists, forms) and order data (bestsellers, repeat rate, reorder gap, cohorts) for this client, saving JSON into research/, and sync reporting data. Needs the client's Klaviyo key (connected through their onboarding link). Takes a few minutes.",
+    {},
+    async () => { try { return ok(await runAudits(clientId, folder)); } catch (e: any) { return ok({ error: e.message }); } },
+  );
+
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, find, build, publishDoc, audits] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__run_onboarding_audits"];
