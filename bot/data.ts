@@ -8,6 +8,9 @@ import { openComments, publishDesign, replyToComment, reviewByPath } from "./rev
 import { pushEmail } from "../lib/klaviyo/push-email";
 import { buildSegment, findAudiences } from "../lib/klaviyo/audiences";
 import { CLIENTS_DIR } from "./config";
+import { randomBytes } from "node:crypto";
+import { existsSync as fileExists } from "node:fs";
+import { join as pjoin, resolve as presolve, sep as psep } from "node:path";
 
 const day = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d);
 const money = (n: number) => Math.round(n * 100) / 100;
@@ -127,7 +130,23 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     async ({ request }) => { try { const r = await buildSegment(db(), clientId, request); return ok("error" in r ? r : { created: r.created, name: r.audience.name, id: r.audience.id, definition: r.spec.purpose, note: "New segments take a few minutes to fill in Klaviyo." }); } catch (e: any) { return ok({ error: e.message }); } },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, find, build] });
+  const publishDoc = tool(
+    "publish_doc",
+    "Share a markdown document from this client's folder (onboarding doc, plans, strategy) as a clean read-only web page. Same file = same link (always shows the latest version). Returns the link.",
+    { path: z.string().describe("e.g. research/onboarding-doc.md"), title: z.string().min(2) },
+    async ({ path, title }) => {
+      const base = pjoin(CLIENTS_DIR, folder), file = presolve(base, path);
+      if (!file.startsWith(base + psep) || !file.endsWith(".md") || !fileExists(file)) return ok({ error: "That .md file isn't in this client's folder." });
+      const rel = file.slice(base.length + 1);
+      const { data: existing } = await db().from("doc_links").select("token").eq("client_id", clientId).eq("path", rel).maybeSingle();
+      const token = existing?.token ?? randomBytes(18).toString("base64url");
+      if (!existing) await db().from("doc_links").insert({ token, client_id: clientId, path: rel, title });
+      else await db().from("doc_links").update({ title }).eq("token", token);
+      return ok({ link: `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/d/${token}` });
+    },
+  );
+
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, find, build, publishDoc] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__find_audiences", "mcp__fluid__build_segment"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc"];

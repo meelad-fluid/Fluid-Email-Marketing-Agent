@@ -13,6 +13,7 @@ import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb } from "./web";
+import { ONBOARDING_PROMPT, runAudits, startNewClient } from "./onboarding";
 import { foreignNames, scanText } from "../lib/leaks";
 
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
@@ -169,6 +170,18 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     return reply(c ? `This channel is linked to *${c.name}* (folder \`${c.folder}\`). I only work on ${c.name} here.` : "This channel isn't linked to a client.");
   }
+  if (sub === "onboard") {
+    if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can onboard new clients.");
+    const rest = command.text.trim().slice("onboard".length).trim();
+    const [name, website] = rest.split("|").map((x) => x.trim());
+    if (!name || !website) return reply("Use: `/fluid onboard Brand Name | brand.com`");
+    await reply(`Setting up ${name}…`);
+    try {
+      const r = await startNewClient(app.client, { name, website, requestedBy: command.user_id, teamId: TEAM_ID });
+      await audit({ team_id: TEAM_ID, channel_id: r.channelId, user_id: command.user_id, client_id: r.clientId, outcome: "linked", reason: `new client ${name}` });
+      return reply(`Done. <#${r.channelId}> is ready for ${name}, and the client's onboarding link is posted there.`);
+    } catch (e: any) { return reply(`Couldn't set up ${name}: ${e.message}`); }
+  }
   if (sub === "link" || sub === "unlink") {
     const admins = config.adminUserIds();
     if (!admins.includes(command.user_id)) return reply(admins.length ? "Only Fluid admins can link channels." : "No admins are set yet. Add your Slack member ID to SLACK_ADMIN_USER_IDS in .env.local and restart the bot.");
@@ -186,8 +199,29 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
+  return reply("`/fluid onboard Brand Name | brand.com` sets up a new client (folder, private channel, onboarding link). Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
 });
+
+// After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
+async function runOnboarding(f: { clientId: string; folder: string; name: string; klaviyo: string }) {
+  const web = app.client;
+  const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", f.clientId).limit(1).maybeSingle();
+  if (!ch) return console.error("[onboard] no channel for", f.folder);
+  const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.name} submitted the onboarding form (Klaviyo ${f.klaviyo}). Running onboarding now: Klaviyo audit, order data, website research, then the Onboarding Doc and first month's plan. This takes a while.` });
+  await db().from("onboarding_runs").update({ status: "running", updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "waiting_for_form");
+  await saveClientFolder(f.folder, `${f.folder}: onboarding form submitted`);
+  const audits = await runAudits(f.clientId, f.folder);
+  await saveClientFolder(f.folder, `${f.folder}: onboarding audits`);
+  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes) });
+  await saveClientFolder(f.folder, `${f.folder}: onboarding doc and plans`);
+  const names = await foreignNames(CLIENTS_DIR, f.folder, db());
+  const problems = res.error ? [] : scanText(res.text, names);
+  const text = res.error ? `Onboarding didn't finish (${res.error}). Ask me to "continue the onboarding" in this thread.` : problems.length ? "Onboarding finished, but I held the summary back because it didn't pass the safety check. Someone at Fluid will review it." : toSlack(res.text);
+  for (const p of chunks(text)) await web.chat.postMessage({ channel: ch.channel_id, thread_ts: head.ts!, text: p });
+  await saveThread(ch.channel_id, head.ts!, f.clientId, res.sessionId);
+  await db().from("onboarding_runs").update({ status: res.error ? "failed" : "done", error: res.error ?? null, updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "running");
+  await audit({ team_id: TEAM_ID, channel_id: ch.channel_id, thread_ts: head.ts!, client_id: f.clientId, request: "automatic onboarding", outcome: res.error ? "error" : "ran", reason: res.error, cost_usd: res.costUsd });
+}
 
 // Keep reporting data fresh while the bot runs: re-sync any Klaviyo-connected client not synced in 20h.
 async function syncStale() {
@@ -210,7 +244,8 @@ async function syncStale() {
   TEAM_ID = auth.team_id!; BOT_USER_ID = auth.user_id!;
   await app.start();
   console.log(`Fluid bot is running in ${auth.team} as @${auth.user}. Ctrl+C to stop.`);
-  startWeb(async (channel, thread, text) => { await app.client.chat.postMessage({ channel, thread_ts: thread ?? undefined, text }); });
+  startWeb(async (channel, thread, text) => { await app.client.chat.postMessage({ channel, thread_ts: thread ?? undefined, text }); },
+    (f) => { runOnboarding(f).catch((e) => console.error("[onboard]", e)); });
   syncStale();
   setInterval(syncStale, 3 * 3600_000);
   watchForCodeUpdates(() => busy.size === 0);

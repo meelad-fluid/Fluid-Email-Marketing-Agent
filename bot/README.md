@@ -35,3 +35,12 @@ The bot runs 24/7 on Railway from the GitHub repo `meelad-fluid/Fluid-Email-Mark
 Every design the bot makes or changes is published to a review link on this server: `<PUBLIC_URL>/r/<token>`. The page shows the real email at full quality with a mobile view and version history. People click to leave pinned comments, reply, resolve, and approve. "comments added" in the Slack thread makes the bot apply every open comment, publish a new version at the same link, and reply under each comment. Approvals update the design README's Status line (committed to GitHub) and post in the thread.
 - Railway: Settings → Networking → **Generate Domain**, then set `PUBLIC_URL` to that https address. Railway sets `PORT` itself.
 - Tables: design_reviews, design_review_versions, review_comments. Self-test: `npx tsx bot/test-review.ts` (local, port 8090).
+
+## Onboarding a new client
+`/fluid onboard Brand Name | brand.com` (admins). Creates the client in Supabase and its folder (from clients/_template, with the guard), saved to GitHub. Opens a private channel `#client-<slug>` with the team (`SLACK_TEAM_USER_IDS`, default Meelad, Mohammad, Riley) and the requester, linked to that client, and posts the client's onboarding link (`<PUBLIC_URL>/onboard/<token>`, one use, 90 days).
+When the client submits:
+- answers go to profile_answers and onboarding/form-answers.md, and the Klaviyo key is checked live and stored in the vault
+- the read-only Klaviyo audit and order data run, plus the reporting sync
+- the agent runs the onboarding skill: brand kit, Onboarding Doc, month-1 plan (12 email + 5 SMS), flow plan (22 emails + 7 SMS)
+- the doc links (`<PUBLIC_URL>/d/<token>`) are posted in the channel
+Needs Slack scopes groups:write, groups:write.invites (in slack-manifest.json; reinstall the app after updating).

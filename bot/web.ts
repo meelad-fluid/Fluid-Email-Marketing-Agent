@@ -14,6 +14,8 @@ import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
 import { reviewLink, type Review } from "./review";
+import { formLink, formSections, saveForm } from "./onboarding";
+import { marked } from "marked";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
@@ -37,13 +39,40 @@ async function load(token: string) {
   return data as (Review & { clients: { name: string; folder: string } }) | null;
 }
 
-export function startWeb(notify: Notify) {
+export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string; folder: string; name: string; klaviyo: string }) => void = () => {}) {
   const port = Number(process.env.PORT || 8080);
   const server = createServer(async (req, res) => {
     try {
       const url = new URL(req.url ?? "/", "http://x");
       const ip = String(req.headers["x-forwarded-for"] ?? req.socket.remoteAddress ?? "").split(",")[0].trim();
       if (url.pathname === "/health") return send(res, 200, "ok");
+
+      // ── Client onboarding form ──
+      const ob = url.pathname.match(/^\/onboard\/([A-Za-z0-9_-]+)(\/submit)?$/);
+      if (ob) {
+        const l = await formLink(ob[1]);
+        if (!l) return send(res, 404, "This onboarding link has expired or was already used. Ask your Fluid contact for a new one.");
+        if (req.method === "GET" && !ob[2]) return send(res, 200, formPage(l.clients.name), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        if (req.method === "POST" && ob[2]) {
+          if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
+          let raw = ""; for await (const c of req) { raw += c; if (raw.length > 200_000) return json(res, 413, { error: "Too long" }); }
+          const b = JSON.parse(raw || "{}");
+          try { const r = await saveForm(ob[1], b.answers ?? {}, b.klaviyo_key); onFormSubmitted(r); return json(res, 200, { ok: true }); }
+          catch (e: any) { return json(res, 400, { error: e.message }); }
+        }
+      }
+
+      // ── Shared documents (onboarding doc, plans) ──
+      const dm = url.pathname.match(/^\/d\/([A-Za-z0-9_-]{16,64})$/);
+      if (dm && req.method === "GET") {
+        const { data: d } = await db().from("doc_links").select("path, title, clients(name, folder)").eq("token", dm[1]).maybeSingle();
+        if (!d) return send(res, 404, "Not found");
+        const c: any = (d as any).clients;
+        const base = join(CLIENTS_DIR, c.folder), file = resolve(base, d.path);
+        if (!file.startsWith(base + sep) || !existsSync(file)) return send(res, 404, "This document isn't available.");
+        return send(res, 200, docPage(d.title, c.name, marked.parse(readFileSync(file, "utf8")) as string), "text/html; charset=utf-8", { "cache-control": "no-store" });
+      }
+
       const m = url.pathname.match(/^\/r\/([A-Za-z0-9_-]+)(\/.*)?$/);
       if (!m) return send(res, 404, "Not found");
       const r = await load(m[1]);
@@ -178,3 +207,34 @@ $("ap").onclick=async()=>{const n=who();if(!n)return;if(!confirm("Approve versio
 load().then(frame).catch(e=>{document.body.innerHTML="<p style='padding:24px'>"+esc(e.message)+"</p>"});
 setInterval(()=>load(true).catch(()=>{}),30000);
 </script></body></html>`;
+
+const esc = (s: string) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
+const BASE_CSS = `:root{--ink:#1d1d1d;--muted:#666;--line:#e4e0d8;--accent:#E03400}*{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:0;background:#f6f4ef;color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}.wrap{max-width:760px;margin:0 auto;padding:28px 16px 64px}h1{font-size:28px;line-height:1.2;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 28px}`;
+
+export function docPage(title: string, client: string, html: string) {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${esc(title)}</title>
+<style>${BASE_CSS}.doc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px 28px 36px}.doc h1{font-size:26px}.doc h2{font-size:20px;margin:28px 0 8px;padding-top:16px;border-top:1px solid var(--line)}.doc h3{font-size:17px;margin:20px 0 6px}.doc table{border-collapse:collapse;width:100%;display:block;overflow-x:auto;font-size:14px}.doc th,.doc td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.doc th{background:#faf8f4}.doc pre{white-space:pre-wrap;background:#faf8f4;border:1px solid var(--line);border-radius:8px;padding:12px;font-size:13.5px}.doc code{font-size:13.5px}.doc blockquote{margin:0;padding-left:12px;border-left:3px solid var(--line);color:var(--muted)}@media(max-width:600px){.doc{padding:18px}}</style></head>
+<body><div class="wrap"><p class="sub">${esc(client)} · prepared by Fluid Creatives</p><div class="doc">${html}</div></div></body></html>`;
+}
+
+export function formPage(client: string) {
+  const field = (q: any) => {
+    const req = q.required ? " required" : "";
+    const label = `<label for="${q.id}">${esc(q.label)}${q.required ? ' <span class="req">*</span>' : ""}</label>${q.help ? `<div class="help">${esc(q.help)}</div>` : ""}`;
+    if (q.type === "connection") return `<div class="q">${label.replace(`for="${q.id}"`, 'for="klaviyo_key"')}<div class="help">Klaviyo → Settings → API keys → Create Private API Key → choose <b>Read-only access</b> for everything (Full access only if you've agreed Fluid will build drafts and segments for you). Paste it here: it's stored encrypted and only used by Fluid's systems.</div><input id="klaviyo_key" name="klaviyo_key" type="password" autocomplete="off" placeholder="pk_…"></div>`;
+    if (q.type === "textarea" || q.type === "list") return `<div class="q">${label}<textarea id="${q.id}" name="${q.id}" rows="${q.type === "list" ? 4 : 3}"${req} placeholder="${esc(q.placeholder ?? (q.type === "list" ? "One per line" : ""))}"></textarea></div>`;
+    if (q.type === "choice") return `<div class="q">${label}<select id="${q.id}" name="${q.id}"${req}><option value="">Choose…</option>${(q.options ?? []).map((o: string) => `<option>${esc(o)}</option>`).join("")}</select></div>`;
+    const type = q.type === "url" ? "url" : q.type === "email" ? "email" : q.type === "number" || q.type === "percent" ? "number" : "text";
+    return `<div class="q">${label}<input id="${q.id}" name="${q.id}" type="${type}"${req} placeholder="${esc(q.placeholder ?? "")}"></div>`;
+  };
+  const sections = formSections().map((s) => `<section><h2>${esc(s.title)}</h2>${s.intro ? `<p class="help">${esc(s.intro)}</p>` : ""}${s.questions.map(field).join("")}</section>`).join("");
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${esc(client)} onboarding</title>
+<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}h2{font-size:18px;margin:0 0 4px}.q{margin-top:16px}label{display:block;font-weight:600;font-size:15px}.req{color:var(--accent)}.help{color:var(--muted);font-size:13.5px;margin:2px 0 6px}input,textarea,select{width:100%;font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;min-height:44px}button{font:inherit;font-weight:600;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:14px 22px;min-height:48px;cursor:pointer;width:100%}#msg{margin-top:12px;font-weight:600}</style></head>
+<body><div class="wrap"><h1>${esc(client)} × Fluid Creatives</h1><p class="sub">Tell us about your brand. It takes about 15 minutes, and it's what everything we write and design for you is built on.</p>
+<form id="f">${sections}<button type="submit" id="go">Send to Fluid</button><div id="msg"></div></form></div>
+<script>
+const f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go");
+f.onsubmit=async(e)=>{e.preventDefault();go.disabled=true;msg.textContent="Sending…";const a={};for(const el of f.elements){if(!el.name||el.name==="klaviyo_key")continue;a[el.name]=el.value}
+try{const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({answers:a,klaviyo_key:f.elements.klaviyo_key?f.elements.klaviyo_key.value:""})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");f.innerHTML="<section><h2>Thank you!</h2><p>We've got everything. Your Fluid team will be in touch with your onboarding doc and first campaigns shortly.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
+</script></body></html>`;
+}
