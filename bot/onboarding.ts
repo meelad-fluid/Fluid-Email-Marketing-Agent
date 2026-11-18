@@ -37,15 +37,21 @@ function makeFolder(slug: string, name: string) {
 
 /** Onboard a client inside the channel this was run in (the client's existing internal channel). No new
  * channels: the channel is linked to the client (made if it doesn't exist yet) and gets the internal setup link. */
-export async function setupInChannel(web: WebClient, o: { name: string; website: string; channelId: string; requestedBy: string; teamId: string }) {
+export async function setupInChannel(web: WebClient, o: { name: string; website?: string; channelId: string; requestedBy: string; teamId: string }) {
   const name = o.name.trim();
-  const website = /^https?:\/\//.test(o.website.trim()) ? o.website.trim() : `https://${o.website.trim()}`;
-  new URL(website); // throws on a bad URL
+  // The website is optional: the onboarding finds it in the uploaded doc when it isn't given.
+  const site = o.website?.trim();
+  const website = site ? (/^https?:\/\//.test(site) ? site : `https://${site}`) : null;
+  if (website) new URL(website); // throws on a bad URL
   if (o.channelId.startsWith("D")) throw new Error("Run this inside the client's internal channel, not a DM.");
-  // Reuse an existing folder for this brand (matched by website domain), else make one from the name.
-  const domain = new URL(website).hostname.replace(/^www\./, "").toLowerCase();
-  const existingFolder = readdirSync(CLIENTS_DIR, { withFileTypes: true }).filter((d) => d.isDirectory() && !d.name.startsWith("_"))
-    .find((d) => ["README.md", "memory.md", "brand/brand-kit.md"].some((f) => existsSync(join(CLIENTS_DIR, d.name, f)) && readFileSync(join(CLIENTS_DIR, d.name, f), "utf8").toLowerCase().includes(domain)))?.name;
+  // Reuse an existing folder for this brand: the channel's own client, else a website-domain or name match, else a new one.
+  const { data: here } = await db().from("slack_channels").select("clients(folder, name)").eq("channel_id", o.channelId).maybeSingle();
+  const hereFolder = (here as any)?.clients?.folder as string | undefined;
+  const domain = website ? new URL(website).hostname.replace(/^www\./, "").toLowerCase() : null;
+  const dirs = readdirSync(CLIENTS_DIR, { withFileTypes: true }).filter((d) => d.isDirectory() && !d.name.startsWith("_")).map((d) => d.name);
+  const existingFolder = (hereFolder && slugify((here as any).clients.name) === slugify(name) ? hereFolder : undefined)
+    ?? (domain ? dirs.find((d) => ["README.md", "memory.md", "brand/brand-kit.md"].some((f) => existsSync(join(CLIENTS_DIR, d, f)) && readFileSync(join(CLIENTS_DIR, d, f), "utf8").toLowerCase().includes(domain))) : undefined)
+    ?? dirs.find((d) => d === slugify(name));
   const slug = existingFolder ?? slugify(name);
   if (!slug) throw new Error("That brand name doesn't make a usable folder name.");
 
@@ -61,7 +67,7 @@ export async function setupInChannel(web: WebClient, o: { name: string; website:
     client = ins.data;
   }
   makeFolder(slug, name);
-  if (!existsSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"))) writeFileSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"), `# Onboarding\nWebsite: ${website}\nStarted from Slack by <@${o.requestedBy}> on ${new Date().toISOString().slice(0, 10)}.\n`);
+  if (!existsSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"))) writeFileSync(join(CLIENTS_DIR, slug, "onboarding", "README.md"), `# Onboarding\nWebsite: ${website ?? "not given (find it in the onboarding doc)"}\nStarted from Slack by <@${o.requestedBy}> on ${new Date().toISOString().slice(0, 10)}.\n`);
   await saveClientFolder(slug, `${slug}: ${existingFolder ? "connected existing client" : "new client"} ${name} (via Slack)`);
   await linkChannel(o.channelId, o.teamId, slug, name, o.requestedBy);
 
@@ -219,7 +225,7 @@ export async function runAudits(clientId: string, folder: string) {
 }
 
 export const ONBOARDING_PROMPT = (name: string, auditNotes: string[], internal = false) => `Onboard ${name}. ${internal
-  ? "This client was set up internally by the Fluid team (onboarding/internal-setup.md). Their onboarding answers and any brand guidelines are the files in onboarding/docs/: read every PDF fully (in page ranges if long) and any images; Word/PowerPoint files have a .txt copy. Those answers replace the client form, and brand guidelines are the source of truth for fonts, colours, voice and rules; use the website to fill gaps. The email platform is in internal-setup.md: if it is Customer.io, the account audit is research/customerio-audit-*.json and everything you plan must work in Customer.io (read ../../brain/skills/fluid-customerio/SKILL.md). In the flow plan, compare their live flows (from the audit) with the core system and mark each flow/email as keep, fix or build."
+  ? "This client was set up internally by the Fluid team (onboarding/internal-setup.md). If onboarding/README.md says the website was not given, find it in the uploaded doc (or search the web for the brand) and write it as a line \"Website: https://…\" in onboarding/README.md and memory.md before anything else. Their onboarding answers and any brand guidelines are the files in onboarding/docs/: read every PDF fully (in page ranges if long) and any images; Word/PowerPoint files have a .txt copy. Those answers replace the client form, and brand guidelines are the source of truth for fonts, colours, voice and rules; use the website to fill gaps. The email platform is in internal-setup.md: if it is Customer.io, the account audit is research/customerio-audit-*.json and everything you plan must work in Customer.io (read ../../brain/skills/fluid-customerio/SKILL.md). In the flow plan, compare their live flows (from the audit) with the core system and mark each flow/email as keep, fix or build."
   : "This is the automatic onboarding run after the client submitted the form (onboarding/form-answers.md)."}
 Audit status: ${auditNotes.join("; ")}. The audit and order JSON (if any) are in research/.
 Follow ../../brain/skills/fluid-client-onboarding/SKILL.md fully and produce, in this folder (for a research-use-only peptide brand, write compliance.md first and use research-buyer avatars, per the skill's RUO section; never human benefits):

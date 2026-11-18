@@ -9,7 +9,7 @@ import { isRuoClient, ruoImagePromptProblem } from "../lib/compliance/ruo";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import sharp from "sharp";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
@@ -159,8 +159,17 @@ export function designToolsServer(clientId: string, folder: string) {
     { search: z.string().min(2).describe("Words from the product name, e.g. 'cacao nibs'"), max_products: z.number().int().min(1).max(4).default(2), cutout: z.boolean().default(false) },
     async ({ search, max_products, cutout: doCut }) => {
       const { data: c } = await db().from("clients").select("website_url").eq("id", clientId).single();
-      if (!c?.website_url) return ok({ error: "No website on file for this client." });
-      const origin = new URL(c.website_url).origin;
+      let site = c?.website_url as string | null;
+      if (!site) {
+        // Clients onboarded with just a name: the onboarding writes "Website: https://…" into onboarding/README.md or memory.md.
+        for (const f of ["onboarding/README.md", "memory.md"]) {
+          const p = join(CLIENTS_DIR, folder, f);
+          const m = existsSync(p) ? readFileSync(p, "utf8").match(/^\W*Website\W*:\s*(https?:\/\/\S+)/im) : null;
+          if (m) { site = m[1].replace(/[)*.,]+$/, ""); await db().from("clients").update({ website_url: site }).eq("id", clientId); break; }
+        }
+      }
+      if (!site) return ok({ error: "No website on file for this client. Add a 'Website: https://…' line to memory.md." });
+      const origin = new URL(site).origin;
       const all: any[] = [];
       for (let page = 1; page <= 4; page++) {
         const r = await fetch(`${origin}/products.json?limit=250&page=${page}`, { headers: { "user-agent": "Mozilla/5.0 (Fluid design agent)" } });

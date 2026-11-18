@@ -46,7 +46,7 @@ When the client submits:
 Needs Slack scopes groups:write, groups:write.invites (in slack-manifest.json; reinstall the app after updating).
 
 ## Onboarding (in the client's own channel)
-Run `/fluid onboard Brand Name | brand.com` **inside the client's internal channel** (admins). No channels are created: this channel is linked to the client (client + folder made if new) and gets a one-use upload link (Fluid team only, 14 days).
+Run `/fluid onboard Client Name` **inside the client's internal channel** (admins; the website is optional, add `| brand.com` if you like). No channels are created: this channel is linked to the client (client + folder made if new) and gets a one-use upload link (Fluid team only, 14 days).
 The page takes the client's onboarding doc as a PDF (plus brand guidelines or other files if you have them, saved to `onboarding/docs/`), an optional Klaviyo **or** Customer.io key (verified, stored in the vault; Customer.io's US/EU data center is detected), and notes. Saving starts the onboarding in the channel: account audit (Klaviyo or Customer.io, if connected), then the Onboarding Doc, month-1 plan and flow plan from the PDF and the website.
 `/fluid onboard` with nothing after it, in a linked channel, gives a fresh upload link for that client.
 

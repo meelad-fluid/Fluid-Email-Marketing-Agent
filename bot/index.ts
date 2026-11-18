@@ -232,11 +232,11 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     const rest = command.text.trim().slice(sub.length).trim();
     if (!rest) {
       const c = await clientForChannel(command.channel_id, TEAM_ID);
-      if (!c) return reply("Run `/fluid onboard Brand Name | brand.com` inside the client's internal channel.");
+      if (!c) return reply("Run `/fluid onboard Client Name` inside the client's internal channel.");
       return reply(`Onboarding upload link for ${c.name} (only you can see this, works once, 14 days): ${await internalLink(c.id)}`);
     }
-    const [name, website] = rest.split("|").map((x) => x.trim());
-    if (!name || !website) return reply("Use: `/fluid onboard Brand Name | brand.com` inside the client's internal channel.");
+    const [name, website] = rest.split("|").map((x) => x.trim()); // "| brand.com" still works but isn't needed
+    if (!name) return reply("Use: `/fluid onboard Client Name` inside the client's internal channel.");
     try {
       const r = await setupInChannel(app.client, { name, website, channelId: command.channel_id, requestedBy: command.user_id, teamId: TEAM_ID });
       await audit({ team_id: TEAM_ID, channel_id: r.channelId, user_id: command.user_id, client_id: r.clientId, outcome: "linked", reason: `onboarding ${name}` });
@@ -260,7 +260,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Brand Name | brand.com` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
+  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
