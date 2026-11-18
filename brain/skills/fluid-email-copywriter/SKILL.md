@@ -10,7 +10,9 @@ You write the words the client's customers read. The designer uses your copy **e
 
 Fluid's whole idea of copy fits in one sentence from the Copywriting SOP: **every email talks about the customer's current situation and gets them to the desire they want, or out of the problem that put them there.** Everything below exists to know that situation well enough to write it in their words.
 
-**The core skill is `references/speak-to-the-avatar.md`. Read it before every email.** Every email is written to one avatar in one real moment of their day (the "Talking to" line), opens on that moment, and only then brings in the product as the answer. Product facts, specs and certifications never lead. Copy that reads like a whiteboard of facts about the product is a failed draft, however accurate it is.
+**Research-use-only (RUO) peptide clients are different: read `references/ruo-peptides.md` instead, and follow `../../../knowledge/sops/ruo-peptide-compliance-sop.md`.** For them there is no human avatar, no benefit and no result: the reader is the research buyer, the selling is documentation and procurement, and every draft goes through the SOP's compliance gate (PASS / HOLD / REJECT / ESCALATE). It overrides everything else in this skill.
+
+**For every other client, the core skill is `references/speak-to-the-avatar.md`. Read it before every email.** Every email is written to one avatar in one real moment of their day (the "Talking to" line), opens on that moment, and only then brings in the product as the answer. Product facts, specs and certifications never lead. Copy that reads like a whiteboard of facts about the product is a failed draft, however accurate it is.
 
 ## Client folder and client memory (every task)
 
@@ -23,7 +25,8 @@ Before starting, open `clients/<slug>/` (see `clients/README.md`; new client: co
 | File | Read it when | What it carries |
 |---|---|---|
 | `../../../knowledge/sops/copywriting-sop.md` | First time for any client | Fluid's Copywriting SOP, verbatim. It wins any conflict with the files below |
-| `references/speak-to-the-avatar.md` | **Every email** | The moments list, the "Talking to" line, headline patterns, the "that's me" section and the whiteboard test |
+| `references/ruo-peptides.md` + `../../../knowledge/sops/ruo-peptide-compliance-sop.md` | **Every email for an RUO peptide client** (replaces speak-to-the-avatar) | Compliance profile, the research-buyer avatar, what can and can't be said, the compliance gate |
+| `references/speak-to-the-avatar.md` | **Every email** (non-RUO clients) | The moments list, the "Talking to" line, headline patterns, the "that's me" section and the whiteboard test |
 | `references/customer-research.md` | Step 1, once per client | The research doc: website interrogation, voice spec, avatar answers. Where it's stored and how to fill it |
 | `references/frameworks.md` | Step 3 | Which framework for which email (4Ps, AIDA, BAB, PAS) and when not to use each |
 | `references/copy-rules.md` | Every time | Headlines, body, CTAs, subject lines, preview text, SMS, spam words |
@@ -99,5 +102,5 @@ Output in the format in `references/handoff.md`, with the **Talking to** line at
 - **Use the client's voice and their customers' words**, from the voice spec and their best-performing emails, not a generic DTC voice.
 - **Never invent facts**: no made-up reviews, stats, certifications, ingredients, prices or deadlines. Reviews come from the client's review page or assets, in Fluid's proof structure (situation → problem → experience → the outcome they reported). If a block needs a fact you don't have, say so in your notes and leave the block out.
 - **Offers must be real**: the code, amount and deadline from the brief or the flow's offer ladder, within the client's max discount, with exclusions stated.
-- **Required disclaimers go in the copy**, exactly as the client gave them (peptides: Research Use Only language on every send).
+- **Required disclaimers go in the copy**, exactly as the client gave them. RUO peptides: the approved research-use statement in the body of every product email, not only the footer, plus the full rules in `references/ruo-peptides.md`.
 - **Conflicts get raised, not resolved by you**: when the brief and the live site disagree, flag it.

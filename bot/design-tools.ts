@@ -5,6 +5,7 @@
 //  - product_images: real product photos from the client's own website (Shopify), saved into the client's
 //    brand/assets/products/<handle>/, optionally with the white background removed, ready to use in a design.
 import { cutoffSummary, findCutoffs } from "../lib/email/qc";
+import { isRuoClient, ruoImagePromptProblem } from "../lib/compliance/ruo";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import sharp from "sharp";
@@ -46,7 +47,8 @@ export function designToolsServer(clientId: string, folder: string) {
       const col = kind === "flow" ? "flow_type" : "campaign_type";
       const { data, error } = await db().from("reference_emails").select("id, ref, teardown, summary, image_path, industry, tags").eq("kind", kind).eq(col, type).neq("quality", "anti_example").limit(40);
       if (error) return ok({ error: error.message });
-      const avatarLed = (r: any) => (r.tags ?? []).includes("speaks-to-avatar") ? 1 : 0; // headlines that speak to the reader's situation come first
+      const ruo = isRuoClient(join(CLIENTS_DIR, folder));
+      const avatarLed = (r: any) => ruo ? ((r.tags ?? []).includes("ruo-pass") ? 2 : (r.tags ?? []).includes("ruo-hold") ? 0 : 1) : (r.tags ?? []).includes("speaks-to-avatar") ? 1 : 0; // headlines that speak to the reader's situation come first
       const picks = (data ?? []).sort(() => Math.random() - 0.5).sort((a, b) => avatarLed(b) - avatarLed(a)).slice(0, limit);
       const names = await foreignNames(CLIENTS_DIR, folder, db());
       const scrub = (s: string) => { let t = s; for (const n of names.foreign.keys()) t = t.replace(new RegExp(`\\b${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "[\\s\\W]+")}\\b`, "gi"), "[brand]"); return t; };
@@ -208,6 +210,7 @@ export function designToolsServer(clientId: string, folder: string) {
     async ({ prompt, aspect_ratio, reference_urls, name }) => {
       const key = process.env.KIE_API_KEY;
       if (!key) return ok({ error: "Image generation isn't set up (KIE_API_KEY missing)." });
+      if (isRuoClient(join(CLIENTS_DIR, folder))) { const why = ruoImagePromptProblem(prompt); if (why) return ok({ error: why }); }
       if (generatedThisRun >= 4) return ok({ error: "Limit of 4 generated images per request reached." });
       generatedThisRun++;
       const kie = async (path: string, init?: RequestInit) => {

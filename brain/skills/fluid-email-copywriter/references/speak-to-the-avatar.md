@@ -1,5 +1,7 @@
 # Speak to the avatar (the core of every email)
 
+> **Not for research-use-only (RUO) peptide clients.** Talking to a person about their body, health or results is exactly what the RUO SOP forbids. For them, use `ruo-peptides.md`: the avatar is the research buyer and the moments are procurement moments.
+
 Fluid's standing rule, from Meelad (2026-11-18): an email should sound like it was written to one person about their day, not like a whiteboard of product facts. Our copy had drifted into describing the product: certifications, specs, ingredients, "what it is". The avatar research was good, but it sat in a note at the bottom and never reached the copy.
 
 The fix is a procedure, not a vibe. Do these four things for every email (campaign, flow, plain text, SMS).

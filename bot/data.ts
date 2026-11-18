@@ -2,6 +2,9 @@
 // (from the Slack channel) when the tools are built; the model can't pass or change it, so these tools can
 // only ever return this client's numbers.
 import { checkDesignCutoffs, cutoffSummary } from "../lib/email/qc";
+import { emailText, isRuoClient, ruoSummary, scanRuoText } from "../lib/compliance/ruo";
+import { dcToHtml } from "../lib/email/dc";
+import { readFileSync as readText } from "node:fs";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import { db } from "./db";
@@ -76,12 +79,29 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
+  // Research-use-only clients: refuse designs (and their subject/preview) with wording the RUO SOP prohibits.
+  function ruoProblem(designFolder: string): string | null {
+    const base = pjoin(CLIENTS_DIR, folder);
+    if (!isRuoClient(base)) return null;
+    const dir = pjoin(base, designFolder.replace(/^\.\//, "")), dc = pjoin(dir, "design.dc.html");
+    let text = "";
+    try { if (fileExists(dc)) text += emailText(dcToHtml(dc, base)); } catch { /* the design check below reports a broken design */ }
+    const readme = pjoin(dir, "README.md");
+    const copyRel = fileExists(readme) ? readText(readme, "utf8").match(/\*\*Copy:\*\*\s*`([^`]+)`/)?.[1] : undefined;
+    const copyFile = copyRel ? presolve(dir, copyRel) : undefined;
+    if (copyFile && copyFile.startsWith(base + psep) && fileExists(copyFile)) text += "\n" + readText(copyFile, "utf8").split("\n").filter((l) => /^(SUBJECT|PREVIEW|- \*\*Subject|- \*\*Preview)/i.test(l)).join("\n");
+    const hits = scanRuoText(text, base);
+    return hits.length ? `Not published: this is a research-use-only client and the email has wording the RUO SOP prohibits. Rewrite these (no human benefits, medical, use or effect-category language), re-run the compliance gate, then try again.\n${ruoSummary(hits)}` : null;
+  }
+
   const publish = tool(
     "publish_design",
     "Publish (or update) a design's review link: the client-facing page where people see the email at full quality, leave pinned comments and approve. Call it every time you create or change a design. Same design folder = same link, new version. Returns the link.",
     { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), note: z.string().optional().describe("What changed in this version, one line"),
       ignore_cutoffs: z.boolean().default(false).describe("Only for a deliberate bleed of plain background texture. Never for products, people, logos or text.") },
     async ({ design_folder, note, ignore_cutoffs }) => {
+      const ruo = ruoProblem(design_folder);
+      if (ruo) return ok({ error: ruo });
       const dc = pjoin(CLIENTS_DIR, folder, design_folder.replace(/^\.\//, ""), "design.dc.html");
       if (fileExists(dc) && !ignore_cutoffs) {
         try {
@@ -119,6 +139,8 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     "Build a finished design into this client's Klaviyo as a DRAFT campaign (never sends or schedules): slices it (each section/CTA its own linked image), QC checks every link, uploads the images, creates a drag-and-drop template and a draft campaign with the subject, preview text, sender and audiences from the copy file. Re-pushing updates the same draft (or creates the campaign if an earlier push had no audience). Audience names are matched loosely (e.g. 'engaged 120' finds 'FC | Engaged 120'); say which list each request was matched to. Only works if the client allows drafts.",
     { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), include: z.array(z.string()).optional().describe("Audiences to send to: exact Klaviyo names or ids from find_audiences. Overrides the copy doc."), exclude: z.array(z.string()).optional().describe("Audiences to exclude (names or ids). Overrides the copy doc.") },
     async ({ design_folder, include, exclude }) => {
+      const ruo = ruoProblem(design_folder);
+      if (ruo) return ok({ error: ruo });
       try {
         const r = await pushEmail({ clientsDir: CLIENTS_DIR, folder, designRel: design_folder.replace(/^\.\//, ""), db: db(), push: true, include, exclude });
         const k = r.klaviyo ?? {};

@@ -43,3 +43,6 @@ order by (industry = 'supplements') desc limit 6;
 select ref, brand, teardown->>'headline', teardown->>'offer' from reference_emails
 where flow_type = 'abandoned_cart' and flow_position like '3%';
 ```
+
+### Research-use-only (RUO) tags (peptides, 2026-11-18)
+Every peptide reference was checked against Fluid's RUO SOP. `ruo-reject` (5: weight-loss testimonials, injury healing, gym/bedroom performance, dosing quizzes) are now `quality = anti_example` and never used. `ruo-hold` (21) use effect-based categories ("recovery research", "longevity compounds"), mechanism blurbs or a clinic/patient model: layout only, none of the framing. `ruo-pass` (12: COA, checklist, documentation and procurement-led) are the copy models for RUO clients.

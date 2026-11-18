@@ -32,16 +32,16 @@ These come up in almost every reference doc. Get them from the website, the brie
 
 ## Peptides and research compounds
 
-**Compliance governs everything.** Open the doc with a compliance block, as EVO Labs does:
+**Compliance governs everything, and Fluid's RUO SOP (`knowledge/sops/ruo-peptide-compliance-sop.md`) wins every conflict with the notes below.** Open the doc with a compliance block, as EVO Labs does:
 - Every email and SMS carries a visible "For Research Use Only" line ("Not for human or veterinary use" on key emails).
 - No human-use, outcome, result, protocol, dosing, reconstitution or administration language, anywhere.
 - Use the client's naming rules (EVO used code names only: GLP-3 (R), GHK-CU).
 - The selling is done by testing, transparency, price and availability, never by claims.
 
 What that changes in the system:
-- **Pop-up:** research categories ("What are you researching right now?" Metabolic / GH & recovery / Skin, hair & longevity), never outcomes. SMS step carries the consent line plus "For research use only." Confirmation states products aren't for human or animal consumption.
+- **Pop-up:** what they're sourcing, by compound or catalog class, never by bodily effect (SOP §5: "metabolic", "recovery", "longevity" categories imply a benefit). E.g. "What are you sourcing right now?" with the brand's own catalog names, or by buyer type (independent lab / institution / first order). SMS step carries the consent line plus "For research use only." Confirmation states products aren't for human or animal consumption.
 - **Welcome #3:** proof is verification, not results: testing labs, COAs, purity floor, batch records, packaging, shipping. No outcome reviews.
-- **Post-Purchase #2:** "how to use" becomes documentation orientation: reading the COA, matching the batch number on the label, storage and handling of lyophilized material as officially supplied. Attach items stay inside RUO territory (bacteriostatic/recon water, supplies).
+- **Post-Purchase #2:** "how to use" becomes documentation orientation: reading the COA, matching the batch number on the label, storage and handling of lyophilized material as officially supplied. No attach offers for bacteriostatic water, syringes or other supplies framed around use (SOP §4.5).
 - **Post-Purchase #3:** "Did the COA check out?": ask for reviews of what they can verify (purity data, packaging, shipping, support), and say the brand can't publish anything about personal use.
 - **Replenishment / Winback:** neutral timing language. Never say or imply they're out of product or need a refill for use; "new batch is in, fresh COA published" is the news hook.
 - **Flow rules:** a compliance review before each send.

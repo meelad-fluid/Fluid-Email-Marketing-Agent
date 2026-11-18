@@ -5,7 +5,7 @@
 // (clients/<folder>/.claude/settings.json) also loads. The subprocess environment is built from scratch,
 // so it never sees Supabase, Slack or Klaviyo credentials.
 import { query, type HookCallback } from "@anthropic-ai/claude-agent-sdk";
-import { readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { CLIENTS_DIR, ROOT, SHARED_READ, config } from "./config";
 import { clientDataServer, DATA_TOOLS } from "./data";
@@ -35,6 +35,8 @@ function sandbox(clientDir: string): HookCallback {
       const p = resolve(clientDir, String(raw).replace(/^~/, "/nonexistent"));
       if (WRITE_TOOLS.has(tool)) {
         if (!inside(p, clientDir) || inside(p, guardDir) || p === join(clientDir, "CLAUDE.md")) return deny("writes go only inside this client's folder (not its settings)");
+        // The RUO compliance profile is set by Fluid's team (or written once at onboarding); the agent can't loosen it later.
+        if (p === join(clientDir, "compliance.md") && existsSync(p)) return deny("compliance.md is managed by Fluid's team. Put open questions in memory.md instead");
       } else if (!inside(p, clientDir) && !inside(p, REF_DIR) && !SHARED_READ.some((r) => inside(p, r))) {
         return deny(`${relative(ROOT, p) || p} is outside this client's folder and Fluid's shared SOPs`);
       }
@@ -115,7 +117,8 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
   No description of what's in it, no audiences, no open questions, no sign-off.
 - When work gets approved or scheduled in the conversation, update its "Status:" line (e.g. "Status: approved · goes live Wed Nov 18, 2026").
 - Asked a question? Answer it in a sentence or two.
-- Writing copy (any email, flow or SMS): talk to the avatar, not about the product. Before writing, open research/onboarding-doc.md and pick one avatar and one moment from its moments list (build the list first if it's missing), then put "Talking to: [avatar], who [situation] when [moment]" at the top of the copy file. The headline names that moment or problem in the customer's words, the first section after the hero is their situation ("that's me") before any product facts, and proof only answers their doubts. Run the whiteboard test from speak-to-the-avatar.md before saving; if the email reads like a list of facts about the product, rewrite it.
+- Research-use-only (RUO) peptide client (compliance.md in this folder): follow ../../knowledge/sops/ruo-peptide-compliance-sop.md and ../../brain/skills/fluid-email-copywriter/references/ruo-peptides.md above everything else. No human benefits, results, bodies, medical words, dosing or use, no effect-based categories; the reader is the research buyer and the selling is documentation, testing, traceability, availability and support. Every draft gets the compliance gate result (PASS / HOLD / REJECT / ESCALATE) in its NOTES, and only PASS goes to design. Images: packaging, COAs, lab equipment only. If compliance.md is missing for a peptide brand, don't write promotional copy: say what's needed.
+- Writing copy for every other client (any email, flow or SMS): talk to the avatar, not about the product. Before writing, open research/onboarding-doc.md and pick one avatar and one moment from its moments list (build the list first if it's missing), then put "Talking to: [avatar], who [situation] when [moment]" at the top of the copy file. The headline names that moment or problem in the customer's words, the first section after the hero is their situation ("that's me") before any product facts, and proof only answers their doubts. Run the whiteboard test from speak-to-the-avatar.md before saving; if the email reads like a list of facts about the product, rewrite it.
 - Designing an email: every email must look like a designer made it for THIS campaign. Clients must never feel they're getting the same email twice. Follow these steps every time, no skipping:
   1. Brief: read brand/brand-kit.md, memory.md and the copy. Name the email's job (sale, guide, recipe, launch, reviews, bundle, winback, restock, story…).
   2. Style: call style_options (email_type = the job). Open all 3 images with Read. Call choose_style with the one that best fits the campaign and is furthest from this client's recent emails (check the "Layout:" lines in the last 3 design READMEs). Follow that style's structure and devices closely, translated into this brand's colors, fonts and photos. Never copy its words, products or brand look, and never mention it.

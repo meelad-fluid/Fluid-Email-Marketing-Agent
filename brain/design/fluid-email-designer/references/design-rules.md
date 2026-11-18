@@ -140,3 +140,11 @@ Every product shot, person, logo and line of text must be fully visible inside t
 - Floating products and jars sit inside the edge (at least ~16px in), even when rotated. Only plain background texture may bleed off an edge.
 - Gradient-filled text (background-clip:text) needs line-height ≥ 1.2 plus a little vertical padding, or the tops of the letters get chopped.
 - `render_preview` reports cut-offs and `publish_design` refuses a design that has any. Fix them; don't work around the check.
+
+## 12. Research-use-only (RUO) peptide clients
+Fluid's RUO SOP (`knowledge/sops/ruo-peptide-compliance-sop.md` §12) applies to every image, icon and layout:
+- Never: people, bodies, faces, hands holding vials, injections, syringes or needles, scales, gyms, mirrors, before/after, treatment rooms, doctors or patients, dosage graphics.
+- Use: the brand's real packaging and vials, real COAs and analytical documents, lab equipment and lab settings, catalog graphics.
+- The approved research-use line sits visibly in the body near the products (readable contrast), plus the footer.
+- Product blocks show compound name, format and a documentation CTA (View COA / Review Specifications), never benefit blurbs.
+- `generate_image` refuses prompts with people or use for RUO clients, and `publish_design` / `push_to_klaviyo` refuse designs with prohibited wording.
