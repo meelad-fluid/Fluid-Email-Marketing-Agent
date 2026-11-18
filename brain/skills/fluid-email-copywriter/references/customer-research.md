@@ -36,6 +36,10 @@ One avatar per real customer type the brief or the pop-up answers point to (ofte
 
 Close each avatar with one line: **current situation → desire**, which every email for this avatar is a version of.
 
+## 4. Moments list (per avatar)
+
+8–12 moments where the problem actually shows up in their day, each one a scene you could photograph: when / where, what they're doing, what they say to themselves (in their words, sourced), and what they've already tried. Format and rules: `speak-to-the-avatar.md` §1. Every email's "Talking to" line picks one of these.
+
 ## Never invent
 
 An answer you can't source stays blank with "needs client input". A made-up pain point produces confident copy about the wrong problem.

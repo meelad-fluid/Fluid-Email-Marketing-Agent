@@ -17,6 +17,7 @@ Ignore the image slots (`*_IMAGE`, `*_CUTOUT`, `*_ICON`, `LOGO*`, `BADGE_*`): th
 ```
 Template: abandoned-checkout/02-reviews
 Client: Night Shift Athletics (demo) · Flow: Abandoned Checkout · Email 2
+Talking to: the player who's between two sizes, at 11pm with the cart open, worried it'll arrive too tight
 
 SUBJECT (pick 1): Can't decide? Let the reviews do the talking
 SUBJECT (option): What players noticed after one practice

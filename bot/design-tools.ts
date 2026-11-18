@@ -46,7 +46,8 @@ export function designToolsServer(clientId: string, folder: string) {
       const col = kind === "flow" ? "flow_type" : "campaign_type";
       const { data, error } = await db().from("reference_emails").select("id, ref, teardown, summary, image_path, industry, tags").eq("kind", kind).eq(col, type).neq("quality", "anti_example").limit(40);
       if (error) return ok({ error: error.message });
-      const picks = (data ?? []).sort(() => Math.random() - 0.5).slice(0, limit);
+      const avatarLed = (r: any) => (r.tags ?? []).includes("speaks-to-avatar") ? 1 : 0; // headlines that speak to the reader's situation come first
+      const picks = (data ?? []).sort(() => Math.random() - 0.5).sort((a, b) => avatarLed(b) - avatarLed(a)).slice(0, limit);
       const names = await foreignNames(CLIENTS_DIR, folder, db());
       const scrub = (s: string) => { let t = s; for (const n of names.foreign.keys()) t = t.replace(new RegExp(`\\b${n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "[\\s\\W]+")}\\b`, "gi"), "[brand]"); return t; };
       mkdirSync(REF_DIR, { recursive: true });

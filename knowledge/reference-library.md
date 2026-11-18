@@ -18,6 +18,7 @@ Fluid's past emails, in Supabase, tagged so any agent can pull the right example
 | `industry` | `peptides`, `supplements`, `apparel`, `firearms`... |
 | `quality` | `exemplar`, or `anti_example` (what NOT to do) |
 | `tags` | building blocks and angles: `mystery-offer`, `plain-text`, `comparison-table`, `icon-bridge`, `reviews`... |
+| | `speaks-to-avatar` = the 28 emails whose headline speaks to the reader's situation (passes `sop_check.pain_point_headline`). Use these first when studying how copy talks to a person; most other references are product-led and are for layout only |
 | `teardown` | headline, subheadline, offer, button, above_the_fold, sections (with each section's CTA), design (palette, type, buttons, transitions, imagery), `steal` (what to reuse) |
 | `copy` | every line of copy, verbatim, by section |
 | `sop_check` | the Design SOP checks, pass/fail with a note |

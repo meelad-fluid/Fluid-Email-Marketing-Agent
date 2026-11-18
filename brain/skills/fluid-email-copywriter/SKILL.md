@@ -10,6 +10,8 @@ You write the words the client's customers read. The designer uses your copy **e
 
 Fluid's whole idea of copy fits in one sentence from the Copywriting SOP: **every email talks about the customer's current situation and gets them to the desire they want, or out of the problem that put them there.** Everything below exists to know that situation well enough to write it in their words.
 
+**The core skill is `references/speak-to-the-avatar.md`. Read it before every email.** Every email is written to one avatar in one real moment of their day (the "Talking to" line), opens on that moment, and only then brings in the product as the answer. Product facts, specs and certifications never lead. Copy that reads like a whiteboard of facts about the product is a failed draft, however accurate it is.
+
 ## Client folder and client memory (every task)
 
 Before starting, open `clients/<slug>/` (see `clients/README.md`; new client: copy `clients/_template/`). **Read `memory.md` first**: its preferences outrank this skill's defaults (Fluid's SOP fundamentals still hold). Save your output in the client's folder (`copy/<date-or-flow>-<name>.md` for each email; the customer research doc in `research/customer-research.md`). **Before you finish, append to `memory.md`**: a dated Design log / Facts line for what you changed, and a Preferences line for any feedback that should apply to future work. **Never bring in another client's material** (their folder is blocked; the reference library is structure-only), and before handing over run `npx tsx scripts/check-client-leaks.ts <slug> <your files>`.
@@ -21,6 +23,7 @@ Before starting, open `clients/<slug>/` (see `clients/README.md`; new client: co
 | File | Read it when | What it carries |
 |---|---|---|
 | `../../../knowledge/sops/copywriting-sop.md` | First time for any client | Fluid's Copywriting SOP, verbatim. It wins any conflict with the files below |
+| `references/speak-to-the-avatar.md` | **Every email** | The moments list, the "Talking to" line, headline patterns, the "that's me" section and the whiteboard test |
 | `references/customer-research.md` | Step 1, once per client | The research doc: website interrogation, voice spec, avatar answers. Where it's stored and how to fill it |
 | `references/frameworks.md` | Step 3 | Which framework for which email (4Ps, AIDA, BAB, PAS) and when not to use each |
 | `references/copy-rules.md` | Every time | Headlines, body, CTAs, subject lines, preview text, SMS, spam words |
@@ -45,10 +48,11 @@ Follow `references/customer-research.md`:
 - **Website interrogation**: read the brief/onboarding answers against the live site and list every conflict (a product the brief calls the hero that the site buries, a price or offer that doesn't match, claims the site makes that the brief doesn't, a tone that differs). Conflicts go to the Fluid team as questions; never silently pick one.
 - **Voice spec**: how the brand talks and, more importantly, **how its customers talk** (reviews, comments, FAQs, the site's own copy). Collect their actual words and phrases; that's what the copy replicates.
 - **Avatar**: answer only the questions that apply to this product. The SOP's test: someone doesn't lie awake over a dog toy; someone taking a lymphatic-drainage supplement may lie awake over their legs in a photo. Mark the questions that don't apply as "not applicable" rather than inventing an answer.
+- **Moments list** (`references/speak-to-the-avatar.md` §1): 8–12 photographable moments per avatar (when, where, what they're doing, what they say to themselves, what they've already tried), sourced. If the client's research doc doesn't have one yet, build it now and save it there; it's reused for every email after.
 
 ### 2. Read the brief against the avatar
 
-Answer in one line each before writing:
+**Write the "Talking to" line first** (`references/speak-to-the-avatar.md` §2): *Talking to: [avatar], who [situation in their words] when [one moment].* One person, one moment. Then answer in one line each:
 - **Who** is this for (which avatar, which segment) and **what is the purpose** of this email (the one action)?
 - **Which part of the avatar** does this brief speak to: their current situation, the problem it causes, or the desire they want?
 - **What else about the brand** does this email need (offer, product facts, proof, disclaimers)?
@@ -67,9 +71,10 @@ Pull 3–5 references of the same flow email or campaign type from the reference
 ### 5. Write
 
 **Designed email** (SOP: shorter lines, more images and CTAs, structured and labeled):
-1. The hero first: `HEADLINE`, `SUBHEADLINE`, `OFFER` (if any), `BUTTON`. It has to work for someone who never scrolls: the headline names their situation or problem, the button is within two sentences.
-2. Then each section in order, each with its own heading, short lines (one or two sentences per paragraph), sets of three, and its own button. Mark where an image goes and what it should show (`IMAGE: lifestyle, her legs in a summer dress`), because the designer needs to know.
-3. Delete sections the email doesn't need rather than filling them.
+1. The hero first: `HEADLINE`, `SUBHEADLINE`, `OFFER` (if any), `BUTTON`. It has to work for someone who never scrolls: the headline names their moment or problem in their words (patterns in `references/speak-to-the-avatar.md` §3), the button is within two sentences.
+2. **The first section after the hero is "that's me"**: their situation, in second person and their words, before the product appears. Proof and product facts come after, as answers to their doubts, each translated into what it changes in their day.
+3. Then each section in order, each with its own heading, short lines (one or two sentences per paragraph), sets of three, and its own button. Mark where an image goes and what it should show (`IMAGE: lifestyle, her legs in a summer dress`), because the designer needs to know.
+4. Delete sections the email doesn't need rather than filling them.
 
 **Plain-text email**: a letter in one framework, from a real person at the brand (usually the founder), in the voice spec. Short paragraphs, one link or reply ask, a sign-off with their name.
 
@@ -79,16 +84,17 @@ Then for both:
 
 ### 6. Check, then hand over
 
-- Every line is about the reader's situation, problem or desire, in their words (voice spec), not the brand talking about itself.
+- **The whiteboard test passes** (`references/speak-to-the-avatar.md` §4): the headline couldn't go to any other brand's list, at least half the body sentences are about the reader, it still speaks to someone with the brand name covered, it reads like a person, and no spec or certification comes before the "that's me" section. If any check fails, rewrite before handing over.
 - `references/copy-rules.md` passes; the client's banned words, required disclaimers and discount limits are respected.
 - No fact you can't point to a source for.
 
-Output in the format in `references/handoff.md`, ending with **NOTES**: the avatar point the email speaks to, the framework, your subject-line pick and why, and any open question (including website-interrogation conflicts that affect this email).
+Output in the format in `references/handoff.md`, with the **Talking to** line at the top, ending with **NOTES**: the avatar point the email speaks to, the framework, your subject-line pick and why, and any open question (including website-interrogation conflicts that affect this email).
 
 ## Hard rules
 
 - **Write as the client's sender persona** (from `memory.md`, e.g. "Hannah from Dolce"): her first-name sign-off on plain-text emails and SMS, the From name on every brief. She speaks for the team ("we", "our team"); never give her first-hand experiences, results, health stories or testimonials. Founder notes are signed by the real founder.
 
+- **Talk to the avatar, not about the product** (`references/speak-to-the-avatar.md`): one avatar, one moment, their words first; product as the answer.
 - **Sound like a person** (copy-rules.md "Sound like a person, not AI"): full natural sentences, no fragment pairs or clipped two-word punch lines.
 - **Use the client's voice and their customers' words**, from the voice spec and their best-performing emails, not a generic DTC voice.
 - **Never invent facts**: no made-up reviews, stats, certifications, ingredients, prices or deadlines. Reviews come from the client's review page or assets, in Fluid's proof structure (situation → problem → experience → the outcome they reported). If a block needs a fact you don't have, say so in your notes and leave the block out.
