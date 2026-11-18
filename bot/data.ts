@@ -2,6 +2,9 @@
 // (from the Slack channel) when the tools are built; the model can't pass or change it, so these tools can
 // only ever return this client's numbers.
 import { checkDesignCutoffs, cutoffSummary } from "../lib/email/qc";
+import { cioCreds } from "../lib/customerio/api";
+import { cioReport } from "../lib/customerio/report";
+import { cioSegments, matchSegments, pushToCustomerio } from "../lib/customerio/push";
 import { emailText, isRuoClient, ruoSummary, scanRuoText } from "../lib/compliance/ruo";
 import { dcToHtml } from "../lib/email/dc";
 import { readFileSync as readText } from "node:fs";
@@ -24,12 +27,26 @@ const ok = (o: unknown) => ({ content: [{ type: "text" as const, text: JSON.stri
 export function clientDataServer(clientId: string, folder: string, slack?: { channel: string; thread: string }) {
   const lastSync = async () => (await db().from("klaviyo_attributed_revenue_daily").select("synced_at").eq("client_id", clientId).order("synced_at", { ascending: false }).limit(1).maybeSingle()).data?.synced_at ?? null;
 
+  // Customer.io clients (all peptide brands): reports come live from Customer.io's API instead of the Klaviyo sync.
+  const cio = async () => {
+    const { data: k } = await db().from("client_connections").select("provider").eq("client_id", clientId).eq("status", "connected");
+    const providers = (k ?? []).map((x) => x.provider);
+    return providers.includes("customerio") && !providers.includes("klaviyo") ? await cioCreds(db(), clientId) : null;
+  };
+
   const emailReport = tool(
     "email_report",
     "This client's email/SMS results for a date range (inclusive, client's timezone): Klaviyo-attributed revenue and orders by channel, split campaigns vs flows; number of campaign sends; total store revenue; top campaigns and flows in the range. Use for weekly/monthly recaps.",
     { start: z.string().describe("YYYY-MM-DD"), end: z.string().describe("YYYY-MM-DD") },
     async ({ start, end }) => {
       if (!day(start) || !day(end)) return ok({ error: "dates must be YYYY-MM-DD" });
+      const c = await cio();
+      if (c) {
+        try {
+          const r = await cioReport(c, start, end);
+          return ok({ platform: "Customer.io (live)", range: r.range, email: { total: { revenue: r.totals.email_revenue, orders: r.totals.orders }, campaigns: { revenue: r.totals.campaign_revenue }, flows: { revenue: r.totals.flow_revenue } }, campaign_sends: { email: r.totals.sends }, top_campaigns: r.campaigns.slice(0, 5), top_flows: r.flows.slice(0, 5), order_event: r.order_event, note: `${r.revenue_window_note} Revenue = the client's order events attributed to the last email opened or clicked within 5 days before the order. No store total or SMS from Customer.io.` });
+        } catch (e: any) { return ok({ error: `Customer.io: ${e.message}` }); }
+      }
       const [attr, store, camps, flows] = await Promise.all([
         db().from("klaviyo_attributed_revenue_daily").select("day, flow_id, channel, orders, revenue").eq("client_id", clientId).gte("day", start).lte("day", end),
         db().from("klaviyo_store_revenue_daily").select("orders, revenue").eq("client_id", clientId).gte("day", start).lte("day", end),
@@ -66,6 +83,15 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     { search: z.string().min(2) },
     async ({ search }) => {
       const s = search.replace(/[%,()]/g, " ").trim();
+      const c = await cio();
+      if (c) {
+        try {
+          const end = new Date().toISOString().slice(0, 10), start = new Date(Date.now() - 90 * 86400_000).toISOString().slice(0, 10);
+          const r = await cioReport(c, start, end);
+          const hits = r.campaigns.filter((x) => x.name.toLowerCase().includes(s.toLowerCase()));
+          return ok({ platform: "Customer.io (live)", note: r.revenue_window_note, campaigns: hits.map((x) => ({ name: x.name, sent: x.sent_at, sales: x.revenue, orders: x.orders, recipients: x.sent, open_rate: x.sent ? +(x.opened / x.sent).toFixed(3) : null, click_rate: x.sent ? +(x.clicked / x.sent).toFixed(4) : null })) });
+        } catch (e: any) { return ok({ error: `Customer.io: ${e.message}` }); }
+      }
       const { data, error } = await db().from("klaviyo_campaigns").select("name, subject, channel, send_time, status, klaviyo_campaign_stats(recipients, delivered, opens_unique, clicks_unique, conversions, conversion_value)").eq("client_id", clientId).or(`name.ilike.%${s}%,subject.ilike.%${s}%`).order("send_time", { ascending: false, nullsFirst: false }).limit(8);
       if (error) return ok({ error: error.message });
       return ok({
@@ -149,11 +175,29 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
+  const pushCio = tool(
+    "push_to_customerio",
+    "For Customer.io clients (all peptide brands): build a finished design into their Customer.io as a DRAFT one-time send (never sends or schedules). Slices and QC-checks it like the Klaviyo push, uploads the images to Customer.io, and creates the draft with the subject, preview, sender and segments from the copy file (re-pushing updates the same draft). Only works if the client allows drafts.",
+    { design_folder: z.string(), include: z.array(z.string()).optional().describe("Customer.io segment names or ids to send to (overrides the copy doc)"), exclude: z.array(z.string()).optional() },
+    async ({ design_folder, include, exclude }) => {
+      const ruo = ruoProblem(design_folder);
+      if (ruo) return ok({ error: ruo });
+      try { return ok(await pushToCustomerio({ clientsDir: CLIENTS_DIR, folder, designRel: design_folder.replace(/^\.\//, ""), db: db(), include, exclude })); }
+      catch (e: any) { return ok({ error: e.message }); }
+    },
+  );
+
   const find = tool(
     "find_audiences",
     "Search this client's Klaviyo lists and segments by what someone said ('engaged 120', '90 day engaged', 'VIPs', 'early access'). Returns the best matches with their exact names and ids (score 100 = exact).",
     { query: z.string().min(2) },
-    async ({ query }) => { try { return ok({ matches: await findAudiences(db(), clientId, query) }); } catch (e: any) { return ok({ error: e.message }); } },
+    async ({ query }) => {
+      try {
+        const c = await cio();
+        if (c) return ok({ platform: "Customer.io", matches: matchSegments(await cioSegments(c), query).slice(0, 8), note: "Customer.io segments are built in their app (the API can't create data-driven segments); write the segment spec if one is missing." });
+        return ok({ matches: await findAudiences(db(), clientId, query) });
+      } catch (e: any) { return ok({ error: e.message }); }
+    },
   );
   const build = tool(
     "build_segment",
@@ -185,7 +229,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     async () => { try { return ok(await runAudits(clientId, folder)); } catch (e: any) { return ok({ error: e.message }); } },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, find, build, publishDoc, audits] });
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, pushCio, find, build, publishDoc, audits] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__run_onboarding_audits"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__run_onboarding_audits"];

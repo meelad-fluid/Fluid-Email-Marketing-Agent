@@ -12,7 +12,7 @@ import { dndDefinition, DND_REVISION } from "../email/klaviyo-dnd";
 
 export type PushResult = { qcMd: string; qcPng: string; preview: string; slices: number; warnings: string[]; linksOk: boolean; pushed: boolean; reusedDraft?: boolean; klaviyo?: any };
 
-function copyMeta(designDir: string, designRel: string) {
+export function copyMeta(designDir: string, designRel: string) {
   const readme = existsSync(join(designDir, "README.md")) ? readFileSync(join(designDir, "README.md"), "utf8") : "";
   const copyRel = readme.match(/^Copy:\s*(\S+)/m)?.[1];
   const copyFile = copyRel ? resolve(designDir, copyRel) : "";

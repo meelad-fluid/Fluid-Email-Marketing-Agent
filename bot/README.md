@@ -45,7 +45,10 @@ When the client submits:
 - the doc links (`<PUBLIC_URL>/d/<token>`) are posted in the channel
 Needs Slack scopes groups:write, groups:write.invites (in slack-manifest.json; reinstall the app after updating).
 
-## Current clients (internal setup)
-`/fluid add Brand Name | brand.com` (admins): makes the client, its private channel and posts an internal link (Fluid team only, one use, 14 days).
-The link takes the brand guidelines (PDF, images, Word, PowerPoint; saved to `brand/guidelines/`), the Klaviyo key (vault) and notes, then runs the onboarding in the channel with the guidelines as the source of truth and the flow plan written as keep / fix / build against their live flows.
-`/fluid add` with nothing after it, inside a client channel, gives you a fresh internal link for that client.
+## Onboarding (in the client's own channel)
+Run `/fluid onboard Brand Name | brand.com` **inside the client's internal channel** (admins). No channels are created: this channel is linked to the client (client + folder made if new) and gets a one-use upload link (Fluid team only, 14 days).
+The page takes the client's onboarding doc as a PDF (plus brand guidelines or other files if you have them, saved to `onboarding/docs/`), an optional Klaviyo **or** Customer.io key (verified, stored in the vault; Customer.io's US/EU data center is detected), and notes. Saving starts the onboarding in the channel: account audit (Klaviyo or Customer.io, if connected), then the Onboarding Doc, month-1 plan and flow plan from the PDF and the website.
+`/fluid onboard` with nothing after it, in a linked channel, gives a fresh upload link for that client.
+
+## Customer.io clients (all peptide brands)
+`lib/customerio/`: live reports with order-event revenue attribution (`report.ts`, same method as the peptide revenue dashboard), draft-only pushes of finished designs as one-time sends (`push.ts`, through the guard in `api.ts`: never send/schedule/trigger/edit automations). The bot picks Customer.io automatically for `email_report`, `campaign_results` and `find_audiences`, and has `push_to_customerio`. Playbook: `brain/skills/fluid-customerio/SKILL.md`.
