@@ -1,5 +1,5 @@
 # Design · Fri Nov 20 · What's In Your Creatine
-Review link: fluid-email-marketing-agent-production.up.railway.app/r/CvADndmmLL-7KxLJjSbs80UD
+Review link: https://fluid-email-marketing-agent-production.up.railway.app/r/CvADndmmLL-7KxLJjSbs80UD
 
 - **Source:** `design.dc.html`
 - **Copy:** `../../copy/2026-11-20-whats-in-your-creatine.md`
@@ -13,3 +13,4 @@ Review link: fluid-email-marketing-agent-production.up.railway.app/r/CvADndmmLL-
 | Version | Date | What changed | Why |
 |---|---|---|---|
 | v1 | 2026-11-17 | First design from the approved brief | Month 1 plan #2 |
+| v2 | 2026-11-18 | 99.9% no longer clipped; strawberry jar moved inside the edge | Meelad's screenshots: both were cut off |

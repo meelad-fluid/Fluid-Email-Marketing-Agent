@@ -168,7 +168,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#fff}bu
 main{display:flex;flex-wrap:wrap;gap:20px;padding:20px 16px;justify-content:center;align-items:flex-start}
 .stage{position:relative;flex:0 0 auto}.stage iframe{display:block;border:0;width:600px;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .overlay{position:absolute;inset:0;cursor:crosshair;display:none}.commenting .overlay{display:block}
-.pin{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50% 50% 50% 0;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer;z-index:2}
+.pin{position:absolute;width:28px;height:28px;margin:-28px 0 0 0;border-radius:50% 50% 50% 0;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer;z-index:2}
 .pin.done{background:#9b9b9b}.pin.sel{outline:3px solid #1d1d1d}
 aside{flex:1 1 320px;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
 aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padding:10px 0}.c.sel{background:#fff8f3}
@@ -176,8 +176,9 @@ aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padd
 .r{margin:6px 0 0 14px;padding-left:10px;border-left:2px solid var(--line)}.r.bot .who{color:var(--accent)}
 .row{display:flex;gap:6px;margin-top:6px}textarea{font:inherit;width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;min-height:60px;resize:vertical}
 .hint{color:var(--muted);font-size:13px}
-#fit{flex:0 0 auto;max-width:100%;overflow:hidden}.stage{transform-origin:top left}
-#composer{position:absolute;z-index:4;width:280px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;box-shadow:0 8px 30px rgba(0,0,0,.18);display:none}
+#fit{flex:0 0 auto;max-width:100%;overflow:hidden}.stage{transform-origin:top left;width:600px}
+#composer{position:absolute;z-index:20;width:280px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;box-shadow:0 8px 30px rgba(0,0,0,.18);display:none}#composer textarea{font-size:16px}#chint{display:none;margin-bottom:6px}.pin.pending{background:#1d1d1d}
+@media (max-width:700px){#composer{position:fixed;left:0;right:0;bottom:0;top:auto!important;width:auto;border-radius:16px 16px 0 0;padding:14px max(16px,env(safe-area-inset-left)) calc(14px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(0,0,0,.2)}#chint{display:block}}
 @media (max-width:700px){main{padding:12px 8px}aside{max-width:none}}
 </style></head><body>
 <header><h1 id="t">Loading…<small id="sub"></small></h1>
@@ -186,7 +187,8 @@ aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padd
 <button id="view">Mobile view</button>
 <button id="cm" class="on">Comment</button>
 <button id="ap" class="primary">Approve</button></header>
-<main id="main"><div id="fit"><div class="stage" id="stage"><iframe id="f" title="Email design" scrolling="no"></iframe><div class="overlay" id="ov"></div><div id="composer"><textarea id="ctext" placeholder="What should change here?"></textarea><div class="row"><button class="primary" id="csave">Comment</button><button id="ccancel">Cancel</button></div></div></div></div>
+<main id="main"><div id="fit"><div class="stage" id="stage"><iframe id="f" title="Email design" scrolling="no"></iframe><div class="overlay" id="ov"></div></div></div>
+<div id="composer"><div class="hint" id="chint">Comment on the marked spot</div><textarea id="ctext" placeholder="What should change here?"></textarea><div class="row"><button class="primary" id="csave">Comment</button><button id="ccancel">Cancel</button></div></div>
 <aside><h2>Comments</h2><div class="hint" id="hint">Click anywhere on the email to leave a comment. Turn "Comment" off to click the email's links.</div><div id="list"></div></aside></main>
 <script>
 const token=location.pathname.split("/")[2];let S=null,ver=null,sel=null,pending=null;
@@ -200,14 +202,19 @@ $("ver").innerHTML=S.versions.map(v=>'<option value="'+v.version+'"'+(v.version=
 let H=0,mobile=false;
 function fit(){const avail=Math.min(document.documentElement.clientWidth-16,mobile?375:600),k=Math.min(1,avail/600);$("stage").style.transform="scale("+k+")";$("fit").style.width=600*k+"px";$("fit").style.height=H*k+"px"}
 function frame(){const f=$("f");f.onload=()=>{H=f.contentDocument.documentElement.scrollHeight;f.style.height=H+"px";$("ov").style.height=H+"px";fit();pins()};f.src="/r/"+token+"/frame?v="+ver}
-addEventListener("resize",fit);
+let lastW=document.documentElement.clientWidth;addEventListener("resize",()=>{const w=document.documentElement.clientWidth;if(w!==lastW){lastW=w;fit()}});
 function tops(){return S.comments.filter(c=>!c.parent_id&&c.version===ver)}
-function pins(){document.querySelectorAll(".pin").forEach(p=>p.remove());tops().forEach((c,i)=>{const p=document.createElement("div");p.className="pin"+(c.resolved?" done":"")+(sel===c.id?" sel":"");p.style.left=c.x+"px";p.style.top=c.y+"px";p.textContent=i+1;p.onclick=(e)=>{e.stopPropagation();sel=c.id;render()};$("stage").appendChild(p)})}
+function pins(){document.querySelectorAll(".pin:not(.pending)").forEach(p=>p.remove());tops().forEach((c,i)=>{const p=document.createElement("div");p.className="pin"+(c.resolved?" done":"")+(sel===c.id?" sel":"");p.style.left=c.x+"px";p.style.top=c.y+"px";p.textContent=i+1;p.onclick=(e)=>{e.stopPropagation();sel=c.id;render()};$("stage").appendChild(p)})}
 function render(){pins();const list=tops();$("list").innerHTML=list.length?list.map((c,i)=>{const rs=S.comments.filter(x=>x.parent_id===c.id);return '<div class="c'+(sel===c.id?" sel":"")+'" data-id="'+c.id+'"><div class="who">'+(i+1)+". "+esc(c.author_name)+(c.resolved?" <em>· resolved</em>":"")+'</div><p>'+esc(c.body)+"</p>"+rs.map(r=>'<div class="r'+(r.author_kind==="bot"?" bot":"")+'"><div class="who">'+esc(r.author_kind==="bot"?"Fluid":r.author_name)+"</div><p>"+esc(r.body)+"</p></div>").join("")+'<div class="row"><button data-reply="'+c.id+'">Reply</button><button data-res="'+c.id+'">'+(c.resolved?"Reopen":"Resolve")+"</button></div></div>"}).join(""):'<p class="hint">No comments on this version yet.</p>';}
 $("list").onclick=async(e)=>{const id=e.target.dataset.reply,rid=e.target.dataset.res;if(id){const n=who();if(!n)return;const t=(prompt("Your reply:")||"").trim();if(!t)return;await api("/comments",{author:n,body:t,parent_id:id,version:ver}).catch(a=>alert(a.message));await load(true)}if(rid){const c=S.comments.find(x=>x.id===rid);await api("/resolve",{author:who()||"Reviewer",comment_id:rid,resolved:!c.resolved});await load(true)}const box=e.target.closest(".c");if(box&&!id&&!rid){sel=box.dataset.id;render()}};
-$("ov").onclick=(e)=>{const r=$("ov").getBoundingClientRect(),k=600/r.width;pending={x:Math.round((e.clientX-r.left)*k),y:Math.round((e.clientY-r.top)*k)};const c=$("composer");c.style.left=Math.max(0,Math.min(pending.x-140,320))+"px";c.style.top=pending.y+"px";c.style.display="block";$("ctext").value="";$("ctext").focus()};
-$("ccancel").onclick=()=>{$("composer").style.display="none";pending=null};
-$("csave").onclick=async()=>{const n=who();if(!n||!pending)return;const t=$("ctext").value.trim();if(!t)return;try{await api("/comments",{author:n,body:t,x:pending.x,y:pending.y,version:ver});$("composer").style.display="none";pending=null;await load(true)}catch(a){alert(a.message)}};
+function clearPending(){const p=document.querySelector(".pin.pending");if(p)p.remove();$("composer").style.display="none";pending=null}
+$("ov").onclick=(e)=>{const r=$("ov").getBoundingClientRect(),k=600/r.width;pending={x:Math.round((e.clientX-r.left)*k),y:Math.round((e.clientY-r.top)*k)};
+const old=document.querySelector(".pin.pending");if(old)old.remove();const pp=document.createElement("div");pp.className="pin pending";pp.style.left=pending.x+"px";pp.style.top=pending.y+"px";pp.textContent="+";$("stage").appendChild(pp);
+const c=$("composer"),narrow=matchMedia("(max-width:700px)").matches;c.style.display="block";$("ctext").value="";
+if(!narrow){c.style.left=Math.max(8,Math.min(e.pageX-140,document.documentElement.clientWidth-296))+"px";c.style.top=(e.pageY+18)+"px"}
+$("ctext").focus({preventScroll:true})};
+$("ccancel").onclick=clearPending;
+$("csave").onclick=async()=>{const n=who();if(!n||!pending)return;const t=$("ctext").value.trim();if(!t)return;try{await api("/comments",{author:n,body:t,x:pending.x,y:pending.y,version:ver});clearPending();await load(true)}catch(a){alert(a.message)}};
 $("cm").onclick=()=>{$("main").classList.toggle("commenting");$("cm").classList.toggle("on")};$("main").classList.add("commenting");
 $("view").onclick=()=>{mobile=!mobile;$("view").textContent=mobile?"Desktop view":"Mobile view";fit()};
 $("ver").onchange=()=>{ver=Number($("ver").value);sel=null;frame();render()};

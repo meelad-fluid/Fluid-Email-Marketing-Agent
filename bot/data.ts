@@ -1,6 +1,7 @@
 // Read-only reporting tools for the Slack agent, bound to ONE client. The client id is fixed by the bot
 // (from the Slack channel) when the tools are built; the model can't pass or change it, so these tools can
 // only ever return this client's numbers.
+import { checkDesignCutoffs, cutoffSummary } from "../lib/email/qc";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import { db } from "./db";
@@ -78,8 +79,16 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
   const publish = tool(
     "publish_design",
     "Publish (or update) a design's review link: the client-facing page where people see the email at full quality, leave pinned comments and approve. Call it every time you create or change a design. Same design folder = same link, new version. Returns the link.",
-    { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), note: z.string().optional().describe("What changed in this version, one line") },
-    async ({ design_folder, note }) => {
+    { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), note: z.string().optional().describe("What changed in this version, one line"),
+      ignore_cutoffs: z.boolean().default(false).describe("Only for a deliberate bleed of plain background texture. Never for products, people, logos or text.") },
+    async ({ design_folder, note, ignore_cutoffs }) => {
+      const dc = pjoin(CLIENTS_DIR, folder, design_folder.replace(/^\.\//, ""), "design.dc.html");
+      if (fileExists(dc) && !ignore_cutoffs) {
+        try {
+          const cut = await checkDesignCutoffs(dc, pjoin(CLIENTS_DIR, folder));
+          if (cut.length) return ok({ error: `Not published: parts of the design are cut off. Fix these, check with render_preview, then publish again.\n${cutoffSummary(cut)}` });
+        } catch (e: any) { console.error("[qc]", e.message); }
+      }
       try { const r = await publishDesign({ clientId, folder, designPath: design_folder, note, slack }); return ok({ link: r.url, version: r.version, status: r.review.status }); }
       catch (e: any) { return ok({ error: e.message }); }
     },

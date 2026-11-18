@@ -53,3 +53,9 @@ Read before any work for Arq8. Append (dated) after every change. Rules here out
 - brand/assets/badge-informed-w.png, badge-clp-w.png, usp-strip-w.png — certification badges cropped from Arq8 listing images, backgrounds whitened.
 - brand/assets/powder.png, magnesium.webp, electrolytes-c.png — other products, transparent.
 - brand/assets/logo-black.svg — from arq-8.com header (invert for dark backgrounds).
+
+## 2026-11-18 — avatar-led copy test
+- Copy v2 for Nov 20 "What's In Your Creatine" (copy/…v2.md) and BF20 (copy/…bf20-sitewide.v2.md): written to one avatar in one moment (Avatar 1 at 3pm; the quit-powder buyer). Meelad asked for this direction: speak to the avatar, not about the product.
+- Design v2: designs/2026-11-20-whats-in-your-creatine-v2 (review link in its README), v1's layout with the new copy and a generated 3pm desk hero (brand/assets/generated/2026-11-18-3pm-desk-fog.jpg). Plan: A/B v1 vs v2.
+- v1 design fixed: 99.9% gradient number was clipped, strawberry jar was cut off at the right edge. Rule now: nothing cut off (design-rules §11, enforced by publish_design).
+- Needs client OK: "about four weeks" timing, brain-energy wording.

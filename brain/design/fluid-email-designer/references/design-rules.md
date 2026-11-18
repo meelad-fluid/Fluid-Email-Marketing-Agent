@@ -134,3 +134,9 @@ Buttons are written the way the brand writes its own website buttons. Check the 
 uppercase styling) and record it in the brand kit as "CTA casing". ALL CAPS on the site → ALL CAPS in the
 emails; Title Case on the site → Title Case ("Shop The Sale"). If the site is mixed or unclear, use Title Case.
 Never lowercase or sentence-case buttons ("Shop the sale") unless that's exactly how the site does it.
+
+## 11. Nothing gets cut off
+Every product shot, person, logo and line of text must be fully visible inside the 600px email.
+- Floating products and jars sit inside the edge (at least ~16px in), even when rotated. Only plain background texture may bleed off an edge.
+- Gradient-filled text (background-clip:text) needs line-height ≥ 1.2 plus a little vertical padding, or the tops of the letters get chopped.
+- `render_preview` reports cut-offs and `publish_design` refuses a design that has any. Fix them; don't work around the check.

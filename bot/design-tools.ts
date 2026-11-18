@@ -4,6 +4,7 @@
 //    library is internal: it must never be mentioned to anyone.
 //  - product_images: real product photos from the client's own website (Shopify), saved into the client's
 //    brand/assets/products/<handle>/, optionally with the white background removed, ready to use in a design.
+import { cutoffSummary, findCutoffs } from "../lib/email/qc";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
 import sharp from "sharp";
@@ -142,7 +143,9 @@ export function designToolsServer(clientId: string, folder: string) {
         const shot = join(outDir, `${folder}-${Date.now()}.png`);
         await page.locator("body > *:first-child").screenshot({ path: shot });
         const meta = await sharp(shot).metadata();
-        return ok({ screenshot: shot, height: meta.height, broken_images: missing, tip: "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
+        const cutoffs = await findCutoffs(page);
+        return ok({ screenshot: shot, height: meta.height, broken_images: missing, cut_off: cutoffs.length ? cutoffs : "none found",
+          tip: (cutoffs.length ? `FIX EVERY CUT-OFF FIRST (publish_design refuses designs with cut-offs):\n${cutoffSummary(cutoffs)}\n` : "") + "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
       } finally { await browser.close(); }
     },
   );
