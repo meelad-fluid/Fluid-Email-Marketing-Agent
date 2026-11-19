@@ -2,7 +2,7 @@
 
 Status: draft · needs client approval · goes live once the automations are built in Customer.io
 
-_Prepared 2026-11-19 · Onboarding mode (no store or email data yet: new Customer.io account) · Replenishable version · Platform: Customer.io · From: Claire from Meta Molecule (proposed)_
+_Prepared 2026-11-19 · Onboarding mode (no store or email data yet: new Customer.io account) · Replenishable version · Platform: Customer.io · From: "Meta Molecule" on designed emails; "Claire from Meta Molecule" only on plain-text emails_
 
 ## Compliance (read first)
 
@@ -84,7 +84,7 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 **Goals:**
 
-- Welcome them and introduce Claire from the Meta Molecule team
+- Welcome them to Meta Molecule (no persona name in designed emails)
 - Give them their offer
   - **Code:** WELCOME10
   - **Value:** 10% off first order
@@ -145,16 +145,16 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 - Same-day shipping cutoff and U.S. fulfilment
 - Research-use line next to the products; primary CTA: Explore Research Catalog; secondary: Contact Support
 
-### Email #2: Personal Note from the Founder
+### Email #2: Personal Note from Claire
 
 - **Send Time:** 4hrs later
-- **Email Topic:** Why I started Meta Molecule
+- **Email Topic:** Why we started Meta Molecule
 - **Design:** Plain text. No images, no buttons, one inline text link
 - **Sending to:** New subscribers
 
 **Goals:**
 
-- From the founder by name [founder name and story — client to supply]
+- From Claire from Meta Molecule, speaking for the team ("we"); she never claims to be the founder (a founder story can be added later if the client supplies one)
 - Why the brand exists: researchers were getting poor documentation, poor service and inflated prices
 - The decisions made on purpose: publish the documentation, ship same day, don't price-gouge
 - Invite a reply: "If a COA doesn't make sense or you can't find one, reply and I'll get you an answer"
@@ -394,12 +394,12 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** 5 minutes later
 - **Email Topic:** Thank you, [first name]
-- **Design:** Plain text. From the founder, no images, no buttons
+- **Design:** Plain text. From Claire from Meta Molecule, no images, no buttons
 - **Sending to:** New customers
 
 **Goals:**
 
-- Thank them for trusting a new supplier [founder name — client to supply]
+- Thank them for trusting a new supplier
 - Shipping expectations so nobody has to email support: before 1 p.m. CT Mon–Fri ships today, otherwise next business day; tracking arrives by email
 - Returns, said kindly and plainly: no returns once shipped, so check the box on arrival and email support@metamolecule.com right away if anything is damaged or incorrect
 - Offer support by reply
@@ -431,7 +431,7 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
   - **Value:** 15% off second order
 - Research-use line in the body
 
-### Email #3: Plain text email from the founder
+### Email #3: Plain text email from Claire
 
 - **Send Time:** 7 days later
 - **Email Topic:** Did the COA check out?
@@ -524,7 +524,7 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 ## Open Items for the Client
 
-- Founder name and story (Welcome #2, Post-Purchase #1 and #3)
+- Optional founder story (plain-text emails come from Claire for now)
 - Approve the offer ladder and codes (WELCOME10, WELCOME15, BROWSE10, MYSTERY, SECOND15, COMEBACK20)
 - Approve the research-use disclaimer wording and an SMS disclosure
 - Approve the sender persona "Claire from Meta Molecule" and the reply-to inbox

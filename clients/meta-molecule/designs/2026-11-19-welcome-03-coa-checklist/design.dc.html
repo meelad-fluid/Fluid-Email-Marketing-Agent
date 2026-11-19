@@ -1,0 +1,107 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#FFFFFF;overflow:hidden;font-family:'Inter',Arial,sans-serif;color:#0E1B24}
+.hero{background:linear-gradient(180deg,#0F3E44 0%,#0E1B24 100%);color:#fff;text-align:center;padding:34px 44px 210px;position:relative}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:5px;font-size:14px;color:#fff;display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:40px;padding:10px 18px}
+.logo .dot{width:20px;height:20px;border:2px solid #5CE1C6;border-radius:50%;position:relative}
+.logo .dot:after{content:'';position:absolute;width:8px;height:8px;background:#5CE1C6;border-radius:50%;top:4px;left:4px}
+.h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:58px;line-height:.98;letter-spacing:-2px;margin-top:28px}
+.h1 em{font-style:normal;color:#5CE1C6}
+.sub{font-size:18px;line-height:1.5;color:#C9D9DC;margin-top:16px}
+.code{display:inline-block;margin-top:20px;border:2px dashed #5CE1C6;border-radius:40px;padding:10px 24px;font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:1px}
+.code b{color:#5CE1C6}
+.btn{display:block;width:290px;margin:14px auto 0;background:#5CE1C6;color:#0E1B24;font-weight:700;font-size:17px;border-radius:40px;padding:16px 0;text-align:center;box-shadow:0 0 0 6px rgba(92,225,198,.18)}
+.btn.dark{background:#0E1B24;color:#fff;box-shadow:0 0 0 6px rgba(14,27,36,.12)}
+.docwrap{position:relative;margin:-180px auto 0;width:420px;height:330px}
+.doc{position:absolute;left:30px;top:0;width:360px;height:320px;background:#fff;border-radius:14px;box-shadow:0 24px 50px rgba(0,0,0,.35);padding:22px 24px;transform:rotate(-2deg)}
+.doc .hd{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0E1B24;padding-bottom:10px}
+.doc .hd b{font-family:'Space Grotesk',sans-serif;font-size:17px}
+.doc .hd span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7C86;letter-spacing:1px}
+.doc .row{display:flex;align-items:center;gap:10px;margin-top:16px}
+.doc .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#0E1B24;width:70px;font-weight:600}
+.doc .bar{height:10px;border-radius:5px;background:#E3E9EC}
+.doc .tbl{margin-top:20px;border:1px solid #E3E9EC;border-radius:8px;padding:10px}
+.doc .tbl .bar{margin:8px 0}
+.pin{position:absolute;width:38px;height:38px;border-radius:50%;background:#5CE1C6;color:#0E1B24;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(0,0,0,.25);border:3px solid #fff}
+.cap{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7C86;letter-spacing:1px;margin-top:6px}
+.steps{padding:30px 40px 0;position:relative}
+.step{display:flex;align-items:center;gap:18px;background:#EEF3F3;border-radius:20px;padding:16px 18px;margin-top:14px}
+.num{flex:0 0 58px;height:58px;background:#fff;border-radius:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(14,27,36,.08)}
+.step .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.3px}
+.step .d{font-size:15px;color:#4A5B66;margin-top:2px}
+.float{position:absolute;right:34px;top:150px;width:104px;height:104px;border-radius:50%;overflow:hidden;border:5px solid #fff;box-shadow:0 12px 26px rgba(14,27,36,.28);transform:rotate(10deg)}
+.float img{width:100%;height:100%;object-fit:cover;display:block}
+.photo{position:relative;margin-top:50px;height:400px;background:#0E1B24 url('asset:brand/assets/generated/2026-11-19-mm-hplc-vial-rack-dark.jpg') center/cover no-repeat;border-radius:36px 36px 0 0}
+.photo .scrim{position:absolute;inset:0;border-radius:36px 36px 0 0;background:linear-gradient(180deg,rgba(14,27,36,.92) 0%,rgba(14,27,36,.7) 45%,rgba(14,27,36,.15) 100%)}
+.photo .txt{position:relative;padding:48px 44px 0;color:#fff}
+.photo .h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:36px;line-height:1.08;letter-spacing:-1px}
+.photo .h2 em{font-style:normal;color:#5CE1C6}
+.photo p{font-size:18px;line-height:1.5;color:#D5E1E4;margin-top:16px;max-width:430px}
+.lib{background:#0E1B24;color:#fff;text-align:center;padding:10px 44px 46px}
+.lib .icon{width:84px;height:84px;margin:0 auto;border-radius:22px;background:rgba(92,225,198,.12);border:1px solid rgba(92,225,198,.4);display:flex;align-items:center;justify-content:center}
+.lib .h3{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:30px;margin-top:20px;letter-spacing:-.5px}
+.lib p{font-size:17px;line-height:1.5;color:#C9D4DB;margin:12px auto 0;max-width:420px}
+.ruo{display:block;margin:28px 0 0;border:1.5px solid #5CE1C6;border-radius:10px;padding:12px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.5px;color:#fff}
+.foot{background:#08121A;color:#8FA1AD;text-align:center;padding:30px 40px 32px;font-size:12px;line-height:1.6}
+.foot .trust{color:#fff;font-size:14px;font-weight:600}
+.foot .links{margin-top:10px;color:#C9D4DB}
+</style>
+
+  <div class="hero">
+    <a href="https://metamolecule.com/" class="logo"><span class="dot"></span>META MOLECULE</a>
+    <a href="https://metamolecule.com/coas/"><div class="h1">Four things to check on <em>any</em> COA.</div></a>
+    <a href="https://metamolecule.com/coas/"><p class="sub">Including ours. Your 10% code is still active.</p></a>
+    <a href="https://metamolecule.com/shop/" class="code">Use code: <b>WELCOME10</b></a>
+    <a href="https://metamolecule.com/coas/" class="btn">View COA Library</a>
+  </div>
+
+  <a href="https://metamolecule.com/coas/" class="docwrap" style="display:block">
+    <div class="doc">
+      <div class="hd"><b>Certificate of Analysis</b><span>SAMPLE LAYOUT</span></div>
+      <div class="row"><span class="lbl">LOT</span><span class="bar" style="width:120px"></span></div>
+      <div class="row"><span class="lbl">LAB</span><span class="bar" style="width:170px"></span></div>
+      <div class="row"><span class="lbl">METHOD</span><span class="bar" style="width:140px"></span></div>
+      <div class="row"><span class="lbl">DATE</span><span class="bar" style="width:96px"></span></div>
+      <div class="tbl"><div class="bar" style="width:90%"></div><div class="bar" style="width:70%"></div><div class="bar" style="width:80%"></div></div>
+    </div>
+    <span class="pin" style="left:6px;top:62px">1</span>
+    <span class="pin" style="right:4px;top:96px">2</span>
+    <span class="pin" style="left:8px;top:150px">3</span>
+    <span class="pin" style="right:16px;top:186px">4</span>
+  </a>
+  <p class="cap">SAMPLE COA LAYOUT · FOR ILLUSTRATION</p>
+
+  <div class="steps">
+    <a href="https://metamolecule.com/coas/" class="step"><span class="num">1</span><div><div class="t">Lot number</div><div class="d">Matches the label on your vial</div></div></a>
+    <a href="https://metamolecule.com/coas/" class="step"><span class="num">2</span><div><div class="t">Lab name</div><div class="d">The testing lab is named</div></div></a>
+    <a href="https://metamolecule.com/coas/" class="step"><span class="num">3</span><div><div class="t">Method</div><div class="d">The test method is stated</div></div></a>
+    <a href="https://metamolecule.com/coas/" class="step"><span class="num">4</span><div><div class="t">Date</div><div class="d">The report is dated</div></div></a>
+    <a href="https://metamolecule.com/shop/" class="float"><img src="asset:brand/assets/generated/2026-11-19-mm-single-vial-studio.jpg" alt="Research vial"></a>
+  </div>
+
+  <a href="https://metamolecule.com/coas/" class="photo" style="display:block">
+    <div class="scrim"></div>
+    <div class="txt">
+      <div class="h2">If a vendor can't show you these, <em>keep looking.</em></div>
+      <p>A COA without a lot number tells you about a batch. Just not necessarily yours.</p>
+    </div>
+  </a>
+
+  <div class="lib">
+    <a href="https://metamolecule.com/coas/" class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5CE1C6" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><circle cx="12" cy="15" r="3"/><path d="M14.2 17.2 17 20"/></svg></a>
+    <a href="https://metamolecule.com/coas/"><div class="h3">Our COA library is public</div></a>
+    <a href="https://metamolecule.com/coas/"><p>No login. Find the product, open the report, check it against your vial.</p></a>
+    <a href="https://metamolecule.com/coas/" class="btn">View COA Library</a>
+    <a href="https://metamolecule.com/faqs/" class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</a>
+  </div>
+
+  <div class="foot">
+    <a href="https://metamolecule.com/"><p class="trust">COA library · Same-day shipping before 1 p.m. CT · U.S. fulfillment</p></a>
+    <a href="https://metamolecule.com/contact/"><p style="margin-top:10px">Meta Molecule · Richardson, TX 75081 · support@metamolecule.com</p></a>
+    <p class="links"><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+
+</div>

@@ -9,8 +9,10 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - 2026-11-19 · compliance · RUO peptide brand: compliance.md + RUO SOP win over everything. Gate today = ESCALATE (classification D pending legal review). No promotional copy or design until resolved.
 - 2026-11-19 · CTA casing: Title Case (site). Until CTAs approved: View COA Library · Explore Research Catalog · Review Specifications.
 - 2026-11-19 · sender persona proposed: "Claire from Meta Molecule" (pending approval).
+- 2026-11-19 · persona (Meelad, Slack): "Claire" appears ONLY in plain-text emails (as sender and signature). Designed emails send as "Meta Molecule" and never mention Claire. Plain-text "founder" emails are from Claire for now.
 
 ## Design log (every change, newest last)
+- 2026-11-19 · Welcome flow v1 · asked: build the welcome flow (Meelad) · made: copy/2026-11-19-welcome-flow.md (7 emails + 2 SMS) and designs welcome-01-vials, 01v2-bundles, 01v3-lab-supply, 02-note-from-claire (plain text), 03-coa-checklist, 04-where-researchers-start, 05-upgrade-15; all published for review. Generic unlabeled vial images (no real product photos); stand-in fonts/colours (ink #0E1B24, mint #5CE1C6, Space Grotesk/Inter/IBM Plex Mono).
 
 ## Facts & decisions
 - 2026-11-19 · verified: WooCommerce store; researcher verification gate (independent lab / academic / CRO, 21+) (site).
