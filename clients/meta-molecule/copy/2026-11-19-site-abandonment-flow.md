@@ -51,7 +51,6 @@ Disclaimer line.
 Subject: What researchers order first
 Preview: Three catalog staples. Ordered by 1 p.m. CT, they ship today.
 
-Hero kicker: 12:40 p.m. Will it ship today?
 Hero headline: What researchers order first.
 Subheadline: Three catalog staples. Order by 1 p.m. CT and it ships today.
 Button: Explore Research Catalog
@@ -59,7 +58,7 @@ Button: Explore Research Catalog
 Section — Products (image + name + price + one line + button)
 - Tesamorelin 10mg · $60 · Single-compound vial, specifications on the product page · Review Specifications
 - MOTS-C 40mg · $119 · Single-compound vial, specifications on the product page · Review Specifications
-- CJC 1295 No DAC 5mg / Ipamorelin 5mg Blend · $48 · Two-compound blend in one vial · Review Specifications
+- BPC157/TB500 Blend 5mg/5mg · $48 · Two-compound blend in one vial · Review Specifications (swapped from CJC/IPA blend 2026-11-19: no site photo for it)
 Disclaimer line under products.
 
 Section — Before you order

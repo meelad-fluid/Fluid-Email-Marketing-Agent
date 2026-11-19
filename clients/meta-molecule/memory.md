@@ -19,6 +19,7 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - 2026-11-19 · Welcome #4 v3 · comments (Meelad): "make the discount bigger"; "3 vials floating with a transparent background: Tesamorelin, MOTS-C, CJC" · changed: hero = 3 real vial photos floating (multiply blend + edge mask + soft shadows), 10% badge 118px, CJC spotlight now real photo (CJC image: …/2026/04/Frame-59.webp).
 - 2026-11-19 · Site Abandonment flow v1 · asked: build the site abandonment flow (Meelad) · made: copy/2026-11-19-site-abandonment-flow.md (2 emails, no offer, gate PASS) and designs site-abandon-01-comparing-suppliers (editorial cream/Fraunces, lab-desk hero, 404 sticker) + site-abandon-02-what-researchers-order-first (dark smoke, Archivo uppercase, real product photos on glows); both published for review. Note: generate_image rejects prompts containing words like "people"/"hand" even when negated: describe still lifes positively.
 - 2026-11-19 · Site Abandonment #2 v2 · Gloria (review comment): hard line in the background → texture now stretched once (no repeat-y) and hero fades into body. Rule: never tile a photo texture vertically; seams show.
+- 2026-11-19 · Site Abandonment #2 v3 · Gloria: removed hero time pill + giant "1 PM CENTRAL" type; wants a real picture on every product → swapped CJC/IPA (no photo) for BPC157/TB500 Blend. Rule: feature only products with a real site photo; no type-only product tiles.
 - 2026-11-19 · Meelad: "hold off for now" on further flows (don't start browse abandonment until asked).
 
 ## Facts & decisions

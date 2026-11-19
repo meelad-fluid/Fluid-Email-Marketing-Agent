@@ -12,3 +12,4 @@ Style: dark smoke, bold condensed uppercase, per-product colour glows, mint acce
 |---|---|---|
 | v1 | 2026-11-19 | First design |
 | v2 | 2026-11-19 | Gloria: removed the hard background seam (texture no longer repeats), blended hero into body |
+| v3 | 2026-11-19 | Gloria: removed 12:40 PM hero pill and giant "1 PM CENTRAL"; product 03 → BPC157/TB500 Blend 5mg/5mg with real photo (CJC/IPA has none) |
