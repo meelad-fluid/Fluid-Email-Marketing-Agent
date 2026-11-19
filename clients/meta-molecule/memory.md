@@ -21,6 +21,9 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - 2026-11-19 · decided: Reta, Tirz, "GLPs" promo, GLOW, CEO in a Bottle, strips, capsules, Amino H2O/BAC water held from email until reviewed. No replenishment flow (implies use).
 - 2026-11-19 · onboarding done: compliance.md, brand/brand-kit.md, research/onboarding-doc.md, strategy/2026-11-19-month-1-plan.md (12 emails + 5 SMS, Nov 23–Dec 20), strategy/flow-plan.md (22 emails + 7 SMS, all BUILD, Customer.io build sheet). All status: draft, needs approval, gate ESCALATE.
 
+- 2026-11-19 · Meelad Zarrabi (Fluid) in Slack: "We are good there no worries" on the four classification blockers → proceed with RUO work. SOP rules and fact HOLDs still apply. compliance.md is team-managed (couldn't edit it): Fluid team, please update its gate status.
+- 2026-11-19 · built strategy/flow-strategy.md (house format, 22 emails + 7 SMS + pop-up, Customer.io notes). Proposed codes WELCOME10/WELCOME15/BROWSE10/MYSTERY(15%)/SECOND15/COMEBACK20. Status: draft, needs client approval.
+
 ## Open questions
 - BLOCKING: legal/compliance review of classification (human-goal customer description in brief; Reta/Tirz status; strips/capsules/BAC water; GLOW / CEO in a Bottle names). Fluid team to escalate.
 - BLOCKING: approved disclaimer, CTAs, promotions (incl. proposed BF 20%), SMS disclosure.
