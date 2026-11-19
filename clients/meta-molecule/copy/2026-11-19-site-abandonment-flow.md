@@ -24,7 +24,7 @@ Preview: Check our documentation first. That's what it's there for.
 
 Hero kicker: Still comparing suppliers?
 Hero headline: The COA page you bookmarked is a 404 now.
-Subheadline: Ours is public, no login, and it's where we'd start if we were you.
+Subheadline: Ours is public, open to anyone, and it's where we'd start if we were you.
 Button: View COA Library
 
 Section — That's me
