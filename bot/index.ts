@@ -272,7 +272,9 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.internal ? `${f.name}'s onboarding doc is in` : `${f.name} submitted the onboarding form`} (${f.internal ? "email platform" : "Klaviyo"}: ${f.klaviyo}). Running onboarding now, about 20–25 minutes:\n1. Account audit (Klaviyo or Customer.io, if connected) (~10 min)\n2. Website research, Onboarding Doc, month-1 plan and flow plan (~10–15 min)\nI'll post updates here as it goes.` });
   const notes = progressNotes(web, ch.channel_id, head.ts!, 25);
   notes.step("Step 1 of 2: account audit");
-  await db().from("onboarding_runs").update({ status: "running", updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "waiting_for_form");
+  const { data: latest } = await db().from("onboarding_runs").select("id").eq("client_id", f.clientId).eq("status", "waiting_for_form").order("created_at", { ascending: false }).limit(1).maybeSingle();
+  if (latest) await db().from("onboarding_runs").update({ status: "running", updated_at: new Date().toISOString() }).eq("id", latest.id);
+  else await db().from("onboarding_runs").insert({ client_id: f.clientId, status: "running", started_by: "upload" });
   await saveClientFolder(f.folder, `${f.folder}: onboarding form submitted`);
   const audits = await runAudits(f.clientId, f.folder);
   await saveClientFolder(f.folder, `${f.folder}: onboarding audits`);
@@ -289,6 +291,29 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   await saveThread(ch.channel_id, head.ts!, f.clientId, res.sessionId);
   await db().from("onboarding_runs").update({ status: res.error ? "failed" : "done", error: res.error ?? null, updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "running");
   await audit({ team_id: TEAM_ID, channel_id: ch.channel_id, thread_ts: head.ts!, client_id: f.clientId, request: "automatic onboarding", outcome: res.error ? "error" : "ran", reason: res.error, cost_usd: res.costUsd });
+}
+
+// An onboarding still marked "running" when the bot starts was cut off by a restart (a deploy or a crash):
+// start it again from the top, once per client. Runs are idempotent (they rewrite the same files).
+async function resumeOnboardings() {
+  try {
+    const { data } = await db().from("onboarding_runs").select("id, client_id, created_at, clients(name, folder)").eq("status", "running").order("created_at", { ascending: false });
+    const seen = new Set<string>();
+    for (const r of (data ?? []) as any[]) {
+      if (seen.has(r.client_id)) { await db().from("onboarding_runs").update({ status: "superseded", updated_at: new Date().toISOString() }).eq("id", r.id); continue; }
+      seen.add(r.client_id);
+      const folder = r.clients?.folder, name = r.clients?.name;
+      if (!folder || !name) continue;
+      const setup = join(CLIENTS_DIR, folder, "onboarding", "internal-setup.md");
+      const internal = existsSync(setup);
+      const platform = internal ? readFileSync(setup, "utf8").match(/^Email platform:\s*(.+)$/m)?.[1] ?? "not given" : "see the form";
+      await db().from("onboarding_runs").update({ status: "waiting_for_form", updated_at: new Date().toISOString() }).eq("id", r.id);
+      const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", r.client_id).limit(1).maybeSingle();
+      if (ch) await app.client.chat.postMessage({ channel: ch.channel_id, text: `The ${name} onboarding was interrupted by a restart, so I'm starting it again now.` }).catch(() => {});
+      console.log(`[onboard] resuming ${name}`);
+      runOnboarding({ clientId: r.client_id, folder, name, klaviyo: platform, internal }).catch((e) => console.error("[onboard]", e));
+    }
+  } catch (e: any) { console.error("[onboard] resume failed:", e.message); }
 }
 
 // Keep reporting data fresh while the bot runs: re-sync any Klaviyo-connected client not synced in 20h.
@@ -314,6 +339,7 @@ async function syncStale() {
   console.log(`Fluid bot is running in ${auth.team} as @${auth.user}. Ctrl+C to stop.`);
   startWeb(async (channel, thread, text) => { await app.client.chat.postMessage({ channel, thread_ts: thread ?? undefined, text }); },
     (f) => { runOnboarding(f).catch((e) => console.error("[onboard]", e)); });
+  resumeOnboardings();
   syncStale();
   setInterval(syncStale, 3 * 3600_000);
   watchForCodeUpdates(() => busy.size === 0 && onboardingActive.size === 0);
