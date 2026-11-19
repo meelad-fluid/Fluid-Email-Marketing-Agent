@@ -1,6 +1,9 @@
 # Meta Molecule — RUO compliance profile
 
-_Built 2026-11-19 at onboarding from the brand's onboarding answers (onboarding/docs, "Brand Guidelines" doc), metamolecule.com (home, /shop, /faqs, /coas, fetched 2026-11-19) and Fluid's RUO SOP. Every line carries its source. Anything not verified is a HOLD question for the client. Nothing promotional is written until Classification is A._
+_Built 2026-11-19 at onboarding._
+- **Sources:** the onboarding answers ("Brand Guidelines" doc), metamolecule.com (home, /shop, /faqs, /coas, fetched 2026-11-19), Fluid's RUO SOP
+- Every line carries its source; anything not verified is a HOLD question for the client
+- **Nothing promotional is written until Classification is A**
 
 ## Gate status today: **ESCALATE — REGULATORY REVIEW REQUIRED**
 
@@ -10,9 +13,20 @@ No email, SMS or design for Meta Molecule goes to copy or design until a person 
 
 **Current: D — unapproved or uncertain (pending legal review).** Not A, because:
 
-1. **Distribution practice suggests human use.** The onboarding answers describe the ideal customer as "Men & Women typically over 30 … They want to lose weight, heal an injury, look younger or gain muscle" and the pain points as "Heal an injury, gain muscle, lose fat, help with cognitive function" (onboarding doc). SOP §2 D and §5 (prohibited audience targeting). These answers are **not used anywhere** in Fluid's work; they are flagged here only.
-2. **Best sellers include compounds with approved-drug or investigational status.** Brief best sellers: "Reta, Tirz, Tesamorelin, GLOW, MOTS-C, CJC/Ipamorelin blend". Tirzepatide and tesamorelin are active ingredients of FDA-approved drugs; retatrutide is an investigational drug. Legal status and permitted sales pathway for these need review (SOP §2 B/D, Test 6). Reta/Tirz do not appear in the public /shop listing; the site banner reads "BUY 2, GET 1 FREE — GLPs ONLY" (site, home).
-3. **Catalog formats and items that read as consumption/administration.** Dissolvable strips ("BPC/TB 15mg/15mg (Dissolvable Strips)"), a "Capsule Bundle", and bacteriostatic water ("Amino H2O" $10; BAC water COA in the COA library) (site, /shop, /coas). SOP §4.5 on bacteriostatic water in a use workflow; oral formats need review against "not for consumption".
+1. **Distribution practice suggests human use** (SOP §2 D, §5 prohibited audience targeting)
+   - Ideal customer per the onboarding answers: "Men & Women typically over 30 … They want to lose weight, heal an injury, look younger or gain muscle"
+   - Pain points listed: "Heal an injury, gain muscle, lose fat, help with cognitive function"
+   - These answers are **not used anywhere** in Fluid's work; flagged here only
+2. **Best sellers include compounds with approved-drug or investigational status** (SOP §2 B/D, Test 6)
+   - Best sellers per the answers: Reta, Tirz, Tesamorelin, GLOW, MOTS-C, CJC/Ipamorelin blend
+   - Tirzepatide and tesamorelin are active ingredients of FDA-approved drugs; retatrutide is investigational
+   - Legal status and permitted sales pathway need review
+   - Reta/Tirz aren't in the public /shop listing, but the home banner reads "BUY 2, GET 1 FREE — GLPs ONLY"
+3. **Formats and items that read as consumption or administration** (site /shop, /coas)
+   - Dissolvable strips ("BPC/TB 15mg/15mg (Dissolvable Strips)")
+   - A "Capsule Bundle"
+   - Bacteriostatic water ("Amino H2O", $10; BAC water COA in the COA library): SOP §4.5
+   - Oral formats need review against "not for consumption"
 4. **Effect-implying product names:** "GLOW 70mg" and "CEO in a Bottle (Dihexa 10mg/SLU-PP-332 1mg Blend)" (site, /shop). SOP §1 coded language, §3 category framing.
 
 **To move to A we need from the brand:** written confirmation from their legal/compliance reviewer of which products and promotions are approved for email/SMS, and that the human-goal customer description in the onboarding answers does not reflect how they market or sell.

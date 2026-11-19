@@ -61,7 +61,10 @@ const toSlack = (md: string) =>
     .replace(/\*\*(.+?)\*\*/g, "*$1*")
     .replace(/^#{1,6}\s+(.+)$/gm, "*$1*")
     .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, "<$2|$1>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "`$2`");
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "`$2`")
+    // Slack doesn't render Markdown lists: real bullet characters, indented sub-bullets.
+    .replace(/^( {2,}|\t+)[-*]\s+/gm, "        ◦ ")
+    .replace(/^[-*]\s+/gm, "• ");
 
 function chunks(s: string, n = 3500) {
   const out: string[] = [];

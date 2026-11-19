@@ -20,7 +20,24 @@ _Prepared 2026-11-19 · Sources: onboarding answers (uploaded "Brand Guidelines"
 - Needed: last 90 days of orders (best sellers, first-order products, AOV, repeat rate and days to 2nd order) to set offers and the winback timing.
 
 ## 2. The brand
-- **What they sell** (site /shop, prices 2026-11-19): vials (Tesamorelin 10mg $60, MOTS-C 40mg $119, GHK-Cu 100mg $40, R3 20mg $99, T2 20–30mg $70–90, BPC157/TB500 5mg/5mg $48, CJC 1295 No DAC/Ipamorelin 5mg/5mg $48), bundles ($70.68–$480, ~7% off list, e.g. "The Library Bundle" $480, "MOTS-C + SS-31 Bundle" $221.34, "Semax + Selank Bundle" $70.68), plus strips, capsules and Amino H2O (held, see compliance.md). Filter categories: Vials, Blends, Bundles, Dissolvable Strips.
+- **What they sell** (site /shop, prices as of 2026-11-19)
+  - **Vials**
+    - Tesamorelin 10mg · $60
+    - MOTS-C 40mg · $119
+    - GHK-Cu 100mg · $40
+    - R3 20mg · $99
+    - T2 20–30mg · $70–90
+    - BPC157 / TB500 5mg/5mg · $48
+    - CJC 1295 No DAC / Ipamorelin 5mg/5mg · $48
+  - **Bundles** ($70.68–$480, about 7% off list)
+    - The Library Bundle · $480
+    - MOTS-C + SS-31 Bundle · $221.34
+    - Semax + Selank Bundle · $70.68
+  - **Held until reviewed** (see compliance.md)
+    - Strips
+    - Capsules
+    - Amino H2O
+  - **Site filter categories:** Vials, Blends, Bundles, Dissolvable Strips
 - **Mission, in their words:** "To provide the highest quality products and service to researchers in an industry full of smoke and mirrors." (onboarding answers)
 - **Why it's different:** documentation you can inspect before you order, fast same-day fulfilment, and fair pricing: "Fast fullfillment, high quality without price gouging" (onboarding answers); "Research peptides with documentation you can inspect" (site hero).
 - **Proof bank** (status per compliance.md §5):
@@ -33,7 +50,13 @@ _Prepared 2026-11-19 · Sources: onboarding answers (uploaded "Brand Guidelines"
 - **Visual identity:** see brand/brand-kit.md (fonts and hex to be confirmed; Title Case buttons).
 
 ## 3. Avatars (research buyers)
-The onboarding answers describe customers by personal body goals. Fluid's RUO SOP forbids targeting or writing to those goals, so those answers are not used (flagged in compliance.md). The avatars below come from who the site itself says it sells to: the researcher verification gate's three researcher types (independent/private lab, academic/university, contract research organization), the wholesale form, and the doubts the FAQ and COA library are built to answer. No customer reviews exist yet, so "their words" are working language to validate against the support inbox.
+Where these avatars come from:
+- **Not the onboarding answers.** They describe customers by personal body goals, which Fluid's RUO SOP forbids targeting or writing to (flagged in compliance.md).
+- **Who the site says it sells to:**
+  - The researcher verification gate's three types: independent/private lab, academic/university, contract research organization
+  - The wholesale form
+  - The doubts the FAQ and COA library are built to answer
+- **No customer reviews yet**, so "their words" below is working language to check against the support inbox.
 
 ### Avatar 1: The independent lab buyer who's been burned by a vendor before
 - **Who they are:** buys for an independent or private lab; orders single vials and small bundles online; selected "Independent / private lab" at the gate (site gate).
@@ -107,7 +130,11 @@ The onboarding answers describe customers by personal body goals. Fluid's RUO SO
 | 8 | Boxes arriving in separate shipments over a week | "Why is this coming in pieces?" | Splitting orders to get some of it faster |
 
 ## 4. Voice
-**Sender persona (proposed 2026-11-19, pending approval):** **Claire from Meta Molecule**, speaking for the lab-supply team ("we", "our team"). Plain, precise, easy to say; reads like a person at a supplier who answers email, which is the brand's whole point. She never claims personal results, expertise or use. Founder notes stay from the founder (name to confirm).
+**Sender persona: Claire from Meta Molecule** (proposed 2026-11-19, pending approval)
+- Speaks for the lab-supply team ("we", "our team")
+- Plain, precise, easy to say: a person at a supplier who actually answers email, which is the brand's whole point
+- Never claims personal results, expertise or use
+- Founder notes stay from the founder (name to confirm)
 
 How the brand talks (onboarding answers: "professional, confident, science-driven and approachable"):
 - **Precise:** lot numbers, report IDs, times. "Ordered before 1 p.m. CT? It ships today."
@@ -121,7 +148,7 @@ How the brand talks (onboarding answers: "professional, confident, science-drive
 ## 5. Website interrogation: conflicts and open questions
 | Brief says | Site says | Where | Question for client |
 |---|---|---|---|
-| Ideal customer wants to "lose weight, heal an injury, look younger or gain muscle" | "Sold strictly for research purposes only"; researcher verification gate | onboarding answers vs site footer/gate | Confirm customers are research buyers and these goals aren't how you market. We can't write to them (RUO SOP). |
+| Ideal customer wants to "lose weight, heal an injury, look younger or gain muscle" | "Sold strictly for research purposes only"; researcher gate | Onboarding answers vs site footer/gate | Confirm customers are research buyers and these goals aren't how you market. We can't write to them (RUO SOP). |
 | Best sellers: Reta, Tirz | Not in the public /shop listing; banner "BUY 2, GET 1 FREE — GLPs ONLY" | home, /shop | Status and sales pathway for these compounds? Needs legal review before any email mention. |
 | "High quality" / FAQ: every batch tested, HPLC + MS, ≥99% | COA library shows one COA (BAC water) | /faqs vs /coas | When will per-product, lot-matched COAs be published? Which lab tests them? |
 | Same-day fulfilment before 2 p.m. EST | Before 1 p.m. CT Mon–Fri | onboarding vs home | Consistent (same time). Confirm weekdays only and holiday cutoffs. |
