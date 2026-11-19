@@ -1,6 +1,6 @@
 # Meta Molecule
 
-<One line: what they sell, who for, replenishable or one-off.> Site: <url> · <platform> · <ESP>. Max discount <x>%.
+Research-use-only peptides for lab research buyers, replenishable (RUO: read compliance.md). Site: https://metamolecule.com · WooCommerce · Customer.io. Max discount 25%.
 
 **Read `memory.md` first.**
 
