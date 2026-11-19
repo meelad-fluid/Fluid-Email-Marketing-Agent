@@ -9,12 +9,16 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - 2026-11-19 · compliance · RUO peptide brand: compliance.md + RUO SOP win over everything. Gate today = ESCALATE (classification D pending legal review). No promotional copy or design until resolved.
 - 2026-11-19 · CTA casing: Title Case (site). Until CTAs approved: View COA Library · Explore Research Catalog · Review Specifications.
 - 2026-11-19 · sender persona proposed: "Claire from Meta Molecule" (pending approval).
+- 2026-11-19 · design (Meelad, Slack): every email with a discount shows it huge and bold above the fold (big % numerals + large code chip), visible the moment it opens. Use the brand's real product photos from the site, never generated vials.
 - 2026-11-19 · persona (Meelad, Slack): "Claire" appears ONLY in plain-text emails (as sender and signature). Designed emails send as "Meta Molecule" and never mention Claire. Plain-text "founder" emails are from Claire for now.
 
 ## Design log (every change, newest last)
 - 2026-11-19 · Welcome flow v1 · asked: build the welcome flow (Meelad) · made: copy/2026-11-19-welcome-flow.md (7 emails + 2 SMS) and designs welcome-01-vials, 01v2-bundles, 01v3-lab-supply, 02-note-from-claire (plain text), 03-coa-checklist, 04-where-researchers-start, 05-upgrade-15; all published for review. Generic unlabeled vial images (no real product photos); stand-in fonts/colours (ink #0E1B24, mint #5CE1C6, Space Grotesk/Inter/IBM Plex Mono).
 
+- 2026-11-19 · Welcome flow v2–v3 · asked (Meelad): use the site's real vial photos; make every discount very bold and visible on open · changed: real product photos (hotlinked from metamolecule.com/wp-content/uploads) for Tesamorelin, MOTS-C, GHK-Cu, BPC/TB; brand-colour name tiles for CJC/IPA blend + bundles (no site photo); big 10%/15% numerals above the fold on every discount email, larger solid code chips; bold code line atop plain-text #2; product links → real /product/ URLs.
+
 ## Facts & decisions
+- 2026-11-19 · product photo URLs (site /shop): Tesamorelin …/2026/01/tesamorelin-1024x1024.jpeg · MOTS-C …/2026/04/Frame-52-1024x1024.webp · GHK-Cu …/Frame-34-1024x1024.webp · BPC/TB blend …/Frame-36-1024x1024.webp · R3 …/Frame-47 · T2 …/Frame-45 · GLOW …/glow-1024x1024.jpeg · logo …/2026/03/Logo.png. No photos for CJC/IPA blend or any bundle. The product_images tool can't see the site (researcher gate).
 - 2026-11-19 · verified: WooCommerce store; researcher verification gate (independent lab / academic / CRO, 21+) (site).
 - 2026-11-19 · verified: same-day shipping on orders before 1 p.m. CT Mon–Fri (= brief's 2pm EST); free U.S. shipping at $200 after discounts; U.S. only; no returns once shipped (site /faqs).
 - 2026-11-19 · verified: COA library at /coas shows only one COA (BAC water, Freedom Diagnostics, Sep 19 2026). FAQ claims per-batch HPLC+MS ≥99%: HOLD until published.
