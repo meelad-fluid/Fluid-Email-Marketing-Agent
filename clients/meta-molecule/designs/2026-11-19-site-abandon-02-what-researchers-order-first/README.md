@@ -11,3 +11,4 @@ Style: dark smoke, bold condensed uppercase, per-product colour glows, mint acce
 | Version | Date | Change |
 |---|---|---|
 | v1 | 2026-11-19 | First design |
+| v2 | 2026-11-19 | Gloria: removed the hard background seam (texture no longer repeats), blended hero into body |
