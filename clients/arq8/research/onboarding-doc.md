@@ -87,6 +87,16 @@ Evidence: the form's ideal customer ("mostly 45+ … look toned, preserve muscle
 - **Current situation → desire:** "running on coffee and short nights" → "sharp all day without the crash."
 - **Entry point:** Gummies; Magnesium+ (sleep/recovery) as the upsell.
 
+### Moments list (started 2026-11-20, add to it with each email)
+| Avatar | Moment | When / where | What they're doing | What they say to themselves | Source |
+|---|---|---|---|---|---|
+| 1 | The 3pm wall | mid-afternoon, at her desk | rereading the same email twice | "Why am I this tired on the same sleep?" | form pain list ("brain fog") |
+| 1 | The photo that stings | weekend, scrolling photos | sees softer arms despite never missing a class | "I'm doing everything right" | form ("soft upper arms", "working out without visible results") |
+| 1 / 2 | The empty jar | dark winter morning, kitchen counter | reaches for the jar next to her coffee, it's empty | "I keep meaning to reorder" | orders (median reorder day 31, 1,991 lapsed repeat buyers) |
+| 2 | The gritty tub | morning, kitchen | half-used powder tub at the back of the cupboard | "I quit because of the grit and the bloat" | reviews (Mike T., Ronnie A.); form |
+| 2 | The stalled bar | gym, same weight for months | can't add a plate | "Training as hard as ever and going backwards" | form ("strength plateau") |
+| 3 | The second coffee | 2pm, between meetings | pouring another coffee after a short night | "I just need to get through today" | form ("difficulty concentrating after poor sleep"); David S. |
+
 ## 4. Voice
 **Sender persona:** **Claire from Arq8** (proposed 2026-11-17, awaiting approval) — sends campaigns, flows and SMS sign-offs; founder notes stay from the founder (name needed). Why: a calm, clear, grown-up name that suits a 45+ audience and the "calm authority" voice; speaks for the team, never claims personal results.
 

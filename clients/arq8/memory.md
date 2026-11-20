@@ -59,3 +59,9 @@ Read before any work for Arq8. Append (dated) after every change. Rules here out
 - Design v2: designs/2026-11-20-whats-in-your-creatine-v2 (review link in its README), v1's layout with the new copy and a generated 3pm desk hero (brand/assets/generated/2026-11-18-3pm-desk-fog.jpg). Plan: A/B v1 vs v2.
 - v1 design fixed: 99.9% gradient number was clipped, strawberry jar was cut off at the right edge. Rule now: nothing cut off (design-rules §11, enforced by publish_design).
 - Needs client OK: "about four weeks" timing, brain-energy wording.
+
+## 2026-11-20 — Dec 10 We Saved Your Spot
+- Copy + design written (copy/2026-12-10-we-saved-your-spot.md, designs/2026-12-10-we-saved-your-spot). Meelad asked to write AND design it, so it's designed instead of the brief's plain-text letter (Claire sign-off kept). Warm golden-morning winback style, cream/mango, Caveat handwriting accents — new look vs the dark lab / silver emails.
+- Talking to: lapsed buyer (Avatar 1) finding the empty jar next to her morning coffee. Offer COMEBACK20 20% to 11:59 PM ET Sun Dec 13 (still proposed). Left out "upgraded delivery" (no source) and "skip or cancel any time" (unconfirmed).
+- New URLs: Variety Pack /products/variety-pack; Magnesium+ /products/magnesium-gummies-60-pcs. Shopify product images for these have baked-in text; used existing transparent cutouts (hero-jars2, magnesium.webp).
+- Open: does COMEBACK20 stack on subscribe pricing?

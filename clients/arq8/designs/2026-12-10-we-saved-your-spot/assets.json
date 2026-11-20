@@ -1,0 +1,12 @@
+{
+  "logo": "brand/assets/logo-black.svg",
+  "hero_scene": "brand/assets/generated/2026-11-20-2026-12-10-empty-jar-coffee-morning.jpg",
+  "product_scene": "brand/assets/generated/2026-11-20-2026-12-10-gummies-hand-golden.jpg",
+  "variety_pack": "brand/assets/hero-jars2.webp",
+  "magnesium": "brand/assets/magnesium.webp",
+  "jar_mango": "brand/assets/jar-mango.webp",
+  "jar_strawberry": "brand/assets/jar-strawberry-cut.webp",
+  "gummy_mango": "brand/assets/gummies-mango-f.webp",
+  "badge_informed_sport": "brand/assets/badge-informed-w.png",
+  "badge_clean_label": "brand/assets/badge-clp-w.png"
+}
