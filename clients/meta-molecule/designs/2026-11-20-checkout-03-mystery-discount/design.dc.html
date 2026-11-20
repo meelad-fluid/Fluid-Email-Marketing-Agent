@@ -1,0 +1,113 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#101414;font-family:'Inter Tight',Arial,sans-serif;color:#fff;overflow:hidden}
+.hero{position:relative;text-align:center;padding:30px 40px 34px;background:linear-gradient(180deg,#0B2626 0%,#0D1E1F 60%,#111 100%)}
+.photo{display:block;position:relative;height:430px;background:url('asset:brand/assets/generated/2026-11-20-mm-dispatch-boxes-evening.jpg') 34% center/cover no-repeat}
+.photo:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#111 0%,rgba(17,17,17,0) 30%,rgba(17,17,17,0) 68%,#101414 100%)}
+.hero>*{position:relative;z-index:1}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:6px;font-size:13px}
+.logo .dot{width:18px;height:18px;border:2px solid #5CE1C6;border-radius:50%;position:relative}
+.logo .dot:after{content:'';position:absolute;width:6px;height:6px;background:#5CE1C6;border-radius:50%;top:4px;left:4px}
+.kick{display:inline-block;margin-top:30px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:3px;color:#5CE1C6}
+.offer{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin-top:6px}
+.offer .pc{font-family:'Anton',sans-serif;font-size:150px;line-height:1.2;padding:.04em 0;letter-spacing:-2px;background:linear-gradient(180deg,#FFFFFF 20%,#7FE6D2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.offer .off{font-family:'Anton',sans-serif;font-size:58px;line-height:1.2;color:#5CE1C6;padding-bottom:24px;text-align:left}
+.h1{font-weight:900;font-size:38px;line-height:1.02;letter-spacing:-.5px;text-transform:uppercase;margin-top:14px}
+.h1 span{font-size:54px;display:block;color:#5CE1C6;letter-spacing:-1px}
+.sub{font-size:18px;line-height:1.5;color:#C5D2D0;margin:14px auto 0;max-width:450px}
+.sub b{color:#fff}
+.small{font-size:13px;color:#8FA3A0;margin-top:8px}
+.btn{display:block;width:330px;margin:22px auto 0;background:#5CE1C6;color:#0B1A1A;font-weight:800;font-size:18px;letter-spacing:.3px;border-radius:40px;padding:19px 0;text-align:center}
+.code{display:block;width:330px;margin:18px auto 0;border:2.5px dashed rgba(255,255,255,.7);border-radius:16px;padding:14px 0;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:18px;letter-spacing:3px;background:rgba(0,0,0,.35)}
+.code b{color:#5CE1C6}
+.q{position:absolute;z-index:2;right:58px;top:120px;width:92px;height:92px;border-radius:50%;background:#5CE1C6;color:#0B1A1A;font-family:'Anton',sans-serif;font-size:58px;line-height:92px;text-align:center;transform:rotate(12deg);box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.cart{padding:10px 34px 0}
+.cart h2{font-family:'Anton',sans-serif;font-size:40px;letter-spacing:.5px;text-align:center;text-transform:uppercase}
+.tile{display:block;position:relative;height:250px;margin-top:22px;border:1.5px solid rgba(255,255,255,.35);border-radius:24px;overflow:hidden;background:radial-gradient(circle at 70% 50%,#1F4040 0%,#121A1A 70%)}
+.tile .ghost{position:absolute;left:22px;top:16px;font-family:'Anton',sans-serif;font-size:96px;line-height:1.15;letter-spacing:-2px;color:rgba(255,255,255,.1);white-space:nowrap}
+.tile img{position:absolute;right:26px;top:24px;width:200px;height:200px;border-radius:20px;object-fit:cover;box-shadow:0 20px 40px rgba(0,0,0,.55)}
+.tile .info{position:absolute;left:28px;bottom:26px}
+.tile .info b{display:block;font-weight:800;font-size:24px}
+.tile .info small{display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9FB3B0;margin-top:6px;letter-spacing:1px}
+.tile .info .pr{display:inline-block;margin-top:12px;background:#fff;color:#111;font-weight:800;font-size:18px;border-radius:20px;padding:5px 14px}
+.tile .info u{margin-left:10px;font-size:14px;font-weight:700;color:#5CE1C6;text-decoration:none}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;padding:0 6px;font-size:17px;color:#9FB3B0;font-weight:600}
+.tot b{font-size:24px;color:#fff;font-weight:800}
+.cart .btn{width:100%}
+.dyn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6F8481;text-align:center;margin-top:12px}
+.ruo{display:block;margin:22px 34px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:12px;padding:14px 10px}
+.how{margin-top:64px;background:#fff;color:#111;padding:64px 34px 60px;text-align:center}
+.how h2{font-family:'Anton',sans-serif;font-size:50px;text-transform:uppercase;letter-spacing:.5px;line-height:1}
+.steps{display:flex;gap:12px;margin-top:30px}
+.step{flex:1;background:#F1F5F4;border-radius:20px;padding:22px 12px 20px;position:relative}
+.step .n{font-family:'Anton',sans-serif;font-size:56px;line-height:1;color:#0B2626}
+.step p{font-size:15px;line-height:1.4;font-weight:600;margin-top:8px}
+.step p b{font-family:'IBM Plex Mono',monospace;background:#5CE1C6;padding:1px 5px;border-radius:4px}
+.me{display:flex;align-items:center;gap:26px;margin-top:44px;text-align:left;border-top:2px solid #111;padding-top:40px}
+.meter{flex:0 0 150px;height:200px;position:relative}
+.meter .track{position:absolute;left:62px;top:0;bottom:0;width:26px;border-radius:14px;background:#E4ECEA}
+.meter .fill{position:absolute;left:62px;bottom:0;width:26px;height:78%;border-radius:14px;background:linear-gradient(0deg,#0B2626,#2E8C7C)}
+.meter .mark{position:absolute;left:30px;right:0;top:12%;border-top:2.5px dashed #111}
+.meter .mark span{position:absolute;right:0;top:-26px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+.me h3{font-weight:900;font-size:30px;line-height:1.05;text-transform:uppercase;letter-spacing:-.3px}
+.me p{font-size:17px;line-height:1.5;color:#4A5553;margin-top:10px}
+.dead{text-align:center;padding:76px 40px 70px;background:radial-gradient(ellipse at 50% 0%,#0F3535 0%,#101414 70%)}
+.dead h2{font-weight:900;font-size:44px;line-height:1;text-transform:uppercase;letter-spacing:-.5px}
+.dead h2 span{display:block;font-family:'Anton',sans-serif;font-weight:400;font-size:96px;color:#5CE1C6;letter-spacing:0;margin-top:6px}
+.foot{background:#000;color:#8FA1A0;text-align:center;font-size:12px;line-height:1.6;padding:34px 40px 30px}
+.foot .lg{font-weight:800;letter-spacing:6px;font-size:13px;color:#fff}
+.foot .r{color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:16px}
+</style>
+
+  <div class="hero">
+    <a href="https://metamolecule.com/" class="logo"><span class="dot"></span>META MOLECULE</a><br>
+    <a href="https://metamolecule.com/checkout/" class="kick">JUST FOR YOUR ORDER</a>
+    <a href="https://metamolecule.com/checkout/" class="offer"><span class="pc">??%</span><span class="off">OFF</span></a>
+    <a href="https://metamolecule.com/checkout/"><div class="h1">We put a <span>mystery discount</span> on your order.</div></a>
+    <a href="https://metamolecule.com/checkout/"><p class="sub"><b>Enter MYSTERY at checkout to reveal it.</b> Single use, ends 11:59 p.m. CT tomorrow.</p></a>
+    <a href="https://metamolecule.com/checkout/"><p class="small">Can't be combined with other codes or the Buy 2 Get 1 promotion.</p></a>
+    <a href="https://metamolecule.com/checkout/" class="btn">Review Your Order</a>
+    <a href="https://metamolecule.com/checkout/" class="code">YOUR CODE: <b>MYSTERY</b></a>
+  </div>
+  <a href="https://metamolecule.com/checkout/" class="photo"><span class="q">?</span></a>
+
+  <div class="cart">
+    <a href="https://metamolecule.com/checkout/"><h2>Still in your order</h2></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="tile"><div class="ghost">MOTS-C</div><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-52-1024x1024.webp" alt="MOTS-C 40mg"><div class="info"><b>MOTS-C 40mg</b><small>VIAL · QTY 1</small><span class="pr">$119</span><u>Specs →</u></div></a>
+    <a href="https://metamolecule.com/product/tesa-10mg/" class="tile"><div class="ghost">TESA</div><img src="https://metamolecule.com/wp-content/uploads/2026/01/tesamorelin-1024x1024.jpeg" alt="Tesamorelin 10mg"><div class="info"><b>Tesamorelin 10mg</b><small>VIAL · QTY 1</small><span class="pr">$60</span><u>Specs →</u></div></a>
+    <a href="https://metamolecule.com/checkout/" class="tot"><span>Subtotal, before MYSTERY</span><b>$179.00</b></a>
+    <a href="https://metamolecule.com/checkout/" class="btn">Review Your Order</a>
+    <p class="dyn">Dynamic: one tile per checkout line (image, name + size, qty, price, Specs link; ghost word = product name) + subtotal.</p>
+  </div>
+
+  <a href="https://metamolecule.com/faqs/" class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</a>
+
+  <div class="how">
+    <a href="https://metamolecule.com/checkout/"><h2>How it works</h2></a>
+    <div class="steps">
+      <a href="https://metamolecule.com/checkout/" class="step"><div class="n">01</div><p>Open your saved order.</p></a>
+      <a href="https://metamolecule.com/checkout/" class="step"><div class="n">02</div><p>Enter <b>MYSTERY</b> in the coupon field.</p></a>
+      <a href="https://metamolecule.com/checkout/" class="step"><div class="n">03</div><p>Your discount shows in the total.</p></a>
+    </div>
+    <a href="https://metamolecule.com/faqs/" class="me">
+      <div class="meter"><div class="track"></div><div class="fill"></div><div class="mark"><span>$200</span></div></div>
+      <div><h3>Add something, or eat the shipping?</h3><p>Apply MYSTERY first, then see where your total lands. Free U.S. shipping counts orders $200+ after discounts.</p></div>
+    </a>
+  </div>
+
+  <div class="dead">
+    <a href="https://metamolecule.com/checkout/"><h2>MYSTERY ends<span>11:59 P.M. CT</span>tomorrow.</h2></a>
+    <a href="https://metamolecule.com/checkout/" class="code" style="margin-top:30px">YOUR CODE: <b>MYSTERY</b></a>
+    <a href="https://metamolecule.com/checkout/" class="btn">Review Your Order</a>
+  </div>
+
+  <div class="foot">
+    <a href="https://metamolecule.com/"><div class="lg">META MOLECULE</div></a>
+    <a href="https://metamolecule.com/faqs/"><p class="r">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</p></a>
+    <a href="https://metamolecule.com/contact/"><p style="margin-top:10px">Meta Molecule · Richardson, TX 75081 · support@metamolecule.com</p></a>
+    <p style="margin-top:8px;color:#C9D4DB"><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+</div>

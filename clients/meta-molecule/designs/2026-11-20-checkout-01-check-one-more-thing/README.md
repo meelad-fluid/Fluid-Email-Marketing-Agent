@@ -1,4 +1,5 @@
 # Abandoned Checkout Email #1 — Stopped to check one more thing?
+Review link: fluid-email-marketing-agent-production.up.railway.app/r/VpwbaQ-xvMfsyUD2StCzxfYN
 
 Status: draft · needs approval · goes live when the Abandoned Checkout automation is built in Customer.io
 Copy: copy/2026-11-20-abandoned-checkout-flow.md (Email #1) · Compliance gate: PASS — READY FOR HUMAN REVIEW
