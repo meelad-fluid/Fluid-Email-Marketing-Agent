@@ -1,0 +1,164 @@
+<div class="email" id="email" style="width:600px;margin:0 auto;background:#fff">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9edf2;font-family:'Inter',Arial,sans-serif;color:#0d1b2e}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#fff;overflow:hidden}
+.disp{font-family:'Barlow Condensed',Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.5px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.btn{display:inline-block;height:56px;line-height:56px;padding:0 44px;border-radius:8px;font-weight:700;font-size:18px}
+/* hero */
+.hero{background:#b9c1cc;position:relative}
+.card{position:relative;z-index:2;margin:0 24px;top:24px;background:#1e66c1;border-radius:28px;padding:30px 36px 40px;text-align:center;color:#fff;box-shadow:0 18px 40px rgba(13,27,46,.25)}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;letter-spacing:4px}
+.logo span{display:block;font-size:11px;letter-spacing:6px;color:#ffd9da;font-weight:600;margin-top:-2px}
+.eyebrow{margin-top:20px;font-size:13px;font-weight:700;letter-spacing:3px;color:#cfe0f7}
+.h1{margin-top:6px;font-weight:800;line-height:.9}
+.h1 .a{font-size:62px;display:block}
+.h1 .b{font-size:118px;display:block;color:#fff;line-height:.92}
+.h1 .b em{font-style:normal;color:#ffd84d}
+.sub{margin:16px auto 22px;font-size:16px;line-height:1.5;max-width:440px;color:#eaf2fc}
+.btn-hero{background:#fff;color:#1e66c1}
+.heroimg{display:block;width:600px;margin-top:-150px;position:relative;z-index:1}
+.sticker{position:absolute;z-index:3;right:34px;bottom:120px;width:126px;height:126px;border-radius:50%;background:#e22b2f;color:#fff;text-align:center;transform:rotate(10deg);box-shadow:0 8px 20px rgba(0,0,0,.2);padding-top:30px;border:4px dashed rgba(255,255,255,.55)}
+.sticker b{display:block;font-family:'Barlow Condensed';font-size:30px;line-height:1}
+.sticker small{font-size:10.5px;font-weight:700;letter-spacing:.5px;display:block;margin-top:2px}
+.heroimg{margin-top:-190px !important}
+.pc img{width:160px !important;height:160px !important;object-fit:contain !important;background:#fff}
+/* wave */
+.wave{display:block;width:600px;height:40px}
+/* that's me */
+.me{background:#f4f6f9;padding:24px 40px 52px;display:flex;gap:28px;align-items:center}
+.me .txt{flex:1}
+.h2{font-family:'Barlow Condensed';font-weight:800;font-size:38px;line-height:1;text-transform:uppercase;color:#0d1b2e}
+.p{font-size:16px;line-height:1.55;color:#3a4657;margin-top:12px}
+.sheet{width:220px;background:#fff;border-radius:12px;padding:18px 18px 16px;box-shadow:0 14px 30px rgba(13,27,46,.14);transform:rotate(-3deg);border-top:6px solid #e22b2f}
+.sheet .t{font-size:11px;font-weight:600;letter-spacing:1.5px;color:#7a8698}
+.sheet .row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:9px 0;border-bottom:1px dashed #d7dde5;color:#0d1b2e}
+.sheet .row i{font-style:normal;width:16px;height:16px;border:2px solid #1e66c1;border-radius:4px;display:inline-block;margin-right:8px;vertical-align:-3px}
+.sheet .row i.on{background:#1e66c1;position:relative}
+.sheet .tag{margin-top:10px;font-size:11px;color:#e22b2f;font-weight:600}
+/* how it works */
+.how{background:#0d1b2e;color:#fff;padding:48px 34px 54px;text-align:center;position:relative}
+.how .h2{color:#fff}
+.steps{display:flex;gap:14px;margin-top:30px}
+.step{flex:1;background:#14284a;border-radius:18px;padding:52px 14px 22px;position:relative}
+.num{position:absolute;top:-26px;left:50%;margin-left:-30px;width:60px;height:60px;border-radius:50%;background:#1e66c1;font-family:'Barlow Condensed';font-weight:800;font-size:34px;line-height:60px;border:4px solid #0d1b2e}
+.step:nth-child(2) .num{background:#e22b2f}
+.step p{font-size:16px;line-height:1.4;font-weight:600}
+.step .big{font-family:'Barlow Condensed';font-weight:800;font-size:40px;color:#ffd84d;line-height:1;margin-bottom:6px}
+/* products */
+.prods{background:#fff;padding:52px 30px 30px;text-align:center}
+.grid{display:flex;gap:14px;margin-top:26px}
+.pc{flex:1;background:#f4f6f9;border-radius:18px;padding:0 10px 20px;margin-top:40px}
+.pc img{width:150px;height:150px;object-fit:cover;border-radius:50%;margin-top:-40px;border:5px solid #fff;box-shadow:0 10px 22px rgba(13,27,46,.18)}
+.pc .n{font-family:'Barlow Condensed';font-weight:700;font-size:24px;text-transform:uppercase;margin:12px 0 12px}
+.btn-s{display:inline-block;height:48px;line-height:48px;padding:0 22px;border-radius:8px;background:#1e66c1;color:#fff;font-weight:700;font-size:15px}
+.disc{margin:22px 10px 0;padding:12px 14px;border:1.5px solid #0d1b2e;border-radius:8px;font-size:12.5px;font-weight:700;letter-spacing:.5px;color:#0d1b2e}
+/* documented */
+.doc{background:#eaf1fb;padding:50px 40px;display:flex;gap:26px;align-items:center}
+.coa{width:210px;flex:none;background:#fff;border-radius:10px;padding:18px;box-shadow:0 16px 30px rgba(13,27,46,.16);transform:rotate(3deg);position:relative}
+.coa .hd{font-size:10px;letter-spacing:2px;color:#1e66c1;font-weight:600}
+.coa .tt{font-family:'Barlow Condensed';font-weight:800;font-size:22px;text-transform:uppercase;margin:4px 0 10px}
+.coa .ln{height:8px;border-radius:4px;background:#e3e8ef;margin:7px 0}
+.coa .kv{display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-top:1px solid #edf0f4}
+.coa .stamp{position:absolute;right:-14px;bottom:-14px;background:#e22b2f;color:#fff;font-size:11px;font-weight:700;padding:8px 12px;border-radius:6px;transform:rotate(-8deg)}
+.doc .txt{flex:1}
+.btn-o{display:inline-block;height:50px;line-height:46px;padding:0 24px;border-radius:8px;border:2px solid #1e66c1;color:#1e66c1;font-weight:700;font-size:16px;margin-top:18px}
+/* close */
+.close{background:#1e66c1;color:#fff;text-align:center;padding:30px 40px 46px}
+.close .h2{color:#fff;font-size:38px}
+.close .h2 em{font-style:normal;color:#ffd84d}
+.terms{font-size:12.5px;line-height:1.5;color:#cfe0f7;margin-top:22px}
+.foot{background:#0d1b2e;color:#9aa7b8;text-align:center;padding:34px 40px 40px;font-size:12px;line-height:1.6}
+.foot .logo{color:#fff}
+.foot .ruo{color:#fff;font-weight:700;margin:14px 0 10px;letter-spacing:.4px}
+</style>
+
+  <div class="hero">
+    <div class="card">
+      <a href="https://formeraresearch.com/"><div class="logo">FORMERA<span>RESEARCH</span></div></a>
+      <div class="eyebrow">BLACK FRIDAY STARTS TODAY</div>
+      <a href="https://formeraresearch.com/shop/"><h1 class="h1 disp"><span class="a">Buy One, Get One</span><span class="b"><em>50%</em> Off</span></h1></a>
+      <p class="sub">Black Friday starts today at Formera. Add any two eligible compounds to your cart and the second one is half off, through Tuesday, Dec 1.</p>
+      <a class="btn btn-hero" href="https://formeraresearch.com/shop/">Shop Now</a>
+    </div>
+    <a href="https://formeraresearch.com/shop/"><img class="heroimg" src="asset:brand/assets/generated/2026-11-20-bfcm-two-vials-lab-bench.jpg" alt="GLOW and BPC-157 10mg vials on a lab bench"></a>
+    <a href="https://formeraresearch.com/shop/"><div class="sticker"><b>THRU<br>DEC 1</b><small>11:59PM PT</small></div></a>
+  </div>
+
+  <svg class="wave" viewBox="0 0 600 40" preserveAspectRatio="none" style="background:#e9ecef;margin-top:-40px;position:relative;z-index:4;background:transparent"><path d="M0,20 C100,0 200,40 300,20 C400,0 500,40 600,20 L600,40 L0,40 Z" fill="#f4f6f9"/></svg>
+
+  <a href="https://formeraresearch.com/shop/">
+  <div class="me">
+    <div class="txt">
+      <h2 class="h2">Planning next quarter's orders?</h2>
+      <p class="p">If you're pricing out next quarter's list right now, this is the week to place it.</p>
+      <p class="p">You get the same catalog and the same paperwork, at the lowest price we've run all year.</p>
+    </div>
+    <div class="sheet mono">
+      <div class="t">Q1 ORDER LIST</div>
+      <div class="row"><span><i class="on"></i>GLOW</span><span>×2</span></div>
+      <div class="row"><span><i class="on"></i>BPC-157 10mg</span><span>×2</span></div>
+      <div class="row"><span><i></i>NAD+ 1000mg</span><span>×2</span></div>
+      <div class="tag">2nd item: 50% off</div>
+    </div>
+  </div>
+  </a>
+
+  <a href="https://formeraresearch.com/shop/">
+  <div class="how">
+    <h2 class="h2">How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><p>Pick any two eligible compounds</p></div>
+      <div class="step"><div class="num">2</div><div class="big">50% OFF</div><p>The second one, at checkout</p></div>
+      <div class="step"><div class="num">3</div><div class="big">$200+</div><p>Free shipping on your order</p></div>
+    </div>
+  </div>
+  </a>
+
+  <div class="prods">
+    <h2 class="h2">Where to start</h2>
+    <div class="grid">
+      <a class="pc" href="https://formeraresearch.com/product/glow/"><img src="https://formeraresearch.com/wp-content/uploads/2025/10/Glow-BPC157-TB500-GHK-CU-Mockup.jpg" alt="GLOW"><div class="n">GLOW</div><span class="btn-s">View COA</span></a>
+      <a class="pc" href="https://formeraresearch.com/product/bpc-157-10-mg-research-peptide/"><img src="https://formeraresearch.com/wp-content/uploads/2025/10/BPC-157-10-mg-Mockup-2.jpg" alt="BPC-157 10mg"><div class="n">BPC-157 10mg</div><span class="btn-s">View COA</span></a>
+      <a class="pc" href="https://formeraresearch.com/product/nad-1000mg/"><img src="https://formeraresearch.com/wp-content/uploads/2025/10/NAD-1000mg-Mockup.jpg" alt="NAD+ 1000mg"><div class="n">NAD+ 1000mg</div><span class="btn-s">View COA</span></a>
+    </div>
+    <a href="https://formeraresearch.com/coa-library/"><div class="disc">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+  </div>
+
+  <a href="https://formeraresearch.com/coa-library/">
+  <div class="doc">
+    <div class="coa">
+      <div class="hd mono">FORMERA RESEARCH</div>
+      <div class="tt">Certificate of Analysis</div>
+      <div class="ln" style="width:90%"></div><div class="ln" style="width:70%"></div>
+      <div class="kv mono"><span>Product</span><b>GLOW</b></div>
+      <div class="kv mono"><span>COA Date</span><b>Jul 31, 2026</b></div>
+      <div class="kv mono"><span>Reports</span><b>4 on file</b></div>
+      <div class="stamp mono">ON FILE</div>
+    </div>
+    <div class="txt">
+      <h2 class="h2">Every product, documented</h2>
+      <p class="p">Every product in our catalog has its lab report in the COA library, so you can check it before you order.</p>
+      <span class="btn-o">View Documentation</span>
+    </div>
+  </div>
+  </a>
+
+  <svg class="wave" viewBox="0 0 600 40" preserveAspectRatio="none" style="background:#eaf1fb"><path d="M0,20 C100,0 200,40 300,20 C400,0 500,40 600,20 L600,40 L0,40 Z" fill="#1e66c1"/></svg>
+  <div class="close">
+    <a href="https://formeraresearch.com/shop/"><h2 class="h2">Buy one, get one <em>50% off</em> ends Tuesday, Dec 1 at 11:59pm PT.</h2></a>
+    <a class="btn btn-hero" style="margin-top:24px" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <a href="https://formeraresearch.com/refund-policy/"><p class="terms">Second item of equal or lower price is 50% off. Excludes select products. Can't be combined with other codes. US shipping only.</p></a>
+  </div>
+
+  <div class="foot">
+    <a href="https://formeraresearch.com/"><div class="logo">FORMERA<span>RESEARCH</span></div></a>
+    <a href="https://formeraresearch.com/coa-library/"><div class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+    <a href="https://formeraresearch.com/"><p>Formera Research LLC · 9562 Winter Gardens Blvd #135, Lakeside, CA 92040</p></a>
+    <p><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+
+</div>

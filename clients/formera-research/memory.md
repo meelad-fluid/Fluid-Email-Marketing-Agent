@@ -32,6 +32,12 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 - 2026-11-20 · Meelad asked again to build the BFCM emails; held again (RUO gate: only PASS goes to design). Unblock = classification A from legal review + approved product list + approved disclaimer, confirmed in writing.
 
+- 2026-11-20 · APPROVALS (Meelad Zarrabi, Fluid, Slack "yes for all"; compliance.md is team-managed so recorded here): classification A / cleared for RUO marketing; BFCM products GLOW, BPC-157 10mg, NAD+ 1000mg; disclaimer = Fluid standard "FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION."; BOGO 50% Nov 26–Dec 1 approved (client OK relayed); "Shop Now" CTA approved. Still HOLD in copy: 99%+, HPLC+MS, 8x tested, next-day shipping, guarantee, review count; SMS.
+
+- 2026-11-20 · Built + published all 7 BFCM emails (copy/2026-11-2x-bfcm-0N-*.md, designs/2026-11-26…2026-12-01-bfcm-0N-*), each gate PASS, offer headline above the fold, Entire list, 2–7 exclude BFCM Purchasers. Review links in each README. Status: needs approval. Not pushed anywhere (no Customer.io yet). SMS not built (HOLD).
+- 2026-11-20 · Brand colours seen on real vial labels: Formera blue ~#1E66C1, red ~#E22B2F (use until client confirms hex). Product mockups live at formeraresearch.com/wp-content/uploads/2025/10/*-Mockup*.jpg; product_images tool doesn't work on their WooCommerce site.
+- 2026-11-20 · Open check: BFCM email 3 pair-3 price ($210) assumes one discounted pair + one full-price item; confirm with the WooCommerce BOGO rule. Support hours timezone assumed PT.
+
 ## Open questions
 <!-- - … -->
 - Fluid legal review: classification (A/B/C/D) and approved product list. Blocks all promotional copy.
@@ -43,3 +49,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 ## Assets
 <!-- - brand/assets/<file> — what it is, how it was made -->
+- brand/assets/generated/2026-11-20-bfcm-two-vials-lab-bench.jpg — GLOW + BPC-157 on lab bench (generated from site mockups)
+- brand/assets/generated/2026-11-20-bfcm-black-friday-dark-vials.jpg — 3 vials on black acrylic
+- brand/assets/generated/2026-11-20-bfcm-shipping-box-vials.jpg — overhead open box with vials
+- brand/assets/generated/2026-11-20-bfcm-sealed-box-lab-counter.jpg — sealed box + NAD+/BPC vials, window light

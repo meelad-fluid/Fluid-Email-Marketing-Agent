@@ -1,0 +1,128 @@
+<div class="email" id="email" style="width:600px;margin:0 auto;background:#060b14">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+.email *{box-sizing:border-box;margin:0;padding:0}
+.email{font-family:'Inter',Arial,sans-serif;color:#fff;overflow:hidden}
+.email a{text-decoration:none;color:inherit}
+.tight{font-family:'Inter Tight',Arial,sans-serif;letter-spacing:-1.5px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.hero{position:relative;background:#060b14 url('asset:brand/assets/generated/2026-11-20-bfcm-black-friday-dark-vials.jpg') no-repeat center 300px/600px auto;height:980px;padding:0 38px}
+.email a.white{color:#0d1b2e}
+.band{position:absolute;left:0;right:0;top:0;height:46px;background:#0d1b2e}
+.badge{position:relative;z-index:2;margin:10px auto 0;width:74px;height:74px;border-radius:50%;background:#fff;color:#1e66c1;text-align:center;font-family:'Inter Tight';font-weight:800;font-size:11px;letter-spacing:.5px;padding-top:25px;line-height:1.05;box-shadow:0 8px 24px rgba(30,102,193,.4)}
+.badge span{display:block;font-size:7.5px;color:#e22b2f;letter-spacing:2.5px}
+.bf{margin-top:30px;display:inline-block;background:#e22b2f;color:#fff;font-weight:800;font-size:14px;letter-spacing:3px;padding:7px 14px;border-radius:4px;transform:rotate(-2deg)}
+.h1{margin-top:16px;font-weight:800;font-size:66px;line-height:.98}
+.h1 em{font-style:normal;color:#5aa2ff}
+.sub{margin-top:18px;font-size:17px;line-height:1.5;color:#c9d3e0;max-width:480px}
+.pill{display:inline-block;margin-top:24px;height:56px;line-height:54px;padding:0 46px;border-radius:999px;background:#1e66c1;border:1.5px solid rgba(255,255,255,.45);color:#fff;font-weight:700;font-size:18px;box-shadow:0 0 30px rgba(30,102,193,.6)}
+.glowcut{position:absolute;left:-20px;right:-20px;bottom:470px;height:3px;background:linear-gradient(90deg,transparent,#5aa2ff,transparent);transform:rotate(-6deg);box-shadow:0 0 18px #5aa2ff}
+/* tabs */
+.tabs{padding:30px 38px 50px;background:linear-gradient(#060b14,#0b1626)}
+.h2{font-family:'Inter Tight';font-weight:800;font-size:40px;line-height:1.02;letter-spacing:-1px}
+.p{font-size:16px;line-height:1.55;color:#c9d3e0;margin-top:12px}
+.tabrow{position:relative;height:150px;margin-top:28px}
+.tab{position:absolute;width:210px;height:118px;border-radius:12px;background:#15243a;border:1px solid rgba(255,255,255,.12);padding:14px;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.tab .bar{height:10px;width:60%;border-radius:5px;background:#2a3d5a;margin-bottom:12px}
+.tab .l{height:8px;border-radius:4px;background:#22344f;margin:7px 0}
+.tab.t1{left:0;top:18px;transform:rotate(-5deg)}
+.tab.t2{left:150px;top:0;transform:rotate(2deg);background:#1a2b45}
+.tab.t3{left:300px;top:22px;transform:rotate(6deg);background:#1e66c1;border-color:rgba(255,255,255,.35)}
+.tab.t3 .big{font-family:'Inter Tight';font-weight:800;font-size:30px;line-height:1;letter-spacing:-1px}
+.tab.t3 small{font-size:12px;color:#dbe8fb;font-weight:600}
+/* table */
+.tbl{padding:10px 26px 46px;background:#0b1626}
+.glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:8px 22px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.row:last-child{border-bottom:0}
+.row .nm{font-size:16px;font-weight:600}
+.row .nm small{display:block;font-size:12px;color:#8fa2bd;font-weight:500;margin-top:2px}
+.row .pr{text-align:right}
+.row .was{font-size:14px;color:#8fa2bd;text-decoration:line-through;margin-right:10px}
+.row .now{font-family:'Inter Tight';font-weight:800;font-size:26px;letter-spacing:-.5px}
+.row .fs{display:block;font-size:11px;color:#7ef0a8;font-weight:700;letter-spacing:1px}
+.thead{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;color:#8fa2bd;padding:14px 0 4px}
+.center{text-align:center}
+.disc{margin-top:22px;padding:12px 14px;border:1.5px solid rgba(255,255,255,.55);border-radius:10px;font-size:12.5px;font-weight:700;letter-spacing:.4px;text-align:center}
+/* coa */
+.coa{background:#0d1b2e;padding:52px 38px 46px;position:relative}
+.icons{display:flex;gap:16px;margin-top:28px}
+.ic{flex:1;background:#eef3fa;border-radius:20px;height:120px;color:#0d1b2e;text-align:center;padding-top:20px;box-shadow:0 14px 28px rgba(0,0,0,.35)}
+.ic:nth-child(1){transform:rotate(-4deg)}.ic:nth-child(3){transform:rotate(4deg)}
+.ic .g{width:44px;height:44px;margin:0 auto 10px;border-radius:12px;background:#1e66c1;position:relative}
+.ic:nth-child(2) .g{background:#e22b2f}
+.ic .g:after{content:'';position:absolute;left:12px;top:10px;width:20px;height:24px;border-radius:3px;background:#fff}
+.ic b{font-size:14px}
+.ghost{display:inline-block;margin-top:26px;height:52px;line-height:50px;padding:0 30px;border-radius:999px;border:1.5px solid #5aa2ff;color:#cfe2ff;font-weight:700;font-size:16px}
+/* close */
+.close{background:linear-gradient(160deg,#1e66c1,#0d3d7a);padding:48px 38px 46px;text-align:center}
+.close .h2{font-size:42px}
+.close .h2 em{font-style:normal;color:#ffd84d}
+.white{display:inline-block;margin-top:24px;height:56px;line-height:56px;padding:0 46px;border-radius:999px;background:#fff;color:#0d1b2e;font-weight:700;font-size:18px}
+.terms{font-size:12.5px;line-height:1.5;color:#d2e2f7;margin-top:20px}
+.foot{background:#060b14;color:#8fa2bd;text-align:center;padding:34px 40px 40px;font-size:12px;line-height:1.6}
+.foot .wm{font-family:'Inter Tight';font-weight:800;color:#fff;font-size:20px;letter-spacing:3px}
+.foot .ruo{color:#fff;font-weight:700;margin:12px 0 10px}
+</style>
+
+  <div class="hero">
+    <div class="band"></div>
+    <a href="https://formeraresearch.com/"><div class="badge">FORMERA<span>RESEARCH</span></div></a>
+    <div class="bf">BLACK FRIDAY</div>
+    <a href="https://formeraresearch.com/shop/"><h1 class="h1 tight">Black Friday: Buy One, Get One <em>50% Off</em></h1></a>
+    <p class="sub">Comparing Black Friday prices today? Here's what two of our most-ordered compounds cost with the second one at half price.</p>
+    <a class="pill" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <div class="glowcut"></div>
+  </div>
+
+  <a href="https://formeraresearch.com/shop/">
+  <div class="tabs">
+    <h2 class="h2 tight">Three tabs open, three sales</h2>
+    <p class="p">Every vendor is running a sale today, and the only way to compare is what you actually pay at checkout. So here's ours, worked out.</p>
+    <div class="tabrow">
+      <div class="tab t1"><div class="bar"></div><div class="l" style="width:90%"></div><div class="l" style="width:70%"></div><div class="l" style="width:80%"></div></div>
+      <div class="tab t2"><div class="bar"></div><div class="l" style="width:85%"></div><div class="l" style="width:60%"></div><div class="l" style="width:75%"></div></div>
+      <div class="tab t3"><div class="big">2nd item<br>50% off</div><small>formeraresearch.com</small></div>
+    </div>
+  </div>
+  </a>
+
+  <div class="tbl">
+    <h2 class="h2 tight center" style="margin-bottom:18px">What a pair costs today</h2>
+    <div class="glass">
+      <div class="thead mono"><span>PAIR</span><span>WAS → TODAY</span></div>
+      <a href="https://formeraresearch.com/product/glow/"><div class="row"><div class="nm">GLOW ×2</div><div class="pr"><span class="was">$180</span><span class="now">$135</span></div></div></a>
+      <a href="https://formeraresearch.com/product/bpc-157-10-mg-research-peptide/"><div class="row"><div class="nm">BPC-157 10mg ×2</div><div class="pr"><span class="was">$150</span><span class="now">$112.50</span></div></div></a>
+      <a href="https://formeraresearch.com/product/nad-1000mg/"><div class="row"><div class="nm">NAD+ 1000mg ×2</div><div class="pr"><span class="was">$320</span><span class="now">$240</span><span class="fs">FREE SHIPPING</span></div></div></a>
+      <a href="https://formeraresearch.com/shop/"><div class="row"><div class="nm">NAD+ 1000mg + GLOW</div><div class="pr"><span class="was">$250</span><span class="now">$205</span><span class="fs">FREE SHIPPING</span></div></div></a>
+    </div>
+    <div class="center"><a class="pill" href="https://formeraresearch.com/shop/">Shop Now</a></div>
+    <a href="https://formeraresearch.com/coa-library/"><div class="disc">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+  </div>
+
+  <a href="https://formeraresearch.com/coa-library/">
+  <div class="coa">
+    <h2 class="h2 tight">The paperwork is already on file</h2>
+    <p class="p">Every product has its lab report in our COA library, dated, so you can check it before you check out.</p>
+    <div class="icons">
+      <div class="ic"><div class="g"></div><b>Lab report</b></div>
+      <div class="ic"><div class="g"></div><b>Dated</b></div>
+      <div class="ic"><div class="g"></div><b>On file</b></div>
+    </div>
+    <span class="ghost">View Documentation</span>
+  </div>
+  </a>
+
+  <div class="close">
+    <a href="https://formeraresearch.com/shop/"><h2 class="h2 tight">Buy one, get one <em>50% off</em> ends Tuesday, Dec 1 at 11:59pm PT.</h2></a>
+    <a class="white" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <a href="https://formeraresearch.com/refund-policy/"><p class="terms">Second item of equal or lower price is 50% off. Excludes select products. Can't be combined with other codes. US shipping only. Free shipping on orders over $200.</p></a>
+  </div>
+
+  <div class="foot">
+    <a href="https://formeraresearch.com/"><div class="wm">FORMERA RESEARCH</div></a>
+    <a href="https://formeraresearch.com/coa-library/"><div class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+    <a href="https://formeraresearch.com/"><p>Formera Research LLC · 9562 Winter Gardens Blvd #135, Lakeside, CA 92040</p></a>
+    <p><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="email" id="email" style="width:600px;margin:0 auto;background:#fff">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+.email *{box-sizing:border-box;margin:0;padding:0}
+.email{font-family:'Inter',Arial,sans-serif;color:#0d1b2e;overflow:hidden}
+.email a{text-decoration:none;color:inherit}
+.mono{font-family:'IBM Plex Mono',monospace}
+.grad{background:linear-gradient(170deg,#ffffff 0%,#dfe9f7 28%,#b9cff0 55%,#f6d3d4 100%);position:relative}
+.grain{background-image:radial-gradient(rgba(13,27,46,.05) 1px,transparent 1px);background-size:3px 3px}
+.hero{padding:30px 40px 0;text-align:center}
+.logo{font-weight:800;font-size:22px;letter-spacing:7px}
+.logo span{display:block;font-size:10px;letter-spacing:8px;color:#e22b2f;font-weight:700;margin-top:2px}
+.coupon{margin:20px auto 0;display:inline-block;border:2px dashed #e22b2f;border-radius:14px;background:rgba(255,255,255,.7);padding:10px 22px}
+.coupon b{display:block;color:#e22b2f;font-size:17px;font-weight:800;letter-spacing:.3px}
+.coupon i{font-size:14px;color:#3a4657;font-weight:600}
+.h1{margin-top:18px;font-weight:800;font-size:56px;line-height:1.02;letter-spacing:-1.8px}
+.h1 em{font-style:normal;color:#1e66c1}
+.sub{margin:14px auto 0;font-size:17px;line-height:1.5;color:#3a4657;max-width:470px}
+.wbtn{display:inline-block;margin-top:22px;height:56px;line-height:52px;padding:0 48px;border-radius:999px;background:#fff;border:2px solid #0d1b2e;font-weight:700;font-size:18px}
+.box{display:block;width:560px;margin:26px 0 0 -20px;border-radius:22px 22px 0 0}
+/* me */
+.me{padding:46px 44px 10px;text-align:center}
+.me p{font-size:17px;line-height:1.55;color:#253244;max-width:470px;margin:0 auto}
+.eq{margin-top:22px;font-weight:800;font-size:34px;line-height:1.15;color:#e22b2f;letter-spacing:-.8px}
+.eq i{font-style:italic;color:#1e66c1}
+.math{display:flex;justify-content:center;gap:10px;margin-top:20px;align-items:center}
+.chip{background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 8px 18px rgba(13,27,46,.1);font-weight:700;font-size:15px}
+.chip small{display:block;font-size:11px;color:#7a8698;font-weight:600}
+.op{font-weight:800;font-size:24px;color:#1e66c1}
+/* pairs */
+.pairs{margin:40px 26px 0;border:2px solid #0d1b2e;border-radius:26px;padding:30px 22px 22px;background:rgba(255,255,255,.55)}
+.h2{font-weight:800;font-size:36px;letter-spacing:-1px;text-align:center}
+.pair{display:flex;align-items:center;gap:18px;padding:20px 0;border-bottom:1.5px dashed #b7c3d3}
+.pair:last-of-type{border-bottom:0}
+.duo{position:relative;width:200px;height:150px;flex:none}
+.duo img{position:absolute;width:118px;height:118px;object-fit:cover;border-radius:16px;box-shadow:0 10px 20px rgba(13,27,46,.18);border:4px solid #fff}
+.duo img.a{left:4px;top:4px;transform:rotate(-6deg)}
+.duo img.b{left:74px;top:28px;transform:rotate(5deg)}
+.duo img.c{left:132px;top:0;width:62px;height:62px;border-radius:12px;transform:rotate(8deg)}
+.pi .t{font-weight:800;font-size:19px;line-height:1.2}
+.pi .pr{font-weight:800;font-style:italic;font-size:30px;color:#e22b2f;margin-top:4px;letter-spacing:-.5px}
+.pi .fs{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;letter-spacing:1.2px;background:#0d1b2e;color:#fff;padding:4px 8px;border-radius:4px}
+.sbtn{display:inline-block;margin-top:10px;height:48px;line-height:44px;padding:0 24px;border-radius:999px;background:#fff;border:2px solid #0d1b2e;font-weight:700;font-size:15px}
+.disc{margin-top:14px;padding:12px 14px;border-radius:12px;background:#0d1b2e;color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.4px;text-align:center}
+/* check */
+.check{padding:44px 40px 10px;display:flex;align-items:center;gap:24px}
+.lens{width:150px;height:150px;flex:none;border-radius:50%;background:#fff;box-shadow:0 14px 30px rgba(13,27,46,.18);position:relative;border:8px solid #1e66c1}
+.lens:after{content:'';position:absolute;width:16px;height:64px;background:#1e66c1;border-radius:8px;right:-30px;bottom:-46px;transform:rotate(-45deg)}
+.lens .l{position:absolute;left:24px;right:24px;height:7px;border-radius:4px;background:#d5deea}
+.lens .k{position:absolute;left:24px;top:30px;font-size:10px;color:#1e66c1;font-weight:700;letter-spacing:1.5px}
+.check .h3{font-weight:800;font-size:28px;letter-spacing:-.6px}
+.check p{font-size:16px;line-height:1.5;color:#3a4657;margin-top:8px}
+.obtn{display:inline-block;margin-top:14px;height:48px;line-height:44px;padding:0 24px;border-radius:999px;border:2px solid #1e66c1;color:#1e66c1;font-weight:700;font-size:15px}
+/* close */
+.close{text-align:center;padding:46px 40px 44px}
+.close .h2{font-size:34px}
+.close .h2 em{font-style:italic;color:#e22b2f}
+.terms{font-size:12.5px;line-height:1.5;color:#4b5868;margin-top:18px}
+.foot{background:#0d1b2e;color:#9aa7b8;text-align:center;padding:34px 40px 40px;font-size:12px;line-height:1.6}
+.foot .logo{color:#fff}
+.foot .ruo{color:#fff;font-weight:700;margin:14px 0 10px}
+</style>
+
+<div class="grad grain">
+  <div class="hero">
+    <a href="https://formeraresearch.com/"><div class="logo">FORMERA<span>RESEARCH</span></div></a>
+    <a href="https://formeraresearch.com/shop/"><div class="coupon"><b>BOGO 50% + FREE SHIPPING OVER $200</b><i>Through Tuesday, Dec 1 only.</i></div></a>
+    <a href="https://formeraresearch.com/shop/"><h1 class="h1">Buy One, Get One <em>50% Off</em></h1></a>
+    <p class="sub">Plus free shipping when your order clears $200. These pairs get you there after the discount.</p>
+    <a class="wbtn" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <a href="https://formeraresearch.com/shop/"><img class="box" src="asset:brand/assets/generated/2026-11-20-bfcm-shipping-box-vials.jpg" alt="An open shipping box packed with Formera vials"></a>
+  </div>
+
+  <div style="background:#fff;margin-top:-1px">
+  <a href="https://formeraresearch.com/shop/">
+  <div class="me">
+    <h2 class="h2" style="margin-bottom:12px">Doing the $200 math?</h2>
+    <p>You've got one item in the cart and you're wondering if a second one is worth it. This weekend, it's half off and it can cover your shipping too.</p>
+    <div class="math">
+      <div class="chip">Item 1<small>full price</small></div><span class="op">+</span>
+      <div class="chip">Item 2<small>50% off</small></div><span class="op">=</span>
+      <div class="chip" style="background:#e22b2f;color:#fff">$200+<small style="color:#ffd9da">free shipping</small></div>
+    </div>
+  </div>
+  </a>
+  </div>
+</div>
+
+<div class="grad grain" style="background:linear-gradient(180deg,#ffffff 0%,#e4ecf8 40%,#f8dede 100%)">
+  <div class="pairs">
+    <h2 class="h2">Pairs over $200</h2>
+    <a href="https://formeraresearch.com/product/nad-1000mg/"><div class="pair">
+      <div class="duo"><img class="a" src="https://formeraresearch.com/wp-content/uploads/2025/10/NAD-1000mg-Mockup.jpg" alt="NAD+ 1000mg"><img class="b" src="https://formeraresearch.com/wp-content/uploads/2025/10/NAD-1000mg-Mockup.jpg" alt="NAD+ 1000mg"></div>
+      <div class="pi"><div class="t">NAD+ 1000mg ×2</div><div class="pr">$240</div><span class="fs">FREE SHIPPING</span><br><span class="sbtn">Shop Now</span></div>
+    </div></a>
+    <a href="https://formeraresearch.com/shop/"><div class="pair">
+      <div class="duo"><img class="a" src="https://formeraresearch.com/wp-content/uploads/2025/10/NAD-1000mg-Mockup.jpg" alt="NAD+ 1000mg"><img class="b" src="https://formeraresearch.com/wp-content/uploads/2025/10/Glow-BPC157-TB500-GHK-CU-Mockup.jpg" alt="GLOW"></div>
+      <div class="pi"><div class="t">NAD+ 1000mg + GLOW</div><div class="pr">$205</div><span class="fs">FREE SHIPPING</span><br><span class="sbtn">Shop Now</span></div>
+    </div></a>
+    <a href="https://formeraresearch.com/shop/"><div class="pair">
+      <div class="duo"><img class="a" src="https://formeraresearch.com/wp-content/uploads/2025/10/Glow-BPC157-TB500-GHK-CU-Mockup.jpg" alt="GLOW"><img class="b" src="https://formeraresearch.com/wp-content/uploads/2025/10/Glow-BPC157-TB500-GHK-CU-Mockup.jpg" alt="GLOW"><img class="c" src="https://formeraresearch.com/wp-content/uploads/2025/10/BPC-157-10-mg-Mockup-2.jpg" alt="BPC-157 10mg"></div>
+      <div class="pi"><div class="t">GLOW ×2 + BPC-157 10mg</div><div class="pr">$210</div><span class="fs">FREE SHIPPING</span><br><span class="sbtn">Shop Now</span></div>
+    </div></a>
+    <a href="https://formeraresearch.com/coa-library/"><div class="disc">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+  </div>
+
+  <a href="https://formeraresearch.com/coa-library/">
+  <div class="check">
+    <div class="lens"><span class="k mono">COA</span><div class="l" style="top:52px"></div><div class="l" style="top:68px;right:44px"></div><div class="l" style="top:84px"></div><div class="l" style="top:100px;right:54px"></div></div>
+    <div>
+      <div class="h3">Check before you order</div>
+      <p>Each one has its lab report in our COA library.</p>
+      <span class="obtn">View Documentation</span>
+    </div>
+  </div>
+  </a>
+
+  <div class="close">
+    <a href="https://formeraresearch.com/shop/"><h2 class="h2">Buy one, get one <em>50% off</em> ends Tuesday, Dec 1 at 11:59pm PT.</h2></a>
+    <a class="wbtn" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <a href="https://formeraresearch.com/refund-policy/"><p class="terms">Second item of equal or lower price is 50% off, applied per pair. Excludes select products. Can't be combined with other codes. US shipping only. Free shipping on orders over $200.</p></a>
+  </div>
+</div>
+
+<div class="foot">
+  <a href="https://formeraresearch.com/"><div class="logo">FORMERA<span>RESEARCH</span></div></a>
+  <a href="https://formeraresearch.com/coa-library/"><div class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+  <a href="https://formeraresearch.com/"><p>Formera Research LLC · 9562 Winter Gardens Blvd #135, Lakeside, CA 92040</p></a>
+  <p><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+</div>
+</div>

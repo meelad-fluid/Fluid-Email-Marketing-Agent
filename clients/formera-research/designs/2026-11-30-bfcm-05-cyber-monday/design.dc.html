@@ -1,0 +1,109 @@
+<div class="email" id="email" style="width:600px;margin:0 auto;background:#05070f">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+.email *{box-sizing:border-box;margin:0;padding:0}
+.email{font-family:'Space Grotesk',Arial,sans-serif;color:#fff;overflow:hidden}
+.email a{text-decoration:none;color:inherit}
+.os{font-family:'Oswald',Arial Narrow,sans-serif;text-transform:uppercase}
+.mono{font-family:'IBM Plex Mono',monospace}
+.hero{position:relative;background:#05070f;padding:34px 36px 0;text-align:center;overflow:hidden}
+.grid{position:absolute;left:0;right:0;bottom:0;height:420px;background-image:linear-gradient(rgba(63,240,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(63,240,255,.22) 1px,transparent 1px);background-size:40px 40px;transform:perspective(300px) rotateX(55deg);transform-origin:bottom}
+.glow{position:absolute;left:50%;top:420px;width:520px;height:300px;margin-left:-260px;background:radial-gradient(ellipse,rgba(214,51,255,.35),transparent 65%)}
+.logo{position:relative;display:inline-block;border:2px solid #3ff0ff;border-radius:999px;padding:8px 20px;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:5px;color:#3ff0ff;box-shadow:0 0 18px rgba(63,240,255,.45)}
+.h1{position:relative;margin-top:24px;font-weight:700;font-size:70px;line-height:.98}
+.h1 .c{color:#3ff0ff;text-shadow:0 0 22px rgba(63,240,255,.6)}
+.h1 .w{color:#fff}
+.sub{position:relative;margin:16px auto 0;font-size:18px;line-height:1.45;color:#c6cfe0;max-width:470px}
+.sub b{color:#3ff0ff}
+.cbtn{position:relative;display:inline-block;margin-top:22px;height:58px;line-height:54px;padding:0 54px;border-radius:999px;border:2px solid #3ff0ff;background:#3ff0ff;color:#05070f;font-weight:700;font-size:18px;box-shadow:0 0 26px rgba(63,240,255,.55)}
+.email a.cbtn{color:#05070f}
+.email a.p{color:#05070f}
+.email a.dbtn{color:#3ff0ff}
+.email .close .h2{font-size:40px}
+.vials{position:relative;display:block;width:600px;margin:10px -36px 0;height:400px;background:url('asset:brand/assets/generated/2026-11-20-bfcm-black-friday-dark-vials.jpg') no-repeat center 62%/600px auto}
+.vials:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#05070f 0%,rgba(5,7,15,0) 30%,rgba(5,7,15,0) 70%,rgba(5,7,15,.6) 100%),linear-gradient(90deg,rgba(63,240,255,.25),rgba(214,51,255,.22));mix-blend-mode:normal}
+/* yellow-style block → cyan */
+.blk{background:#3ff0ff;color:#05070f;text-align:center;padding:46px 40px 50px}
+.h2{font-weight:700;font-size:44px;line-height:1}
+.blk p{font-size:18px;line-height:1.5;margin-top:12px;font-weight:500}
+.chk{display:inline-flex;gap:10px;margin-top:22px}
+.chk span{background:#05070f;color:#3ff0ff;border-radius:8px;padding:8px 12px;font-size:13px;font-weight:600}
+.chk span s{color:#7d8aa3}
+/* products straddling */
+.pp{background:linear-gradient(#05070f 0 55%,#3ff0ff 55% 100%);padding:46px 24px 46px;text-align:center}
+.pp .h2{color:#fff}
+.pp .h2 em{font-style:normal;color:#3ff0ff}
+.row{display:flex;gap:14px;margin-top:28px}
+.p{flex:1;background:#fff;border-radius:14px;padding:14px 10px 18px;color:#05070f;box-shadow:0 18px 36px rgba(0,0,0,.35)}
+.p img{width:100%;height:150px;object-fit:cover;border-radius:10px;display:block}
+.p .n{font-family:'Oswald';font-weight:600;font-size:22px;text-transform:uppercase;margin:10px 0 10px}
+.p .b{display:inline-block;height:46px;line-height:46px;padding:0 20px;border-radius:999px;background:#05070f;color:#3ff0ff;font-weight:700;font-size:15px}
+.disc{margin-top:18px;padding:12px 14px;border:2px solid #05070f;border-radius:10px;color:#05070f;font-size:12.5px;font-weight:700;letter-spacing:.4px}
+/* coa */
+.coa{background:#05070f;padding:48px 40px 50px;display:flex;align-items:center;gap:24px}
+.scan{width:170px;height:200px;flex:none;border:2px solid #3ff0ff;border-radius:12px;position:relative;background:rgba(63,240,255,.05);box-shadow:0 0 22px rgba(63,240,255,.35)}
+.scan .ln{position:absolute;left:18px;right:18px;height:7px;border-radius:4px;background:rgba(255,255,255,.18)}
+.scan .beam{position:absolute;left:-8px;right:-8px;top:96px;height:3px;background:#d633ff;box-shadow:0 0 14px #d633ff}
+.scan .hd{position:absolute;left:18px;top:16px;font-size:10px;color:#3ff0ff;letter-spacing:2px}
+.coa .h3{font-family:'Oswald';font-weight:700;font-size:34px;text-transform:uppercase;line-height:1}
+.coa p{font-size:16px;line-height:1.5;color:#c6cfe0;margin-top:10px}
+.gbtn{display:inline-block;margin-top:16px;height:50px;line-height:46px;padding:0 24px;border-radius:999px;border:2px solid #3ff0ff;color:#3ff0ff;font-weight:700;font-size:15px}
+/* close */
+.close{background:#3ff0ff;color:#05070f;text-align:center;padding:46px 40px 44px}
+.close .h2{font-size:46px}
+.dbtn{display:inline-block;margin-top:22px;height:58px;line-height:58px;padding:0 54px;border-radius:999px;background:#05070f;color:#3ff0ff;font-weight:700;font-size:18px}
+.terms{font-size:12.5px;line-height:1.5;margin-top:18px;color:#0f2a35}
+.foot{background:#05070f;color:#8792a8;text-align:center;padding:34px 40px 40px;font-size:12px;line-height:1.6}
+.foot .ruo{color:#fff;font-weight:700;margin:14px 0 10px}
+</style>
+
+  <div class="hero">
+    <div class="grid"></div><div class="glow"></div>
+    <a href="https://formeraresearch.com/"><span class="logo">FORMERA RESEARCH</span></a>
+    <a href="https://formeraresearch.com/shop/"><h1 class="h1 os"><span class="c">Cyber Monday:</span><br><span class="w">Buy One, Get One</span><br><span class="c">50% Off</span></h1></a>
+    <p class="sub">Today is the last full day of our lowest price this year. The sale ends tomorrow, <b>Tuesday, at 11:59pm PT.</b></p>
+    <a class="cbtn" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <a class="vials" href="https://formeraresearch.com/shop/" aria-label="GLOW, BPC-157 10mg and NAD+ 1000mg vials"></a>
+  </div>
+
+  <a href="https://formeraresearch.com/shop/">
+  <div class="blk">
+    <h2 class="h2 os">Still on your list?</h2>
+    <p>If you saved the sale for after the weekend, today's the day to clear it off your list. Your cart takes about two minutes.</p>
+    <div class="chk mono"><span><s>Weekend errands</s></span><span><s>Inbox</s></span><span>Formera order ▢</span></div>
+  </div>
+  </a>
+
+  <div class="pp">
+    <h2 class="h2 os">Pick your <em>pair</em></h2>
+    <div class="row">
+      <a class="p" href="https://formeraresearch.com/product/glow/"><img src="https://formeraresearch.com/wp-content/uploads/2025/10/Glow-BPC157-TB500-GHK-CU-Mockup.jpg" alt="GLOW"><div class="n">GLOW</div><span class="b">Shop Now</span></a>
+      <a class="p" href="https://formeraresearch.com/product/bpc-157-10-mg-research-peptide/"><img src="https://formeraresearch.com/wp-content/uploads/2025/10/BPC-157-10-mg-Mockup-2.jpg" alt="BPC-157 10mg"><div class="n">BPC-157 10mg</div><span class="b">Shop Now</span></a>
+      <a class="p" href="https://formeraresearch.com/product/nad-1000mg/"><img src="https://formeraresearch.com/wp-content/uploads/2025/10/NAD-1000mg-Mockup.jpg" alt="NAD+ 1000mg"><div class="n">NAD+ 1000mg</div><span class="b">Shop Now</span></a>
+    </div>
+    <a href="https://formeraresearch.com/coa-library/"><div class="disc">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+  </div>
+
+  <a href="https://formeraresearch.com/coa-library/">
+  <div class="coa">
+    <div class="scan"><span class="hd mono">LAB REPORT</span><div class="ln" style="top:44px"></div><div class="ln" style="top:62px;right:50px"></div><div class="ln" style="top:80px"></div><div class="ln" style="top:116px;right:40px"></div><div class="ln" style="top:134px"></div><div class="ln" style="top:152px;right:60px"></div><div class="beam"></div></div>
+    <div>
+      <div class="h3">Every report, one library</div>
+      <p>Open any product's lab report in our COA library before you order.</p>
+      <span class="gbtn">View Documentation</span>
+    </div>
+  </div>
+  </a>
+
+  <div class="close">
+    <a href="https://formeraresearch.com/shop/"><h2 class="h2 os">Ends tomorrow, Tuesday, Dec 1 at 11:59pm PT.</h2></a>
+    <a class="dbtn" href="https://formeraresearch.com/shop/">Shop Now</a>
+    <a href="https://formeraresearch.com/refund-policy/"><p class="terms">Second item of equal or lower price is 50% off. Excludes select products. Can't be combined with other codes. US shipping only. Free shipping on orders over $200.</p></a>
+  </div>
+  <div class="foot">
+    <a href="https://formeraresearch.com/"><span class="logo">FORMERA RESEARCH</span></a>
+    <a href="https://formeraresearch.com/coa-library/"><div class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</div></a>
+    <a href="https://formeraresearch.com/"><p>Formera Research LLC · 9562 Winter Gardens Blvd #135, Lakeside, CA 92040</p></a>
+    <p><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+</div>

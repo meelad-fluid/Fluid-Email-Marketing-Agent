@@ -1,0 +1,7 @@
+{
+  "assets": [
+    {"id": "bfcm-two-vials-lab-bench", "src": "brand/assets/generated/2026-11-20-bfcm-two-vials-lab-bench.jpg", "type": "generated", "note": "re-cropped with black fade"},
+    {"id": "glow-mockup", "src": "https://formeraresearch.com/wp-content/uploads/2025/10/Glow-BPC157-TB500-GHK-CU-Mockup.jpg", "type": "product"},
+    {"id": "nad-1000mg-mockup", "src": "https://formeraresearch.com/wp-content/uploads/2025/10/NAD-1000mg-Mockup.jpg", "type": "product"}
+  ]
+}
