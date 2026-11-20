@@ -205,17 +205,26 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
   return { text, sessionId, costUsd, changed: changedFiles() };
 }
 
+/** The stage of the work a tool call belongs to, as a plain noun for "Still working on the ___" ("" = no change). */
 function label(tool: string, input: any, clientDir: string): string {
   const f = input?.file_path ? relative(clientDir, String(input.file_path)) : "";
-  const nice = f.startsWith("..") ? f.split("/").slice(-2).join("/") : f;
-  switch (tool) {
-    case "Read": return `Reading ${nice}`;
-    case "Write": return `Writing ${nice}`;
-    case "Edit": return `Updating ${nice}`;
-    case "WebFetch": try { return `Reading ${new URL(input.url).hostname}`; } catch { return "Reading a web page"; }
-    case "WebSearch": return `Searching the web`;
-    case "Glob": case "Grep": return "Looking through the files";
-    case "TodoWrite": return "Planning the steps";
-    default: return `Working (${tool})`;
+  const area = (p: string) => p.startsWith("copy/") ? "copy" : p.startsWith("designs/") ? "design" : p.startsWith("strategy/") ? "strategy" : p.startsWith("research/") ? "research" : p.startsWith("brand/") ? "brand kit" : "";
+  const t = tool.replace(/^mcp__fluid(_design)?__/, "");
+  switch (t) {
+    case "Write": case "Edit": return area(f);
+    case "WebFetch": case "WebSearch": return "research";
+    case "generate_image": return "images";
+    case "product_images": return "product photos";
+    case "style_options": case "choose_style": case "design_references": return "design direction";
+    case "render_preview": return "final design check";
+    case "publish_design": return "review link";
+    case "push_to_klaviyo": return "Klaviyo draft";
+    case "push_to_customerio": return "Customer.io draft";
+    case "email_report": case "campaign_results": return "numbers";
+    case "find_audiences": case "build_segment": return "audiences";
+    case "publish_doc": return "doc";
+    case "run_onboarding_audits": return "account audit";
+    case "design_comments": case "reply_to_comment": return "comment changes";
+    default: return "";
   }
 }

@@ -40,7 +40,8 @@ function progressNotes(web: typeof app.client, channel: string, thread: string, 
   const text = () => {
     const mins = Math.round((Date.now() - started) / 60000);
     const left = Math.max(1, Math.round(estimate - mins));
-    return `Still working on it (${mins} min so far${step ? `, ${step.charAt(0).toLowerCase() + step.slice(1)}` : ""}). About ${left} more minute${left === 1 ? "" : "s"}.`;
+    const what = step ? `the ${step}` : "it";
+    return mins >= estimate ? `Still working on ${what}, almost there.` : `Still working on ${what}, will be ready in about ${left} minute${left === 1 ? "" : "s"}.`;
   };
   const tick = async () => {
     try {
@@ -51,7 +52,7 @@ function progressNotes(web: typeof app.client, channel: string, thread: string, 
   const first = setTimeout(() => { tick(); timer = setInterval(tick, 3 * 60_000); }, 2 * 60_000);
   let timer: NodeJS.Timeout | undefined;
   return {
-    step: (label: string) => { step = label; },
+    step: (label: string) => { if (label) step = label; }, // "" keeps the current stage
     done: async () => { clearTimeout(first); if (timer) clearInterval(timer); if (msgTs) await web.chat.delete({ channel, ts: msgTs }).catch(() => {}); },
   };
 }
@@ -154,6 +155,7 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   const notes = progressNotes(web, a.channel, a.threadTs, estimateMinutes(a.request));
   const progress = (label: string) => {
     notes.step(label);
+    if (!label) return;
     // Minimal by design: no step-by-step updates in the channel (they go to the console only).
     if (label === lastLabel || Date.now() - last < 4000) return;
     last = Date.now(); lastLabel = label;
@@ -288,7 +290,7 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   onboardingActive.add(f.clientId);
   const head = await web.chat.postMessage({ channel: ch.channel_id, text: `${f.internal ? `${f.name}'s onboarding doc is in` : `${f.name} submitted the onboarding form`} (${f.internal ? "email platform" : "Klaviyo"}: ${f.klaviyo}). Running onboarding now, about 20–25 minutes:\n1. Account audit (Klaviyo or Customer.io, if connected) (~10 min)\n2. Website research, Onboarding Doc, month-1 plan and flow plan (~10–15 min)\nI'll post updates here as it goes.` });
   const notes = progressNotes(web, ch.channel_id, head.ts!, 25);
-  notes.step("Step 1 of 2: account audit");
+  notes.step("account audit");
   const { data: latest } = await db().from("onboarding_runs").select("id").eq("client_id", f.clientId).eq("status", "waiting_for_form").order("created_at", { ascending: false }).limit(1).maybeSingle();
   if (latest) await db().from("onboarding_runs").update({ status: "running", updated_at: new Date().toISOString() }).eq("id", latest.id);
   else await db().from("onboarding_runs").insert({ client_id: f.clientId, status: "running", started_by: "upload" });
@@ -296,8 +298,8 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   const audits = await runAudits(f.clientId, f.folder);
   await saveClientFolder(f.folder, `${f.folder}: onboarding audits`);
   await web.chat.postMessage({ channel: ch.channel_id, thread_ts: head.ts!, text: `Step 1 done: ${audits.notes.join(" · ")}.\nStep 2: researching the website and writing the Onboarding Doc and plans, about 10–15 minutes.` });
-  notes.step("Step 2 of 2: writing the Onboarding Doc and plans");
-  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes, f.internal), onProgress: (l) => notes.step(`Step 2 of 2: ${l.toLowerCase()}`) });
+  notes.step("Onboarding Doc and plans");
+  const res = await runAgent({ folder: f.folder, clientId: f.clientId, clientName: f.name, slack: { channel: ch.channel_id, thread: head.ts! }, prompt: ONBOARDING_PROMPT(f.name, audits.notes, f.internal), onProgress: () => {} });
   await notes.done();
   onboardingActive.delete(f.clientId);
   await saveClientFolder(f.folder, `${f.folder}: onboarding doc and plans`);
