@@ -4,7 +4,7 @@
 //    library is internal: it must never be mentioned to anyone.
 //  - product_images: real product photos from the client's own website (Shopify), saved into the client's
 //    brand/assets/products/<handle>/, optionally with the white background removed, ready to use in a design.
-import { cutoffSummary, findCutoffs } from "../lib/email/qc";
+import { cutoffSummary, findCutoffs, findLowRes, lowResSummary } from "../lib/email/qc";
 import { isRuoClient, ruoImagePromptProblem } from "../lib/compliance/ruo";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
@@ -139,7 +139,7 @@ export function designToolsServer(clientId: string, folder: string) {
       const htmlFile = join(outDir, `${folder}-preview.html`); writeFileSync(htmlFile, html);
       const browser = await chromium.launch();
       try {
-        const page = await browser.newPage({ viewport: { width: 600, height: 1000 }, deviceScaleFactor: 1 });
+        const page = await browser.newPage({ viewport: { width: 600, height: 1000 }, deviceScaleFactor: 2 }); // what ships: 600 layout at 1200px
         await page.goto(`file://${htmlFile}`, { waitUntil: "load" });
         await page.evaluate(async () => { await (document as any).fonts.ready; });
         const missing = await page.evaluate(() => [...document.images].filter((i) => !i.complete || !i.naturalWidth).map((i) => i.getAttribute("src")));
@@ -147,8 +147,9 @@ export function designToolsServer(clientId: string, folder: string) {
         await page.locator("body > *:first-child").screenshot({ path: shot });
         const meta = await sharp(shot).metadata();
         const cutoffs = await findCutoffs(page);
-        return ok({ screenshot: shot, height: meta.height, broken_images: missing, cut_off: cutoffs.length ? cutoffs : "none found",
-          tip: (cutoffs.length ? `FIX EVERY CUT-OFF FIRST (publish_design refuses designs with cut-offs):\n${cutoffSummary(cutoffs)}\n` : "") + "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
+        const lowres = await findLowRes(page);
+        return ok({ screenshot: shot, height: meta.height, broken_images: missing, cut_off: cutoffs.length ? cutoffs : "none found", low_resolution: lowres.length ? lowres : "none found",
+          tip: (cutoffs.length ? `FIX EVERY CUT-OFF FIRST (publish_design refuses designs with cut-offs):\n${cutoffSummary(cutoffs)}\n` : "") + (lowres.length ? `These images will look soft in the 1200px export, replace them with larger ones (generate_image makes 1400px+; product photos: pick the largest original):\n${lowResSummary(lowres)}\n` : "") + "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
       } finally { await browser.close(); }
     },
   );
@@ -243,7 +244,7 @@ export function designToolsServer(clientId: string, folder: string) {
           const dir = join(CLIENTS_DIR, folder, "brand/assets/generated");
           mkdirSync(dir, { recursive: true });
           const file = `${new Date().toISOString().slice(0, 10)}-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.jpg`;
-          const out = await sharp(buf).resize({ width: 1400, withoutEnlargement: true }).jpeg({ quality: 84, mozjpeg: true }).toBuffer();
+          const out = await sharp(buf).resize({ width: 2000, withoutEnlargement: true }).jpeg({ quality: 88, mozjpeg: true }).toBuffer(); // 1200px export of a full-bleed scene needs ≥1200px; keep headroom for crops
           writeFileSync(join(dir, file), out);
           const meta = await sharp(out).metadata();
           return ok({ file: `brand/assets/generated/${file}`, width: meta.width, height: meta.height, tip: "Open it with Read to check it before using it." });

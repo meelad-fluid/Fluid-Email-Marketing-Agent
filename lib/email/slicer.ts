@@ -118,7 +118,7 @@ export async function sliceEmail(htmlFile: string, outDir: string, meta: { subje
     const slices: Slice[] = [];
     for (const [i, s] of raw.entries()) {
       const file = join(outDir, `slice-${String(i + 1).padStart(2, "0")}.jpg`);
-      const buf = await sharp(shot).extract({ left: 0, top: s.y0 * 2, width: 1200, height: (s.y1 - s.y0) * 2 }).flatten({ background: "#ffffff" }).jpeg({ quality: 84, progressive: true, mozjpeg: true }).toBuffer();
+      const buf = await sharp(shot).extract({ left: 0, top: s.y0 * 2, width: 1200, height: (s.y1 - s.y0) * 2 }).flatten({ background: "#ffffff" }).jpeg({ quality: 90, progressive: true, mozjpeg: true }).toBuffer();
       writeFileSync(file, buf);
       const alt = info.texts.filter((t) => t.y >= s.y0 && t.y < s.y1).map((t) => t.t).join(" ").replace(/\s+/g, " ").slice(0, 180);
       let cols: Col[] | undefined;
@@ -129,7 +129,7 @@ export async function sliceEmail(htmlFile: string, outDir: string, meta: { subje
         for (let c = 0; c < n; c++) {
           const x0 = c * w, x1 = c === n - 1 ? 600 : (c + 1) * w;
           const cf = join(outDir, `slice-${String(i + 1).padStart(2, "0")}-${c + 1}.jpg`);
-          const cb = await sharp(shot).extract({ left: x0 * 2, top: s.y0 * 2, width: (x1 - x0) * 2, height: (s.y1 - s.y0) * 2 }).flatten({ background: "#ffffff" }).jpeg({ quality: 84, progressive: true, mozjpeg: true }).toBuffer();
+          const cb = await sharp(shot).extract({ left: x0 * 2, top: s.y0 * 2, width: (x1 - x0) * 2, height: (s.y1 - s.y0) * 2 }).flatten({ background: "#ffffff" }).jpeg({ quality: 90, progressive: true, mozjpeg: true }).toBuffer();
           writeFileSync(cf, cb);
           const calt = info.texts.filter((t) => t.y >= s.y0 && t.y < s.y1 && t.x >= x0 && t.x < x1).map((t) => t.t).join(" ").replace(/\s+/g, " ").slice(0, 150);
           cols.push({ x0, x1, href: s.cols[c], alt: calt, file: cf, bytes: cb.length });

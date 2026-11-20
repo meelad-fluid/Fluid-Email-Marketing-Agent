@@ -90,3 +90,35 @@ export async function checkDesignCutoffs(dcPath: string, clientDir: string): Pro
     return await findCutoffs(page);
   } finally { await browser.close(); }
 }
+
+/** Images too small to be sharp in the 1200px (2x) export: natural size below ~1.8x the size they're shown at. */
+export type LowRes = { what: string; shown: string; has: string; fix: string };
+export async function findLowRes(page: Page): Promise<LowRes[]> {
+  await page.evaluate("window.__name = window.__name || ((f) => f)");
+  return page.evaluate(async () => {
+    const root = document.body.firstElementChild as HTMLElement;
+    const out: { what: string; shown: string; has: string; fix: string }[] = [];
+    if (!root) return out;
+    const name = (src: string) => decodeURIComponent(src.split("/").pop()?.split("?")[0] ?? src).slice(0, 60);
+    const need = 1.8; // 2x export, with a little slack
+    for (const img of Array.from(root.querySelectorAll("img"))) {
+      const r = img.getBoundingClientRect();
+      if (r.width < 60 || !img.naturalWidth || /\.svg(\?|$)/i.test(img.src)) continue;
+      if (img.naturalWidth < r.width * need) out.push({ what: `image ${name(img.src)}`, shown: `${Math.round(r.width)}px wide`, has: `${img.naturalWidth}px`, fix: `Needs about ${Math.round(r.width * 2)}px wide: use a larger original or regenerate it.` });
+    }
+    // Background images (heroes, full-bleed scenes): "cover" needs the image to cover the box at 2x.
+    for (const el of Array.from(root.querySelectorAll<HTMLElement>("*"))) {
+      const bg = getComputedStyle(el).backgroundImage;
+      const m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+      if (!m || /\.svg|data:image\/svg/i.test(m[1])) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 120 || r.height < 80) continue;
+      const im = new Image(); im.src = m[1];
+      try { await im.decode(); } catch { continue; }
+      const scale = Math.max((r.width * need) / im.naturalWidth, (r.height * need) / im.naturalHeight);
+      if (scale > 1.05) out.push({ what: `background ${name(m[1])}`, shown: `${Math.round(r.width)}×${Math.round(r.height)}px box`, has: `${im.naturalWidth}×${im.naturalHeight}px`, fix: `Needs about ${Math.round(r.width * 2)}×${Math.round(r.height * 2)}px to stay sharp: regenerate it larger or use a bigger original.` });
+    }
+    return out;
+  });
+}
+export const lowResSummary = (l: LowRes[]) => l.map((x) => `- ${x.what}: shown at ${x.shown}, only ${x.has}. ${x.fix}`).join("\n");

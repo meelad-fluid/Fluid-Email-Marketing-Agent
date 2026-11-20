@@ -148,3 +148,9 @@ Fluid's RUO SOP (`knowledge/sops/ruo-peptide-compliance-sop.md` §12) applies to
 - The approved research-use line sits visibly in the body near the products (readable contrast), plus the footer.
 - Product blocks show compound name, format and a documentation CTA (View COA / Review Specifications), never benefit blurbs.
 - `generate_image` refuses prompts with people or use for RUO clients, and `publish_design` / `push_to_klaviyo` refuse designs with prohibited wording.
+
+## 13. Built for 1200px
+Emails are laid out at 600px (the email standard, so they fit every inbox and phone) and exported at 2x: every slice pushed to Klaviyo or Customer.io is 1200px wide, JPEG quality 90.
+- Every photo must be at least 2x the size it's shown at: a full-width image needs 1200px+ wide; a 600×580 background box needs about 1200×1160.
+- Generate background scenes in the shape of the box they fill (a tall hero → 4:5 or 1:1, not 3:2), so cropping doesn't cost resolution. `generate_image` keeps up to 2000px.
+- `render_preview` renders at 1200px and lists any image that will look soft ("low_resolution"); replace those before publishing.
