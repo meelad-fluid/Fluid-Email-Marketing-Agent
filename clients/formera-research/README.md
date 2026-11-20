@@ -1,6 +1,6 @@
 # Formera Research
 
-<One line: what they sell, who for, replenishable or one-off.> Site: <url> · <platform> · <ESP>. Max discount <x>%.
+Research-use-only peptides and research compounds for lab, academic and private research buyers; replenishable. Site: https://formeraresearch.com · WooCommerce · Customer.io (proposed). Max discount 25%. **Read compliance.md before any copy.**
 
 **Read `memory.md` first.**
 
