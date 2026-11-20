@@ -1,0 +1,125 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#fff;overflow:hidden;font-family:'Barlow',Arial,sans-serif;color:#0B1A33}
+.bar{background:#0B1A33;text-align:center;padding:22px 0}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow',sans-serif;font-weight:700;letter-spacing:6px;font-size:13px;color:#fff}
+.logo .dot{width:18px;height:18px;border:2px solid #5CE1C6;border-radius:50%;position:relative}
+.logo .dot:after{content:'';position:absolute;width:6px;height:6px;background:#5CE1C6;border-radius:50%;top:4px;left:4px}
+.hero{text-align:center;padding:34px 40px 0;position:relative}
+.kick{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13px;letter-spacing:3px;color:#5B6B80}
+.h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:50px;line-height:1;text-transform:uppercase;margin-top:12px;letter-spacing:.3px}
+.h1 em{font-style:italic;color:#0FA88C}
+.offer{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:14px}
+.big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:168px;line-height:.8;letter-spacing:-4px;color:#0B1A33}
+.big sup{font-size:84px;vertical-align:top;position:relative;top:10px;letter-spacing:0}
+.offtxt{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:60px;line-height:.85;text-transform:uppercase;text-align:left;color:#0FA88C}
+.coupon{display:block;margin:22px auto 0;width:400px;border:3px dashed #0B1A33;border-radius:6px;padding:14px 0;font-family:'IBM Plex Mono',monospace;font-size:34px;font-weight:500}
+.coupon b{font-weight:700;color:#fff;background:#0B1A33;padding:2px 12px;border-radius:4px}
+.sub{font-size:18px;line-height:1.45;color:#3B4A5E;margin:18px auto 0;max-width:460px}
+.sub b{color:#0B1A33}
+.btn{display:block;width:100%;margin:22px auto 0;background:#5CE1C6;color:#0B1A33;font-family:'Barlow',sans-serif;font-weight:700;font-size:19px;padding:18px 0;text-align:center;border-radius:6px}
+.btn.navy{background:#0B1A33;color:#fff}
+.btn.ghost{background:#fff;border:2px solid #0B1A33;color:#0B1A33}
+.lbl{display:block;text-align:center;margin-top:44px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;letter-spacing:2px;text-transform:uppercase}
+.dyn{display:flex;align-items:center;gap:26px;margin:16px 40px 0;border:2px solid #0B1A33;border-radius:10px;padding:24px;background:#F3F6FA}
+.dyn .ph{flex:0 0 180px;height:180px;border-radius:8px;overflow:hidden;background:#fff}
+.dyn .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.dyn .n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:42px;line-height:.95;text-transform:uppercase}
+.dyn .pr{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:18px;margin-top:8px}
+.dyn .pr s{color:#8A97A8;margin-right:6px}
+.dyn .pr b{color:#0FA88C}
+.dyn .btn{width:auto;display:inline-block;padding:13px 20px;font-size:16px;margin-top:14px}
+.note{margin:10px 40px 0;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.5;color:#8A97A8;text-align:center}
+.ruo{display:block;margin:18px 40px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#0B1A33;background:#EAF0F6;border-radius:6px;padding:13px 8px}
+.photo{position:relative;margin-top:50px;height:400px;background:#0B1A33 url('asset:brand/assets/generated/2026-11-20-mm-coa-report-loupe-desk.jpg') left center/cover no-repeat}
+.photo:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,26,51,0) 30%,rgba(11,26,51,.85) 62%,rgba(11,26,51,.95) 100%)}
+.photo .txt{position:absolute;right:34px;top:70px;width:270px;color:#fff}
+.photo .h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:46px;line-height:.95;text-transform:uppercase}
+.photo .h2 em{font-style:italic;color:#5CE1C6}
+.photo p{font-size:17px;line-height:1.45;color:#D3DCE8;margin-top:14px}
+.check{padding:56px 40px 10px;text-align:center}
+.check .h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:46px;line-height:.98;text-transform:uppercase}
+.check .h2 span{color:#0FA88C}
+.grid{display:flex;flex-wrap:wrap;gap:16px;margin-top:30px;text-align:left}
+.card{position:relative;width:252px;border:2px solid #0B1A33;border-radius:10px;padding:22px 20px 22px;background:#fff;box-shadow:6px 6px 0 #5CE1C6}
+.card .no{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:64px;line-height:.8;color:#0B1A33}
+.card .ic{position:absolute;right:18px;top:20px;width:44px;height:44px;border-radius:50%;border:2px solid #0B1A33;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:12px}
+.card .t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;margin-top:14px}
+.card p{font-size:16px;line-height:1.4;color:#3B4A5E;margin-top:4px}
+.check .body{font-size:18px;line-height:1.45;color:#0B1A33;font-weight:600;margin-top:30px}
+.check .btn{width:300px}
+.icons{display:flex;margin-top:56px;background:#101826;color:#fff;padding:34px 18px}
+.icons a{flex:1;text-align:center;padding:0 10px}
+.icons .ci{width:58px;height:58px;margin:0 auto;border-radius:50%;border:2px solid #5CE1C6;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;color:#5CE1C6}
+.icons p{font-size:15px;line-height:1.35;margin-top:12px;color:#E2E8F0}
+.icons p b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:21px;letter-spacing:.5px;text-transform:uppercase;color:#fff;margin-bottom:2px}
+.recap{padding:50px 40px 54px;text-align:center}
+.recap .h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;line-height:1;text-transform:uppercase}
+.recap .coupon{width:100%;font-size:36px;margin-top:18px}
+.recap .coupon small{display:block;font-family:'Barlow',sans-serif;font-size:15px;color:#3B4A5E;margin-top:8px}
+.foot{background:#000;color:#8FA1AD;text-align:center;font-size:12px;line-height:1.6;padding:34px 40px 30px}
+.foot .lg{font-weight:700;letter-spacing:6px;font-size:13px;color:#fff}
+.foot .r{color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:16px}
+</style>
+
+  <div class="bar"><a href="https://metamolecule.com/" class="logo"><span class="dot"></span>META MOLECULE</a></div>
+
+  <div class="hero">
+    <a href="https://metamolecule.com/coas/"><div class="kick">BEFORE YOU DECIDE</div></a>
+    <a href="https://metamolecule.com/coas/"><div class="h1">Check the COA.<br><em>Then take 10% off.</em></div></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="offer"><div class="big">10<sup>%</sup></div><div class="offtxt">Off<br>with code</div></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="coupon">Code: <b>BROWSE10</b></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/"><p class="sub">Use BROWSE10 on what you were looking at. <b>It expires at 11:59 p.m. CT tomorrow.</b></p></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="btn">Review Specifications</a>
+  </div>
+
+  <a href="https://metamolecule.com/product/mots-c-40mg/" class="lbl">Still on your list:</a>
+  <a href="https://metamolecule.com/product/mots-c-40mg/" class="dyn">
+    <div class="ph"><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-52-1024x1024.webp" alt="MOTS-C 40mg"></div>
+    <div><div class="n">MOTS-C 40mg</div><div class="pr">$119 · <b>10% off with BROWSE10</b></div><span class="btn navy">Review Specifications</span></div>
+  </a>
+  <p class="note">Dynamic block: same as Email #1 (viewed product image, name + size, price, link). In-stock condition applies.</p>
+  <a href="https://metamolecule.com/faqs/" class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</a>
+
+  <a href="https://metamolecule.com/coas/" class="photo" style="display:block">
+    <div class="txt">
+      <div class="h2">A blurry screenshot <em>isn't a report.</em></div>
+      <p>No lab name. No date. No lot number you can match to a vial. If you can't read it, you can't check it.</p>
+    </div>
+  </a>
+
+  <div class="check">
+    <a href="https://metamolecule.com/coas/"><div class="h2">Four things to look for<br><span>on any COA</span></div></a>
+    <a href="https://metamolecule.com/coas/" class="grid">
+      <div class="card"><div class="ic">LOT</div><div class="no">01</div><div class="t">The lot number</div><p>It should match the label on the vial.</p></div>
+      <div class="card"><div class="ic">LAB</div><div class="no">02</div><div class="t">The lab</div><p>The report names who ran the test.</p></div>
+      <div class="card"><div class="ic">DATE</div><div class="no">03</div><div class="t">The date</div><p>You can see when it was tested.</p></div>
+      <div class="card"><div class="ic">ID</div><div class="no">04</div><div class="t">The report ID</div><p>Something you can file and find again.</p></div>
+    </a>
+    <a href="https://metamolecule.com/coas/"><p class="body">Our COA library is public. Open it and run the checklist yourself.</p></a>
+    <a href="https://metamolecule.com/coas/" class="btn navy">View COA Library</a>
+  </div>
+
+  <div class="icons">
+    <a href="https://metamolecule.com/faqs/"><div class="ci">$200</div><p><b>Free shipping</b>U.S. orders $200+ after discounts</p></a>
+    <a href="https://metamolecule.com/faqs/"><div class="ci">!</div><p><b>Said up front</b>No returns once shipped</p></a>
+    <a href="https://metamolecule.com/contact/"><div class="ci">?</div><p><b>Wrong or damaged?</b>Contact support with your order number</p></a>
+  </div>
+
+  <div class="recap">
+    <a href="https://metamolecule.com/product/mots-c-40mg/"><div class="h2">Your 10% is waiting</div></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="coupon">Code: <b>BROWSE10</b><small>10% off · expires 11:59 p.m. CT tomorrow</small></a>
+    <a href="https://metamolecule.com/contact/" class="btn ghost">Contact Support</a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="btn navy" style="margin-top:12px">Review Specifications</a>
+  </div>
+
+  <div class="foot">
+    <a href="https://metamolecule.com/"><div class="lg">META MOLECULE</div></a>
+    <a href="https://metamolecule.com/faqs/"><p class="r">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</p></a>
+    <a href="https://metamolecule.com/contact/"><p style="margin-top:10px">Meta Molecule · Richardson, TX 75081 · support@metamolecule.com</p></a>
+    <p style="margin-top:8px;color:#C9D4DB"><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+</div>
