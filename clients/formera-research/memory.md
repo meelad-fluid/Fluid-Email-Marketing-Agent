@@ -30,6 +30,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 - 2026-11-20 · BFCM plan v2: offer headline above the fold in all 7, Entire list, emails 2–7 exclude "BFCM Purchasers" (placed_order since Nov 26). Meelad asked to build; held: compliance ESCALATE means no promo copy/design until classification A + approved product list + disclaimer. strategy/bfcm-emails.tmp is a stray scratch file, delete it.
 
+- 2026-11-20 · Meelad asked again to build the BFCM emails; held again (RUO gate: only PASS goes to design). Unblock = classification A from legal review + approved product list + approved disclaimer, confirmed in writing.
+
 ## Open questions
 <!-- - … -->
 - Fluid legal review: classification (A/B/C/D) and approved product list. Blocks all promotional copy.
