@@ -10,6 +10,7 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { existsSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { extname, join, resolve, sep } from "node:path";
+import { tmpdir } from "node:os";
 import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
@@ -134,6 +135,27 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
       const sub = m[2] ?? "";
 
       if (req.method === "GET" && sub === "") return send(res, 200, PAGE, "text/html; charset=utf-8", { "cache-control": "no-store" });
+      // Full-length JPEG of a version (2x, for sharing or decks). Rendered once per version, then cached.
+      if (req.method === "GET" && sub === "/jpeg") {
+        const v = Number(url.searchParams.get("v")) || r.current_version;
+        const { data } = await db().from("design_review_versions").select("version").eq("review_id", r.id).eq("version", v).maybeSingle();
+        if (!data) return send(res, 404, "Version not found");
+        const file = join(tmpdir(), `fluid-jpeg-${r.id}-v${v}.jpg`);
+        if (!existsSync(file)) {
+          if (limited(ip)) return send(res, 429, "Too many downloads, try again in a few minutes.");
+          const { chromium } = await import("playwright");
+          const browser = await chromium.launch();
+          try {
+            const page = await browser.newPage({ viewport: { width: 600, height: 1000 }, deviceScaleFactor: 2 });
+            await page.goto(`http://127.0.0.1:${port}/r/${m[1]}/frame?v=${v}`, { waitUntil: "networkidle" });
+            await page.evaluate(async () => { await (document as any).fonts.ready; });
+            const el = page.locator("body > *:first-child");
+            await el.screenshot({ path: file, type: "jpeg", quality: 90 });
+          } finally { await browser.close(); }
+        }
+        const name = `${r.title.replace(/[^\w\s#&-]+/g, "").replace(/\s+/g, " ").trim().slice(0, 80) || "email"}.jpg`;
+        return send(res, 200, readFileSync(file), "image/jpeg", { "content-disposition": `attachment; filename="${name}"`, "cache-control": "private, max-age=300" });
+      }
       if (req.method === "GET" && sub === "/frame") {
         const v = Number(url.searchParams.get("v")) || r.current_version;
         const { data } = await db().from("design_review_versions").select("html").eq("review_id", r.id).eq("version", v).maybeSingle();
@@ -210,7 +232,7 @@ header{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px
 header h1{font-size:16px;margin:0;flex:1 1 220px}header small{color:var(--muted);font-weight:400;display:block}
 .pill{border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600}.pill.review{background:#fff3e0;color:#9a4b00}.pill.ok{background:#e7f6ec;color:var(--ok)}
 button,select{font:inherit;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;cursor:pointer;min-height:36px}
-button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}a.btn{font:inherit;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;min-height:36px;display:inline-flex;align-items:center;color:inherit;text-decoration:none}button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 main{display:flex;flex-wrap:wrap;gap:20px;padding:20px 16px;justify-content:center;align-items:flex-start}
 .stage{position:relative;flex:0 0 auto}.stage iframe{display:block;border:0;width:600px;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.08)}
 .overlay{position:absolute;inset:0;cursor:crosshair;display:none}.commenting .overlay{display:block}
@@ -232,6 +254,7 @@ aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padd
 <select id="ver" aria-label="Version"></select>
 <button id="view">Mobile view</button>
 <button id="cm" class="on">Comment</button>
+<a id="dl" class="btn" download>Download JPEG</a>
 <button id="ap" class="primary">Approve</button></header>
 <main id="main"><div id="fit"><div class="stage" id="stage"><iframe id="f" title="Email design" scrolling="no"></iframe><div class="overlay" id="ov"></div></div></div>
 <div id="composer"><div class="hint" id="chint">Comment on the marked spot</div><textarea id="ctext" placeholder="What should change here?"></textarea><div class="row"><button class="primary" id="csave">Comment</button><button id="ccancel">Cancel</button></div></div>
@@ -247,7 +270,7 @@ const ok=S.status==="approved"&&S.approved_version===S.current;$("status").class
 $("ver").innerHTML=S.versions.map(v=>'<option value="'+v.version+'"'+(v.version===ver?" selected":"")+">Version "+v.version+(v.version===S.current?" (latest)":"")+"</option>").join("");render()}
 let H=0,mobile=false;
 function fit(){const avail=Math.min(document.documentElement.clientWidth-16,mobile?375:600),k=Math.min(1,avail/600);$("stage").style.transform="scale("+k+")";$("fit").style.width=600*k+"px";$("fit").style.height=H*k+"px"}
-function frame(){const f=$("f");f.onload=()=>{H=f.contentDocument.documentElement.scrollHeight;f.style.height=H+"px";$("ov").style.height=H+"px";fit();pins()};f.src="/r/"+token+"/frame?v="+ver}
+function frame(){$("dl").href="/r/"+token+"/jpeg?v="+ver;const f=$("f");f.onload=()=>{H=f.contentDocument.documentElement.scrollHeight;f.style.height=H+"px";$("ov").style.height=H+"px";fit();pins()};f.src="/r/"+token+"/frame?v="+ver}
 let lastW=document.documentElement.clientWidth;addEventListener("resize",()=>{const w=document.documentElement.clientWidth;if(w!==lastW){lastW=w;fit()}});
 function tops(){return S.comments.filter(c=>!c.parent_id&&c.version===ver)}
 function pins(){document.querySelectorAll(".pin:not(.pending)").forEach(p=>p.remove());tops().forEach((c,i)=>{const p=document.createElement("div");p.className="pin"+(c.resolved?" done":"")+(sel===c.id?" sel":"");p.style.left=c.x+"px";p.style.top=c.y+"px";p.textContent=i+1;p.onclick=(e)=>{e.stopPropagation();sel=c.id;render()};$("stage").appendChild(p)})}
