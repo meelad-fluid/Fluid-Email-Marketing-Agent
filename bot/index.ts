@@ -144,8 +144,12 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
 
 async function run(client: LinkedClient, a: { channel: string; threadTs: string; user?: string; team: string; request: string; names: Awaited<ReturnType<typeof foreignNames>>; ts: string }) {
   const web = app.client;
-  await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "eyes" }).catch(() => {});
-  const status = await web.chat.postMessage({ channel: a.channel, thread_ts: a.threadTs, text: "On it…" });
+  // ⏳ on their message while working (no "On it…" message); it comes off when the reply is posted.
+  await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
+  const reply = async (text: string) => {
+    await web.chat.postMessage({ channel: a.channel, thread_ts: a.threadTs, text });
+    await web.reactions.remove({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
+  };
   let last = 0, lastLabel = "";
   const notes = progressNotes(web, a.channel, a.threadTs, estimateMinutes(a.request));
   const progress = (label: string) => {
@@ -180,7 +184,7 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   await saveClientFolder(client.folder, `${client.folder}: ${a.request.replace(/\s+/g, " ").slice(0, 80)} (via Slack)`);
 
   if (res.error) {
-    await web.chat.update({ channel: a.channel, ts: status.ts!, text: `Sorry, that didn't finish (${res.error}). Try again, or make the ask smaller.` });
+    await reply(`Sorry, that didn't finish (${res.error}). Try again, or make the ask smaller.`);
     await audit({ team_id: a.team, channel_id: a.channel, thread_ts: a.threadTs, user_id: a.user, client_id: client.id, request: a.request, outcome: "error", reason: res.error, cost_usd: res.costUsd });
     return;
   }
@@ -190,17 +194,15 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   const problems = [...scanText(res.text, a.names).map((p) => `reply: ${p}`)];
   for (const f of files) for (const p of scanText(readFileSync(f, "utf8"), a.names)) problems.push(`${basename(f)}: ${p}`);
   if (problems.length) {
-    await web.chat.update({ channel: a.channel, ts: status.ts!, text: "I finished, but held the reply back because it didn't pass the safety check. Someone at Fluid will review it." });
+    await reply("I finished, but held the reply back because it didn't pass the safety check. Someone at Fluid will review it.");
     await audit({ team_id: a.team, channel_id: a.channel, thread_ts: a.threadTs, user_id: a.user, client_id: client.id, request: a.request, outcome: "blocked_output", reason: problems.join("; ").slice(0, 2000), cost_usd: res.costUsd });
     return;
   }
 
   const parts = chunks(toSlack(res.text || "Done."));
-  await web.chat.update({ channel: a.channel, ts: status.ts!, text: parts[0] });
+  await reply(parts[0]);
   for (const p of parts.slice(1)) await web.chat.postMessage({ channel: a.channel, thread_ts: a.threadTs, text: p });
   // No file attachments in Slack: work is shared as links (review links), never as .md/.html files.
-  await web.reactions.remove({ channel: a.channel, timestamp: a.ts, name: "eyes" }).catch(() => {});
-  await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "white_check_mark" }).catch(() => {});
   await audit({ team_id: a.team, channel_id: a.channel, thread_ts: a.threadTs, user_id: a.user, client_id: client.id, request: a.request, outcome: "ran", cost_usd: res.costUsd });
 }
 
