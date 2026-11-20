@@ -135,7 +135,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
           if (cut.length) return ok({ error: `Not published: parts of the design are cut off. Fix these, check with render_preview, then publish again.\n${cutoffSummary(cut)}` });
         } catch (e: any) { console.error("[qc]", e.message); }
       }
-      try { const r = await publishDesign({ clientId, folder, designPath: design_folder, note, slack }); return ok({ link: r.url, version: r.version, status: r.review.status }); }
+      try { const r = await publishDesign({ clientId, folder, designPath: design_folder, note, slack }); return ok({ link: r.url, version: r.version, status: r.review.status, ...(r.flow_url ? { flow_link: r.flow_url, note: "This email is part of a flow: share the flow_link (one link with every email of the flow) instead of separate links." } : {}) }); }
       catch (e: any) { return ok({ error: e.message }); }
     },
   );

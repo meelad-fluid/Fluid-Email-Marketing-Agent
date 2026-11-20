@@ -10,6 +10,22 @@ import { dcToHtml } from "../lib/email/dc";
 export const publicUrl = () => (process.env.PUBLIC_URL || `http://localhost:${process.env.PORT || 8080}`).replace(/\/+$/, "");
 export const reviewLink = (token: string) => `${publicUrl()}/r/${token}`;
 
+/** "Welcome Email #4 — Where most researchers start" → { flow: "Welcome", n: 4, variant: "" }; "Welcome Email #1 v2 — …" → variant "v2". */
+export const flowOf = (title: string) => {
+  const m = title.match(/^(.+?)\s+(?:email|sms)\s*#\s*(\d+)\s*(v\d+)?/i);
+  return m ? { flow: m[1].trim(), n: Number(m[2]), variant: (m[3] ?? "").toLowerCase() } : null;
+};
+
+/** One review link per flow (all its emails behind a "Go to email #" bar). Made on first use. */
+export async function flowLink(clientId: string, flow: string): Promise<string> {
+  const { data: hit } = await db().from("flow_reviews").select("token").eq("client_id", clientId).ilike("flow", flow).maybeSingle();
+  if (hit) return `${publicUrl()}/f/${hit.token}`;
+  const token = randomBytes(18).toString("base64url");
+  const { error } = await db().from("flow_reviews").insert({ client_id: clientId, flow, token });
+  if (error) { const { data } = await db().from("flow_reviews").select("token").eq("client_id", clientId).ilike("flow", flow).single(); return `${publicUrl()}/f/${data!.token}`; }
+  return `${publicUrl()}/f/${token}`;
+}
+
 export type Review = { id: string; client_id: string; design_path: string; token: string; title: string; current_version: number; status: string; approved_version: number | null; approved_by: string | null; slack_channel: string | null; slack_thread: string | null };
 
 function designDir(folder: string, designPath: string) {
@@ -35,7 +51,7 @@ export function renderForReview(folder: string, designPath: string, token: strin
   throw new Error(`No design.dc.html in ${designPath}`);
 }
 
-export async function publishDesign(o: { clientId: string; folder: string; designPath: string; note?: string; slack?: { channel: string; thread: string } }): Promise<{ url: string; version: number; review: Review }> {
+export async function publishDesign(o: { clientId: string; folder: string; designPath: string; note?: string; slack?: { channel: string; thread: string } }): Promise<{ url: string; version: number; review: Review; flow_url?: string }> {
   const designPath = o.designPath.replace(/^\.\//, "").replace(/\/+$/, "");
   const dir = designDir(o.folder, designPath);
   let { data: r } = await db().from("design_reviews").select("*").eq("client_id", o.clientId).eq("design_path", designPath).maybeSingle();
@@ -66,7 +82,9 @@ export async function publishDesign(o: { clientId: string; folder: string; desig
     const line = `Review link: ${reviewLink(r!.token)}`;
     writeFileSync(readme, /^Review link: .*$/m.test(s) ? s.replace(/^Review link: .*$/m, line) : s.replace(/^(# .+\n)/, `$1${line}\n`));
   }
-  return { url: reviewLink(r!.token), version, review: upd.data as Review };
+  const f = flowOf((upd.data as Review).title);
+  const flow_url = f ? await flowLink(o.clientId, f.flow).catch(() => undefined) : undefined;
+  return { url: reviewLink(r!.token), version, review: upd.data as Review, flow_url };
 }
 
 export async function reviewByPath(clientId: string, designPath: string) {

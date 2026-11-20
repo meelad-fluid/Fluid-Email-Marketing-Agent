@@ -13,7 +13,7 @@ import { extname, join, resolve, sep } from "node:path";
 import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
-import { reviewLink, type Review } from "./review";
+import { flowOf, reviewLink, type Review } from "./review";
 import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveUpload } from "./onboarding";
 import { marked } from "marked";
 
@@ -32,10 +32,6 @@ export function queueApproval(notify: Notify, a: Approval) {
   p.timer = setTimeout(() => { pendingApprovals.delete(a.channel); approvalMessage(p.items).then((t) => notify(a.channel, null, t)).catch((e) => console.error("[approvals]", e.message)); }, 60_000);
   pendingApprovals.set(a.channel, p);
 }
-const flowOf = (title: string) => {
-  const m = title.match(/^(.+?)\s+(?:email|sms)\s*#\s*(\d+)/i);
-  return m ? { flow: m[1].trim(), n: Number(m[2]) } : null;
-};
 const andList = (xs: string[]) => xs.length <= 1 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
 export async function approvalMessage(items: Approval[]): Promise<string> {
   const people = andList([...new Set(items.map((i) => i.author.split(" ")[0]))]);
@@ -116,6 +112,19 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
         const base = join(CLIENTS_DIR, c.folder), file = resolve(base, d.path);
         if (!file.startsWith(base + sep) || !existsSync(file)) return send(res, 404, "This document isn't available.");
         return send(res, 200, docPage(d.title, c.name, marked.parse(readFileSync(file, "utf8")) as string), "text/html; charset=utf-8", { "cache-control": "no-store" });
+      }
+
+      // ── Flow review: every email of one flow behind a "Go to email #" bar ──
+      const fm = url.pathname.match(/^\/f\/([A-Za-z0-9_-]{16,64})(\/data)?$/);
+      if (fm && req.method === "GET") {
+        const { data: fr } = await db().from("flow_reviews").select("client_id, flow, clients(name)").eq("token", fm[1]).maybeSingle();
+        if (!fr) return send(res, 404, "This flow link doesn't exist or has been removed.");
+        if (!fm[2]) return send(res, 200, flowPage(), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        const { data: all } = await db().from("design_reviews").select("token, title, status, current_version, approved_version").eq("client_id", fr.client_id);
+        const emails = (all ?? []).map((d) => ({ d, f: flowOf(d.title) })).filter((x) => x.f && x.f.flow.toLowerCase() === fr.flow.toLowerCase())
+          .sort((a, b) => a.f!.n - b.f!.n || a.f!.variant.localeCompare(b.f!.variant))
+          .map(({ d, f }) => ({ label: `#${f!.n}${f!.variant ? ` ${f!.variant}` : ""}`, title: d.title.split(/\s+[—–-]\s+/).slice(1).join(" — ") || d.title, token: d.token, approved: d.status === "approved" && d.approved_version === d.current_version }));
+        return json(res, 200, { flow: fr.flow, client: (fr as any).clients?.name ?? "", emails });
       }
 
       const m = url.pathname.match(/^\/r\/([A-Za-z0-9_-]+)(\/.*)?$/);
@@ -324,5 +333,34 @@ const r=await fetch(location.pathname+"/upload?name="+encodeURIComponent(x.name)
 msg.textContent="Saving…";const platform=f.elements.platform.value;
 const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({answers:{platform,notes:f.elements.notes.value},klaviyo_key:platform==="none"?"":document.getElementById("key").value})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");
 f.innerHTML="<section><h2>Saved</h2><p>The onboarding is starting in ${esc(client)}'s Slack channel. Updates and the doc links will be posted there.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
+</script></body></html>`;
+}
+
+/** Flow review page: a sticky "Go to email #" bar with arrows; the selected email's full review page (comments, approve) below. */
+export function flowPage() {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Flow review</title>
+<style>:root{--bg:#f4f2ee;--panel:#fff;--ink:#1d1d1d;--muted:#6b6b6b;--line:#e4e0d8;--accent:#E03400;--ok:#1a7f37}*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:var(--bg);color:var(--ink);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
+.bar{background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.bar h1{font-size:16px;margin:0;flex:1 1 200px}.bar h1 small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+.go{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.go span{color:var(--muted);font-size:13px;font-weight:600;margin-right:2px}
+.go button{font:inherit;font-weight:650;border:1px solid var(--line);background:#fff;border-radius:999px;min-width:40px;height:36px;padding:0 12px;cursor:pointer;position:relative}
+.go button.on{background:var(--ink);color:#fff;border-color:var(--ink)}.go button.ok::after{content:"";position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.go .arrow{font-size:18px;min-width:36px;padding:0}.go .arrow:disabled{opacity:.35;cursor:default}
+.now{width:100%;color:var(--muted);font-size:13px}.now b{color:var(--ink)}
+iframe{flex:1;width:100%;border:0;background:var(--bg)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}</style></head>
+<body><div class="bar"><h1 id="t">Loading…<small id="sub"></small></h1><div class="go" id="go"></div><div class="now" id="now"></div></div><iframe id="f" title="Email review"></iframe>
+<script>
+const token=location.pathname.split("/")[2];let D=null,i=0;const $=(id)=>document.getElementById(id);
+const esc=(s)=>String(s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function pick(){const h=decodeURIComponent(location.hash.slice(1)).replace(/^email-/,"");const k=D.emails.findIndex(e=>e.label.replace(/[# ]/g,"")===h.replace(/[# ]/g,""));return k>=0?k:0}
+function bar(){const n=D.emails.length;$("go").innerHTML='<span>Go to email</span><button class="arrow" id="prev" aria-label="Previous email" '+(i===0?"disabled":"")+'>←</button>'+D.emails.map((e,k)=>'<button data-k="'+k+'" class="'+(k===i?"on ":"")+(e.approved?"ok":"")+'" title="'+esc(e.title)+(e.approved?" (approved)":"")+'">'+esc(e.label)+'</button>').join("")+'<button class="arrow" id="next" aria-label="Next email" '+(i===n-1?"disabled":"")+'>→</button>';
+const e=D.emails[i];$("now").innerHTML="<b>Email "+esc(e.label)+"</b> · "+esc(e.title)+(e.approved?" · ✓ approved":"");
+$("prev").onclick=()=>go(i-1);$("next").onclick=()=>go(i+1);$("go").querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>go(+b.dataset.k))}
+function go(k){if(k<0||k>=D.emails.length)return;i=k;history.replaceState(null,"","#email-"+D.emails[i].label.replace(/[# ]/g,""));$("f").src="/r/"+D.emails[i].token;bar()}
+async function load(first){const r=await fetch(location.pathname+"/data");D=await r.json();if(!D.emails.length){document.body.innerHTML="<p style='padding:24px'>No emails in this flow yet.</p>";return}
+$("t").firstChild.nodeValue=D.flow+" flow";$("sub").textContent=D.client+" · "+D.emails.length+" emails · "+D.emails.filter(e=>e.approved).length+" approved";if(first){go(pick())}else bar()}
+addEventListener("keydown",(e)=>{if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT")return;if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1)});
+load(true).catch(()=>{document.body.innerHTML="<p style='padding:24px'>Couldn't load this flow.</p>"});setInterval(()=>load(false).catch(()=>{}),30000);
 </script></body></html>`;
 }
