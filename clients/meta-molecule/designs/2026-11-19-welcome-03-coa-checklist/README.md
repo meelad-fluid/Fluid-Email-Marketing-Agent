@@ -1,7 +1,7 @@
 # Welcome Email #3 — Four things to check on any COA
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/-rVeZrznuRa6S4ISGv_ToNov
 
-Status: draft · needs approval · goes live when the Welcome automation is built in Customer.io
+Status: approved by Nick on 2026-11-20 (v2) · goes live when the Welcome automation is built in Customer.io
 Copy: copy/2026-11-19-welcome-flow.md (Email #3) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Four things to check on any COA · Preview: Including ours. Especially ours.
 
