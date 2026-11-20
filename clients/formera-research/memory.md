@@ -24,6 +24,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-20 · Published: onboarding doc fluid-email-marketing-agent-production.up.railway.app/d/RA5AvISTcK3mDs_3TgDdMiZ8 · month-1 plan /d/R4PXIiGt6Rs9YnCpxlbIiCoE · flow plan /d/3jSx_oSQv3C6ObgmrHF6FXOA
 - 2026-11-20 · Proposed offer ladder (HOLD): WELCOME10, WELCOME15 (24h), BROWSE10, MYSTERY up to 25%/real 15%, NEXTLOT15, WELCOMEBACK20, year-end YEAREND20.
 
+- 2026-11-20 · Meelad asked for a BFCM sale: BOGO 50% off, Nov 26–Dec 1. Wrote strategy/2026-11-20-bfcm-plan.md (7 emails + 3 SMS), do-not-feature products excluded, HOLD on legal classification + promo approval + Customer.io live by Nov 25. Month-1 plan email 1 moves to Thu Dec 3; Dec 15–17 year-end offer now optional.
+
 ## Open questions
 <!-- - … -->
 - Fluid legal review: classification (A/B/C/D) and approved product list. Blocks all promotional copy.
