@@ -1,7 +1,7 @@
 # Welcome Email #2 — Note from Claire (plain text)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/fEYW7W2dnlXwTTpAr0aOiHXI
 
-Status: draft · needs approval · goes live when the Welcome automation is built in Customer.io
+Status: approved by Nick on 2026-11-20 (v2) · goes live when the Welcome automation is built in Customer.io
 Copy: copy/2026-11-19-welcome-flow.md (Email #2) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Claire from Meta Molecule · Subject: Why we started Meta Molecule · Preview: Short version: smoke and mirrors.
 
