@@ -1,7 +1,7 @@
 # Welcome Email #4 — Where most researchers start
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/hsSAtn1gbT-TSRRlyFE9AJg2
 
-Status: draft · needs approval · goes live when the Welcome automation is built in Customer.io
+Status: approved by Nick on 2026-11-20 (v3) · goes live when the Welcome automation is built in Customer.io
 Copy: copy/2026-11-19-welcome-flow.md (Email #4) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Where most researchers start · Preview: Three catalog staples, each with its specifications.
 
