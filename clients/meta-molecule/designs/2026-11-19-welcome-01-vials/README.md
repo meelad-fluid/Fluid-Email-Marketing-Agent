@@ -1,7 +1,7 @@
 # Welcome Email #1 — Single-compound vials
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/avIAwGipUiFPuVYH7d_vsYt0
 
-Status: draft · needs approval · goes live when the Welcome automation is built in Customer.io
+Status: approved by Nick on 2026-11-20 (v3) · goes live when the Welcome automation is built in Customer.io
 Copy: copy/2026-11-19-welcome-flow.md (Email #1) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Your 10% code, and where our COAs live · Preview: Check the documentation before you pay. That's the point.
 
