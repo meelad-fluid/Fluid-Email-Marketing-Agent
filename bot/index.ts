@@ -62,6 +62,8 @@ const toSlack = (md: string) =>
     .replace(/^#{1,6}\s+(.+)$/gm, "*$1*")
     .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, "<$2|$1>")
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "`$2`")
+    // Any raw link to our own review/doc pages becomes a hyperlink (the bot is told never to paste raw URLs; this is the safety net).
+    .replace(/(?<![<|(\w/])(?:https?:\/\/)?([a-z0-9-]+\.up\.railway\.app|[a-z0-9.-]*fluidcreatives\.com)(\/(r|d)\/[A-Za-z0-9_-]+)(?![^<]*>)/g, (_m, host, path, kind) => `<https://${host}${path}|${kind === "r" ? "review link" : "doc"}>`)
     // Slack doesn't render Markdown lists: real bullet characters, indented sub-bullets.
     .replace(/^( {2,}|\t+)[-*]\s+/gm, "        ◦ ")
     .replace(/^[-*]\s+/gm, "• ");
@@ -212,7 +214,17 @@ app.event("app_mention", async ({ event }) => {
 app.event("message", async ({ event }) => {
   const e = event as any;
   if (e.subtype || e.bot_id || !e.thread_ts || !e.text || e.text.includes(`<@${BOT_USER_ID}>`)) return;
+  // Only answer what's meant for the bot: not messages to a teammate (@someone, @here, a user group),
+  // not a plain "thanks / great", and only when the message is a reply to the bot's last message.
+  const others = [...e.text.matchAll(/<@([A-Z0-9]+)(\|[^>]*)?>/g)].map((m) => m[1]).filter((id) => id !== BOT_USER_ID);
+  if (others.length || /<!(here|channel|everyone|subteam)/.test(e.text)) return;
+  if (/^\s*(thanks|thank you|thx|ty|great|nice|cool|perfect|awesome|love it|ok|okay|got it|sounds good|👍|🙏|🔥)[\s!.]*$/i.test(e.text)) return;
   if (!(await isBotThread(e.channel, e.thread_ts))) return;
+  try {
+    const r = await app.client.conversations.replies({ channel: e.channel, ts: e.thread_ts, latest: e.ts, inclusive: false, limit: 200 });
+    const before = (r.messages ?? []).filter((m: any) => Number(m.ts) < Number(e.ts)).pop() as any;
+    if (before && !before.bot_id && before.user !== BOT_USER_ID) return; // the last word wasn't the bot's: people are talking to each other
+  } catch { /* if Slack can't tell us, fall through and answer */ }
   handle({ text: e.text, channel: e.channel, ts: e.ts, threadTs: e.thread_ts, user: e.user, team: e.team }).catch((err) => console.error(err));
 });
 

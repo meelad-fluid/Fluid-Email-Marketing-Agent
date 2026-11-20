@@ -20,6 +20,43 @@ import { marked } from "marked";
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
 const hits = new Map<string, number[]>();
+
+// ── Approval updates: people approve several emails in a row, so collect them for a minute and post one
+// teammate-style line ("Nick approved the welcome flow") instead of one log line per email.
+type Approval = { channel: string; thread: string | null; clientId: string; title: string; author: string };
+const pendingApprovals = new Map<string, { items: Approval[]; timer: ReturnType<typeof setTimeout> }>();
+export function queueApproval(notify: Notify, a: Approval) {
+  const p = pendingApprovals.get(a.channel) ?? { items: [], timer: setTimeout(() => {}, 0) };
+  clearTimeout(p.timer);
+  p.items.push(a);
+  p.timer = setTimeout(() => { pendingApprovals.delete(a.channel); approvalMessage(p.items).then((t) => notify(a.channel, null, t)).catch((e) => console.error("[approvals]", e.message)); }, 60_000);
+  pendingApprovals.set(a.channel, p);
+}
+const flowOf = (title: string) => {
+  const m = title.match(/^(.+?)\s+(?:email|sms)\s*#\s*(\d+)/i);
+  return m ? { flow: m[1].trim(), n: Number(m[2]) } : null;
+};
+const andList = (xs: string[]) => xs.length <= 1 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+export async function approvalMessage(items: Approval[]): Promise<string> {
+  const people = andList([...new Set(items.map((i) => i.author.split(" ")[0]))]);
+  const { data: all } = await db().from("design_reviews").select("title, status").eq("client_id", items[0].clientId);
+  const parts: string[] = [];
+  const flows = new Map<string, Set<number>>();
+  const waiting: string[] = [];
+  for (const i of items) { const f = flowOf(i.title); if (f) flows.set(f.flow, (flows.get(f.flow) ?? new Set()).add(f.n)); else parts.push(`the ${i.title.split(/\s+[—–-]\s+/)[0]} email`); }
+  for (const [flow, nums] of flows) {
+    const inFlow = (all ?? []).filter((d) => flowOf(d.title)?.flow.toLowerCase() === flow.toLowerCase());
+    const allApproved = inFlow.length > 1 && inFlow.every((d) => d.status === "approved");
+    const name = flow.toLowerCase().includes("flow") ? flow.toLowerCase() : `${flow.toLowerCase()} flow`;
+    const sorted = [...nums].sort((a, b) => a - b);
+    const range = sorted.length > 2 && sorted[sorted.length - 1] - sorted[0] === sorted.length - 1 ? [`#${sorted[0]}–${sorted[sorted.length - 1]}`] : sorted.map((n) => `#${n}`);
+    parts.push(allApproved ? `the whole ${name}` : `${flow.toLowerCase()} ${nums.size > 1 ? "emails" : "email"} ${andList(range)}`);
+    const left = inFlow.filter((d) => d.status !== "approved").map((d) => d.title.split(/\s+[—–-]\s+/)[0].replace(/\s+email\s+/i, " "));
+    if (!allApproved && left.length && left.length <= 2) waiting.push(`${andList(left)} ${left.length > 1 ? "are" : "is"} still waiting`);
+  }
+  const whole = parts.some((p) => p.startsWith("the whole"));
+  return `${people} approved ${andList([...new Set(parts)])}${whole ? ", so it's ready to build." : "."}${waiting.length ? ` ${waiting.join(". ").replace(/^./, (c) => c.toUpperCase())}.` : ""}`;
+}
 const limited = (ip: string) => { const now = Date.now(); const h = (hits.get(ip) ?? []).filter((t) => now - t < 600_000); h.push(now); hits.set(ip, h); return h.length > 40; };
 
 async function body(req: IncomingMessage): Promise<any> {
@@ -141,7 +178,7 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
             writeFileSync(readme, /^Status: .*$/m.test(s) ? s.replace(/^Status: .*$/m, line) : s.replace(/^(# .+\n)/, `$1${line}\n`));
             saveClientFolder(r.clients.folder, `${r.clients.folder}: ${r.title} approved by ${author} (v${r.current_version}, via review link)`).catch(() => {});
           }
-          if (r.slack_channel) notify(r.slack_channel, r.slack_thread, `✅ ${author} approved *${r.title}* (v${r.current_version}).`).catch(() => {});
+          if (r.slack_channel) queueApproval(notify, { channel: r.slack_channel, thread: r.slack_thread, clientId: (r as any).client_id, title: r.title, author });
           return json(res, 200, { ok: true });
         }
       }
