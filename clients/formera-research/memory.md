@@ -8,6 +8,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 ## Preferences (standing rules)
 <!-- - 2026-01-01 · design · "…" (source: who/where) → rule -->
+- 2026-11-20 · sales · "offer is the main headline and above the fold in each email" (Meelad, Slack, BFCM) → sale emails lead with the offer as the H1, sub + button above the fold.
+- 2026-11-20 · audiences · "all emails to the entire list, exclude purchasers after the first one" (Meelad, Slack, BFCM) → sale sequences: Entire list; from email 2 exclude people who ordered since the sale started.
 
 ## Design log (every change, newest last)
 <!-- - 2026-01-01 · <email> v2 · asked: … · changed: … · file: designs/<email>/ -->
@@ -25,6 +27,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-20 · Proposed offer ladder (HOLD): WELCOME10, WELCOME15 (24h), BROWSE10, MYSTERY up to 25%/real 15%, NEXTLOT15, WELCOMEBACK20, year-end YEAREND20.
 
 - 2026-11-20 · Meelad asked for a BFCM sale: BOGO 50% off, Nov 26–Dec 1. Wrote strategy/2026-11-20-bfcm-plan.md (7 emails + 3 SMS), do-not-feature products excluded, HOLD on legal classification + promo approval + Customer.io live by Nov 25. Month-1 plan email 1 moves to Thu Dec 3; Dec 15–17 year-end offer now optional.
+
+- 2026-11-20 · BFCM plan v2: offer headline above the fold in all 7, Entire list, emails 2–7 exclude "BFCM Purchasers" (placed_order since Nov 26). Meelad asked to build; held: compliance ESCALATE means no promo copy/design until classification A + approved product list + disclaimer. strategy/bfcm-emails.tmp is a stray scratch file, delete it.
 
 ## Open questions
 <!-- - … -->
