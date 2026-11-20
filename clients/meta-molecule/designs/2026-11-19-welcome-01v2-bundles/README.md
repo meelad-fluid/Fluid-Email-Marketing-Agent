@@ -1,7 +1,7 @@
 # Welcome Email #1 v2 — Blends & bundles
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/M3zJWvbT0JlR1d0wJvLhcO_k
 
-Status: draft · needs approval · goes live when the Welcome automation is built in Customer.io
+Status: approved by Nick on 2026-11-20 (v2) · goes live when the Welcome automation is built in Customer.io
 Copy: copy/2026-11-19-welcome-flow.md (Email #1 v2) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Your 10% code, and how our bundles price out · Preview: List price next to bundle price. No guessing.
 
