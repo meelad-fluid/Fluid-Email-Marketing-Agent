@@ -1,0 +1,28 @@
+{
+  "template_id": "XxLbr2",
+  "template_name": "FC | What a cup of ceremonial costs (sliced)",
+  "images": [
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/a1935d03-a873-4dc4-896c-30e36fe21c95.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/ef815540-7438-485a-aef0-a582e4acb62c.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/15f4e3b0-a332-4d5d-ae48-1ebccb8868ec.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/a2fd7bba-c898-4140-8e6c-4875dca95579.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/b24bdc7a-e160-4e84-9b74-dcf147f93d7c.jpeg"
+  ],
+  "audiences": {
+    "included": [
+      "FC |  90-day engaged email list"
+    ],
+    "excluded": [
+      "FC | Shopify Tags contains wholesale"
+    ]
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": {
+    "id": "01M82QB7C0VNZXYHPXWNV89MQJ",
+    "name": "DRAFT · What a cup of ceremonial costs",
+    "message_id": "01M82QB7CAGGKNEE1BTZ71N6HN",
+    "status": "Draft",
+    "url": "https://www.klaviyo.com/campaign/01M82QB7C0VNZXYHPXWNV89MQJ/wizard"
+  }
+}

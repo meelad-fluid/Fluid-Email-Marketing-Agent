@@ -3,6 +3,7 @@ Review link: fluid-email-marketing-agent-production.up.railway.app/r/KNonVWcAXR0
 Copy: ../../copy/2026-11-23-cost-of-ceremonial.md (subject, preview, sender, audience; body copy lives in the design)
 Audience: FC |  90-day engaged email list for now; narrow to "bought cacao, coffee or mushrooms, never matcha" once built. Exclude FC | Shopify Tags contains wholesale.
 Sender: Jeff Weaver, Dolce Superfoods · No discount · Send: Mon Nov 23, 2026 (proposed, per the 30-day calendar)
+Klaviyo: draft campaign "DRAFT · What a cup of ceremonial costs" created 2026-11-22 (5 linked slices, QC passed) to FC |  90-day engaged email list, excluding wholesale tags.
 Status: needs approval · goes live Mon Nov 23, 2026
 
 | Version | Date | What changed |

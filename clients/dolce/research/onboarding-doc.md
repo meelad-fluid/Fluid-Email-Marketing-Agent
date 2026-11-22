@@ -104,6 +104,20 @@ Missing core flows: none of Fluid's six is missing (Winback 90d and Sunset are l
 - **Current situation → desire:** turned away by co-packers for being too small → their label on shelves from a 100-unit first run.
 - **Entry point:** Private label quote.
 
+### Moments list: Avatar 1 (added 2026-11-22 for the welcome flow)
+_Their words: no customer reviews pulled yet, so the last column is paraphrased from the brief and Klaviyo subjects, never quoted as a customer. Replace with Klaviyo Reviews lines when we have them._
+
+| Moment | When / where | What they're doing | What they say to themselves | Source |
+|---|---|---|---|---|
+| The café latte receipt | weekday morning, café line | paying $7 for a matcha latte again | "I could make this at home for a fraction." | brief (overpaying) |
+| The tiny tin | grocery aisle | holding a 1 oz tin of matcha priced like a pound of coffee | "Why is this so expensive, and is it even real?" | brief (pain points) |
+| The cheap-bag doubt | on the couch, browsing | comparing a $24 pound with a $30 ounce | "Why is it so cheap? Is something wrong with it?" | Klaviyo subject "How come your cacao costs so little?" |
+| The sugary cocoa mix | winter evening, kitchen | reading a hot cocoa label: sugar first | "I just want real chocolate in the mug." | inferred (cacao starters) |
+| The holiday bake | weekend afternoon | out of cocoa halfway through brownies | "I need a bag that lasts all season." | inferred (cacao starters) |
+| The $12 smoothie powder | morning, blender running | scooping the last of a small store tub | "I go through this in two weeks." | brief (overpaying) |
+| The stale-pound worry | at checkout | hovering over the 1 lb size | "Will a pound go stale before I finish it?" | onboarding objections |
+| The label squint | kitchen, reading the back | checking where it's grown and if it's organic | "Half these brands make stuff up." | brief (mislabeling) |
+
 ## 4. Voice
 - **Sender persona (proposed):** Hannah from Dolce — sends campaigns and flows; founder notes stay from Jeff Weaver. Pending client approval.
 - **Brand voice:** "Like a nice handshake or a warm hug from a friend" (brief). Warm, personal, a little playful (emoji in subject lines, "Karen's not drinking her coffee. She's baking with it.") and plain-spoken.

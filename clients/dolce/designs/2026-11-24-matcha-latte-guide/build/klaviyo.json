@@ -1,20 +1,32 @@
 {
-  "template_id": "UXXshh",
+  "template_id": "UaMbhH",
   "template_name": "FC | Matcha latte guide (sliced)",
   "images": [
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/2daeda28-c11b-4838-a43d-8385f6cf9d5a.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/c0bb95ad-2573-4cd3-86e3-e4c52c583112.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/d49c94cc-f920-47ea-a381-f65ec7da547b.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/f9b6e8b3-b872-47d2-bc10-560e724ff9b4.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/3c4e73d6-f5b8-44f5-9588-d26bdb642343.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/4252b071-178b-491b-92ec-a2b23906a5f6.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/b98c850e-c537-4b02-942e-0c1a190da7b3.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/9c4989c5-34b3-49d0-abb7-e9812ef1eb1c.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/4315acad-1448-4567-a1b7-9e3463f455db.jpeg"
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/f5c66c90-3436-4976-81a8-69e2463921dc.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/2dde9108-f835-4f58-9dd9-89b31ee397a4.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/4aae11ce-291e-4550-a1aa-88858a772a60.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/ed170d4a-8acc-4862-a622-41e745005d1c.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/8be1f2c6-7cc9-43e3-90c1-0d47ffa4696a.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/c12c571a-eaba-4036-babb-e447795135fe.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/638b234b-a1c0-4fd4-994a-1010b27a5518.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/774e7e91-cf94-4da2-aca9-220da3cfac89.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/85c5d69a-283f-4e3b-a511-7f9b6223c10e.jpeg"
   ],
-  "missing_audiences": [
-    "FC | engaged 120"
-  ],
-  "campaign": null,
-  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
+  "audiences": {
+    "included": [
+      "FC | Engaged 120"
+    ],
+    "excluded": [
+      "FC | Shopify Tags contains wholesale"
+    ]
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": {
+    "id": "01M82QBXSYN80505M3Q3YC63GE",
+    "name": "DRAFT · Matcha latte guide",
+    "message_id": "01M82QBXTBD0VVTPED9WF0B79F",
+    "status": "Draft",
+    "url": "https://www.klaviyo.com/campaign/01M82QBXSYN80505M3Q3YC63GE/wizard"
+  }
 }
