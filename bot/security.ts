@@ -60,7 +60,8 @@ export async function screenRequest(text: string, clientName: string, names: For
   for (const [re, why] of RULES) if (re.test(text)) return { allowed: false, reason: why };
 
   // A model check for what the rules can't see (paraphrases, indirect asks). Fails closed.
-  try {
+  let lastErr = "";
+  for (let attempt = 0; attempt < 3; attempt++) try {
     const r = await anthropic().messages.create({
       model: config.screenModel,
       max_tokens: 200,
@@ -72,9 +73,14 @@ export async function screenRequest(text: string, clientName: string, names: For
       messages: [{ role: "user", content: `Request:\n<<<\n${text.slice(0, 4000)}\n>>>` }],
     });
     const out = r.content.map((b) => (b.type === "text" ? b.text : "")).join("");
-    const j = JSON.parse(out.slice(out.indexOf("{"), out.lastIndexOf("}") + 1));
-    return { allowed: j.allowed === true, reason: String(j.reason ?? "") };
+    // Read the verdict even if the JSON around it is malformed; retry when there's no verdict at all.
+    const verdict = out.match(/"allowed"\s*:\s*(true|false)/i);
+    if (!verdict) { lastErr = "no verdict in the screen's answer"; continue; }
+    const reason = out.match(/"reason"\s*:\s*"([^"]*)"/)?.[1] ?? "";
+    return { allowed: verdict[1].toLowerCase() === "true", reason };
   } catch (e: any) {
-    return { allowed: false, reason: `screen unavailable (${e.message ?? e})` };
+    lastErr = e.message ?? String(e);
+    await new Promise((res) => setTimeout(res, 800 * (attempt + 1)));
   }
+  return { allowed: false, reason: `screen unavailable (${lastErr})` }; // still fails closed after 3 tries
 }
