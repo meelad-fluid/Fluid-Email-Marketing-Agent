@@ -1,0 +1,14 @@
+{
+  "logo": "brand/assets/logo-black.svg",
+  "hero_jars": "brand/assets/hero-jars2.webp",
+  "jar_mango": "brand/assets/jar-mango.webp",
+  "jar_strawberry": "brand/assets/jar-strawberry-cut.webp",
+  "gummy_strawberry": "brand/assets/gummies-straw-f.webp",
+  "gummy_mango": "brand/assets/gummies-mango-f.webp",
+  "badge_informed_sport": "brand/assets/badge-informed-w.png",
+  "badge_clean_label": "brand/assets/badge-clp-w.png",
+  "powder": "brand/assets/powder.png",
+  "magnesium": "brand/assets/magnesium.webp",
+  "electrolytes": "brand/assets/electrolytes-c.png",
+  "usp_strip": "brand/assets/usp-strip-w.png"
+}

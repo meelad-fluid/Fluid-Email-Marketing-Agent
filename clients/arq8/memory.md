@@ -65,3 +65,6 @@ Read before any work for Arq8. Append (dated) after every change. Rules here out
 - Talking to: lapsed buyer (Avatar 1) finding the empty jar next to her morning coffee. Offer COMEBACK20 20% to 11:59 PM ET Sun Dec 13 (still proposed). Left out "upgraded delivery" (no source) and "skip or cancel any time" (unconfirmed).
 - New URLs: Variety Pack /products/variety-pack; Magnesium+ /products/magnesium-gummies-60-pcs. Shopify product images for these have baked-in text; used existing transparent cutouts (hero-jars2, magnesium.webp).
 - Open: does COMEBACK20 stack on subscribe pricing?
+
+## 2026-11-22 — BF20 review link
+- Meelad asked for the next designed campaign → BF20 sitewide (Nov 25). Re-pointed its images to brand/assets (assets.json added), Newsreader replaced the GT Canon font files, offer band shortened to "20% OFF EVERYTHING · CODE BF20 · ENDS NOV 30" (was cut off). Published review link (in README). Still uses the v1 copy, not the avatar-led v2 copy.

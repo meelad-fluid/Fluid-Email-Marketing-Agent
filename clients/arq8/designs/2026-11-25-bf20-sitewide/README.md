@@ -1,10 +1,12 @@
 # Design · Nov 25 · 20% off sitewide (BF20)
+Review link: fluid-email-marketing-agent-production.up.railway.app/r/CEQbQ3pAFEKm__O9NqBX71N4
 
 - **Canvas (Claude Design):** https://claude.ai/artifact/PPyyG81f4hfXTDrNLFrWvn
 - **Source:** `design.dc.html` (copy of the canvas artboard at the latest version below)
 - **Copy:** `../../copy/2026-11-25-bf20-sitewide.md`
 - **Assets:** `../../brand/assets/`
-- **Status:** in review (v2)
+- **Review link:** https://fluid-email-marketing-agent-production.up.railway.app/r/CEQbQ3pAFEKm__O9NqBX71N4
+- **Status:** in review (v2) · needs approval · goes live Wed Nov 25, 2026
 
 ## Versions
 | Version | Date | What changed | Why |
