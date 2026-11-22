@@ -1,4 +1,5 @@
 # Welcome Email #1 v2 — Welcome Offer (Cacao and baking)
+Review link: fluid-email-marketing-agent-production.up.railway.app/r/4SZjH_HHxoMdFrZEzfchqieF
 Copy: ../../copy/welcome-flow.md (Email #1 v2)
 Subject: Your 15% off, and real cacao for the mug · Preview: Here's your code, from Hannah at Dolce.
 Sender: Hannah from Dolce (proposed) · Offer: DOLCE15 · Send: immediately after pop-up signup (picked Cacao and baking)

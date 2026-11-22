@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Welcome Email #2 — A note from Jeff</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#ffffff}
+a{color:#E03400}
+p{margin:0 0 18px}
+</style>
+</helmet>
+<div style="width: 600px; background: #ffffff; font-family: Helvetica, Arial, sans-serif; color: #1D1D1D; font-size: 16px; line-height: 1.6">
+  <div style="padding: 36px 44px 10px">
+    <a href="https://dolcesuperfoods.com"><img src="asset:brand/assets/logo-dark.png" alt="Dolce Superfoods" style="width: 84px; height: auto; display: block"></a>
+  </div>
+  <div style="padding: 20px 44px 30px">
+    <p>Hi {{ first_name|default:"there" }},</p>
+    <p>I'm Jeff. Before Dolce, I was an accountant, and I couldn't stop doing the math on superfood prices. Most of what you pay for a tiny tin isn't the matcha. It's the tin, the middlemen and the markup.</p>
+    <p>So Megan and I built Dolce the other way around. We buy in bulk, we pack everything in our own facility, and we keep the price fair without trading down on what goes in the bag.</p>
+    <p>I spent six months in Sava, Madagascar, learning vanilla from the farmers who grow it, and that's still how we think about every product: know where it comes from, pay people properly, and don't charge you for the fluff.</p>
+    <p>Your 15% code is still waiting if you'd like a first bag: <b>DOLCE15</b>.<br><a href="https://dolcesuperfoods.com/discount/DOLCE15?redirect=/collections/all">Use my 15% off</a></p>
+    <p>One favor: hit reply and tell me what you're making. A latte, a batch of brownies, a smoothie before the school run. I read every one.</p>
+    <p style="margin-top: 26px">Jeff Weaver<br><span style="color: #6b6b6b">Co-founder, Dolce Superfoods</span></p>
+  </div>
+  <div style="border-top: 1px solid #e6e6e6; margin: 0 44px; padding: 18px 0 34px; font-size: 12px; color: #8a8a8a">
+    <a href="#" style="color: #8a8a8a">Manage preferences</a> | <a href="#" style="color: #8a8a8a">Unsubscribe</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":600,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
