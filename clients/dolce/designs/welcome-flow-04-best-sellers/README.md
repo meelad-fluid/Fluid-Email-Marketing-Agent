@@ -1,6 +1,6 @@
 # Welcome Email #4 — Best sellers
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/8aoi_OtdWP-qoT-25wt8bycQ
-Copy: ../../copy/welcome-flow.md (Email #4)
+Copy: ../../copy/welcome-flow-04-best-sellers.md (full flow copy: ../../copy/welcome-flow.md)
 Subject: Not sure where to start? Here's what everyone picks first · Preview: Six first orders, and the one people reorder most.
 Sender: Hannah from Dolce (proposed) · Offer: DOLCE15 reminder · Send: 1 day after Email #3
 Status: needs approval · goes live Wed Dec 2, 2026

@@ -1,0 +1,22 @@
+{
+  "template_id": "TgVRs6",
+  "template_name": "FC | Welcome Email #3 (sliced)",
+  "images": [
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/e1997caa-fbe1-4f2d-a531-bad1e274031f.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/42b41f89-d39e-4b86-812a-cd4f49844e7c.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/0da32d9f-47e9-4901-ae0f-36e344f0cd92.jpeg",
+    [
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/795fa2dc-e20a-4a81-ab97-67f0171183f3.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/5c12d020-281a-4573-8516-24fe8b5bb94d.jpeg"
+    ],
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/99ec65d7-bdcc-4891-a49f-89a3561333cc.jpeg"
+  ],
+  "audiences": {
+    "included": [],
+    "excluded": []
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": null,
+  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
+}

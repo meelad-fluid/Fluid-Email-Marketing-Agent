@@ -1,0 +1,15 @@
+{
+  "template_id": "S3v2fc",
+  "template_name": "FC | Welcome Email #2 (sliced)",
+  "images": [
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/dcc68fe2-91c4-46bc-ad57-dba92b2681ed.jpeg"
+  ],
+  "audiences": {
+    "included": [],
+    "excluded": []
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": null,
+  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
+}

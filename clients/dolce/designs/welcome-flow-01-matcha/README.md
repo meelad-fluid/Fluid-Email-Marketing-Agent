@@ -1,6 +1,6 @@
 # Welcome Email #1 — Welcome Offer (Matcha)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/fsox2NqZ-7LuJtesATglj38X
-Copy: ../../copy/welcome-flow.md (Email #1)
+Copy: ../../copy/welcome-flow-01-matcha.md (full flow copy: ../../copy/welcome-flow.md)
 Subject: Your 15% off, and a cheaper morning latte 🍵 · Preview: Here's your code, from Hannah at Dolce.
 Sender: Hannah from Dolce (proposed) · Offer: DOLCE15 · Send: immediately after pop-up signup (picked Matcha)
 Status: needs approval · goes live Wed Dec 2, 2026

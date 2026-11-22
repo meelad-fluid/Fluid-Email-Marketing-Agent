@@ -1,0 +1,22 @@
+{
+  "template_id": "TzrSF9",
+  "template_name": "FC | Welcome Email #4 (sliced)",
+  "images": [
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/14a2592e-e647-4721-bde2-1b25033756a7.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/2a5f5471-ba04-4f08-aefc-e050d5dacb6f.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/0cc4746e-b93d-47cb-b75f-acd9e01bc3f4.jpeg",
+    [
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/957a4e3f-2922-4e6c-a56f-11e5f61b99e1.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/5569b0e9-a8d4-4ea9-8adf-171a20544d5f.jpeg"
+    ],
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/e3ff29af-a11d-41bc-be46-e1829a8268f3.jpeg"
+  ],
+  "audiences": {
+    "included": [],
+    "excluded": []
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": null,
+  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
+}

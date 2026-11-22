@@ -1,6 +1,6 @@
 # Welcome Email #1 v3 — Welcome Offer (Smoothie boosts)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/yI7zKxFktHFggkoWgQCQLv-5
-Copy: ../../copy/welcome-flow.md (Email #1 v3)
+Copy: ../../copy/welcome-flow-01v3-smoothie.md (full flow copy: ../../copy/welcome-flow.md)
 Subject: Your 15% off, and a smoothie powder that lasts · Preview: Here's your code, from Hannah at Dolce.
 Sender: Hannah from Dolce (proposed) · Offer: DOLCE15 · Send: immediately after pop-up signup (picked Smoothie boosts)
 Status: needs approval · goes live Wed Dec 2, 2026

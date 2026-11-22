@@ -1,0 +1,22 @@
+{
+  "template_id": "VHNxFm",
+  "template_name": "FC | Welcome Email #1 (sliced)",
+  "images": [
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/b00e6c5d-6aba-4853-8873-49b0097683ca.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/33c2b00d-9597-4dfe-8c63-5b0d1de669c8.jpeg",
+    [
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/9335ca0c-dbfc-47b1-a9ad-00c8473e6dbc.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/55c42468-71c8-413d-bb7a-5dea07e91c7d.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/83997ddf-2937-4f0e-8ca2-0c0b8495bce3.jpeg"
+    ],
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/6bb5e72c-638d-4f18-aa04-466ee52cd42a.jpeg"
+  ],
+  "audiences": {
+    "included": [],
+    "excluded": []
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": null,
+  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
+}

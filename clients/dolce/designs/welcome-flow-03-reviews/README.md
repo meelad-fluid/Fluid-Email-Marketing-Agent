@@ -1,6 +1,6 @@
 # Welcome Email #3 — Customer reviews
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/76NsvXni8jloW5tuADrgiqkK
-Copy: ../../copy/welcome-flow.md (Email #3)
+Copy: ../../copy/welcome-flow-03-reviews.md (full flow copy: ../../copy/welcome-flow.md)
 Subject: "Why is it so cheap?" Fair question. · Preview: Here's what people say after their first pound.
 Sender: Hannah from Dolce (proposed) · Offer: DOLCE15 reminder · Send: 1 day after Email #2
 Status: needs approval · goes live Wed Dec 2, 2026

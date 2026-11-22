@@ -1,6 +1,6 @@
 # Welcome Email #2 — A note from Jeff
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/mOMTVUYQapv4vW_RIvu82Jxi
-Copy: ../../copy/welcome-flow.md (Email #2)
+Copy: ../../copy/welcome-flow-02-jeff-note.md (full flow copy: ../../copy/welcome-flow.md)
 Subject: Why our matcha costs less (from an ex-accountant) · Preview: I did the math, then I did something about it.
 Sender: Jeff Weaver, Dolce Superfoods · Offer: DOLCE15 (soft) · Send: 4 hours after Email #1
 Status: needs approval · goes live Wed Dec 2, 2026
