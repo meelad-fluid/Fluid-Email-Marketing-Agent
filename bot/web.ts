@@ -17,6 +17,7 @@ import { saveClientFolder } from "./git";
 import { flowOf, reviewLink, type Review } from "./review";
 import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveUpload } from "./onboarding";
 import { marked } from "marked";
+import { parseCalendarMarkdown } from "../lib/strategy/calendar";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
@@ -113,6 +114,19 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
         const base = join(CLIENTS_DIR, c.folder), file = resolve(base, d.path);
         if (!file.startsWith(base + sep) || !existsSync(file)) return send(res, 404, "This document isn't available.");
         return send(res, 200, docPage(d.title, c.name, marked.parse(readFileSync(file, "utf8")) as string), "text/html; charset=utf-8", { "cache-control": "no-store" });
+      }
+
+      // ── Campaign calendar: month grid of a strategy doc's sends, colour-coded, click a send for its brief ──
+      const cm = url.pathname.match(/^\/c\/([A-Za-z0-9_-]{16,64})(\/data)?$/);
+      if (cm && req.method === "GET") {
+        const { data: d } = await db().from("doc_links").select("path, title, clients(name, folder)").eq("token", cm[1]).maybeSingle();
+        if (!d) return send(res, 404, "Not found");
+        if (!cm[2]) return send(res, 200, calendarPage(), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        const c: any = (d as any).clients;
+        const base = join(CLIENTS_DIR, c.folder), file = resolve(base, d.path);
+        if (!file.startsWith(base + sep) || !existsSync(file)) return json(res, 404, { error: "This calendar isn't available." });
+        const cal = parseCalendarMarkdown(readFileSync(file, "utf8"));
+        return json(res, 200, { client: c.name, title: cal.title, status: cal.status ?? null, sends: cal.sends, sections: cal.sections.map((x) => ({ heading: x.heading, html: marked.parse(x.markdown) as string })) });
       }
 
       // ── Flow review: every email of one flow behind a "Go to email #" bar ──
@@ -385,5 +399,70 @@ async function load(first){const r=await fetch(location.pathname+"/data");D=awai
 $("t").firstChild.nodeValue=D.flow+" flow";$("sub").textContent=D.client+" · "+D.emails.length+" emails · "+D.emails.filter(e=>e.approved).length+" approved";if(first){go(pick())}else bar()}
 addEventListener("keydown",(e)=>{if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT")return;if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1)});
 load(true).catch(()=>{document.body.innerHTML="<p style='padding:24px'>Couldn't load this flow.</p>"});setInterval(()=>load(false).catch(()=>{}),30000);
+</script></body></html>`;
+}
+
+/** Campaign calendar page: month grid opening on today, colour-coded sends, click one for its full brief. */
+export function calendarPage() {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Campaign calendar</title>
+<style>
+:root{--bg:#f5f3ef;--panel:#fff;--ink:#1c1b19;--muted:#6d6a62;--line:#e5e1d8;--today:#1c1b19;--value:#1f8a70;--value-bg:#e3f3ee;--promo:#d9472b;--promo-bg:#fde9e4;--sms:#6b4fd0;--sms-bg:#ece7fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px;margin-bottom:16px}
+header h1{font-size:24px;line-height:1.2;margin:0;flex:1 1 360px;text-wrap:balance}header h1 small{display:block;font-size:14px;color:var(--muted);font-weight:400;margin-top:4px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted)}.legend span{display:inline-flex;align-items:center;gap:6px}.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.nav{display:flex;align-items:center;gap:8px;margin:6px 0 12px}.nav h2{font-size:18px;margin:0 8px 0 0;min-width:150px}
+button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;color:inherit}button:focus-visible,.chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--line);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.dow{background:#faf8f4;padding:8px 10px;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.day{background:var(--panel);min-height:118px;padding:6px 6px 8px;display:flex;flex-direction:column;gap:4px;min-width:0}.day.out{background:#fbfaf7}.day.out .n{color:#bbb5a8}
+.n{font-size:12px;font-weight:600;color:var(--muted);padding:2px 4px;align-self:flex-start;border-radius:999px}.day.today .n{background:var(--today);color:#fff;padding:2px 8px}
+.chip{display:block;width:100%;text-align:left;border:0;border-left:3px solid;border-radius:6px;padding:5px 7px;font-size:12px;line-height:1.3;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip.value{background:var(--value-bg);border-color:var(--value);color:#0f4f40}.chip.promo{background:var(--promo-bg);border-color:var(--promo);color:#8a2512}.chip.sms{background:var(--sms-bg);border-color:var(--sms);color:#3d2a8a}
+.chip b{font-weight:650;margin-right:4px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:20px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}.card h3{margin:0 0 6px;font-size:15px}.card ul{padding-left:18px;margin:6px 0}.card p{margin:6px 0}
+.agenda{display:none}
+#scrim{position:fixed;inset:0;background:rgba(20,18,15,.35);opacity:0;pointer-events:none;transition:opacity .15s}#scrim.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--panel);transform:translateX(100%);visibility:hidden;transition:transform .2s ease,visibility 0s .2s;overflow-y:auto;padding:22px 22px 40px;z-index:5}#drawer.on{transform:none;visibility:visible;box-shadow:-10px 0 40px rgba(0,0,0,.15);transition:transform .2s ease}
+#drawer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}#drawer h3{font-size:20px;line-height:1.25;margin:6px 0 4px}.when{color:var(--muted);font-size:13px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 14px}.badge{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px}.badge.value{background:var(--value-bg);color:#0f4f40}.badge.promo{background:var(--promo-bg);color:#8a2512}.badge.sms{background:var(--sms-bg);color:#3d2a8a}.badge.email{background:#efece5;color:#4b483f}
+dl{margin:0;display:grid;gap:12px}dt{font-size:12px;font-weight:650;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}dd{margin:2px 0 0}
+a.open{display:inline-block;margin-top:16px;background:var(--ink);color:#fff;text-decoration:none;border-radius:8px;padding:9px 14px;font-weight:600}
+@media (prefers-reduced-motion:reduce){#drawer,#scrim{transition:none}}
+@media (max-width:760px){.grid,.nav .mview{display:none}.agenda{display:block}.agenda .wk{margin:14px 0 6px;font-size:12px;font-weight:650;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.agenda .row{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px}.agenda .d{min-width:52px;font-weight:650;font-size:13px}.agenda .d small{display:block;color:var(--muted);font-weight:400}.agenda .row.today{border-color:var(--ink)}.agenda .chips{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}.chip{white-space:normal}}
+</style></head><body><div class="wrap">
+<header><h1 id="t">Loading…<small id="sub"></small></h1><div class="legend"><span><i class="dot" style="background:var(--value)"></i>Value / education / social proof</span><span><i class="dot" style="background:var(--promo)"></i>Sales / promo</span><span><i class="dot" style="background:var(--sms)"></i>SMS</span></div></header>
+<div class="nav"><h2 id="m"></h2><button id="prev" aria-label="Previous month">←</button><button id="today">Today</button><button id="next" aria-label="Next month">→</button></div>
+<div class="grid" id="grid"></div><div class="agenda" id="agenda"></div><div class="extra" id="extra"></div></div>
+<div id="scrim"></div><aside id="drawer" aria-hidden="true"></aside>
+<script>
+const token=location.pathname.split("/")[2];let D=null,view=null;const $=(id)=>document.getElementById(id);
+const esc=(s)=>String(s??"").replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const iso=(d)=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const todayIso=iso(new Date());const MON=["January","February","March","April","May","June","July","August","September","October","November","December"];
+function chips(date){const out=[];D.sends.forEach((s,k)=>{if(s.date!==date)return;if(s.channel!=="sms")out.push('<button class="chip '+s.type+'" data-k="'+k+'" title="'+esc(s.title)+'"><b>'+(s.type==="promo"?"Promo":"Email")+'</b>'+esc(s.title)+'</button>');if(s.channel!=="email")out.push('<button class="chip sms" data-k="'+k+'" title="'+esc(s.title)+'"><b>SMS</b>'+esc(s.title)+'</button>')});return out.join("")}
+function render(){const y=view.getFullYear(),mo=view.getMonth();$("m").textContent=MON[mo]+" "+y;
+const first=new Date(y,mo,1),start=new Date(first);start.setDate(1-((first.getDay()+6)%7));
+let h=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>'<div class="dow">'+d+'</div>').join("");
+for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);if(i%7===0&&i>=28&&d.getMonth()!==mo)break;const di=iso(d);h+='<div class="day'+(d.getMonth()!==mo?" out":"")+(di===todayIso?" today":"")+'"><span class="n">'+d.getDate()+'</span>'+chips(di)+'</div>'}
+$("grid").innerHTML=h;
+const ag=D.sends.map(s=>s.date).filter((v,i,a)=>a.indexOf(v)===i).sort().filter(di=>{const d=new Date(di+"T12:00");return d.getMonth()===mo&&d.getFullYear()===y});
+$("agenda").innerHTML=ag.length?ag.map(di=>{const d=new Date(di+"T12:00");return '<div class="row'+(di===todayIso?" today":"")+'"><div class="d">'+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d.getDay()]+'<small>'+MON[d.getMonth()].slice(0,3)+" "+d.getDate()+'</small></div><div class="chips">'+chips(di)+'</div></div>'}).join(""):'<p style="color:var(--muted)">Nothing planned this month.</p>';
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>open(+b.dataset.k))}
+function open(k){const s=D.sends[k];const d=new Date(s.date+"T12:00");
+$("drawer").innerHTML='<div class="top"><div class="when">'+d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"})+'</div><button id="close" aria-label="Close">✕</button></div><h3>'+esc(s.title)+'</h3>'+(s.note?'<div class="when">'+esc(s.note)+'</div>':'')+
+'<div class="badges"><span class="badge '+s.type+'">'+(s.type==="promo"?"Sales / promo":"Value")+'</span>'+(s.channel!=="sms"?'<span class="badge email">Email</span>':'')+(s.channel!=="email"?'<span class="badge sms">SMS</span>':'')+'</div>'+
+'<dl>'+s.fields.map(f=>'<div><dt>'+esc(f.label)+'</dt><dd>'+esc(f.value)+'</dd></div>').join("")+'</dl>'+(s.link?'<a class="open" href="'+esc(s.link)+'" target="_blank" rel="noopener">Open the design</a>':'');
+$("drawer").classList.add("on");$("drawer").setAttribute("aria-hidden","false");$("scrim").classList.add("on");$("close").onclick=close;$("close").focus()}
+function close(){$("drawer").classList.remove("on");$("drawer").setAttribute("aria-hidden","true");$("scrim").classList.remove("on")}
+$("scrim").onclick=close;addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+$("prev").onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);render()};$("next").onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);render()};$("today").onclick=()=>{view=new Date();view.setDate(1);render()};
+fetch(location.pathname+"/data").then(r=>r.json()).then(j=>{D=j;if(j.error){document.body.innerHTML="<p style='padding:24px'>"+esc(j.error)+"</p>";return}
+document.title=j.client+" campaign calendar";$("t").firstChild.nodeValue=j.client+" campaign calendar";
+const e=j.sends.filter(s=>s.channel!=="sms").length,sm=j.sends.filter(s=>s.channel!=="email").length,pr=j.sends.filter(s=>s.type==="promo"&&s.channel!=="sms").length;
+$("sub").textContent=e+" emails · "+sm+" SMS · "+pr+" promo emails"+(j.status?" · "+j.status:"");
+const now=new Date(),inRange=j.sends.some(s=>s.date.slice(0,7)===todayIso.slice(0,7));view=inRange||!j.sends.length?new Date(now.getFullYear(),now.getMonth(),1):new Date(j.sends[0].date.slice(0,7)+"-01T12:00");
+$("extra").innerHTML=j.sections.map(x=>'<div class="card"><h3>'+esc(x.heading)+'</h3>'+x.html+'</div>').join("");render()}).catch(()=>{document.body.innerHTML="<p style='padding:24px'>Couldn't load this calendar.</p>"});
 </script></body></html>`;
 }

@@ -99,12 +99,17 @@ Present three blocks in order: **the evidence** (3-4 findings, each with a figur
 
 ```
 **Fri Sep 4 · Email · Labor Day stock-up opens**
-Angle: Labor Day Stock-Up
-Message: The sale is on now, and the bundles that save most are the ones regulars reorder anyway
-Segment: Engaged 90 days · Format: Designed · Campaign type: Sale / promo
-Goal: [audience, what they should understand or feel, the action, the production instruction]
-Why: promo arc day 1 of 4; the close earns most, this sets it up
+- Type: promo
+- Angle: Labor Day Stock-Up
+- Message: The sale is on now, and the bundles that save most are the ones regulars reorder anyway
+- Segment: Engaged 90 days · Format: Designed
+- Goal: [audience, what they should understand or feel, the action, the production instruction]
+- Why: promo arc day 1 of 4; the close earns most, this sets it up
 ```
+
+**This exact shape is what the calendar page reads**, so keep it: one bold header per send (`**Ddd Mon D · Email | SMS | Email + SMS · Name**`), then `- Label: value` bullets. Every send gets a `Type:` line: **value** (education, guides, recipes, social proof, founder notes, stories) or **promo** (sale, offer, discount, deadline, early access). SMS sends are shown in their own colour automatically. Put the year in the document title ("… Nov 23 → Dec 22, 2026").
+
+**Share it as a calendar, not a doc:** call `publish_calendar` with the file and hand over that link ("Here's the [December calendar](link)"). It opens on today's month, colour-codes value / promo / SMS, and each send opens its brief when clicked. The evidence, angles, mix and open questions sections show as cards under the calendar.
 
 After the last send, one line each for the **audience mix** (vs ~80/20) and **value vs promo** (vs 80/20), saying whether any miss is deliberate. Close with the open questions you actually need answered (a code, stock, a date). Iterate until they're happy, restate the final count and window, and get a clear yes.
 

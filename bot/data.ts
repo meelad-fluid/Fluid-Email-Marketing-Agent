@@ -7,6 +7,7 @@ import { cioReport } from "../lib/customerio/report";
 import { cioSegments, matchSegments, pushToCustomerio } from "../lib/customerio/push";
 import { emailText, isRuoClient, ruoSummary, scanRuoText } from "../lib/compliance/ruo";
 import { dcToHtml } from "../lib/email/dc";
+import { parseCalendarMarkdown } from "../lib/strategy/calendar";
 import { readFileSync as readText } from "node:fs";
 import { createSdkMcpServer, tool } from "@anthropic-ai/claude-agent-sdk";
 import { z } from "zod";
@@ -222,6 +223,23 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
+  const publishCalendar = tool(
+    "publish_calendar",
+    "Share a campaign calendar (a strategy .md written in the calendar format: '**Mon Nov 23 · Email · Title**' headers with '- Label: value' bullets) as a calendar page: month grid opening on today, sends colour-coded value / promo / SMS, click a send to see its brief. Same file = same link. Use it for every campaign calendar or monthly plan, and share this link instead of the doc.",
+    { path: z.string().describe("e.g. strategy/2026-11-22-30-day-calendar.md") },
+    async ({ path }) => {
+      const base = pjoin(CLIENTS_DIR, folder), file = presolve(base, path);
+      if (!file.startsWith(base + psep) || !file.endsWith(".md") || !fileExists(file)) return ok({ error: "That .md file isn't in this client's folder." });
+      const cal = parseCalendarMarkdown(readText(file, "utf8"));
+      if (!cal.sends.length) return ok({ error: "No sends found. Each send needs a header line like '**Mon Nov 23 · Email · Title**' followed by '- Label: value' bullets." });
+      const rel = file.slice(base.length + 1);
+      const { data: existing } = await db().from("doc_links").select("token").eq("client_id", clientId).eq("path", rel).maybeSingle();
+      const token = existing?.token ?? randomBytes(18).toString("base64url");
+      if (!existing) await db().from("doc_links").insert({ token, client_id: clientId, path: rel, title: cal.title });
+      return ok({ link: `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/c/${token}`, sends: cal.sends.length, emails: cal.sends.filter((x) => x.channel !== "sms").length, sms: cal.sends.filter((x) => x.channel !== "email").length, promo: cal.sends.filter((x) => x.type === "promo").length });
+    },
+  );
+
   const audits = tool(
     "run_onboarding_audits",
     "Run the read-only Klaviyo audit (top flows, last 60 days of campaigns, lists, forms) and order data (bestsellers, repeat rate, reorder gap, cohorts) for this client, saving JSON into research/, and sync reporting data. Needs the client's Klaviyo key (connected through their onboarding link). Takes a few minutes.",
@@ -229,7 +247,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     async () => { try { return ok(await runAudits(clientId, folder)); } catch (e: any) { return ok({ error: e.message }); } },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, pushCio, find, build, publishDoc, audits] });
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, pushCio, find, build, publishDoc, publishCalendar, audits] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__run_onboarding_audits"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__publish_calendar", "mcp__fluid__run_onboarding_audits"];
