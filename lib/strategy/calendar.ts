@@ -13,6 +13,24 @@ export type Calendar = { title: string; status?: string; sends: CalendarSend[]; 
 const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 const PROMO = /\b(sale|black friday|cyber|bfcm|% ?off|\d+%|discount|deal|offer|early access|last (day|call|chance)|ends (tonight|tomorrow|at midnight)|flash|code\b|free shipping|bundle price|price drop|upgrade)\b/i;
 
+/** Every brief shows these, in this order (missing ones as "Not set"); other fields (Why, Needs, Test…) follow. */
+export const BRIEF_FIELDS = ["Angle", "Message", "Offer", "Segment", "Excluding", "Format", "Goal"] as const;
+const ALIASES: Record<string, RegExp> = {
+  Angle: /^angle$/i, Message: /^message$/i, Offer: /^(offer|discount)\b/i, Segment: /^(segment|sent to|audience|send to)\b/i,
+  Excluding: /^(excluding|exclude|exclusions?)\b/i, Format: /^format$/i, Goal: /^goals?$/i,
+};
+export function orderFields(fields: { label: string; value: string }[]) {
+  const used = new Set<number>();
+  const core = BRIEF_FIELDS.map((name) => {
+    const k = fields.findIndex((f, i) => !used.has(i) && ALIASES[name].test(f.label));
+    if (k < 0) return { label: name, value: "" };
+    used.add(k);
+    const qualifier = fields[k].label.match(/\(([^)]+)\)/)?.[1]; // "Offer (proposed)" keeps "(proposed)"
+    return { label: name, value: qualifier ? `${fields[k].value} (${qualifier})` : fields[k].value };
+  });
+  return [...core, ...fields.filter((_, i) => !used.has(i))];
+}
+
 export function parseCalendarMarkdown(md: string, fallbackYear = new Date().getFullYear()): Calendar {
   const lines = md.split("\n");
   const title = (lines.find((l) => /^# /.test(l)) ?? "# Campaign calendar").replace(/^#\s+/, "").trim();
@@ -50,7 +68,7 @@ export function parseCalendarMarkdown(md: string, fallbackYear = new Date().getF
     const angle = s.fields.find((f) => /^angle$/i.test(f.label))?.value ?? "";
     const hasOffer = s.fields.some((f) => /^offer/i.test(f.label) && !/^(none|no offer)/i.test(f.value));
     s.type = t ? (/promo|sale|sales/.test(t) ? "promo" : "value") : hasOffer || PROMO.test(`${s.title} ${angle}`) ? "promo" : "value";
-    s.fields = s.fields.filter((f) => !/^type$/i.test(f.label));
+    s.fields = orderFields(s.fields.filter((f) => !/^type$/i.test(f.label)));
     const link = [s.note, ...s.fields.map((f) => f.value)].join(" ").match(/https?:\/\/\S+?(?=[)\s]|$)/);
     if (link) s.link = link[0];
   }
