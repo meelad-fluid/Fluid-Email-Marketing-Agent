@@ -70,7 +70,7 @@ export async function publishDesign(o: { clientId: string; folder: string; desig
     if (v.error) throw v.error;
   }
   const upd = await db().from("design_reviews").update({
-    current_version: version, title: titleOf(dir, r!.title), updated_at: new Date().toISOString(),
+    current_version: version, title: titleOf(dir, r!.title), updated_at: new Date().toISOString(), working_since: null, // a new version ends "Fluid is updating this email"
     ...(o.slack && !r!.slack_channel ? { slack_channel: o.slack.channel, slack_thread: o.slack.thread } : {}),
     ...(r!.status === "approved" && version !== r!.approved_version ? { status: "in_review" } : {}),
   }).eq("id", r!.id).select("*").single();

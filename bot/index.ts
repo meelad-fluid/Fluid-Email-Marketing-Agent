@@ -12,8 +12,8 @@ import { audit, clientForChannel, db, isBotThread, linkChannel, saveThread, thre
 import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
-import { startWeb } from "./web";
-import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel } from "./onboarding";
+import { startWeb, type ReviewAction } from "./web";
+import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink } from "./onboarding";
 import { foreignNames, scanText } from "../lib/leaks";
 import { filesNote, receiveFiles, type SlackFile } from "./slack-files";
 
@@ -271,6 +271,19 @@ app.command("/fluid", async ({ command, ack, respond }) => {
       return reply(`Done. This channel now belongs to ${name}, and the onboarding upload link is posted above.`);
     } catch (e: any) { return reply(`Couldn't set up ${name}: ${e.message}`); }
   }
+  // Shopify connect link, and the two write switches (each client starts read-only everywhere).
+  if (["shopify", "shopify-discounts", "klaviyo-drafts"].includes(sub)) {
+    if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can do that.");
+    const c = await clientForChannel(command.channel_id, TEAM_ID);
+    if (!c) return reply("Run this inside the client's channel.");
+    if (sub === "shopify") return reply(`Shopify connect link for ${c.name} (only you can see this, works once, 14 days): ${await shopifyLink(c.id)}`);
+    const on = arg === "on", off = arg === "off";
+    const col = sub === "shopify-discounts" ? "shopify_write" : "klaviyo_write", val = sub === "shopify-discounts" ? "discounts" : "drafts";
+    if (!on && !off) { const { data } = await db().from("clients").select(col).eq("id", c.id).single(); return reply(`${sub === "shopify-discounts" ? "Shopify discount codes" : "Klaviyo drafts"} for ${c.name}: *${(data as any)?.[col] === val ? "on" : "off"}*. Use \`/fluid ${sub} on\` or \`off\`.`); }
+    await db().from("clients").update({ [col]: on ? val : "none" }).eq("id", c.id);
+    await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "setting", reason: `${col} = ${on ? val : "none"}` });
+    return reply(sub === "shopify-discounts" ? (on ? `Done. I can now create new discount codes in ${c.name}'s Shopify (never edit or delete existing ones).` : `Done. ${c.name}'s Shopify is read-only for me again.`) : (on ? `Done. I can now build drafts in ${c.name}'s Klaviyo (campaigns, templates, segments, new draft flows; never send or turn anything on).` : `Done. ${c.name}'s Klaviyo is read-only for me again.`));
+  }
   if (sub === "link" || sub === "unlink") {
     const admins = config.adminUserIds();
     if (!admins.includes(command.user_id)) return reply(admins.length ? "Only Fluid admins can link channels." : "No admins are set yet. Add your Slack member ID to SLACK_ADMIN_USER_IDS in .env.local and restart the bot.");
@@ -288,7 +301,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`.");
+  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`.");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
@@ -319,6 +332,42 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   await saveThread(ch.channel_id, head.ts!, f.clientId, res.sessionId);
   await db().from("onboarding_runs").update({ status: res.error ? "failed" : "done", error: res.error ?? null, updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "running");
   await audit({ team_id: TEAM_ID, channel_id: ch.channel_id, thread_ts: head.ts!, client_id: f.clientId, request: "automatic onboarding", outcome: res.error ? "error" : "ran", reason: res.error, cost_usd: res.costUsd });
+}
+
+// ── Review page buttons: "Approve & build" and "Submit comments" start the bot without anyone going to Slack.
+// The job runs in the design's Slack thread (or the client's channel), exactly like a request typed there.
+async function reviewAction(a: ReviewAction) {
+  const web = app.client;
+  const channel = a.channel ?? (await db().from("slack_channels").select("channel_id").eq("client_id", a.clientId).limit(1).maybeSingle()).data?.channel_id;
+  if (!channel) return console.error("[review] no channel for client", a.clientId);
+  const client = await clientForChannel(channel, TEAM_ID);
+  if (!client) return console.error("[review] channel not linked", channel);
+  const short = a.title.split(/\s+[—–-]\s+/)[0];
+  const intro = a.kind === "comments" ? `${a.author} submitted ${a.count} comment${a.count === 1 ? "" : "s"} on ${short}. Working on ${a.count === 1 ? "it" : "them"} now.`
+    : a.kind === "build_flow" ? `${a.author} approved the last email, so the whole ${a.flow!.toLowerCase()} is approved. Building it in Klaviyo as a draft now.`
+    : `${a.author} approved ${short}. Building it in Klaviyo as a draft now.`;
+  const posted = await web.chat.postMessage({ channel, thread_ts: a.thread ?? undefined, text: intro });
+  const threadTs = a.thread ?? posted.ts!;
+  const request = a.kind === "comments"
+    ? `${a.author} clicked "Submit comments" on the review page for "${a.title}" (${a.designPath}). Call design_comments, make every change in design.dc.html, publish_design (note = what changed), reply_to_comment under each comment saying what you did (resolve=true), then reply here like a teammate: "Updated [<email>](<link>): <changes>. Take a look."`
+    : a.kind === "build_flow" ? `${a.author} approved every email in the ${a.flow} on the review page and clicked "Approve & build". Build the flow in Klaviyo now: write the flow plan from the flow strategy and copy (emails: ${a.designs!.join(", ")}) and call build_klaviyo_flow. Reply with the Klaviyo link and any manual steps.`
+    : `${a.author} approved "${a.title}" on the review page and clicked "Approve & build". Build it now as a draft in the client's email platform (push_to_klaviyo, or push_to_customerio for Customer.io clients) with design folder ${a.designPath} and the audiences in its copy file. Reply in one or two lines with the result.`;
+  const key = `${channel}:${threadTs}`;
+  for (let i = 0; busy.has(key) && i < 60; i++) await new Promise((r) => setTimeout(r, 10_000)); // wait for a job already running in this thread
+  busy.add(key);
+  try {
+    await run(client, { channel, threadTs, team: TEAM_ID, request, names: await foreignNames(CLIENTS_DIR, client.folder, db()), ts: posted.ts!, inThread: false });
+  } catch (e: any) { console.error("[review]", e.message); }
+  finally {
+    busy.delete(key);
+    if (a.kind === "comments") await db().from("design_reviews").update({ working_since: null }).eq("id", a.reviewId);
+    else {
+      const { data: last } = await db().from("slack_audit").select("outcome").eq("channel_id", channel).eq("thread_ts", threadTs).order("at", { ascending: false }).limit(1).maybeSingle();
+      const state = last?.outcome === "ran" ? "built" : "failed";
+      if (a.kind === "build_flow") await db().from("design_reviews").update({ build_state: state }).eq("client_id", a.clientId).eq("build_state", "queued");
+      else await db().from("design_reviews").update({ build_state: state }).eq("id", a.reviewId);
+    }
+  }
 }
 
 // An onboarding still marked "running" when the bot starts was cut off by a restart (a deploy or a crash):
@@ -366,7 +415,8 @@ async function syncStale() {
   await app.start();
   console.log(`Fluid bot is running in ${auth.team} as @${auth.user}. Ctrl+C to stop.`);
   startWeb(async (channel, thread, text) => { await app.client.chat.postMessage({ channel, thread_ts: thread ?? undefined, text }); },
-    (f) => { runOnboarding(f).catch((e) => console.error("[onboard]", e)); });
+    (f) => { runOnboarding(f).catch((e) => console.error("[onboard]", e)); },
+    (a) => { reviewAction(a).catch((e) => console.error("[review]", e)); });
   resumeOnboardings();
   syncStale();
   setInterval(syncStale, 3 * 3600_000);

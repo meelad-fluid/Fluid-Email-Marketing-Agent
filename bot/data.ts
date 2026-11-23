@@ -15,6 +15,7 @@ import { db } from "./db";
 import { openComments, publishDesign, replyToComment, reviewByPath } from "./review";
 import { pushEmail } from "../lib/klaviyo/push-email";
 import { buildFlow, FlowPlanSchema } from "../lib/klaviyo/flows";
+import { createDiscount, maxDiscount } from "../lib/shopify/discounts";
 import { runAudits } from "./onboarding";
 import { buildSegment, findAudiences } from "../lib/klaviyo/audiences";
 import { CLIENTS_DIR } from "./config";
@@ -196,6 +197,24 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
+  const discount = tool(
+    "create_shopify_discount",
+    "Create a NEW discount code in this client's Shopify (the only Shopify write Fluid can make). Percent off, amount off or free shipping, with a start and end date, optional minimum subtotal, collections and usage limits. Refuses codes that already exist (never edits, pauses or deletes a discount), percentages above the client's max discount, and codes without an end date. Only works once an admin turns on Shopify discounts for the client. Create a code only when someone on the team asks for it or the campaign that uses it is approved.",
+    {
+      code: z.string().describe("e.g. WELCOME20"), title: z.string().optional(),
+      kind: z.enum(["percent", "amount", "free_shipping"]), value: z.number().positive().optional().describe("20 = 20% off or $20 off; not for free_shipping"),
+      min_subtotal: z.number().positive().optional(),
+      starts_at: z.string().describe("ISO date-time, e.g. 2026-12-02T00:00:00-05:00 (client's timezone)"), ends_at: z.string(),
+      once_per_customer: z.boolean().optional().describe("default true"), usage_limit: z.number().int().positive().optional(),
+      collections: z.array(z.string()).optional().describe("collection titles; omit for the whole store"),
+      combines_with: z.object({ product: z.boolean().optional(), order: z.boolean().optional(), shipping: z.boolean().optional() }).optional(),
+    },
+    async (r) => {
+      try { return ok(await createDiscount(db(), clientId, pjoin(CLIENTS_DIR, folder), r)); }
+      catch (e: any) { return ok({ error: e.message, max_discount_percent: maxDiscount(pjoin(CLIENTS_DIR, folder)) }); }
+    },
+  );
+
   const pushCio = tool(
     "push_to_customerio",
     "For Customer.io clients (all peptide brands): build a finished design into their Customer.io as a DRAFT one-time send (never sends or schedules). Slices and QC-checks it like the Klaviyo push, uploads the images to Customer.io, and creates the draft with the subject, preview, sender and segments from the copy file (re-pushing updates the same draft). Only works if the client allows drafts.",
@@ -267,7 +286,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     async () => { try { return ok(await runAudits(clientId, folder)); } catch (e: any) { return ok({ error: e.message }); } },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, buildKlaviyoFlow, pushCio, find, build, publishDoc, publishCalendar, audits] });
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, buildKlaviyoFlow, discount, pushCio, find, build, publishDoc, publishCalendar, audits] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__build_klaviyo_flow", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__publish_calendar", "mcp__fluid__run_onboarding_audits"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__build_klaviyo_flow", "mcp__fluid__create_shopify_discount", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__publish_calendar", "mcp__fluid__run_onboarding_audits"];

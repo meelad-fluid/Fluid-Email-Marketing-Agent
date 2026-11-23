@@ -13,7 +13,7 @@
       {
         "command": "/fluid",
         "description": "Link this channel to a client, or check which client it belongs to",
-        "usage_hint": "status | link <client-folder> | unlink | help",
+        "usage_hint": "onboard <Client> | status | shopify | klaviyo-drafts on|off | shopify-discounts on|off | help",
         "should_escape": false
       }
     ]

@@ -5,7 +5,8 @@
 //   GET  /r/:token/data         review state as JSON
 //   POST /r/:token/comments     {version, x?, y?, body, author, parent_id?}
 //   POST /r/:token/resolve      {comment_id, resolved}
-//   POST /r/:token/approve      {author}
+//   POST /r/:token/approve      {author, build?}  "Approve & build": approve, then the bot builds it in Klaviyo
+//   POST /r/:token/submit       {author}          "Submit comments": the bot makes every open comment's change
 //   GET  /b/:token              a client's brand book + client library (/data as JSON, /file?p=brand/... for logos & fonts)
 // A link's token only ever opens its own design. Nothing here can send email or touch Klaviyo.
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
@@ -16,13 +17,15 @@ import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
 import { flowOf, reviewLink, type Review } from "./review";
-import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveUpload } from "./onboarding";
+import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveShopifyForm, saveUpload } from "./onboarding";
 import { marked } from "marked";
 import { parseCalendarMarkdown } from "../lib/strategy/calendar";
 import { currentBrandBook, listLibrary, signedUrl } from "../lib/library/store";
 import { readdirSync } from "node:fs";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
+/** Work the review page hands to the bot: build an approved email/flow, or apply submitted comments. */
+export type ReviewAction = { kind: "build" | "build_flow" | "comments"; reviewId: string; clientId: string; title: string; designPath: string; author: string; channel: string | null; thread: string | null; flow?: string; designs?: string[]; count?: number };
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
 const hits = new Map<string, number[]>();
 
@@ -77,7 +80,7 @@ async function load(token: string) {
   return data as (Review & { clients: { name: string; folder: string } }) | null;
 }
 
-export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string; folder: string; name: string; klaviyo: string; internal?: boolean }) => void = () => {}) {
+export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string; folder: string; name: string; klaviyo: string; internal?: boolean }) => void = () => {}, onReviewAction: (a: ReviewAction) => void = () => {}) {
   const port = Number(process.env.PORT || 8080);
   const server = createServer(async (req, res) => {
     try {
@@ -91,6 +94,20 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
         const l = await formLink(ob[1]);
         if (!l) return send(res, 404, "This onboarding link has expired or was already used. Ask your Fluid contact for a new one.");
         const internal = l.kind === "internal";
+        if (l.kind === "shopify") {
+          if (req.method === "GET" && !ob[2]) return send(res, 200, shopifyPage(l.clients.name), "text/html; charset=utf-8", { "cache-control": "no-store" });
+          if (req.method === "POST" && ob[2] === "/submit") {
+            if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
+            let raw = ""; for await (const c of req) { raw += c; if (raw.length > 20_000) return json(res, 413, { error: "Too long" }); }
+            try {
+              const r = await saveShopifyForm(ob[1], JSON.parse(raw || "{}").shopify ?? {});
+              const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", r.clientId).limit(1).maybeSingle();
+              if (ch) await notify(ch.channel_id, null, `Shopify is connected for ${r.name} (${r.shopify.name}).${r.shopify.missing_read.length ? ` It's missing ${r.shopify.missing_read.join(", ")}, so some reports won't work until the app gets those scopes.` : ""} ${r.shopify.can_create_discounts ? "It can create discount codes once an admin turns that on (/fluid shopify-discounts on)." : "It's read-only (the app doesn't have write_discounts), so I can't create discount codes yet."}`);
+              return json(res, 200, { ok: true, name: r.shopify.name });
+            } catch (e: any) { return json(res, 400, { error: e.message }); }
+          }
+          return send(res, 404, "Not found");
+        }
         if (req.method === "GET" && !ob[2]) return send(res, 200, internal ? internalPage(l.clients.name) : formPage(l.clients.name, hasExistingForm(l.clients.folder)), "text/html; charset=utf-8", { "cache-control": "no-store" });
         if (req.method === "POST" && ob[2] === "/upload" && internal) {
           if (limited(ip)) return json(res, 429, { error: "Too many uploads, wait a few minutes." });
@@ -103,7 +120,7 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
           if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
           let raw = ""; for await (const c of req) { raw += c; if (raw.length > 200_000) return json(res, 413, { error: "Too long" }); }
           const b = JSON.parse(raw || "{}");
-          try { const r = internal ? await saveInternalForm(ob[1], b.answers ?? {}, b.klaviyo_key) : await saveForm(ob[1], b.answers ?? {}, b.klaviyo_key); onFormSubmitted(r); return json(res, 200, { ok: true }); }
+          try { const r = internal ? await saveInternalForm(ob[1], b.answers ?? {}, b.klaviyo_key, b.shopify?.shop || b.shopify?.secret ? b.shopify : undefined) : await saveForm(ob[1], b.answers ?? {}, b.klaviyo_key); onFormSubmitted(r); return json(res, 200, { ok: true }); }
           catch (e: any) { return json(res, 400, { error: e.message }); }
         }
       }
@@ -211,9 +228,10 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
       if (req.method === "GET" && sub === "/data") {
         const [{ data: versions }, { data: comments }] = await Promise.all([
           db().from("design_review_versions").select("version, note, created_at").eq("review_id", r.id).order("version"),
-          db().from("review_comments").select("id, version, parent_id, x, y, body, author_name, author_kind, resolved, created_at").eq("review_id", r.id).order("created_at"),
+          db().from("review_comments").select("id, version, parent_id, x, y, body, author_name, author_kind, resolved, submitted_at, created_at").eq("review_id", r.id).order("created_at"),
         ]);
-        return json(res, 200, { title: r.title, client: r.clients.name, current: r.current_version, status: r.status, approved_version: r.approved_version, approved_by: r.approved_by, versions, comments });
+        const x = r as any;
+        return json(res, 200, { title: r.title, client: r.clients.name, current: r.current_version, status: r.status, approved_version: r.approved_version, approved_by: r.approved_by, build_state: x.build_state ?? null, build_version: x.build_version ?? null, working: !!x.working_since && Date.now() - Date.parse(x.working_since) < 45 * 60_000, versions, comments });
       }
       if (req.method === "POST") {
         if (limited(ip)) return json(res, 429, { error: "Too many requests, try again in a few minutes." });
@@ -248,8 +266,38 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
             writeFileSync(readme, /^Status: .*$/m.test(s) ? s.replace(/^Status: .*$/m, line) : s.replace(/^(# .+\n)/, `$1${line}\n`));
             saveClientFolder(r.clients.folder, `${r.clients.folder}: ${r.title} approved by ${author} (v${r.current_version}, via review link)`).catch(() => {});
           }
-          if (r.slack_channel) queueApproval(notify, { channel: r.slack_channel, thread: r.slack_thread, clientId: (r as any).client_id, title: r.title, author });
-          return json(res, 200, { ok: true });
+          const clientId = (r as any).client_id as string;
+          if (!b.build) { if (r.slack_channel) queueApproval(notify, { channel: r.slack_channel, thread: r.slack_thread, clientId, title: r.title, author }); return json(res, 200, { ok: true }); }
+          // "Approve & build": a campaign builds now; a flow email builds the whole flow once every email in it is approved.
+          const base = { reviewId: r.id, clientId, title: r.title, designPath: r.design_path, author, channel: r.slack_channel, thread: r.slack_thread };
+          const f = flowOf(r.title);
+          if (!f) {
+            await db().from("design_reviews").update({ build_state: "queued", build_version: r.current_version }).eq("id", r.id);
+            onReviewAction({ kind: "build", ...base });
+            return json(res, 200, { ok: true, building: "email" });
+          }
+          const { data: all } = await db().from("design_reviews").select("id, title, design_path, status, current_version, approved_version, build_state").eq("client_id", clientId);
+          const inFlow = (all ?? []).filter((d) => flowOf(d.title)?.flow === f.flow);
+          const left = inFlow.filter((d) => !(d.status === "approved" && d.approved_version === d.current_version));
+          if (left.length) {
+            if (r.slack_channel) queueApproval(notify, { channel: r.slack_channel, thread: r.slack_thread, clientId, title: r.title, author });
+            return json(res, 200, { ok: true, building: null, waiting: left.length });
+          }
+          if (inFlow.some((d) => d.build_state === "queued")) return json(res, 200, { ok: true, building: "flow" });
+          await db().from("design_reviews").update({ build_state: "queued" }).in("id", inFlow.map((d) => d.id));
+          onReviewAction({ kind: "build_flow", ...base, flow: f.flow, designs: inFlow.map((d) => d.design_path) });
+          return json(res, 200, { ok: true, building: "flow" });
+        }
+        if (sub === "/submit") {
+          // "Submit comments": every open comment on the latest version goes to the bot in one batch.
+          if ((r as any).working_since && Date.now() - Date.parse((r as any).working_since) < 45 * 60_000) return json(res, 409, { error: "Fluid is already working on the last comments. The new version will show up here." });
+          const { data: open } = await db().from("review_comments").select("id").eq("review_id", r.id).eq("version", r.current_version).is("parent_id", null).eq("resolved", false).is("submitted_at", null);
+          if (!open?.length) return json(res, 400, { error: "There are no new comments to submit." });
+          const now = new Date().toISOString();
+          await db().from("review_comments").update({ submitted_at: now }).in("id", open.map((c) => c.id));
+          await db().from("design_reviews").update({ working_since: now }).eq("id", r.id);
+          onReviewAction({ kind: "comments", reviewId: r.id, clientId: (r as any).client_id, title: r.title, designPath: r.design_path, author, channel: r.slack_channel, thread: r.slack_thread, count: open.length });
+          return json(res, 200, { ok: true, count: open.length });
         }
       }
       return send(res, 404, "Not found");
@@ -261,7 +309,7 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
   server.listen(port, () => console.log(`Review pages on port ${port} (public: ${process.env.PUBLIC_URL || "set PUBLIC_URL"})`));
 }
 
-const PAGE = `<!doctype html>
+export const PAGE = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow"><title>Design review</title>
 <style>
@@ -294,7 +342,8 @@ aside h2{font-size:14px;margin:0 0 10px}.c{border-top:1px solid var(--line);padd
 <button id="view">Mobile view</button>
 <button id="cm" class="on">Comment</button>
 <a id="dl" class="btn" download>Download JPEG</a>
-<button id="ap" class="primary">Approve</button></header>
+<button id="sc">Submit comments</button>
+<button id="ap" class="primary">Approve &amp; build</button></header>
 <main id="main"><div id="fit"><div class="stage" id="stage"><iframe id="f" title="Email design" scrolling="no"></iframe><div class="overlay" id="ov"></div></div></div>
 <div id="composer"><div class="hint" id="chint">Comment on the marked spot</div><textarea id="ctext" placeholder="What should change here?"></textarea><div class="row"><button class="primary" id="csave">Comment</button><button id="ccancel">Cancel</button></div></div>
 <aside><h2>Comments</h2><div class="hint" id="hint">Click anywhere on the email to leave a comment. Turn "Comment" off to click the email's links.</div><div id="list"></div></aside></main>
@@ -305,13 +354,17 @@ const esc=(s)=>String(s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&g
 function who(){let n=localStorage.getItem("fluid-review-name");if(!n){n=(prompt("Your name (shown next to your comments):")||"").trim();if(n)localStorage.setItem("fluid-review-name",n)}return n}
 async function api(p,b){const r=await fetch("/r/"+token+p,b?{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(b)}:{});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||"Something went wrong");return j}
 async function load(keep){S=await api("/data");if(!keep||ver===null)ver=S.current;$("t").firstChild.nodeValue=S.title;$("sub").textContent=S.client+" · design review";
-const ok=S.status==="approved"&&S.approved_version===S.current;$("status").className="pill "+(ok?"ok":"review");$("status").textContent=ok?"Approved by "+S.approved_by:"Waiting for approval";$("ap").disabled=ok;
+const ok=S.status==="approved"&&S.approved_version===S.current,building=ok&&S.build_state==="queued",built=ok&&S.build_state==="built";
+$("status").className="pill "+(S.working?"review":ok?"ok":"review");$("status").textContent=S.working?"Fluid is updating this email…":building?"Approved · building in Klaviyo…":built?"Approved · draft in Klaviyo":ok?"Approved by "+S.approved_by:"Waiting for approval";
+$("ap").disabled=ok||S.working;$("ap").textContent=ok?"Approved":"Approve & build";
+const n=newOpen().length;$("sc").disabled=!n||S.working;$("sc").textContent=S.working?"Working on comments…":n?"Submit comments ("+n+")":"Submit comments";
 $("ver").innerHTML=S.versions.map(v=>'<option value="'+v.version+'"'+(v.version===ver?" selected":"")+">Version "+v.version+(v.version===S.current?" (latest)":"")+"</option>").join("");render()}
 let H=0,mobile=false;
 function fit(){const avail=Math.min(document.documentElement.clientWidth-16,mobile?375:600),k=Math.min(1,avail/600);$("stage").style.transform="scale("+k+")";$("fit").style.width=600*k+"px";$("fit").style.height=H*k+"px"}
 function frame(){$("dl").href="/r/"+token+"/jpeg?v="+ver;const f=$("f");f.onload=()=>{H=f.contentDocument.documentElement.scrollHeight;f.style.height=H+"px";$("ov").style.height=H+"px";fit();pins()};f.src="/r/"+token+"/frame?v="+ver}
 let lastW=document.documentElement.clientWidth;addEventListener("resize",()=>{const w=document.documentElement.clientWidth;if(w!==lastW){lastW=w;fit()}});
 function tops(){return S.comments.filter(c=>!c.parent_id&&c.version===ver)}
+function newOpen(){return S.comments.filter(c=>!c.parent_id&&c.version===S.current&&!c.resolved&&!c.submitted_at)}
 function pins(){document.querySelectorAll(".pin:not(.pending)").forEach(p=>p.remove());tops().forEach((c,i)=>{const p=document.createElement("div");p.className="pin"+(c.resolved?" done":"")+(sel===c.id?" sel":"");p.style.left=c.x+"px";p.style.top=c.y+"px";p.textContent=i+1;p.onclick=(e)=>{e.stopPropagation();sel=c.id;render()};$("stage").appendChild(p)})}
 function render(){pins();const list=tops();$("list").innerHTML=list.length?list.map((c,i)=>{const rs=S.comments.filter(x=>x.parent_id===c.id);return '<div class="c'+(sel===c.id?" sel":"")+'" data-id="'+c.id+'"><div class="who">'+(i+1)+". "+esc(c.author_name)+(c.resolved?" <em>· resolved</em>":"")+'</div><p>'+esc(c.body)+"</p>"+rs.map(r=>'<div class="r'+(r.author_kind==="bot"?" bot":"")+'"><div class="who">'+esc(r.author_kind==="bot"?"Fluid":r.author_name)+"</div><p>"+esc(r.body)+"</p></div>").join("")+'<div class="row"><button data-reply="'+c.id+'">Reply</button><button data-res="'+c.id+'">'+(c.resolved?"Reopen":"Resolve")+"</button></div></div>"}).join(""):'<p class="hint">No comments on this version yet.</p>';}
 $("list").onclick=async(e)=>{const id=e.target.dataset.reply,rid=e.target.dataset.res;if(id){const n=who();if(!n)return;const t=(prompt("Your reply:")||"").trim();if(!t)return;await api("/comments",{author:n,body:t,parent_id:id,version:ver}).catch(a=>alert(a.message));await load(true)}if(rid){const c=S.comments.find(x=>x.id===rid);await api("/resolve",{author:who()||"Reviewer",comment_id:rid,resolved:!c.resolved});await load(true)}const box=e.target.closest(".c");if(box&&!id&&!rid){sel=box.dataset.id;render()}};
@@ -326,7 +379,11 @@ $("csave").onclick=async()=>{const n=who();if(!n||!pending)return;const t=$("cte
 $("cm").onclick=()=>{$("main").classList.toggle("commenting");$("cm").classList.toggle("on")};$("main").classList.add("commenting");
 $("view").onclick=()=>{mobile=!mobile;$("view").textContent=mobile?"Desktop view":"Mobile view";fit()};
 $("ver").onchange=()=>{ver=Number($("ver").value);sel=null;frame();render()};
-$("ap").onclick=async()=>{const n=who();if(!n)return;if(!confirm("Approve version "+S.current+" of this email as it is now?"))return;await api("/approve",{author:n}).catch(a=>alert(a.message));await load(true)};
+$("ap").onclick=async()=>{const n=who();if(!n)return;const waiting=newOpen().length;
+if(!confirm((waiting?"You have "+waiting+" comment"+(waiting>1?"s":"")+" you haven't submitted. They won't be made.\\n\\n":"")+"Approve version "+S.current+" and build it in Klaviyo as a draft? (Nothing is sent or scheduled.)"))return;
+try{const r=await api("/approve",{author:n,build:true});alert(r.building==="email"?"Approved. Fluid is building it in Klaviyo as a draft now, and will post in Slack when it's done.":r.building==="flow"?"Approved. Every email in this flow is approved, so Fluid is building the whole flow in Klaviyo as a draft now.":"Approved. The flow builds in Klaviyo once the other "+r.waiting+" email"+(r.waiting>1?"s are":" is")+" approved.")}catch(a){alert(a.message)}await load(true)};
+$("sc").onclick=async()=>{const n=who();if(!n)return;const k=newOpen().length;if(!k)return;if(!confirm("Send "+k+" comment"+(k>1?"s":"")+" to Fluid? It will make the changes and post a new version here."))return;
+try{await api("/submit",{author:n});}catch(a){alert(a.message)}await load(true)};
 load().then(frame).catch(e=>{document.body.innerHTML="<p style='padding:24px'>"+esc(e.message)+"</p>"});
 setInterval(()=>load(true).catch(()=>{}),30000);
 </script></body></html>`;
@@ -368,7 +425,7 @@ try{const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"con
 /** Internal onboarding page (Fluid team only): the client's onboarding doc (PDF) + optional Klaviyo / Customer.io key. */
 export function internalPage(client: string) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${esc(client)} onboarding</title>
-<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:20px}h2{font-size:24px;margin:0 0 6px}.q{margin-top:22px}label{display:block;font-weight:650;font-size:18px}.help{color:var(--muted);font-size:16px;margin:4px 0 8px}input[type=password],textarea{width:100%;font:inherit;font-size:18px;border:1px solid #d9d4ca;border-radius:10px;padding:14px 16px;background:#fff;min-height:54px}textarea{min-height:110px}
+<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:20px}h2{font-size:24px;margin:0 0 6px}.q{margin-top:22px}label{display:block;font-weight:650;font-size:18px}.help{color:var(--muted);font-size:16px;margin:4px 0 8px}input[type=password],input[type=text],textarea{width:100%;font:inherit;font-size:18px;border:1px solid #d9d4ca;border-radius:10px;padding:14px 16px;background:#fff;min-height:54px}textarea{min-height:110px}
 .drop{border:2px dashed #cfc8bb;border-radius:12px;padding:34px 18px;text-align:center;cursor:pointer;color:var(--muted)}.drop.over{border-color:var(--accent);background:#fff6f2}.drop b{color:var(--ink);font-size:19px}#files{list-style:none;padding:0;margin:10px 0 0}#files li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:16px}#files li span:last-child{color:var(--muted);white-space:nowrap}
 .seg{display:flex;flex-wrap:wrap;gap:8px}.seg label{font-weight:600;font-size:17px;border:1px solid #d9d4ca;border-radius:999px;padding:10px 18px;cursor:pointer}.seg input{position:absolute;opacity:0}.seg input:checked+span{color:#fff}.seg label:has(input:checked){background:var(--ink);border-color:var(--ink);color:#fff}.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:4px}
 button{font:inherit;font-weight:650;font-size:19px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:18px 24px;min-height:60px;cursor:pointer;width:100%}#msg{margin-top:14px;font-weight:600}.tag{display:inline-block;background:#1d1d1d;color:#fff;border-radius:999px;font-size:13px;padding:3px 10px;margin-bottom:12px}@media(max-width:600px){section{padding:22px 18px}h1{font-size:28px}}</style></head>
@@ -378,6 +435,10 @@ button{font:inherit;font-weight:650;font-size:19px;background:var(--accent);colo
 <section><h2>Email platform <span style="font-weight:400;color:var(--muted);font-size:17px">(optional)</span></h2><p class="help">Connect it now or later. Without a key, the onboarding works from the doc and their website.</p>
 <div class="seg" role="radiogroup" aria-label="Email platform"><label><input type="radio" name="platform" value="klaviyo" id="p-k"><span>Klaviyo</span></label><label><input type="radio" name="platform" value="customerio" id="p-c"><span>Customer.io</span></label><label><input type="radio" name="platform" value="none" id="p-n" checked><span>Not now</span></label></div>
 <div class="q" id="keybox" hidden><label for="key" id="keylabel">API key</label><div class="help" id="keyhelp"></div><input id="key" type="password" autocomplete="off"></div></section>
+<section><h2>Shopify <span style="font-weight:400;color:var(--muted);font-size:17px">(optional)</span></h2><p class="help">For the store analytics audit, and so Fluid can create discount codes. On their store: Shopify Dev Dashboard → their app (scopes: ${"read_orders, read_all_orders, read_products, read_customers, read_reports, write_discounts"}) → Settings → Client ID and Client secret. Or paste an Admin API token instead of the secret.</p>
+<div class="q"><label for="shop">Store address</label><input id="shop" type="text" placeholder="brand.myshopify.com" autocomplete="off"></div>
+<div class="q"><label for="sid">App Client ID</label><input id="sid" type="text" autocomplete="off" placeholder="Leave empty if you paste an Admin API token"></div>
+<div class="q"><label for="ssec">Client secret or Admin API token</label><input id="ssec" type="password" autocomplete="off" placeholder="shpss_… or shpat_…"></div></section>
 <section><h2>Notes <span style="font-weight:400;color:var(--muted);font-size:17px">(optional)</span></h2><div class="q" style="margin-top:6px"><textarea id="notes" name="notes" placeholder="Anything the doc doesn't say: current offers, sender name, what to avoid…"></textarea></div></section>
 <button type="submit" id="go">Save and start onboarding</button><div id="msg"></div></form></div>
 <script>
@@ -393,7 +454,7 @@ f.onsubmit=async(e)=>{e.preventDefault();if(!queue.length){msg.textContent="Add 
 try{for(let i=0;i<queue.length;i++){const x=queue[i];if(x.done)continue;document.getElementById("s"+i).textContent="Uploading…";msg.textContent="Uploading "+(i+1)+" of "+queue.length+"…";
 const r=await fetch(location.pathname+"/upload?name="+encodeURIComponent(x.name),{method:"POST",body:x});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||"Upload failed");x.done=true;document.getElementById("s"+i).textContent="✓ Uploaded"}
 msg.textContent="Saving…";const platform=f.elements.platform.value;
-const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({answers:{platform,notes:f.elements.notes.value},klaviyo_key:platform==="none"?"":document.getElementById("key").value})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");
+const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({answers:{platform,notes:f.elements.notes.value},klaviyo_key:platform==="none"?"":document.getElementById("key").value,shopify:{shop:document.getElementById("shop").value,client_id:document.getElementById("sid").value,secret:document.getElementById("ssec").value}})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");
 f.innerHTML="<section><h2>Saved</h2><p>The onboarding is starting in ${esc(client)}'s Slack channel. Updates and the doc links will be posted there.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
 </script></body></html>`;
 }
@@ -574,5 +635,24 @@ document.addEventListener("click",e=>{const sw=e.target.closest(".sw");if(sw){na
   const it=e.target.closest(".item");if(it)open(it.dataset.id)});
 $("scrim").onclick=close;document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
 fetch(location.pathname+"/data").then(r=>r.json()).then(j=>{D=j;if(D.book)loadFonts(D.book);render()}).catch(()=>{$("t").textContent="This brand book isn't available."});
+</script></body></html>`;
+}
+
+/** Fluid-team page to connect a client's Shopify store (no onboarding run). */
+export function shopifyPage(client: string) {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Connect Shopify</title>
+<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:20px}h2{font-size:24px;margin:0 0 6px}.q{margin-top:22px}label{display:block;font-weight:650;font-size:18px}.help{color:var(--muted);font-size:16px;margin:4px 0 8px}input{width:100%;font:inherit;font-size:18px;border:1px solid #d9d4ca;border-radius:10px;padding:14px 16px;background:#fff;min-height:54px}
+button{font:inherit;font-weight:650;font-size:19px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:18px 24px;min-height:60px;cursor:pointer;width:100%}#msg{margin-top:14px;font-weight:600}.tag{display:inline-block;background:#1d1d1d;color:#fff;border-radius:999px;font-size:13px;padding:3px 10px;margin-bottom:12px}ol{padding-left:22px;margin:8px 0 0}li{margin:4px 0}@media(max-width:600px){section{padding:22px 18px}h1{font-size:28px}}</style></head>
+<body><div class="wrap"><span class="tag">Fluid team only</span><h1>Connect ${esc(client)}'s Shopify</h1><p class="sub">Stored encrypted. Fluid reads analytics and orders, and can only ever create new discount codes.</p>
+<form id="f"><section><h2>How to get the credentials</h2><ol class="help"><li>The store owner opens the Shopify Dev Dashboard (dev.shopify.com) and creates an app for their store, or uses the one Fluid set up.</li><li>Scopes: read_orders, read_all_orders, read_products, read_customers, read_reports, write_discounts.</li><li>Install it on the store, then copy the Client ID and Client secret from the app's Settings.</li></ol></section>
+<section><div class="q" style="margin-top:0"><label for="shop">Store address</label><input id="shop" placeholder="brand.myshopify.com" autocomplete="off" required></div>
+<div class="q"><label for="sid">App Client ID</label><input id="sid" autocomplete="off" placeholder="Leave empty if you paste an Admin API token"></div>
+<div class="q"><label for="ssec">Client secret or Admin API token</label><input id="ssec" type="password" autocomplete="off" placeholder="shpss_… or shpat_…" required></div></section>
+<button type="submit" id="go">Connect Shopify</button><div id="msg" role="status"></div></form></div>
+<script>
+const f=document.getElementById("f"),msg=document.getElementById("msg"),go=document.getElementById("go");
+f.onsubmit=async(e)=>{e.preventDefault();go.disabled=true;msg.textContent="Checking with Shopify…";
+try{const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({shopify:{shop:document.getElementById("shop").value,client_id:document.getElementById("sid").value,secret:document.getElementById("ssec").value}})});const j=await r.json();if(!r.ok)throw new Error(j.error||"Something went wrong");
+f.innerHTML="<section><h2>Connected</h2><p>"+j.name.replace(/</g,"&lt;")+" is connected. A note was posted in ${esc(client)}'s Slack channel.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
 </script></body></html>`;
 }

@@ -2,13 +2,14 @@
 
 Klaviyo says what emails earned; Shopify says what customers actually buy and when they come back. Together they decide what to lead with, who to send it to, and when.
 
-## Access
-Since 2026 merchants can't create Admin custom apps, so access comes through a Dev Dashboard app installed on the client's store. We need, from that app: the **Client ID** and **Client secret** (`shpss_…`), plus the store's `.myshopify.com` domain. Scopes: `read_orders`, `read_all_orders` (without it Shopify returns only ~60 days), `read_products`, `read_customers`. Read-only, always. Credentials go in the environment for the run (or the app's per-client Vault), never in files or chat logs.
+## Access (every client, at onboarding)
+Shopify is connected once per client and stored encrypted in the vault (never in files or chat):
+- On the onboarding upload page (Shopify section), or later with `/fluid shopify` in the client's channel (a one-use Fluid-team link).
+- Credentials: the store's `.myshopify.com` address plus either (a) the Client ID + Client secret (`shpss_…`) of a Dev Dashboard app installed on their store, or (b) an Admin API token (`shpat_…`). Fluid's own Shopify app install (OAuth) stores a token the same way.
+- Scopes: `read_orders`, `read_all_orders` (without it Shopify returns only ~60 days), `read_products`, `read_customers`, `read_reports` (Shopify Analytics), `write_discounts` (discount codes). The connect page checks them and posts what's missing in the channel.
+- Discount codes stay off until an admin runs `/fluid shopify-discounts on`. Fluid can then only CREATE new codes (with an end date, within the client's max discount); it never edits, pauses or deletes one.
 
-```
-SHOPIFY_SHOP=<store>.myshopify.com SHOPIFY_CLIENT_ID=… SHOPIFY_CLIENT_SECRET=shpss_… npx tsx scripts/shopify-audit.ts <slug>
-```
-Output: `clients/<slug>/research/shopify-audit-<date>.json`.
+The onboarding run pulls both automatically: `research/shopify-audit-<date>.json` (orders) and `research/shopify-analytics-<date>.json` (ShopifyQL: sales trend, new vs returning, top products, sessions, conversion, traffic sources, devices, landing pages, cart/checkout funnel). Write the analytics into the Onboarding Doc's "Store analytics" section with what each number means for email (e.g. 78% mobile → design for the phone first; big cart-to-checkout drop → abandoned cart is the first flow to fix).
 
 ## What to read from it
 

@@ -16,6 +16,8 @@ import { db, linkChannel } from "./db";
 import { saveClientFolder } from "./git";
 import { publicUrl } from "./review";
 import { SECTIONS } from "../lib/onboarding/questions";
+import { checkConn, normalizeShop, shopifyConn, tokenFor } from "../lib/shopify/client";
+import { shopifyAnalytics } from "../lib/shopify/analytics";
 
 const run = promisify(execFile);
 export const TEAM = () => (process.env.SLACK_TEAM_USER_IDS || "").split(",").map((s) => s.trim()).filter(Boolean);
@@ -84,13 +86,62 @@ export function hasExistingForm(folder: string) {
   return existsSync(onb) && readdirSync(onb).some((f) => /form/i.test(f) && !/^form-answers\.md$/.test(f));
 }
 
-const INTERNAL_MSG = (name: string, url: string) => `*${name}* onboarding (Fluid team only): ${url}\nUpload their onboarding doc (PDF), add the Klaviyo or Customer.io key if you have it, and I'll run the onboarding here. The link works once and expires in 14 days.`;
+const INTERNAL_MSG = (name: string, url: string) => `*${name}* onboarding (Fluid team only): ${url}\nUpload their onboarding doc (PDF), add the Klaviyo or Customer.io key and their Shopify app credentials if you have them, and I'll run the onboarding here. The link works once and expires in 14 days.`;
 
 /** A one-use link for the Fluid team: brand guidelines upload + Klaviyo key, for clients we already work with. */
 export async function internalLink(clientId: string) {
   const token = randomBytes(24).toString("base64url");
   await db().from("onboarding_links").insert({ client_id: clientId, token_hash: hashToken(token), kind: "internal", expires_at: new Date(Date.now() + 14 * 86400_000).toISOString() });
   return `${publicUrl()}/onboard/${token}`;
+}
+
+/** A one-use page for the Fluid team to connect (or reconnect) a client's Shopify store. */
+export async function shopifyLink(clientId: string) {
+  const token = randomBytes(24).toString("base64url");
+  await db().from("onboarding_links").insert({ client_id: clientId, token_hash: hashToken(token), kind: "shopify", expires_at: new Date(Date.now() + 14 * 86400_000).toISOString() });
+  return `${publicUrl()}/onboard/${token}`;
+}
+
+/** Verify Shopify credentials (store + Admin token, or Dev Dashboard Client ID + secret) and store them encrypted. */
+export async function storeShopify(clientId: string, input: { shop?: string; client_id?: string; secret?: string }) {
+  if (!input.shop?.trim() && !input.secret?.trim()) return null;
+  const shop = normalizeShop(input.shop ?? "");
+  if (!shop) throw new Error("Use the store's .myshopify.com address (Shopify admin → Settings → Domains).");
+  const secret = (input.secret ?? "").trim(), appId = (input.client_id ?? "").trim() || undefined;
+  if (!secret) throw new Error("Add the app's Client secret (shpss_…) or an Admin API token (shpat_…).");
+  const token = await tokenFor(shop, secret, appId);
+  const check = await checkConn({ shop, token });
+  const { error } = await db().rpc("store_connection_secret", { p_client: clientId, p_provider: "shopify", p_secret: secret, p_meta: { shop, ...(appId ? { client_id: appId } : {}), via: appId ? "client_credentials" : "token", missing_read: check.missing_read, can_create_discounts: check.can_create_discounts }, p_account_name: check.name });
+  if (error) throw new Error("Couldn't store the Shopify credentials securely.");
+  return { ...check, shop };
+}
+
+/** Save the Shopify-only page (kind 'shopify'): store the connection, nothing else runs. */
+export async function saveShopifyForm(token: string, input: { shop?: string; client_id?: string; secret?: string }) {
+  const l = await formLink(token);
+  if (!l || l.kind !== "shopify") throw new Error("This link has expired or was already used.");
+  const r = await storeShopify(l.client_id, input);
+  if (!r) throw new Error("Add the store and its credentials.");
+  await db().from("onboarding_links").update({ revoked_at: new Date().toISOString() }).eq("id", l.id);
+  return { clientId: l.client_id, folder: l.clients.folder, name: l.clients.name, shopify: r };
+}
+
+/** Shopify part of the audit: orders (best sellers, AOV, repeat rate, cohorts) + Shopify Analytics, into research/. */
+export async function shopifyAudit(clientId: string, folder: string): Promise<string[]> {
+  let conn;
+  try { conn = await shopifyConn(db(), clientId); } catch (e: any) { return [`Shopify: couldn't connect (${e.message.slice(0, 140)})`]; }
+  if (!conn) return ["Shopify: not connected (orders come from Klaviyo's Shopify events instead, if available)"];
+  const notes: string[] = [], research = join(CLIENTS_DIR, folder, "research"), day = new Date().toISOString().slice(0, 10);
+  mkdirSync(research, { recursive: true });
+  try { await run("npx", ["tsx", "scripts/shopify-audit.ts", folder], { cwd: ROOT, env: { ...process.env, SHOPIFY_SHOP: conn.shop, SHOPIFY_ACCESS_TOKEN: conn.token }, timeout: 15 * 60_000, maxBuffer: 20 * 1024 * 1024 }); notes.push("Shopify orders: done"); }
+  catch (e: any) { notes.push(`Shopify orders: failed (${String(e.stderr || e.message).split("\n").filter(Boolean).pop()?.slice(0, 160)})`); }
+  try {
+    const a = await shopifyAnalytics(conn);
+    writeFileSync(join(research, `shopify-analytics-${day}.json`), JSON.stringify(a, null, 2));
+    const failed = Object.entries(a).filter(([, v]: any) => v?.error).length;
+    notes.push(`Shopify analytics: done${failed ? ` (${failed} report${failed > 1 ? "s" : ""} unavailable)` : ""}`);
+  } catch (e: any) { notes.push(`Shopify analytics: failed (${e.message.slice(0, 160)})`); }
+  return notes;
 }
 
 /** A fresh one-use link for this client (e.g. to connect Klaviyo after someone pasted a key in Slack). */
@@ -107,7 +158,7 @@ export async function formLink(token: string) {
   if (!/^[A-Za-z0-9_-]{20,64}$/.test(token)) return null;
   const { data } = await db().from("onboarding_links").select("id, client_id, kind, expires_at, revoked_at, clients(name, folder, website_url)").eq("token_hash", hashToken(token)).maybeSingle();
   if (!data || data.revoked_at || Date.parse(data.expires_at) < Date.now()) return null;
-  return data as any as { id: string; client_id: string; kind: "client" | "internal"; clients: { name: string; folder: string; website_url: string } };
+  return data as any as { id: string; client_id: string; kind: "client" | "internal" | "shopify"; clients: { name: string; folder: string; website_url: string } };
 }
 
 async function storeKlaviyoKey(clientId: string, klaviyoKey?: string) {
@@ -150,7 +201,7 @@ export async function saveUpload(token: string, filename: string, data: Buffer) 
 }
 
 /** Save the internal onboarding upload: files are already in onboarding/docs/; the key (Klaviyo or Customer.io, optional) goes to the vault. */
-export async function saveInternalForm(token: string, answers: Record<string, unknown>, key?: string) {
+export async function saveInternalForm(token: string, answers: Record<string, unknown>, key?: string, shopify?: { shop?: string; client_id?: string; secret?: string }) {
   const l = await formLink(token);
   if (!l || l.kind !== "internal") throw new Error("This link has expired or was already used.");
   const dir = join(CLIENTS_DIR, l.clients.folder, "onboarding", "docs");
@@ -161,10 +212,12 @@ export async function saveInternalForm(token: string, answers: Record<string, un
   if (key?.trim() && platform === "klaviyo") connection = `Klaviyo ${await storeKlaviyoKey(l.client_id, key)}`;
   else if (key?.trim() && platform === "customerio") connection = `Customer.io ${await storeCioKey(l.client_id, key)}`;
   const esp = platform === "customerio" ? "Customer.io" : platform === "klaviyo" ? "Klaviyo" : "not given";
+  const shop = shopify ? await storeShopify(l.client_id, shopify) : null;
+  const shopLine = shop ? `Shopify: connected (${shop.name}, ${shop.shop})${shop.missing_read.length ? `, missing ${shop.missing_read.join(", ")}` : ""}${shop.can_create_discounts ? ", can create discount codes" : ", read only (no write_discounts)"}` : "Shopify: not connected";
   const notes = String(answers.notes ?? "").trim().slice(0, 8000);
   writeFileSync(join(CLIENTS_DIR, l.clients.folder, "onboarding", "internal-setup.md"), [
     `# ${l.clients.name} — onboarding upload`, `Submitted ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC by the Fluid team`, "",
-    `Email platform: ${esp} (${connection})`, "", "## Files", ...files.map((f) => `- onboarding/docs/${f}`), "", `## Notes from the team\n${notes || "_(none)_"}\n`].join("\n"));
+    `Email platform: ${esp} (${connection})`, shopLine, "", "## Files", ...files.map((f) => `- onboarding/docs/${f}`), "", `## Notes from the team\n${notes || "_(none)_"}\n`].join("\n"));
   const mem = join(CLIENTS_DIR, l.clients.folder, "memory.md");
   if (existsSync(mem) && esp !== "not given" && !/^Email platform:/m.test(readFileSync(mem, "utf8"))) writeFileSync(mem, readFileSync(mem, "utf8").trimEnd() + `\n\nEmail platform: ${esp}\n`);
   await db().from("onboarding_links").update({ revoked_at: new Date().toISOString() }).eq("id", l.id);
@@ -203,6 +256,12 @@ export async function saveForm(token: string, answers: Record<string, unknown>, 
 
 /** Klaviyo audit + order data (read-only scripts) into research/, using the client's key from the vault. */
 export async function runAudits(clientId: string, folder: string) {
+  const shop = await shopifyAudit(clientId, folder);
+  const r = await espAudits(clientId, folder);
+  return { ...r, notes: [...r.notes, ...shop] };
+}
+
+async function espAudits(clientId: string, folder: string): Promise<{ klaviyo: boolean; customerio?: boolean; notes: string[]; files?: string[] }> {
   const { data: key } = await db().rpc("get_connection_secret", { p_client: clientId, p_provider: "klaviyo" });
   if (!key) {
     const { cioCreds } = await import("../lib/customerio/api");
@@ -230,10 +289,10 @@ export async function runAudits(clientId: string, folder: string) {
 export const ONBOARDING_PROMPT = (name: string, auditNotes: string[], internal = false) => `Onboard ${name}. ${internal
   ? "This client was set up internally by the Fluid team (onboarding/internal-setup.md). If onboarding/README.md says the website was not given, find it in the uploaded doc (or search the web for the brand) and write it as a line \"Website: https://…\" in onboarding/README.md and memory.md before anything else. Their onboarding answers and any brand guidelines are the files in onboarding/docs/: read every PDF fully (in page ranges if long) and any images; Word/PowerPoint files have a .txt copy. Those answers replace the client form, and brand guidelines are the source of truth for fonts, colours, voice and rules; use the website to fill gaps. The email platform is in internal-setup.md: if it is Customer.io, the account audit is research/customerio-audit-*.json and everything you plan must work in Customer.io (read ../../brain/skills/fluid-customerio/SKILL.md). In the flow plan, compare their live flows (from the audit) with the core system and mark each flow/email as keep, fix or build."
   : "This is the automatic onboarding run after the client submitted the form (onboarding/form-answers.md)."}
-Audit status: ${auditNotes.join("; ")}. The audit and order JSON (if any) are in research/.
+Audit status: ${auditNotes.join("; ")}. The audit and order JSON (if any) are in research/. Shopify (if connected): research/shopify-audit-*.json (orders: best sellers, first-order products, AOV spread, repeat rate and days to 2nd order, product paths, cohorts) and research/shopify-analytics-*.json (Shopify Analytics: sales trend, new vs returning, top products, sessions, conversion, traffic sources, devices, landing pages, cart/checkout funnel). Shopify numbers beat Klaviyo's order events when both exist.
 Follow ../../brain/skills/fluid-client-onboarding/SKILL.md fully and produce, in this folder (for a research-use-only peptide brand, write compliance.md first and use research-buyer avatars, per the skill's RUO section; never human benefits):
 1. The brand book (save_brand_book; it writes brand/brand-kit.md) from the website and any brand guide in onboarding/docs (fonts, colors, button style and CTA casing exactly as the site writes its buttons, logos, imagery, trust points). Also store the uploaded guides and any past email designs in the client library (save_to_library).
-2. research/onboarding-doc.md: What has worked (Klaviyo top flows + last 30-60 days campaigns, best/worst), What sells (order data), the brand, avatars (problems, circumstances, desire, what keeps them up at night; "not applicable" where it doesn't fit) and, for each avatar, a moments list of 8–12 photographable moments with their words and what they've already tried (../../brain/skills/fluid-email-copywriter/references/speak-to-the-avatar.md §1), voice + proposed sender persona ("<Name> from <Brand>"), website conflicts, competitors.
+2. research/onboarding-doc.md: What has worked (Klaviyo top flows + last 30-60 days campaigns, best/worst), What sells (order data), Store analytics (Shopify: traffic, conversion, mobile share, new vs returning revenue, funnel drop-off, and what each means for email; skip if not connected), the brand, avatars (problems, circumstances, desire, what keeps them up at night; "not applicable" where it doesn't fit) and, for each avatar, a moments list of 8–12 photographable moments with their words and what they've already tried (../../brain/skills/fluid-email-copywriter/references/speak-to-the-avatar.md §1), voice + proposed sender persona ("<Name> from <Brand>"), website conflicts, competitors.
 3. strategy/<today>-month-1-plan.md: 12 email campaigns + 5 SMS for the first month, each email in the six-field brief format (Email Campaign name / Sent to / Discount / Angle / Goals / Excluding), audiences named from the segmentation master sheet (../../knowledge/sops/segmentation-master.md).
 4. strategy/flow-plan.md: the core flow system, 22 emails + 7 SMS (Welcome with its 3 pop-up versions of email 1, Site abandonment, Browse abandonment, Abandoned cart with the mystery offer, Post-purchase with the plain-text founder email, Winback; SMS: Welcome x2, Browse x1, Abandoned cart x2, Post-purchase x1, Winback x1), filled in for this brand (../../brain/flows/OVERVIEW.md).
 5. Append the key facts and open questions to memory.md.

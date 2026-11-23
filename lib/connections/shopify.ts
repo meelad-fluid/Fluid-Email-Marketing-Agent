@@ -4,7 +4,7 @@
 
 const API_VERSION = "2026-07";
 export const SHOPIFY_REQUIRED_SCOPES = ["read_products", "read_orders", "read_customers"];
-export const SHOPIFY_RECOMMENDED_SCOPES = ["read_all_orders", "read_inventory"];
+export const SHOPIFY_RECOMMENDED_SCOPES = ["read_all_orders", "read_inventory", "read_reports", "write_discounts"];
 
 export type ShopifyCheck =
   | { ok: true; shop: string; shopName: string; missingScopes: string[]; missingRecommended: string[] }
