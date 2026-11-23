@@ -1,0 +1,10 @@
+{
+  "assets": [
+    {"id": "bf-hero-counter-night", "path": "brand/assets/generated/2026-11-23-bf-hero-counter-night.jpg", "use": "hero background"},
+    {"id": "bf-empty-pouch", "path": "brand/assets/generated/2026-11-23-bf-empty-pouch.jpg", "use": "that's me polaroid"},
+    {"id": "bf-stock-up-pile", "path": "brand/assets/generated/2026-11-23-bf-stock-up-pile.jpg", "use": "made to order header"},
+    {"id": "chile-limon-3", "path": "brand/assets/products/chile-limon/3.jpg", "use": "product card"},
+    {"id": "original-1", "path": "brand/assets/products/original/1.jpg", "use": "product card + logo badge crop"},
+    {"id": "picosa-lime-1", "path": "brand/assets/products/picosa-lime/1.jpg", "use": "product card"}
+  ]
+}

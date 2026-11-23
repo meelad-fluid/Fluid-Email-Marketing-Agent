@@ -22,6 +22,9 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-23 · Proposed sender persona: "Rosa from El Viejon" (not approved). Founder notes from Pedro. Pop-up answers: Spicy. The hotter the better. / Bold but balanced. / Let me try everything.
 - 2026-11-23 · Brand book v1: Ranch Gold #F5B70E, Pouch Black #111111, Chile Red, Lime Green; Rye / Oswald / Inter (proposed matches, confirm); CTA Title Case. Client wants Apple-level, high-end feel.
 
+- 2026-11-23 · Meelad (Fluid) asked for a 20% Black Friday campaign → treated as Fluid-side go-ahead on 20% (client sign-off still on the review link). Built copy/2026-11-27-black-friday-20.md + designs/2026-11-27-black-friday-20 (gold hero card over night-counter pouch, empty-pouch polaroid, icons, 3 products, made-to-order timeline, review, close). Code BLACKFRIDAY20 proposed; doesn't exist yet (Shopify not connected).
+- 2026-11-23 · Design tool note: design.dc.html must start with the email's root <div> (no <html>/<head>, <style> inside the div) or render_preview times out.
+
 ## Open questions
 <!-- - … -->
 - 2026-11-23 · BLOCKING: Is 20% OK for BF/CM? Form says 15% max but FAMILIA20/FIRSTBITE20 ran at 20%.

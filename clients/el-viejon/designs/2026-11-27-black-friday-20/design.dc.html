@@ -1,0 +1,227 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+.email{font-family:'Inter',Helvetica,Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#111;overflow:hidden;position:relative}
+.osw{font-family:'Oswald','Arial Narrow',sans-serif;text-transform:uppercase}
+.script{font-family:'Dancing Script',cursive}
+.btn{display:inline-block;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:3px;text-transform:uppercase;border-radius:999px;font-size:17px;padding:16px 40px;line-height:1}
+.btn-black{background:#111;color:#F5B70E}
+.btn-gold{background:#F5B70E;color:#111}
+
+/* HERO */
+.hero{position:relative;height:1000px;background:linear-gradient(to bottom,#1b0f08 0,#1b0f08 300px,rgba(27,15,8,0) 420px),url('asset:brand/assets/generated/2026-11-23-bf-hero-counter-night.jpg') 0 300px/600px auto no-repeat,#1b0f08}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(to bottom,rgba(17,17,17,0),#111)}
+.hcard{position:absolute;left:28px;right:28px;top:26px;background:#F5B70E;border-radius:28px;text-align:center;padding:24px 34px 34px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.badge{width:78px;height:78px;border-radius:50%;margin:0 auto 12px;background:url('asset:brand/assets/products/original/1.jpg') no-repeat;background-size:312px auto;background-position:-117px -98px;box-shadow:0 0 0 3px #111}
+.eyebrow{font-size:15px;font-weight:600;letter-spacing:4px;color:#111}
+.giant{font-size:150px;line-height:.9;font-weight:700;color:#111;letter-spacing:-2px;margin-top:8px}
+.giant small{font-size:64px;vertical-align:top;line-height:1.5;margin-left:4px}
+.giant-sub{display:inline-block;background:#111;color:#F5B70E;font-size:30px;font-weight:600;letter-spacing:2px;padding:6px 18px 8px;margin-top:6px;transform:rotate(-2deg)}
+.hsub{font-size:16px;line-height:1.5;color:#111;margin:18px auto 22px;max-width:440px}
+.sticker{position:absolute;right:40px;top:600px;width:150px;height:150px;transform:rotate(12deg);z-index:3;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}
+.sticker svg{position:absolute;inset:0}
+.sticker .st-t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff}
+.st-t b{font-family:'Oswald';font-size:22px;line-height:1.05;font-weight:700;margin:3px 0}
+.st-t span{font-family:'Oswald';font-size:12px;letter-spacing:1.5px;line-height:1.35;text-transform:uppercase}
+
+/* THAT'S ME */
+.me{position:relative;background:#F6EEDC;padding:70px 34px 64px}
+.wave-top{position:absolute;top:-1px;left:0;width:600px;height:40px}
+.me-row{display:flex;align-items:center;gap:26px}
+.polaroid{flex:0 0 236px;background:#fff;padding:10px 10px 38px;transform:rotate(-4deg);box-shadow:0 14px 30px rgba(0,0,0,.25);position:relative}
+.polaroid img{width:216px;height:216px;object-fit:cover;display:block}
+.polaroid .cap{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:20px;color:#5A2E16}
+.me h2{font-size:44px;line-height:1.02;font-weight:700;color:#111}
+.me h2 em{font-style:normal;color:#C8231E}
+.moments{list-style:none;margin-top:16px}
+.moments li{display:flex;gap:10px;font-size:15px;line-height:1.45;color:#111;margin-bottom:10px}
+.moments li i{flex:0 0 22px;height:22px;border-radius:50%;background:#111;color:#F5B70E;font-style:normal;font-family:'Oswald';font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.fix{text-align:center;font-size:38px;color:#C8231E;margin-top:30px;transform:rotate(-2deg)}
+
+/* WHY */
+.why{background:#111;padding:60px 30px 64px;text-align:center;position:relative}
+.why h2{font-size:46px;color:#F5B70E;font-weight:700;line-height:1}
+.icons{display:flex;gap:14px;margin-top:34px}
+.ic{flex:1;border:1.5px solid rgba(245,183,14,.55);border-radius:22px;padding:24px 12px 22px}
+.ic .circ{width:74px;height:74px;border-radius:50%;background:#F5B70E;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
+.ic h3{font-size:19px;color:#fff;font-weight:600;letter-spacing:1px;line-height:1.15}
+.ic p{font-size:13.5px;color:#cfc6b4;line-height:1.45;margin-top:8px}
+
+/* PRODUCTS */
+.prods{position:relative;background:#F5B70E;padding:76px 26px 56px;text-align:center}
+.prods h2{font-size:46px;color:#111;font-weight:700;line-height:1}
+.grid{display:flex;gap:14px;margin-top:34px}
+.pc{flex:1;background:#111;border-radius:22px;padding:0 0 20px;display:block;overflow:hidden}
+.pc img{width:100%;height:170px;object-fit:cover;display:block}
+.pc h3{font-size:22px;color:#F5B70E;font-weight:600;margin:16px 0 12px;letter-spacing:1px}
+.pc .btn{font-size:12px;padding:12px 14px;letter-spacing:1.5px}
+.ship{display:inline-block;margin-top:28px;border:2px dashed #111;border-radius:999px;padding:12px 26px;font-family:'Oswald';font-size:16px;letter-spacing:2.5px;color:#111;text-transform:uppercase;font-weight:600}
+
+/* MADE TO ORDER */
+.mto{position:relative;background:#5A2E16;padding:0 0 60px;text-align:center}
+.mto .pile{width:600px;height:330px;object-fit:cover;display:block;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent);mask-image:linear-gradient(to bottom,#000 70%,transparent)}
+.mto h2{font-size:46px;color:#F6EEDC;font-weight:700;line-height:1;margin-top:-10px;position:relative}
+.mto h2 span{color:#F5B70E}
+.steps{display:flex;margin:36px 30px 0;position:relative}
+.steps:before{content:"";position:absolute;top:31px;left:80px;right:80px;border-top:2px dashed #F5B70E}
+.step{flex:1;position:relative}
+.step .num{width:62px;height:62px;border-radius:50%;background:#F5B70E;color:#111;font-family:'Oswald';font-weight:700;font-size:30px;margin:0 auto;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px #5A2E16}
+.step h3{font-size:19px;color:#fff;font-weight:600;margin-top:14px;letter-spacing:1px}
+.step p{font-size:13.5px;color:#e8d9c3;margin-top:5px}
+.mto .note{font-size:15px;line-height:1.5;color:#F6EEDC;max-width:470px;margin:30px auto 0}
+
+/* REVIEW */
+.rev{background:#111;padding:70px 40px 30px;position:relative}
+.rcard{background:#F5B70E;border-radius:26px;padding:44px 40px 34px;text-align:center;position:relative;transform:rotate(-1.5deg);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.rcard .q{font-family:'Oswald';font-size:110px;line-height:.6;color:#111;height:52px}
+.rcard p{font-size:24px;line-height:1.3;color:#111;font-weight:600;font-style:italic}
+.rcard .nm{font-family:'Oswald';font-size:14px;letter-spacing:3px;color:#111;margin-top:18px;text-transform:uppercase}
+.stars{color:#C8231E;font-size:20px;letter-spacing:4px;margin-top:6px}
+
+/* CLOSE */
+.close{background:#111;padding:40px 40px 70px;text-align:center}
+.close h2{font-size:52px;line-height:1;color:#fff;font-weight:700}
+.close h2 span{color:#F5B70E}
+.pill{display:inline-block;margin:24px 0 26px;border:2px dashed #F5B70E;border-radius:999px;padding:12px 18px;font-family:'Oswald';font-size:13px;letter-spacing:1.2px;color:#F5B70E;white-space:nowrap;text-transform:uppercase}
+
+/* FOOTER */
+.foot{position:relative;background:#F5B70E;padding:70px 30px 34px;text-align:center}
+.foot .tag{font-size:16px;font-weight:600;color:#111;line-height:1.5}
+.foot .script{font-size:34px;color:#111;margin:10px 0 18px}
+.social{display:flex;justify-content:center;gap:12px;margin-bottom:18px}
+.social a{width:40px;height:40px;border-radius:50%;border:2px solid #111;display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-size:13px;font-weight:600;color:#111}
+.links{font-size:12px;color:#111;line-height:1.9}
+.legal{font-size:11px;color:#3a2a00;margin-top:12px}
+</style>
+
+  <!-- HERO -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="hero" style="display:block">
+    <div class="hcard">
+      <div class="badge"></div>
+      <div class="eyebrow osw">Black Friday is open, Familia</div>
+      <div class="giant osw">20%<small>OFF</small></div>
+      <div class="giant-sub osw">Every bag.</div>
+      <p class="hsub">You finished the last bag faster than you meant to. Through Monday, every flavor is 20% off, so this time grab enough to last.</p>
+      <span class="btn btn-black">Stock Up Now</span>
+    </div>
+    <div class="sticker">
+      <svg viewBox="0 0 100 100"><path fill="#C8231E" d="M50 2l6.2 7.4 9.3-2.6 2.9 9.2 9.6 1.2-.6 9.6 8.6 4.4-4 8.8 6.3 7.3-7 6.6 2.9 9.2-9.1 3-.4 9.6-9.6-.2-4.2 8.7-8.6-4.3-7.6 5.9-5.8-7.7-9.4 2-1.7-9.5-9.3-2.4 1.6-9.5-7.6-5.9 5-8.2-5-8.2 7.6-5.9-1.6-9.5 9.3-2.4 1.7-9.5 9.4 2z"/></svg>
+      <div class="st-t"><span>Code</span><b>BLACK<br>FRIDAY20</b><span>Ends Mon 11/30</span></div>
+    </div>
+  </a>
+
+  <!-- THAT'S ME -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="me" style="display:block">
+    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#111" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
+    <div class="me-row">
+      <div class="polaroid">
+        <img src="asset:brand/assets/generated/2026-11-23-bf-empty-pouch.jpg" alt="An empty jerky pouch on the counter">
+        <div class="cap script">Wednesday night...</div>
+      </div>
+      <div>
+        <h2 class="osw">Already?<br><em>I just</em><br>ordered.</h2>
+      </div>
+    </div>
+    <ul class="moments" style="margin-top:30px">
+      <li><i>1</i>You reach for the pouch on the counter and it's empty.</li>
+      <li><i>2</i>You stop at the gas station and settle for the sweet stuff.</li>
+      <li><i>3</i>You tell yourself you'll order more next week.</li>
+    </ul>
+    <div class="fix script">This is the week to fix that.</div>
+  </a>
+
+  <!-- WHY -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="why" style="display:block">
+    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#F6EEDC" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
+    <h2 class="osw" style="margin-top:14px">Why it never lasts.</h2>
+    <div class="icons">
+      <div class="ic">
+        <div class="circ"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 32L28 10c3-3 6-2 6 1L14 32z"/><path d="M14 32h-8"/></svg></div>
+        <h3 class="osw">Hand-sliced thin</h3>
+        <p>Beef inside round, cut and dried by hand.</p>
+      </div>
+      <div class="ic">
+        <div class="circ"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M27 9c-2-3-1-5 1-6"/><path d="M26 10c6 2 6 10 1 16-4 5-11 9-19 10 5-4 8-9 9-15 1-7 4-12 9-11z"/></svg></div>
+        <h3 class="osw">Real chile, real lime</h3>
+        <p>No preservatives, colors or fake flavor.</p>
+      </div>
+      <div class="ic">
+        <div class="circ"><span class="osw" style="font-size:26px;font-weight:700;color:#111">24g</span></div>
+        <h3 class="osw">Protein</h3>
+        <p>In every 2oz serving, for the long days.</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- PRODUCTS -->
+  <div class="prods">
+    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#111" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
+    <a href="https://elviejonbeefjerky.com/collections/all"><h2 class="osw">The ones that<br>disappear first.</h2></a>
+    <div class="grid">
+      <a class="pc" href="https://elviejonbeefjerky.com/products/chile-limon">
+        <img src="asset:brand/assets/products/chile-limon/3.jpg" alt="Chile Limón" style="object-position:center 40%">
+        <h3 class="osw">Chile Limón</h3>
+        <span class="btn btn-gold">Shop Chile Limón</span>
+      </a>
+      <a class="pc" href="https://elviejonbeefjerky.com/products/original">
+        <img src="asset:brand/assets/products/original/1.jpg" alt="Original">
+        <h3 class="osw">Original</h3>
+        <span class="btn btn-gold">Shop Original</span>
+      </a>
+      <a class="pc" href="https://elviejonbeefjerky.com/products/picosa-lime">
+        <img src="asset:brand/assets/products/picosa-lime/1.jpg" alt="Picosa Lime">
+        <h3 class="osw">Picosa Lime</h3>
+        <span class="btn btn-gold">Shop Picosa Lime</span>
+      </a>
+    </div>
+    <a href="https://elviejonbeefjerky.com/collections/all" class="ship">Free shipping on orders over $75.</a>
+  </div>
+
+  <!-- MADE TO ORDER -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="mto" style="display:block">
+    <img class="pile" src="asset:brand/assets/generated/2026-11-23-bf-stock-up-pile.jpg" alt="A stack of El Viejon pouches">
+    <h2 class="osw">Made to order.<br><span>Order early.</span></h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3 class="osw">You order</h3><p>This weekend, at 20% off</p></div>
+      <div class="step"><div class="num">2</div><h3 class="osw">We make it by hand</h3><p>7–14 business days</p></div>
+      <div class="step"><div class="num">3</div><h3 class="osw">It ships to you</h3><p>3–5 days in transit</p></div>
+    </div>
+    <p class="note">Every bag is made after you order, so the sooner you order, the better the chance it's on the table for Christmas.</p>
+  </a>
+
+  <!-- REVIEW -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="rev" style="display:block">
+    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#5A2E16" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
+    <div class="rcard">
+      <div class="q">&ldquo;</div>
+      <p>This is the absolute best jerky ive ever had</p>
+      <div class="stars">★★★★★</div>
+      <div class="nm">Martin R. · Verified Buyer</div>
+    </div>
+  </a>
+
+  <!-- CLOSE -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="close" style="display:block">
+    <h2 class="osw">Stock the pantry<br><span>before Monday.</span></h2>
+    <div class="pill">20% off every bag · Code BLACKFRIDAY20 · Ends Mon Nov 30, 11:59pm MT</div><br>
+    <span class="btn btn-gold">Stock Up Now</span>
+  </a>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#111" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
+    <a href="https://elviejonbeefjerky.com"><p class="tag">Hand made. Small batch. No preservatives.<br>100% family owned.</p>
+    <p class="script">Como en el Rancho.</p></a>
+    <div class="social">
+      <a href="https://www.instagram.com/elviejonbeefjerky">IG</a>
+      <a href="https://www.facebook.com/elviejonbeefjerky">FB</a>
+      <a href="https://www.tiktok.com/@elviejonbeefjerky">TT</a>
+    </div>
+    <div class="links"><a href="https://elviejonbeefjerky.com/pages/faqs">FAQs</a> · <a href="https://elviejonbeefjerky.com/pages/contact">Contact</a> · <a href="https://elviejonbeefjerky.com/policies/shipping-policy">Shipping policy</a><br>Manage preferences | Unsubscribe</div>
+    <div class="legal">© 2026 El Viejon Ranch Style Jerky</div>
+  </div>
+
+</div>
