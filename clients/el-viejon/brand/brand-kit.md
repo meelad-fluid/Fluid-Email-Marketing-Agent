@@ -1,0 +1,66 @@
+# El Viejon: brand book (v1, draft, updated 2026-11-23)
+
+> Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
+
+- **Colors:**
+  - Ranch Gold #F5B70E: Signature background from product photography and the logo badge. Hero fields, color blocks, badges
+  - Pouch Black #111111: The black pouch. Primary dark background, headlines on gold, button fill
+  - Chile Red #C8231E: Accent from the 'Chile' wordmark and red chiles. Use sparingly: price flags, urgency, stickers
+  - Lime Green #6BA539: Accent from the 'Limón' wordmark and limes. Small accents only
+  - Carne Brown #5A2E16: Jerky tone. Warm dark sections, texture, story/founder sections
+  - Rope Cream #F6EEDC: Light neutral for reading sections and cards
+  - White #FFFFFF: Text on black/brown, card backgrounds
+- **Fonts:**
+  - headings: Rye (Google Font), fallback Georgia, serif. Closest match to the western slab/Tuscan logo lettering (EL VIEJON). Use for short display words and big flavor names only, never body. Confirm the logo font with the client.
+  - subheads: Oswald (Google Font), fallback Arial Narrow, sans-serif. Condensed uppercase for labels, flavor tags, numbers and the trust line, matching the label and nutrition-panel lettering.
+  - body: Inter (Google Font), fallback Helvetica, Arial, sans-serif. Clean body copy so the email reads 'high end' (client cites Apple as design inspiration).
+  - accent: Playfair Display Italic (Google Font), fallback Georgia, serif. Optional italic accent for Spanish words and founder lines (Familia, Palabras Del Viejon).
+- **Buttons:** rounded, 6px radius, fill #111111, text #F5B70E. **CTA casing: Title Case**. Site buttons read 'Try Chile Limón', 'Shop', 'View all': Title Case. On black sections, invert to gold fill with black text.
+- **Logos:**
+  - El Viejon round badge: Gold circle with cowboy-on-horse silhouette, rope border, 'EL VIEJON / Ranch Style Jerky'. Needs a clean vector/PNG export from the client; currently only visible on pouch photos.
+- **Imagery:**
+  - Black zip pouch on a solid Ranch Gold background, styled with red chiles, limes and the flavor's ingredients
+  - Close crops of the jerky texture: thin, hand-sliced, chile flecks visible
+  - Ranch and heritage scenes: weathered hands, wood cutting board, hay, dusk light, cowboy silhouettes (no faces unless real family photos are supplied)
+  - Serving moments: jerky with lime and Valentina, on a shared table, in a work truck, at a carne asada
+  - Premium and clean: lots of space, one hero per frame (client wants an Apple-level feel)
+- **Voice:**
+  - Grandfather legacy: respect for Don Pedro Gordillo Sr. and the ranch
+  - Mexican culture and pride, Spanish words used naturally (Familia, carne seca, Viejon)
+  - Hard work: the jerky as the reward after a day's labor
+  - Direct and unapologetic: short sentences, no fluff
+  - Disruptive: confident about being different from gas-station jerky
+  - Sign-off culture: the list is 'Familia'; founder notes run as 'Palabras Del Viejon'
+- **Do:**
+  - Call the audience Familia
+  - Lead with flavor and texture, then the handmade proof
+  - Show the gold-and-black look in every email
+  - Say 'small batch', 'hand-sliced', 'made to order', 'family owned'
+  - Set shipping expectations: bags are made to order
+- **Don't:**
+  - Don't call it processed, mass-produced or 'snack sticks'
+  - Don't use cartoonish Mexican clichés (sombreros, piñatas, maracas)
+  - Don't claim organic, keto, gluten-free or health benefits that aren't on the label
+  - Don't exceed 15% off without client approval
+  - Don't mock competitors by name
+- **Claims we can use:**
+  - Zero preservatives, artificial colors or flavorings (site home)
+  - 100% family owned and operated (site home)
+  - Small batch only, not mass produced (site home)
+  - Trimmed, sliced, marinated, dried, packed and shipped by hand (site home)
+  - 100% USDA certified beef, graded Choice or above (site FAQ)
+  - Beef inside round (label)
+  - 24g protein per 2oz serving (label)
+  - Made fresh to order (site FAQ)
+- **Never say:**
+  - Organic (not claimed on site)
+  - Health or medical benefits
+  - Gluten-free for the whole line (only the soy sauce is labeled gluten free)
+  - Soy-free (most recipes contain soy)
+  - Specific ship-by dates without checking the 7–14 business day processing window
+- **Notes:**
+  - CTA casing: Title Case (site: 'Try Chile Limón', 'Shop', 'View all')
+  - Free shipping on orders over $75 (site announcement bar)
+  - Prices: 2oz $9.99 · 4.5oz $19.99 · Sampler 6x2oz $59.99 / 6x4.5oz $119.99 · Jerky Bites 1lb $64.99
+  - Fonts are proposed matches from the packaging; the site's theme fonts and the logo source file still need confirming
+- **Sources:** Onboarding answers (El-Viejon-Ranch-Style-Jerky Brand Guidelines doc, 2026-11-23) · elviejonbeefjerky.com home, FAQ, Our Story, products (2026-11-23) · Product photography and pouch label (Chile Limón) · Klaviyo campaign names and copy (Palabras Del Viejon, Familia)
