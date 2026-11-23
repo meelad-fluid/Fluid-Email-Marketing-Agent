@@ -1,28 +1,29 @@
-# El Viejon: brand book (v1, draft, updated 2026-11-23)
+# El Viejon: brand book (v2, draft, updated 2026-11-23)
 
 > Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
 
 - **Colors:**
-  - Ranch Gold #F5B70E: Signature background from product photography and the logo badge. Hero fields, color blocks, badges
-  - Pouch Black #111111: The black pouch. Primary dark background, headlines on gold, button fill
-  - Chile Red #C8231E: Accent from the 'Chile' wordmark and red chiles. Use sparingly: price flags, urgency, stickers
-  - Lime Green #6BA539: Accent from the 'Limón' wordmark and limes. Small accents only
-  - Carne Brown #5A2E16: Jerky tone. Warm dark sections, texture, story/founder sections
-  - Rope Cream #F6EEDC: Light neutral for reading sections and cards
-  - White #FFFFFF: Text on black/brown, card backgrounds
+  - Ranch Gold #F5B70E: Signature background, hero fields, product cards, testimonial cards, footer, buttons on dark
+  - Pouch Black #111111: Primary dark background, headlines on gold, button fill on gold
+  - Chile Red #C8231E: Accent from chiles and flames. Use sparingly
+  - Lime Green #6BA539: Accent from limes. Small accents only
+  - Carne Brown #5A2E16: Warm dark sections, fiery/ember backgrounds
+  - Rope Cream #F6EEDC: Light neutral for reading sections
+  - White #FFFFFF: Text on black, white sections, pill name labels on product cards
 - **Fonts:**
-  - headings: Rye (Google Font), fallback Georgia, serif. Closest match to the western slab/Tuscan logo lettering (EL VIEJON). Use for short display words and big flavor names only, never body. Confirm the logo font with the client.
-  - subheads: Oswald (Google Font), fallback Arial Narrow, sans-serif. Condensed uppercase for labels, flavor tags, numbers and the trust line, matching the label and nutrition-panel lettering.
-  - body: Inter (Google Font), fallback Helvetica, Arial, sans-serif. Clean body copy so the email reads 'high end' (client cites Apple as design inspiration).
-  - accent: Playfair Display Italic (Google Font), fallback Georgia, serif. Optional italic accent for Spanish words and founder lines (Familia, Palabras Del Viejon).
-- **Buttons:** rounded, 6px radius, fill #111111, text #F5B70E. **CTA casing: Title Case**. Site buttons read 'Try Chile Limón', 'Shop', 'View all': Title Case. On black sections, invert to gold fill with black text.
+  - headings: Oswald (Google Font), fallback Arial Narrow, sans-serif. Bold/heavy condensed ALL CAPS, stacked over 2–3 lines, often ending with a period. This is what the client's past designs use for every headline and section title.
+  - body: Inter (Google Font), fallback Helvetica, Arial, sans-serif. Clean centered body copy (client cites Apple as design inspiration).
+  - accent: Dancing Script (Google Font), fallback cursive. Script for the 'Como en el Rancho.' tagline and short Spanish accents. Closest match to the past designs; confirm the exact script with the client.
+  - display (optional): Rye (Google Font), fallback Georgia, serif. Western slab close to the logo lettering. Not used in past emails; use rarely, if at all.
+- **Buttons:** pill, 999px radius, fill #F5B70E, text #111111. **CTA casing: ALL CAPS**. Letter-spaced Oswald caps. Gold fill with black text on dark sections; black fill with gold text on gold sections.
 - **Logos:**
-  - El Viejon round badge: Gold circle with cowboy-on-horse silhouette, rope border, 'EL VIEJON / Ranch Style Jerky'. Needs a clean vector/PNG export from the client; currently only visible on pouch photos.
+  - El Viejon round badge: Gold circle with cowboy-on-horse silhouette, rope border, 'EL VIEJON / Ranch Style Jerky'. Centered at the top of every past email. Needs a clean PNG/vector export from the client.
 - **Imagery:**
-  - Black zip pouch on a solid Ranch Gold background, styled with red chiles, limes and the flavor's ingredients
+  - Black pouches with red chiles, limes, habaneros, salt and pepper, on a wood table or floating
+  - Fire and embers: flames, sparks and dark smoky backgrounds behind the pouches
+  - Tilted floating pouch and chile cutouts overlapping section edges
+  - Lifestyle: adults laughing and sharing jerky at a party or game night, with a dark overlay card on top
   - Close crops of the jerky texture: thin, hand-sliced, chile flecks visible
-  - Ranch and heritage scenes: weathered hands, wood cutting board, hay, dusk light, cowboy silhouettes (no faces unless real family photos are supplied)
-  - Serving moments: jerky with lime and Valentina, on a shared table, in a work truck, at a carne asada
   - Premium and clean: lots of space, one hero per frame (client wants an Apple-level feel)
 - **Voice:**
   - Grandfather legacy: respect for Don Pedro Gordillo Sr. and the ranch
@@ -37,11 +38,13 @@
   - Show the gold-and-black look in every email
   - Say 'small batch', 'hand-sliced', 'made to order', 'family owned'
   - Set shipping expectations: bags are made to order
+  - Close with the gold footer: 'Hand made. Small batch. No preservatives. 100% family owned.' + 'Como en el Rancho.' script tagline
+  - Build scarcity from small handmade batches, never fake urgency
 - **Don't:**
   - Don't call it processed, mass-produced or 'snack sticks'
   - Don't use cartoonish Mexican clichés (sombreros, piñatas, maracas)
   - Don't claim organic, keto, gluten-free or health benefits that aren't on the label
-  - Don't exceed 15% off without client approval
+  - Don't exceed 15% off without client approval (20% has run for BFCM VIP)
   - Don't mock competitors by name
 - **Claims we can use:**
   - Zero preservatives, artificial colors or flavorings (site home)
@@ -59,8 +62,8 @@
   - Soy-free (most recipes contain soy)
   - Specific ship-by dates without checking the 7–14 business day processing window
 - **Notes:**
-  - CTA casing: Title Case (site: 'Try Chile Limón', 'Shop', 'View all')
+  - CTA casing: ALL CAPS, letter-spaced (client's past email designs; the website uses Title Case)
   - Free shipping on orders over $75 (site announcement bar)
   - Prices: 2oz $9.99 · 4.5oz $19.99 · Sampler 6x2oz $59.99 / 6x4.5oz $119.99 · Jerky Bites 1lb $64.99
-  - Fonts are proposed matches from the packaging; the site's theme fonts and the logo source file still need confirming
-- **Sources:** Onboarding answers (El-Viejon-Ranch-Style-Jerky Brand Guidelines doc, 2026-11-23) · elviejonbeefjerky.com home, FAQ, Our Story, products (2026-11-23) · Product photography and pouch label (Chile Limón) · Klaviyo campaign names and copy (Palabras Del Viejon, Familia)
+  - Fonts matched from the client's past email designs; exact font files still to be confirmed
+- **Sources:** Onboarding answers (El-Viejon-Ranch-Style-Jerky Brand Guidelines doc, 2026-11-23) · elviejonbeefjerky.com home, FAQ, Our Story, products (2026-11-23) · Product photography and pouch label (Chile Limón) · Klaviyo campaign names and copy (Palabras Del Viejon, Familia) · 5 past campaign designs shared in Slack (BFCM VIP x3, Halloween x2), 2026-11-23

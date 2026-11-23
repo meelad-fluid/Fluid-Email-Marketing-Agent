@@ -30,6 +30,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-23 · Sampler / Jerky Bites restock date? Gift cards? How Mystery Mini Bites is sold? Review app + real reviews? Logo files + fonts? OK to name Pedro / El Paso / San Elizario? Is BFCM (Nov 27–30) already built in Klaviyo?
 - 2026-11-23 · Figma campaigns file (8LGSU1HolDTIy58zrwRKQY) is private (403); saved to the library as a link only. Need PNG/PDF exports of the frames to read the designs and copy.
 - 2026-11-23 · Retried: 5 Slack images (BFCM VIP "Cats out the bag", Halloween x2, VIP recruitment, Build Your Flavour Lineup) failed with 403 because the bot is missing Slack files:read. Not stored yet.
+- 2026-11-23 · Stored those 5 past designs in the library (retry worked). Rewrote brand/direction.md. Brand book v2: headlines Oswald ALL CAPS (not Rye), CTAs ALL CAPS letter-spaced pills (gold on dark, black on gold), script tagline "Como en el Rancho.", fire/ember imagery.
 
 ## Assets
 <!-- - brand/assets/<file> — what it is, how it was made -->
