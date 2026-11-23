@@ -1,0 +1,251 @@
+{
+ "pulled_at": "2026-11-23T21:51:31.483Z",
+ "source": "Klaviyo Shopify Placed Order events",
+ "window_days": 365,
+ "orders": 50263,
+ "customers": 34101,
+ "last_90d": {
+  "orders": 16986,
+  "revenue": 1121652,
+  "aov": 66.03,
+  "order_value_p25_p50_p75_p90": [
+   38.97,
+   58.95,
+   79.96,
+   103.99
+  ],
+  "share_orders_over_160": 0.024,
+  "b2b_sized_orders_1000_plus": 0,
+  "best_sellers": [
+   {
+    "name": "Chile Limón",
+    "units": 18719,
+    "revenue": 324543,
+    "orders": 12147,
+    "firstOrders": 7480
+   },
+   {
+    "name": "Original",
+    "units": 10089,
+    "revenue": 170749,
+    "orders": 7036,
+    "firstOrders": 4482
+   },
+   {
+    "name": "Picosa Lime",
+    "units": 7413,
+    "revenue": 131256,
+    "orders": 5733,
+    "firstOrders": 3272
+   },
+   {
+    "name": "Picosa",
+    "units": 6366,
+    "revenue": 106276,
+    "orders": 4703,
+    "firstOrders": 2945
+   },
+   {
+    "name": "HabaGarlic",
+    "units": 4542,
+    "revenue": 77735,
+    "orders": 3820,
+    "firstOrders": 2119
+   },
+   {
+    "name": "Sampler Pack",
+    "units": 922,
+    "revenue": 73671,
+    "orders": 903,
+    "firstOrders": 723
+   },
+   {
+    "name": "Mild",
+    "units": 4338,
+    "revenue": 70767,
+    "orders": 3310,
+    "firstOrders": 1797
+   },
+   {
+    "name": "Spicy Teriyaki",
+    "units": 3594,
+    "revenue": 59384,
+    "orders": 2736,
+    "firstOrders": 1611
+   },
+   {
+    "name": "Mystery Mini Bites",
+    "units": 5613,
+    "revenue": 39235,
+    "orders": 5608,
+    "firstOrders": 2436
+   },
+   {
+    "name": "Jerky Bites 1lb",
+    "units": 485,
+    "revenue": 31520,
+    "orders": 407,
+    "firstOrders": 47
+   }
+  ],
+  "best_first_order_products": [
+   {
+    "name": "Chile Limón",
+    "firstOrders": 7480
+   },
+   {
+    "name": "Original",
+    "firstOrders": 4482
+   },
+   {
+    "name": "Picosa Lime",
+    "firstOrders": 3272
+   },
+   {
+    "name": "Picosa",
+    "firstOrders": 2945
+   },
+   {
+    "name": "Mystery Mini Bites",
+    "firstOrders": 2436
+   },
+   {
+    "name": "HabaGarlic",
+    "firstOrders": 2119
+   },
+   {
+    "name": "Mild",
+    "firstOrders": 1797
+   },
+   {
+    "name": "Spicy Teriyaki",
+    "firstOrders": 1611
+   },
+   {
+    "name": "Sampler Pack",
+    "firstOrders": 723
+   },
+   {
+    "name": "Jerky Bites 1lb",
+    "firstOrders": 47
+   }
+  ],
+  "discount_codes": [
+   {
+    "code": "VIEJON10",
+    "orders": 2040,
+    "revenue": 132342
+   },
+   {
+    "code": "FAMILIA20",
+    "orders": 311,
+    "revenue": 28285
+   },
+   {
+    "code": "VIEJONVIP",
+    "orders": 203,
+    "revenue": 17749
+   },
+   {
+    "code": "FIRSTBITE20",
+    "orders": 197,
+    "revenue": 15528
+   },
+   {
+    "code": "FAMILIA10",
+    "orders": 180,
+    "revenue": 15440
+   },
+   {
+    "code": "WELCOME10",
+    "orders": 144,
+    "revenue": 12558
+   },
+   {
+    "code": "VIEJON15",
+    "orders": 83,
+    "revenue": 6256
+   },
+   {
+    "code": "Custom discount",
+    "orders": 16,
+    "revenue": 108
+   },
+   {
+    "code": "NEWCUSTOMER11",
+    "orders": 10,
+    "revenue": 867
+   },
+   {
+    "code": "MYSTERY",
+    "orders": 2,
+    "revenue": 559
+   }
+  ]
+ },
+ "repeat": {
+  "first_time_buyers_60d_plus_ago": 22468,
+  "came_back": 5996,
+  "repeat_rate": 0.267,
+  "reordered_same_product": 0.72,
+  "days_to_2nd_order_p25_p50_p75": [
+   13,
+   27,
+   58
+  ],
+  "top_paths": [
+   [
+    "Chile Limón → Chile Limón (same)",
+    434
+   ],
+   [
+    "Original → Original (same)",
+    210
+   ],
+   [
+    "Chile Limón → Mystery Mini Bites",
+    203
+   ],
+   [
+    "Chile Limón → Picosa",
+    196
+   ],
+   [
+    "Picosa → Picosa (same)",
+    185
+   ],
+   [
+    "Picosa → Chile Limón",
+    162
+   ],
+   [
+    "Chile Limón → Picosa Lime",
+    150
+   ],
+   [
+    "Original → Mystery Mini Bites",
+    143
+   ],
+   [
+    "Original → Chile Limón",
+    131
+   ],
+   [
+    "Chile Limón → Mild",
+    121
+   ]
+  ]
+ },
+ "cohorts": {
+  "one_time_30_60d": 2193,
+  "one_time_60_120d": 5549,
+  "due_to_reorder": 1193,
+  "lapsed_repeat_buyers": 5245,
+  "vip_top10pct": {
+   "customers": 3412,
+   "min_spend": 180
+  },
+  "b2b_sized_buyers": 0,
+  "cross_sell": {}
+ }
+}
