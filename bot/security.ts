@@ -64,7 +64,10 @@ export async function screenRequest(text: string, clientName: string, names: For
   for (let attempt = 0; attempt < 3; attempt++) try {
     const r = await anthropic().messages.create({
       model: config.screenModel,
-      max_tokens: 200,
+      // No extended thinking: Haiku 5.5 thinks by default and used to spend the whole token budget before writing
+      // the verdict ("no verdict in the screen's answer"). A yes/no screen doesn't need it, and this keeps it fast.
+      max_tokens: 400,
+      thinking: { type: "disabled" },
       system:
         `You screen requests sent to Fluid Creatives' email-marketing assistant inside the Slack channel for ONE client: ${clientName}. ` +
         `ALLOW anything about ${clientName}'s own email/SMS marketing: strategy, campaigns, flows, copy, design, its own Klaviyo/Shopify results, its customers, products, brand, competitors in general terms, onboarding, general email-marketing know-how, and casual chat. ` +
@@ -75,7 +78,7 @@ export async function screenRequest(text: string, clientName: string, names: For
     const out = r.content.map((b) => (b.type === "text" ? b.text : "")).join("");
     // Read the verdict even if the JSON around it is malformed; retry when there's no verdict at all.
     const verdict = out.match(/"allowed"\s*:\s*(true|false)/i);
-    if (!verdict) { lastErr = "no verdict in the screen's answer"; continue; }
+    if (!verdict) { lastErr = `no verdict in the screen's answer (stop: ${r.stop_reason})`; continue; }
     const reason = out.match(/"reason"\s*:\s*"([^"]*)"/)?.[1] ?? "";
     return { allowed: verdict[1].toLowerCase() === "true", reason };
   } catch (e: any) {
