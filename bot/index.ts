@@ -15,6 +15,7 @@ import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb } from "./web";
 import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel } from "./onboarding";
 import { foreignNames, scanText } from "../lib/leaks";
+import { filesNote, receiveFiles, type SlackFile } from "./slack-files";
 
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
 let TEAM_ID = "", BOT_USER_ID = "";
@@ -77,12 +78,13 @@ function chunks(s: string, n = 3500) {
   return out;
 }
 
-async function handle(args: { text: string; channel: string; ts: string; threadTs?: string; user?: string; team?: string }) {
+async function handle(args: { text: string; channel: string; ts: string; threadTs?: string; user?: string; team?: string; files?: SlackFile[] }) {
   const { channel, user } = args;
   const team = args.team ?? TEAM_ID;
   const threadTs = args.threadTs ?? args.ts;
   const web = app.client;
-  const request = args.text.replace(new RegExp(`<@${BOT_USER_ID}>`, "g"), "").trim();
+  // Files with no words ("@Fluid" + screenshots): treat it as "store these".
+  const request = args.text.replace(new RegExp(`<@${BOT_USER_ID}>`, "g"), "").trim() || (args.files?.length ? "Store these in the client library." : "");
   const ephemeral = (text: string) => user && web.chat.postEphemeral({ channel, user, thread_ts: threadTs, text }).catch(() => {});
 
   // 1. Who
@@ -137,13 +139,13 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
   if (busy.has(key)) { await ephemeral("I'm still working on the last message in this thread. I'll pick up new ones when it's done."); return; }
   busy.add(key);
   try {
-    await run(client, { channel, threadTs, user, team, request, names, ts: args.ts });
+    await run(client, { channel, threadTs, user, team, request, names, ts: args.ts, files: args.files, inThread: !!args.threadTs });
   } finally {
     busy.delete(key);
   }
 }
 
-async function run(client: LinkedClient, a: { channel: string; threadTs: string; user?: string; team: string; request: string; names: Awaited<ReturnType<typeof foreignNames>>; ts: string }) {
+async function run(client: LinkedClient, a: { channel: string; threadTs: string; user?: string; team: string; request: string; names: Awaited<ReturnType<typeof foreignNames>>; ts: string; files?: SlackFile[]; inThread?: boolean }) {
   const web = app.client;
   // ⏳ on their message while working (no "On it…" message); it comes off when the reply is posted.
   await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
@@ -166,10 +168,16 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
   await saveThread(a.channel, a.threadTs, client.id, sessionId);
   let who = "";
   try { const u = await web.users.info({ user: a.user! }); who = u.user?.real_name || u.user?.name || ""; } catch {}
-  const prompt = `${who ? `${who} (Fluid team) asks in Slack:` : "Request from Slack:"}\n\n${a.request}`;
-
   await pullLatest();
-  let res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs }, prompt, sessionId, onProgress: progress });
+  // Files in this message (and earlier in the thread) land in inbox/ so the agent can open and store them.
+  let shared = "";
+  if (a.files?.length || a.inThread) {
+    try { shared = filesNote(await receiveFiles(web, join(CLIENTS_DIR, client.folder), { channel: a.channel, threadTs: a.inThread ? a.threadTs : undefined, ts: a.ts, files: a.files })); }
+    catch (e: any) { console.error("[files]", e.message); shared = "\n\n(Files were shared, but I couldn't download them: " + e.message + ")"; }
+  }
+  const prompt = `${who ? `${who} (Fluid team) asks in Slack:` : "Request from Slack:"}\n\n${a.request}${shared}`;
+
+  let res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs }, prompt, sessionId, requester: who || undefined, onProgress: progress });
   if (res.error && sessionId && !res.costUsd) {
     // The saved conversation is gone (the server restarted). Start fresh, with the thread so far as context.
     let history = "";
@@ -179,7 +187,7 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
         .map((m: any) => `${m.bot_id ? "Fluid" : "Team"}: ${String(m.text).replace(new RegExp(`<@${BOT_USER_ID}>`, "g"), "").trim()}`).join("\n");
     } catch {}
     res = await runAgent({ folder: client.folder, clientId: client.id, clientName: client.name, slack: { channel: a.channel, thread: a.threadTs },
-      prompt: history ? `Earlier in this Slack thread:\n${history}\n\n---\n${prompt}` : prompt, onProgress: progress });
+      prompt: history ? `Earlier in this Slack thread:\n${history}\n\n---\n${prompt}` : prompt, requester: who || undefined, onProgress: progress });
   }
   await notes.done();
   await saveThread(a.channel, a.threadTs, client.id, res.sessionId);
@@ -211,13 +219,14 @@ async function run(client: LinkedClient, a: { channel: string; threadTs: string;
 // @Fluid in a channel (top level or in a thread)
 app.event("app_mention", async ({ event }) => {
   const e = event as any;
-  handle({ text: e.text ?? "", channel: e.channel, ts: e.ts, threadTs: e.thread_ts, user: e.user, team: e.team }).catch((err) => console.error(err));
+  handle({ text: e.text ?? "", channel: e.channel, ts: e.ts, threadTs: e.thread_ts, user: e.user, team: e.team, files: e.files }).catch((err) => console.error(err));
 });
 
 // Replies inside a thread the bot is already in (no @mention needed)
 app.event("message", async ({ event }) => {
   const e = event as any;
-  if (e.subtype || e.bot_id || !e.thread_ts || !e.text || e.text.includes(`<@${BOT_USER_ID}>`)) return;
+  // file_share = a reply with attachments ("here are the rest" + screenshots); every other subtype is an edit/join/etc.
+  if ((e.subtype && e.subtype !== "file_share") || e.bot_id || !e.thread_ts || !e.text || e.text.includes(`<@${BOT_USER_ID}>`)) return;
   // Only answer what's meant for the bot: not messages to a teammate (@someone, @here, a user group),
   // not a plain "thanks / great", and only when the message is a reply to the bot's last message.
   const others = [...e.text.matchAll(/<@([A-Z0-9]+)(\|[^>]*)?>/g)].map((m) => m[1]).filter((id) => id !== BOT_USER_ID);
@@ -229,7 +238,7 @@ app.event("message", async ({ event }) => {
     const before = (r.messages ?? []).filter((m: any) => Number(m.ts) < Number(e.ts)).pop() as any;
     if (before && !before.bot_id && before.user !== BOT_USER_ID) return; // the last word wasn't the bot's: people are talking to each other
   } catch { /* if Slack can't tell us, fall through and answer */ }
-  handle({ text: e.text, channel: e.channel, ts: e.ts, threadTs: e.thread_ts, user: e.user, team: e.team }).catch((err) => console.error(err));
+  handle({ text: e.text, channel: e.channel, ts: e.ts, threadTs: e.thread_ts, user: e.user, team: e.team, files: e.files }).catch((err) => console.error(err));
 });
 
 app.command("/fluid", async ({ command, ack, respond }) => {

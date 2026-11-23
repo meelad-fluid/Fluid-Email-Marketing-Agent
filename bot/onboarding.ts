@@ -126,6 +126,12 @@ async function storeKlaviyoKey(clientId: string, klaviyoKey?: string) {
 const UPLOAD_TYPES = new Set([".pdf", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".docx", ".pptx", ".txt", ".md"]);
 export const MAX_UPLOAD = 30 * 1024 * 1024;
 
+/** Word/PowerPoint → a .txt copy next to it (<file>.txt) that the agent can read. Returns the .txt path, or null. */
+export async function extractOfficeText(file: string): Promise<string | null> {
+  const py = `import sys,zipfile,re\nz=zipfile.ZipFile(sys.argv[1]);out=[]\nnames=sorted([n for n in z.namelist() if n=="word/document.xml" or re.match(r"ppt/slides/slide\\d+\\.xml$",n)],key=lambda n:int(re.sub(r"\\D","",n) or 0))\nfor n in names:\n  x=z.read(n).decode("utf8","ignore");x=re.sub(r"</(w|a):p>","\\n",x);out.append(re.sub(r"<[^>]+>","",x))\nprint("\\n\\n".join(out))`;
+  try { const { stdout } = await run("python3", ["-I", "-c", py, file], { maxBuffer: 20 * 1024 * 1024, timeout: 60_000 }); writeFileSync(`${file}.txt`, stdout); return `${file}.txt`; } catch { return null; /* the original file is still there */ }
+}
+
 /** Save one onboarding file (the client's answers doc, brand guidelines…) into onboarding/docs/ (Word/PowerPoint also get a .txt copy the agent can read). */
 export async function saveUpload(token: string, filename: string, data: Buffer) {
   const l = await formLink(token);
@@ -139,10 +145,7 @@ export async function saveUpload(token: string, filename: string, data: Buffer) 
   let name = `${safe}${ext}`;
   for (let i = 2; existsSync(join(dir, name)); i++) name = `${safe}-${i}${ext}`;
   writeFileSync(join(dir, name), data);
-  if (ext === ".docx" || ext === ".pptx") {
-    const py = `import sys,zipfile,re\nz=zipfile.ZipFile(sys.argv[1]);out=[]\nnames=sorted([n for n in z.namelist() if n=="word/document.xml" or re.match(r"ppt/slides/slide\\d+\\.xml$",n)],key=lambda n:int(re.sub(r"\\D","",n) or 0))\nfor n in names:\n  x=z.read(n).decode("utf8","ignore");x=re.sub(r"</(w|a):p>","\\n",x);out.append(re.sub(r"<[^>]+>","",x))\nprint("\\n\\n".join(out))`;
-    try { const { stdout } = await run("python3", ["-I", "-c", py, join(dir, name)], { maxBuffer: 20 * 1024 * 1024, timeout: 60_000 }); writeFileSync(join(dir, `${name}.txt`), stdout); } catch { /* the original file is still there */ }
-  }
+  if (ext === ".docx" || ext === ".pptx") await extractOfficeText(join(dir, name));
   return name;
 }
 
@@ -229,7 +232,7 @@ export const ONBOARDING_PROMPT = (name: string, auditNotes: string[], internal =
   : "This is the automatic onboarding run after the client submitted the form (onboarding/form-answers.md)."}
 Audit status: ${auditNotes.join("; ")}. The audit and order JSON (if any) are in research/.
 Follow ../../brain/skills/fluid-client-onboarding/SKILL.md fully and produce, in this folder (for a research-use-only peptide brand, write compliance.md first and use research-buyer avatars, per the skill's RUO section; never human benefits):
-1. brand/brand-kit.md from the website (fonts, colors, button style and CTA casing exactly as the site writes its buttons, imagery, trust points).
+1. The brand book (save_brand_book; it writes brand/brand-kit.md) from the website and any brand guide in onboarding/docs (fonts, colors, button style and CTA casing exactly as the site writes its buttons, logos, imagery, trust points). Also store the uploaded guides and any past email designs in the client library (save_to_library).
 2. research/onboarding-doc.md: What has worked (Klaviyo top flows + last 30-60 days campaigns, best/worst), What sells (order data), the brand, avatars (problems, circumstances, desire, what keeps them up at night; "not applicable" where it doesn't fit) and, for each avatar, a moments list of 8–12 photographable moments with their words and what they've already tried (../../brain/skills/fluid-email-copywriter/references/speak-to-the-avatar.md §1), voice + proposed sender persona ("<Name> from <Brand>"), website conflicts, competitors.
 3. strategy/<today>-month-1-plan.md: 12 email campaigns + 5 SMS for the first month, each email in the six-field brief format (Email Campaign name / Sent to / Discount / Angle / Goals / Excluding), audiences named from the segmentation master sheet (../../knowledge/sops/segmentation-master.md).
 4. strategy/flow-plan.md: the core flow system, 22 emails + 7 SMS (Welcome with its 3 pop-up versions of email 1, Site abandonment, Browse abandonment, Abandoned cart with the mystery offer, Post-purchase with the plain-text founder email, Winback; SMS: Welcome x2, Browse x1, Abandoned cart x2, Post-purchase x1, Winback x1), filled in for this brand (../../brain/flows/OVERVIEW.md).

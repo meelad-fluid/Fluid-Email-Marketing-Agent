@@ -15,9 +15,32 @@ import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { foreignNames } from "../lib/leaks";
 import { dcToHtml } from "../lib/email/dc";
-import { chromium } from "playwright";
+import { chromium, type Page } from "playwright";
+import { currentBrandBook, offBrandColors } from "../lib/library/store";
 
 export const REF_DIR = "/tmp/fluid-refs";
+
+/** Every solid color the design paints (text, backgrounds, borders, gradient stops), with where it's used. */
+async function usedColors(page: Page) {
+  await page.evaluate("window.__name = window.__name || ((f) => f)");
+  return page.evaluate(() => {
+    const out: { hex: string; where: string }[] = [];
+    const root = document.body.firstElementChild;
+    if (!root) return out;
+    const toHex = (c: string) => { const m = c.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/); if (!m || (m[4] !== undefined && +m[4] < 0.35)) return null; return "#" + [m[1], m[2], m[3]].map((x) => Math.round(+x).toString(16).padStart(2, "0")).join(""); };
+    for (const el of Array.from(root.querySelectorAll<HTMLElement>("*"))) {
+      const s = getComputedStyle(el), r = el.getBoundingClientRect();
+      if (!r.width || !r.height || s.visibility === "hidden" || +s.opacity === 0) continue;
+      const what = `${el.tagName.toLowerCase()}${(el.textContent || "").trim() ? ` "${(el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 30)}"` : ""}`;
+      const hasText = Array.from(el.childNodes).some((n) => n.nodeType === 3 && (n.textContent || "").trim());
+      if (hasText) { const h = toHex(s.color); if (h) out.push({ hex: h, where: `text of ${what}` }); }
+      const bg = toHex(s.backgroundColor); if (bg) out.push({ hex: bg, where: `background of ${what}` });
+      if (parseFloat(s.borderTopWidth) >= 2) { const b = toHex(s.borderTopColor); if (b) out.push({ hex: b, where: `border of ${what}` }); }
+      for (const g of s.backgroundImage.match(/rgba?\([^)]+\)/g) ?? []) { const h = toHex(g); if (h) out.push({ hex: h, where: `gradient in ${what}` }); }
+    }
+    return out;
+  });
+}
 const ok = (o: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(o) }] });
 
 /** Remove a white studio background: flood-fill near-white from the edges, keep a soft edge. */
@@ -148,8 +171,10 @@ export function designToolsServer(clientId: string, folder: string) {
         const meta = await sharp(shot).metadata();
         const cutoffs = await findCutoffs(page);
         const lowres = await findLowRes(page);
-        return ok({ screenshot: shot, height: meta.height, broken_images: missing, cut_off: cutoffs.length ? cutoffs : "none found", low_resolution: lowres.length ? lowres : "none found",
-          tip: (cutoffs.length ? `FIX EVERY CUT-OFF FIRST (publish_design refuses designs with cut-offs):\n${cutoffSummary(cutoffs)}\n` : "") + (lowres.length ? `These images will look soft in the 1200px export, replace them with larger ones (generate_image makes 1400px+; product photos: pick the largest original):\n${lowResSummary(lowres)}\n` : "") + "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
+        const book = await currentBrandBook(db(), clientId).catch(() => null);
+        const offBrand = book ? offBrandColors(await usedColors(page), book.kit.colors.map((c) => c.hex)) : null;
+        return ok({ screenshot: shot, height: meta.height, broken_images: missing, cut_off: cutoffs.length ? cutoffs : "none found", low_resolution: lowres.length ? lowres : "none found", off_brand_colors: offBrand === null ? "no brand book yet (build one: brand_book → save_brand_book)" : offBrand.length ? offBrand : "none found",
+          tip: (cutoffs.length ? `FIX EVERY CUT-OFF FIRST (publish_design refuses designs with cut-offs):\n${cutoffSummary(cutoffs)}\n` : "") + (offBrand?.length ? `These colors aren't in the brand book's palette (${book!.kit.colors.map((c) => `${c.name} ${c.hex}`).join(", ")}). Swap them for brand colors or tints of them, unless the brand book allows it:\n${offBrand.map((o) => `- ${o.hex}: ${o.where.join("; ")}`).join("\n")}\n` : "") + (lowres.length ? `These images will look soft in the 1200px export, replace them with larger ones (generate_image makes 1400px+; product photos: pick the largest original):\n${lowResSummary(lowres)}\n` : "") + "Open the screenshot with Read. Check: is it clearly in the chosen style, not a centered stack? Does every section have a visual moment? Is anything cramped, cut off, or unreadable over an image?" });
       } finally { await browser.close(); }
     },
   );

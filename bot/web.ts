@@ -6,6 +6,7 @@
 //   POST /r/:token/comments     {version, x?, y?, body, author, parent_id?}
 //   POST /r/:token/resolve      {comment_id, resolved}
 //   POST /r/:token/approve      {author}
+//   GET  /b/:token              a client's brand book + client library (/data as JSON, /file?p=brand/... for logos & fonts)
 // A link's token only ever opens its own design. Nothing here can send email or touch Klaviyo.
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { existsSync, readFileSync, writeFileSync, statSync } from "node:fs";
@@ -18,6 +19,8 @@ import { flowOf, reviewLink, type Review } from "./review";
 import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveUpload } from "./onboarding";
 import { marked } from "marked";
 import { parseCalendarMarkdown } from "../lib/strategy/calendar";
+import { currentBrandBook, listLibrary, signedUrl } from "../lib/library/store";
+import { readdirSync } from "node:fs";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
@@ -127,6 +130,28 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
         if (!file.startsWith(base + sep) || !existsSync(file)) return json(res, 404, { error: "This calendar isn't available." });
         const cal = parseCalendarMarkdown(readFileSync(file, "utf8"));
         return json(res, 200, { client: c.name, title: cal.title, status: cal.status ?? null, sends: cal.sends, sections: cal.sections.map((x) => ({ heading: x.heading, html: marked.parse(x.markdown) as string })) });
+      }
+
+      // ── Brand book + client library ──
+      const bm = url.pathname.match(/^\/b\/([A-Za-z0-9_-]{16,64})(\/data|\/file)?$/);
+      if (bm && req.method === "GET") {
+        const { data: d } = await db().from("doc_links").select("client_id, path, clients(name, folder)").eq("token", bm[1]).maybeSingle();
+        if (!d || d.path !== "brand/brand-book") return send(res, 404, "Not found");
+        const c: any = (d as any).clients;
+        if (!bm[2]) return send(res, 200, brandBookPage(), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        const base = join(CLIENTS_DIR, c.folder), brandDir = join(base, "brand");
+        if (bm[2] === "/file") {
+          // Logos and font files from this client's brand/ folder only.
+          const file = resolve(base, url.searchParams.get("p") ?? "");
+          const type = TYPES[extname(file).toLowerCase()];
+          if (!file.startsWith(brandDir + sep) || !type || !existsSync(file)) return send(res, 404, "Not found");
+          return send(res, 200, readFileSync(file), type, { "cache-control": "private, max-age=300" });
+        }
+        const [book, items] = await Promise.all([currentBrandBook(db(), d.client_id), listLibrary(db(), d.client_id, { limit: 200 })]);
+        const library = await Promise.all(items.map(async (i) => ({ id: i.id, kind: i.kind, title: i.title, notes: i.notes, copy: i.copy_text, email_type: i.email_type, tags: i.tags, saved: i.created_at.slice(0, 10), saved_by: i.saved_by, link: i.source_url, mime: i.mime, width: i.width, height: i.height, url: i.storage_path ? await signedUrl(db(), i.storage_path, 3 * 3600) : null })));
+        const fontsDir = join(brandDir, "fonts");
+        const fontFiles = existsSync(fontsDir) ? readdirSync(fontsDir).filter((f) => /\.(woff2?|ttf|otf)$/i.test(f)).map((f) => `brand/fonts/${f}`) : [];
+        return json(res, 200, { client: c.name, book: book ? { version: book.version, status: book.status, updated: book.created_at.slice(0, 10), note: book.note, ...book.kit } : null, library, fontFiles });
       }
 
       // ── Flow review: every email of one flow behind a "Go to email #" bar ──
@@ -464,5 +489,90 @@ const e=j.sends.filter(s=>s.channel!=="sms").length,sm=j.sends.filter(s=>s.chann
 $("sub").textContent=e+" emails · "+sm+" SMS · "+pr+" promo emails"+(j.status?" · "+j.status:"");
 const now=new Date(),inRange=j.sends.some(s=>s.date.slice(0,7)===todayIso.slice(0,7));view=inRange||!j.sends.length?new Date(now.getFullYear(),now.getMonth(),1):new Date(j.sends[0].date.slice(0,7)+"-01T12:00");
 $("extra").innerHTML=j.sections.map(x=>'<div class="card"><h3>'+esc(x.heading)+'</h3>'+x.html+'</div>').join("");render()}).catch(()=>{document.body.innerHTML="<p style='padding:24px'>Couldn't load this calendar.</p>"});
+</script></body></html>`;
+}
+
+/** Brand book + client library page (data from /b/:token/data). */
+export function brandBookPage() {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Brand book</title>
+<style>
+:root{--bg:#f5f3ef;--panel:#fff;--ink:#1c1b19;--muted:#6d6a62;--line:#e5e1d8;--soft:#faf8f4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 16px 80px}
+header{margin-bottom:22px}header h1{font-size:30px;line-height:1.15;margin:0 0 6px;text-wrap:balance}.meta{color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.pill{display:inline-block;font-size:12px;font-weight:650;border-radius:999px;padding:2px 10px;background:#efece5;color:#4b483f}.pill.confirmed{background:#e3f3ee;color:#0f4f40}.pill.draft{background:#fdf1d8;color:#7a5410}
+nav.tabs{display:flex;gap:6px;margin:0 0 18px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:3;overflow-x:auto}
+nav.tabs a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;padding:7px 12px;border-radius:8px}nav.tabs a:hover{color:var(--ink);background:#ebe7df}
+section{margin:0 0 34px}section>h2{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.sw{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;text-align:left;padding:0;font:inherit;color:inherit;display:flex;flex-direction:column;justify-content:flex-start}.sw:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.sw .chip{height:96px;flex:none;border-bottom:1px solid var(--line)}.sw .t{padding:10px 12px}.sw b{display:block;font-size:14px}.sw code{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}.sw p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.fonts{display:grid;gap:12px}.font .role{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.font .sample{font-size:34px;line-height:1.15;margin:6px 0;overflow-wrap:anywhere}.font .fam{font-size:13px;color:var(--muted)}
+.btnrow{display:flex;flex-wrap:wrap;gap:16px;align-items:center}.demo{display:inline-block;padding:14px 28px;font-weight:700;font-size:16px;text-decoration:none}
+.logos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.logo{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}.logo .img{height:130px;display:flex;align-items:center;justify-content:center;padding:18px}.logo img{max-width:100%;max-height:100%}.logo .t{padding:8px 12px;font-size:13px;border-top:1px solid var(--line)}
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}.lists h3{margin:0 0 6px;font-size:15px}.lists ul{margin:0;padding-left:18px}.lists li{margin:3px 0}.lists .never li::marker{content:"✕  ";color:#c0392b}.lists .yes li::marker{content:"✓  ";color:#1f8a70}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.filters button{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;cursor:pointer;color:inherit}.filters button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;text-align:left;padding:0;font:inherit;color:inherit;display:flex;flex-direction:column}.item:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.item .th{height:220px;background:var(--soft);display:flex;align-items:flex-start;justify-content:center;overflow:hidden;border-bottom:1px solid var(--line)}.item .th img{width:100%;object-fit:cover;object-position:top}.item .th.doc{align-items:center;font-size:13px;color:var(--muted);padding:16px;text-align:center}
+.item .th.copy{align-items:flex-start;justify-content:flex-start;padding:14px;font-size:12.5px;line-height:1.45;color:#4b483f;white-space:pre-line;text-align:left}
+.item .t{padding:10px 12px 12px}.item b{display:block;font-size:14px;line-height:1.3}.item small{color:var(--muted);font-size:12px}
+.empty{color:var(--muted);font-size:14px}
+#scrim{position:fixed;inset:0;background:rgba(20,18,15,.45);opacity:0;pointer-events:none;transition:opacity .15s;z-index:8}#scrim.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(720px,100%);background:var(--panel);transform:translateX(100%);visibility:hidden;transition:transform .2s ease,visibility 0s .2s;overflow-y:auto;z-index:9;padding:20px 22px 40px}#drawer.on{transform:none;visibility:visible;transition:transform .2s ease;box-shadow:-10px 0 40px rgba(0,0,0,.18)}
+#drawer .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}#drawer h3{margin:0;font-size:20px;line-height:1.25}#drawer img{width:100%;border:1px solid var(--line);border-radius:8px;margin-top:14px}
+#drawer dl{display:grid;gap:12px;margin:16px 0 0}#drawer dt{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}#drawer dd{margin:2px 0 0;white-space:pre-line}
+.x{font:inherit;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}a.open{display:inline-block;margin-top:14px;background:var(--ink);color:#fff;text-decoration:none;border-radius:8px;padding:9px 14px;font-weight:600}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .15s;pointer-events:none;z-index:10}#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){#drawer,#scrim,#toast{transition:none}}
+@media (max-width:600px){header h1{font-size:24px}.font .sample{font-size:26px}.item .th{height:180px}.lib{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+</style></head><body><div class="wrap">
+<header><h1 id="t">Loading…</h1><div class="meta" id="meta"></div></header>
+<nav class="tabs" id="tabs"></nav>
+<main id="main"></main>
+</div>
+<div id="scrim"></div><aside id="drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dt"></aside><div id="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id);const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KINDS=[["all","All"],["design","Designs"],["copy","Copy"],["guidelines","Guidelines"],["reference","References"],["logo","Logos"],["product","Product photos"],["photo","Photos"],["other","Other"]];
+let D,filter="all";
+const file=p=>location.pathname+"/file?p="+encodeURIComponent(p);
+const fmt=d=>new Date(d+"T12:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+function casing(t,c){return c==="ALL CAPS"?t.toUpperCase():c==="lowercase"?t.toLowerCase():c==="Sentence case"?t.charAt(0)+t.slice(1).toLowerCase():t}
+function lum(h){const [r,g,b]=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255);return .2126*r+.7152*g+.0722*b}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("on");clearTimeout(toast.k);toast.k=setTimeout(()=>$("toast").classList.remove("on"),1400)}
+function loadFonts(b){const g=b.fonts.filter(f=>f.source==="google").map(f=>"family="+encodeURIComponent(f.family)+":wght@400;700");if(g.length){const l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?"+g.join("&")+"&display=swap";document.head.appendChild(l)}
+  const css=b.fonts.filter(f=>f.source==="custom").map(f=>{const key=f.family.toLowerCase().replace(/[^a-z0-9]/g,"");const hit=D.fontFiles.find(p=>p.toLowerCase().replace(/[^a-z0-9]/g,"").includes(key));return hit?"@font-face{font-family:'"+f.family.replace(/'/g,"")+"';src:url('"+file(hit)+"')}":""}).join("");if(css){const s=document.createElement("style");s.textContent=css;document.head.appendChild(s)}}
+function list(title,xs,cls){return xs&&xs.length?'<div class="card '+(cls||"")+'"><h3>'+title+"</h3><ul>"+xs.map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul></div>":""}
+function bookHtml(b){if(!b)return '<section id="brand"><h2>Brand book</h2><p class="empty">No brand book yet. Ask Fluid in this client\\'s channel to build it (from their website and any guidelines you store).</p></section>';
+  const fill=b.buttons.fill||(b.colors[0]||{}).hex||"#1c1b19",txt=b.buttons.text||(lum(fill)>.55?"#111111":"#ffffff"),rad=b.buttons.radius_px!==undefined?b.buttons.radius_px+"px":b.buttons.shape==="pill"?"999px":b.buttons.shape==="square"?"0":"8px";
+  const head=(b.fonts.find(f=>/head|display|title/i.test(f.role))||b.fonts[0]),body=(b.fonts.find(f=>/body|text|para/i.test(f.role))||b.fonts[b.fonts.length-1]);
+  const ff=f=>"'"+f.family.replace(/'/g,"")+"'"+(f.fallback?","+f.fallback:"")+",sans-serif";
+  return '<section id="colors"><h2>Colors</h2><div class="swatches">'+b.colors.map(c=>'<button class="sw" data-hex="'+esc(c.hex)+'" aria-label="Copy '+esc(c.name)+' '+esc(c.hex)+'"><div class="chip" style="background:'+esc(c.hex)+'"></div><div class="t"><b>'+esc(c.name)+"</b><code>"+esc(c.hex.toUpperCase())+"</code>"+(c.use?"<p>"+esc(c.use)+"</p>":"")+"</div></button>").join("")+"</div></section>"
+  +'<section id="type"><h2>Type</h2><div class="fonts">'+b.fonts.map(f=>'<div class="card font"><div class="role">'+esc(f.role)+'</div><div class="sample" style="font-family:'+esc(ff(f))+'">'+(/body|text/i.test(f.role)?"Clean, considered emails that sound like the brand.":"Made for your morning ritual")+'</div><div class="fam">'+esc(f.family)+(f.source==="custom"?" · custom font":f.source==="google"?" · Google Font":"")+(f.fallback?" · fallback "+esc(f.fallback):"")+(f.notes?" · "+esc(f.notes):"")+"</div></div>").join("")+"</div></section>"
+  +'<section id="buttons"><h2>Buttons</h2><div class="card"><div class="btnrow"><span class="demo" style="background:'+esc(fill)+";color:"+esc(txt)+";border-radius:"+rad+";font-family:"+esc(ff(head))+'">'+esc(casing("Shop The Collection",b.buttons.casing))+'</span><span class="fam">CTA casing: <b>'+esc(b.buttons.casing)+"</b> · "+esc(b.buttons.shape)+(b.buttons.notes?" · "+esc(b.buttons.notes):"")+"</span></div></div></section>"
+  +(b.logos&&b.logos.length?'<section id="logos"><h2>Logos</h2><div class="logos">'+b.logos.map(l=>{const dark=/light|white|revers|inverse/i.test(l.name+" "+(l.path||"").split("/").pop());return '<div class="logo"><div class="img" style="background:'+(dark?"#1c1b19":"#fff")+'">'+(l.path?'<img src="'+esc(file(l.path))+'" alt="'+esc(l.name)+'" loading="lazy">':"<span>"+esc(l.name)+"</span>")+'</div><div class="t"><b>'+esc(l.name)+"</b>"+(l.use?" · "+esc(l.use):"")+"</div></div>"}).join("")+"</div></section>":"")
+  +'<section id="rules"><h2>Rules</h2><div class="lists">'+list("Imagery",b.imagery)+list("Voice",b.voice)+list("Do",b.do,"yes")+list("Don\\'t",b.dont,"never")+list("Claims we can use",b.claims&&b.claims.use,"yes")+list("Never say",b.claims&&b.claims.never,"never")+list("Notes",b.notes)+"</div>"+(b.sources&&b.sources.length?'<p class="empty" style="margin-top:10px">Sources: '+esc(b.sources.join(" · "))+"</p>":"")+"</section>"}
+function thumb(i){if(i.url&&/^image\\//.test(i.mime||""))return '<div class="th"><img src="'+esc(i.url)+'" alt="" loading="lazy"></div>';if(i.copy&&!i.url)return '<div class="th copy">'+esc(i.copy.slice(0,260))+"</div>";return '<div class="th doc">'+(i.mime==="application/pdf"?"PDF":i.link?"Link":"File")+(i.email_type?"<br>"+esc(i.email_type):"")+"</div>"}
+function libHtml(){const lib=D.library;const have=new Set(lib.map(i=>i.kind));const shown=lib.filter(i=>filter==="all"||i.kind===filter);
+  return '<section id="library"><h2>Client library · '+lib.length+'</h2>'+(lib.length?'<div class="filters">'+KINDS.filter(([k])=>k==="all"||have.has(k)).map(([k,l])=>'<button data-f="'+k+'" class="'+(k===filter?"on":"")+'">'+l+"</button>").join("")+'</div><div class="lib">'+shown.map(i=>'<button class="item" data-id="'+i.id+'">'+thumb(i)+'<div class="t"><b>'+esc(i.title)+"</b><small>"+esc([i.email_type,fmt(i.saved)].filter(Boolean).join(" · "))+"</small></div></button>").join("")+"</div>":'<p class="empty">Nothing stored yet. In the client\\'s Slack channel, drop designs, copy or guidelines and say "@Fluid store these".</p>')+"</section>"}
+function render(){const b=D.book;$("t").textContent=D.client+" brand book";document.title=D.client+" brand book";
+  $("meta").innerHTML=b?'<span class="pill '+b.status+'">'+(b.status==="confirmed"?"Confirmed":"Draft")+"</span><span>Version "+b.version+" · updated "+fmt(b.updated)+"</span>"+(b.note?"<span>Latest change: "+esc(b.note)+"</span>":""):"<span>No brand book yet</span>";
+  const tabs=b?[["colors","Colors"],["type","Type"],["buttons","Buttons"]].concat(b.logos&&b.logos.length?[["logos","Logos"]]:[]).concat([["rules","Rules"],["library","Library"]]):[["library","Library"]];
+  $("tabs").innerHTML=tabs.map(([id,l])=>'<a href="#'+id+'">'+l+"</a>").join("");
+  $("main").innerHTML=bookHtml(b)+libHtml()}
+function open(id){const i=D.library.find(x=>x.id===id);if(!i)return;const d=$("drawer");
+  d.innerHTML='<div class="top"><div><h3 id="dt">'+esc(i.title)+'</h3><small style="color:var(--muted)">'+esc([i.kind,i.email_type,"saved "+fmt(i.saved)+(i.saved_by?" by "+i.saved_by:"")].filter(Boolean).join(" · "))+'</small></div><button class="x" id="close">Close</button></div>'
+  +(i.url&&/^image\\//.test(i.mime||"")?'<img src="'+esc(i.url)+'" alt="'+esc(i.title)+'">':"")
+  +"<dl>"+(i.notes?"<div><dt>Notes</dt><dd>"+esc(i.notes)+"</dd></div>":"")+(i.copy?"<div><dt>Copy</dt><dd>"+esc(i.copy)+"</dd></div>":"")+(i.tags&&i.tags.length?"<div><dt>Tags</dt><dd>"+esc(i.tags.join(", "))+"</dd></div>":"")+"</dl>"
+  +(i.url&&!/^image\\//.test(i.mime||"")?'<a class="open" href="'+esc(i.url)+'" target="_blank" rel="noopener">Open file</a>':"")+(i.link?'<a class="open" href="'+esc(i.link)+'" target="_blank" rel="noopener">Open link</a>':"");
+  d.classList.add("on");d.setAttribute("aria-hidden","false");$("scrim").classList.add("on");$("close").onclick=close;$("close").focus()}
+function close(){$("drawer").classList.remove("on");$("drawer").setAttribute("aria-hidden","true");$("scrim").classList.remove("on")}
+document.addEventListener("click",e=>{const sw=e.target.closest(".sw");if(sw){navigator.clipboard&&navigator.clipboard.writeText(sw.dataset.hex.toUpperCase()).then(()=>toast("Copied "+sw.dataset.hex.toUpperCase()),()=>{});return}
+  const f=e.target.closest("[data-f]");if(f){filter=f.dataset.f;$("main").querySelector("#library").outerHTML=libHtml();return}
+  const it=e.target.closest(".item");if(it)open(it.dataset.id)});
+$("scrim").onclick=close;document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+fetch(location.pathname+"/data").then(r=>r.json()).then(j=>{D=j;if(D.book)loadFonts(D.book);render()}).catch(()=>{$("t").textContent="This brand book isn't available."});
 </script></body></html>`;
 }

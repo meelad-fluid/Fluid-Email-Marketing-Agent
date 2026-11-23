@@ -10,6 +10,7 @@ import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { CLIENTS_DIR, ROOT, SHARED_READ, config } from "./config";
 import { clientDataServer, DATA_TOOLS } from "./data";
 import { designToolsServer, DESIGN_TOOLS, REF_DIR } from "./design-tools";
+import { libraryToolsServer, LIBRARY_TOOLS } from "./library-tools";
 
 const inside = (p: string, root: string) => p === root || p.startsWith(root + sep);
 const READ_TOOLS = new Set(["Read", "Glob", "Grep"]);
@@ -37,6 +38,9 @@ function sandbox(clientDir: string): HookCallback {
         if (!inside(p, clientDir) || inside(p, guardDir) || p === join(clientDir, "CLAUDE.md")) return deny("writes go only inside this client's folder (not its settings)");
         // The RUO compliance profile is set by Fluid's team (or written once at onboarding); the agent can't loosen it later.
         if (p === join(clientDir, "compliance.md") && existsSync(p)) return deny("compliance.md is managed by Fluid's team. Put open questions in memory.md instead");
+        // Both are generated from Supabase: the brand book (save_brand_book) and the client library (save_to_library).
+        if (p === join(clientDir, "brand", "brand-kit.md")) return deny("brand/brand-kit.md is generated from the brand book. Change the brand with save_brand_book (start from brand_book)");
+        if (p === join(clientDir, "brand", "library.md")) return deny("brand/library.md is rebuilt by save_to_library / remove_from_library");
       } else if (!inside(p, clientDir) && !inside(p, REF_DIR) && !SHARED_READ.some((r) => inside(p, r))) {
         return deny(`${relative(ROOT, p) || p} is outside this client's folder and Fluid's shared SOPs`);
       }
@@ -74,7 +78,7 @@ const SKILLS = `
 
 export type RunResult = { text: string; sessionId?: string; costUsd?: number; changed: string[]; error?: string };
 
-export async function runAgent(opts: { folder: string; clientId: string; clientName: string; slack?: { channel: string; thread: string }; prompt: string; sessionId?: string; onProgress?: (label: string) => void; signal?: AbortSignal }): Promise<RunResult> {
+export async function runAgent(opts: { folder: string; clientId: string; clientName: string; slack?: { channel: string; thread: string }; prompt: string; sessionId?: string; requester?: string; onProgress?: (label: string) => void; signal?: AbortSignal }): Promise<RunResult> {
   const clientDir = join(CLIENTS_DIR, opts.folder);
   const before = snapshot(clientDir);
   const abortController = new AbortController();
@@ -125,7 +129,7 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
 - Research-use-only (RUO) peptide client (compliance.md in this folder): follow ../../knowledge/sops/ruo-peptide-compliance-sop.md and ../../brain/skills/fluid-email-copywriter/references/ruo-peptides.md above everything else. No human benefits, results, bodies, medical words, dosing or use, no effect-based categories; the reader is the research buyer and the selling is documentation, testing, traceability, availability and support. Every draft gets the compliance gate result (PASS / HOLD / REJECT / ESCALATE) in its NOTES, and only PASS goes to design. Images: packaging, COAs, lab equipment only. If compliance.md is missing for a peptide brand, don't write promotional copy: say what's needed.
 - Writing copy for every other client (any email, flow or SMS): talk to the avatar, not about the product. Before writing, open research/onboarding-doc.md and pick one avatar and one moment from its moments list (build the list first if it's missing), then put "Talking to: [avatar], who [situation] when [moment]" at the top of the copy file. The headline names that moment or problem in the customer's words, the first section after the hero is their situation ("that's me") before any product facts, and proof only answers their doubts. Run the whiteboard test from speak-to-the-avatar.md before saving; if the email reads like a list of facts about the product, rewrite it.
 - Designing an email: every email must look like a designer made it for THIS campaign. Clients must never feel they're getting the same email twice. Follow these steps every time, no skipping:
-  1. Brief: read brand/brand-kit.md, memory.md and the copy. Name the email's job (sale, guide, recipe, launch, reviews, bundle, winback, restock, story…).
+  1. Brief: read brand/brand-kit.md (the brand book: use only its colors, fonts and button style), brand/direction.md if it exists, memory.md and the copy. If brand/library.md lists past designs, call client_library (kind design, search the email type) and open 2–3 of them: the new email should feel like it belongs with the client's past work (same brand, same level of polish) without repeating its layout. Name the email's job (sale, guide, recipe, launch, reviews, bundle, winback, restock, story…).
   2. Style: call style_options (email_type = the job). Open all 3 images with Read. Call choose_style with the one that best fits the campaign and is furthest from this client's recent emails (check the "Layout:" lines in the last 3 design READMEs). Follow that style's structure and devices closely, translated into this brand's colors, fonts and photos. Never copy its words, products or brand look, and never mention it.
   3. Imagery: product_images for the featured products (cutout=true for floating products) and generate_image for the scenes the email is about, starting with the copy's "Talking to" moment when it names one (the person in that moment makes the strongest hero) (recipe on a counter, pour shots, seasonal sets, textures), with the real product's source_url as a reference whenever it appears. Every email gets new imagery.
   4. Build design.dc.html using several of these devices (at least four per email, and never the same mix as the last email):
@@ -139,7 +143,15 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
   7. Reference images as asset:<path in this folder> (e.g. src="asset:brand/assets/generated/2026-11-17-strawberry-matcha.jpg"). In the README add "Layout: <hero> → <sections> → <close>" and "Style: <one line describing the look>".
 - Designs: build them in this folder (designs/<date>-<name>/design.dc.html + README.md + assets.json, same system as the existing designs; reuse their asset ids), then ALWAYS call publish_design and hand over the review link it returns ("Here's the [<name>](<link>)" + status line). Flow emails (titles like "Welcome Email #3 — …"): publish_design also returns flow_link, one page with every email of that flow and a "Go to email #" bar. Share that one link for the flow ("Here's the [welcome flow](<flow_link>)" + status line), never a list of separate email links. Single campaigns keep their own review link. Never say you can't publish or render; the review link is how designs are shared.
 - "comments added" (or similar) on a design: call design_comments, make every change in design.dc.html, call publish_design (note = what changed), then reply_to_comment under each comment saying what you did (resolve=true). Reply in Slack like a teammate: "Updated [Welcome #5](<link>): removed the 12:40 PM pill and the big "1 PM Central". Take a look." Name the email (hyperlinked), list the changes in plain words (a short list if there are 3+), and end with a short ask. Only add a reason when you had to do something different from what they asked (e.g. "no photo of the CJC/IPA blend, so I used the BPC157/TB500 blend, same $48"). No version numbers. If a comment can't be done, reply under it explaining why and leave it open.
-- "Run the onboarding" / "onboard this client": call run_onboarding_audits (if it says there's no Klaviyo key, carry on without it and say so), read the onboarding form in onboarding/ (form-answers.md or the PDF/doc there) and the website, then produce everything in ../../brain/skills/fluid-client-onboarding/SKILL.md: brand/brand-kit.md (incl. CTA casing), research/onboarding-doc.md, strategy/<today>-month-1-plan.md (12 emails in the six-field brief format + 5 SMS, master-sheet audiences), strategy/flow-plan.md (22 emails + 7 SMS), key facts in memory.md. Keep and build on anything already in the folder. Then publish_doc each of the three documents and reply with just the links plus one line of blocking questions.
+- "Run the onboarding" / "onboard this client": call run_onboarding_audits (if it says there's no Klaviyo key, carry on without it and say so), read the onboarding form in onboarding/ (form-answers.md or the PDF/doc there) and the website, then produce everything in ../../brain/skills/fluid-client-onboarding/SKILL.md: the brand book (save_brand_book, incl. CTA casing; it writes brand/brand-kit.md), research/onboarding-doc.md, strategy/<today>-month-1-plan.md (12 emails in the six-field brief format + 5 SMS, master-sheet audiences), strategy/flow-plan.md (22 emails + 7 SMS), key facts in memory.md. Keep and build on anything already in the folder. Then publish_doc each of the three documents and reply with just the links plus one line of blocking questions.
+- Client library ("store this", "save these for <client>", "keep this as a reference", files dropped with "add to the library"):
+  1. Open every shared file with Read (PDF pages, images, the .txt of Word/PowerPoint files).
+  2. Call save_to_library once with every item: the right kind (design, copy, reference, logo, product, photo, guidelines), a clear title, notes on what to take from it, and for designs every line of visible copy in copy_text. Pasted copy with no file is a copy item. Figma or web links are reference items with source_url.
+  3. If they show the client's look or voice, update brand/direction.md: a short running summary (bullets) of the overall direction across everything stored: layouts, type, imagery, colors in use, tone, offers, what they approved or pushed back on. Keep it under a page and rewrite rather than append.
+  4. If anything sets brand rules (a brand guide, "our buttons are black now", a new logo), update the brand book: brand_book, change only what's new, save_brand_book with a note. Stored logos, product photos and photos are also copied into brand/assets/library/ (save_to_library returns each asset path): use those paths in the brand book's logos and in designs.
+  5. Reply in one or two lines: what you stored (counts by kind) and, if the brand book changed, what changed, with the [brand book](<link>). Never list file names.
+- Brand book: brand_book returns it (with its page link); every brand change goes through save_brand_book, never by editing brand/brand-kit.md. If a client has no brand book yet, build it from brand/brand-kit.md (keep every detail) the first time you design or someone asks about the brand. "What are <client>'s colors / fonts?" → answer from it and add the [brand book](<link>).
+- Writing copy: if brand/library.md lists copy or past designs, call client_library (kind copy, or design) first and match the client's voice, offers and words they use.
 - Audiences: whenever someone names an audience ("send it to engaged 120", "exclude VIPs"), call find_audiences. Use a clear match (exact or clearly best). If several are close, ask which one in one line listing them. If none exists and it's a master-sheet segment (Engaged N, New Subs, Placed Order N days, Lapsed/Winback), call build_segment and use the new one, telling them you created it. Otherwise list the closest names.
 - "Push it to Klaviyo" / "build it in Klaviyo": call push_to_klaviyo with the design folder (and include/exclude with the exact audience names when they named audiences). It only ever makes a DRAFT. Reply in one or two lines: "<Campaign name> is in Klaviyo as a draft." plus the status line, and name any audience that didn't match (they add it in Klaviyo). If it errors because the client doesn't allow drafts, say an admin has to switch on Klaviyo drafts for this client.
 - Approvals happen on the review link; the README's Status line shows them. Never mark something approved yourself.
@@ -178,8 +190,8 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
         settingSources: ["project"],
         systemPrompt: { type: "preset", preset: "claude_code", append },
         tools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite"],
-        allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite", ...DATA_TOOLS, ...DESIGN_TOOLS],
-        mcpServers: { fluid: clientDataServer(opts.clientId, opts.folder, opts.slack), fluid_design: designToolsServer(opts.clientId, opts.folder) },
+        allowedTools: ["Read", "Write", "Edit", "Glob", "Grep", "WebFetch", "WebSearch", "TodoWrite", ...DATA_TOOLS, ...DESIGN_TOOLS, ...LIBRARY_TOOLS],
+        mcpServers: { fluid: clientDataServer(opts.clientId, opts.folder, opts.slack), fluid_design: designToolsServer(opts.clientId, opts.folder), fluid_library: libraryToolsServer(opts.clientId, opts.folder, opts.clientName, opts.requester) },
         permissionMode: "dontAsk",
         hooks: { PreToolUse: [{ hooks: [sandbox(clientDir)] }] },
         maxTurns: config.maxTurns,
@@ -210,7 +222,7 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
 function label(tool: string, input: any, clientDir: string): string {
   const f = input?.file_path ? relative(clientDir, String(input.file_path)) : "";
   const area = (p: string) => p.startsWith("copy/") ? "copy" : p.startsWith("designs/") ? "design" : p.startsWith("strategy/") ? "strategy" : p.startsWith("research/") ? "research" : p.startsWith("brand/") ? "brand kit" : "";
-  const t = tool.replace(/^mcp__fluid(_design)?__/, "");
+  const t = tool.replace(/^mcp__fluid(_design|_library)?__/, "");
   switch (t) {
     case "Write": case "Edit": return area(f);
     case "WebFetch": case "WebSearch": return "research";
@@ -224,6 +236,9 @@ function label(tool: string, input: any, clientDir: string): string {
     case "email_report": case "campaign_results": return "numbers";
     case "find_audiences": case "build_segment": return "audiences";
     case "publish_doc": return "doc";
+    case "save_to_library": case "remove_from_library": return "client library";
+    case "client_library": return "look at their past work";
+    case "brand_book": case "save_brand_book": return "brand book";
     case "run_onboarding_audits": return "account audit";
     case "design_comments": case "reply_to_comment": return "comment changes";
     default: return "";

@@ -13,3 +13,7 @@ clients/**/designs/**/build/*
 !clients/**/designs/**/build/qc.md
 # Local-only
 .claude/settings.local.json
+
+# Slack uploads and the library download cache (the files themselves live in Supabase)
+clients/*/inbox/
+clients/*/library/
