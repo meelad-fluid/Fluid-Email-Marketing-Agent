@@ -16,6 +16,7 @@ import { startWeb, type ReviewAction } from "./web";
 import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink } from "./onboarding";
 import { foreignNames, scanText } from "../lib/leaks";
 import { filesNote, receiveFiles, type SlackFile } from "./slack-files";
+import { proactiveTick, type Client as ProactiveClient } from "./proactive";
 
 const app = new App({ token: config.slackBotToken(), appToken: config.slackAppToken(), socketMode: true, logLevel: LogLevel.WARN });
 let TEAM_ID = "", BOT_USER_ID = "";
@@ -272,6 +273,33 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     } catch (e: any) { return reply(`Couldn't set up ${name}: ${e.message}`); }
   }
   // Shopify connect link, and the two write switches (each client starts read-only everywhere).
+  // Proactive check-ins and the client's timezone (they run on the client's local time).
+  if (sub === "proactive" || sub === "timezone") {
+    const c = await clientForChannel(command.channel_id, TEAM_ID);
+    if (!c) return reply("Run this inside the client's channel.");
+    const { data: row } = await db().from("clients").select("proactive, timezone").eq("id", c.id).single();
+    const p = { report: true, wins: true, approvals: true, ...((row as any)?.proactive ?? {}) } as Record<string, boolean>;
+    const show = () => `Proactive posts for ${c.name} (${(row as any)?.timezone}): weekly report (Mon) *${p.report ? "on" : "off"}*, weekly win (Thu) *${p.wins ? "on" : "off"}*, approval reminders *${p.approvals ? "on" : "off"}*.`;
+    const admin = config.adminUserIds().includes(command.user_id);
+    if (sub === "timezone") {
+      if (!arg) return reply(`${c.name}'s timezone: ${(row as any)?.timezone}. Change it with \`/fluid timezone ET\` (ET, CT, MT, PT, or a zone like Europe/London).`);
+      if (!admin) return reply("Only Fluid admins can change that.");
+      const tz = ({ ET: "America/New_York", CT: "America/Chicago", MT: "America/Denver", PT: "America/Los_Angeles" } as Record<string, string>)[arg.toUpperCase()] ?? arg;
+      try { new Intl.DateTimeFormat("en-US", { timeZone: tz }); } catch { return reply("That isn't a timezone I know. Use ET, CT, MT, PT, or a zone like Europe/London."); }
+      await db().from("clients").update({ timezone: tz }).eq("id", c.id);
+      return reply(`Done. ${c.name} runs on ${tz} now.`);
+    }
+    const words = command.text.trim().split(/\s+/).slice(1).map((w) => w.toLowerCase());
+    if (!words.length) return reply(`${show()}\nChange with \`/fluid proactive off\`, or one at a time: \`/fluid proactive report|wins|approvals on|off\`.`);
+    if (!admin) return reply("Only Fluid admins can change that.");
+    const state = words.includes("off") ? false : words.includes("on") ? true : null;
+    if (state === null) return reply("Add on or off, like `/fluid proactive wins off`.");
+    const which = words.filter((w) => ["report", "reports", "wins", "win", "approvals", "approval"].includes(w)).map((w) => (w.startsWith("report") ? "report" : w.startsWith("win") ? "wins" : "approvals"));
+    for (const k of which.length ? which : ["report", "wins", "approvals"]) p[k] = state;
+    await db().from("clients").update({ proactive: p }).eq("id", c.id);
+    await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "setting", reason: `proactive = ${JSON.stringify(p)}` });
+    return reply(`Done. ${show()}`);
+  }
   if (["shopify", "shopify-discounts", "klaviyo-drafts"].includes(sub)) {
     if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can do that.");
     const c = await clientForChannel(command.channel_id, TEAM_ID);
@@ -301,7 +329,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`.");
+  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`.");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
@@ -370,6 +398,30 @@ async function reviewAction(a: ReviewAction) {
   }
 }
 
+// ── Proactive posts (weekly report, weekly win): the agent writes it, it's leak-checked, then posted top-level.
+// Replies in its thread continue the same conversation. "SKIP" from the agent = nothing worth posting.
+async function proactiveAgentPost(c: ProactiveClient, channel: string, prompt: string, kind: string) {
+  await pullLatest();
+  const res = await runAgent({ folder: c.folder, clientId: c.id, clientName: c.name, prompt, onProgress: () => {} });
+  const text = (res.text ?? "").trim();
+  await saveClientFolder(c.folder, `${c.folder}: proactive ${kind}`);
+  if (res.error || !text || /^SKIP\b/.test(text)) {
+    await audit({ team_id: TEAM_ID, channel_id: channel, client_id: c.id, request: `proactive ${kind}`, outcome: res.error ? "error" : "ran", reason: res.error ?? "skipped: nothing worth posting", cost_usd: res.costUsd });
+    return { skipped: true, cost: res.costUsd, note: res.error ?? "nothing worth posting" };
+  }
+  const problems = scanText(text, await foreignNames(CLIENTS_DIR, c.folder, db()));
+  if (problems.length) {
+    await audit({ team_id: TEAM_ID, channel_id: channel, client_id: c.id, request: `proactive ${kind}`, outcome: "blocked_output", reason: problems.join("; ").slice(0, 2000), cost_usd: res.costUsd });
+    return { skipped: true, cost: res.costUsd, note: "held back by the safety check" };
+  }
+  const parts = chunks(toSlack(text));
+  const head = await app.client.chat.postMessage({ channel, text: parts[0] });
+  for (const p of parts.slice(1)) await app.client.chat.postMessage({ channel, thread_ts: head.ts!, text: p });
+  await saveThread(channel, head.ts!, c.id, res.sessionId);
+  await audit({ team_id: TEAM_ID, channel_id: channel, thread_ts: head.ts!, client_id: c.id, request: `proactive ${kind}`, outcome: "ran", cost_usd: res.costUsd });
+  return { ts: head.ts!, skipped: false, cost: res.costUsd };
+}
+
 // An onboarding still marked "running" when the bot starts was cut off by a restart (a deploy or a crash):
 // start it again from the top, once per client. Runs are idempotent (they rewrite the same files).
 async function resumeOnboardings() {
@@ -420,5 +472,8 @@ async function syncStale() {
   resumeOnboardings();
   syncStale();
   setInterval(syncStale, 3 * 3600_000);
+  const proactive = () => proactiveTick({ post: async (ch, text) => (await app.client.chat.postMessage({ channel: ch, text })).ts, agentPost: proactiveAgentPost }).catch((e) => console.error("[proactive]", e.message));
+  setTimeout(proactive, 60_000);
+  setInterval(proactive, 15 * 60_000);
   watchForCodeUpdates(() => busy.size === 0 && onboardingActive.size === 0);
 })();
