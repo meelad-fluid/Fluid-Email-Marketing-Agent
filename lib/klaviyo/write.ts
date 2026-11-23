@@ -1,9 +1,12 @@
 // The ONLY way Fluid's code writes to a client's Klaviyo. Drafts only, enforced here:
 //   - the client must have clients.klaviyo_write = 'drafts' (default 'none' = read only)
 //   - only these calls are allowed: upload an image, create a template, create a campaign (Klaviyo creates
-//     campaigns as drafts), assign a template to a campaign message, create a segment
-//   - anything that sends, schedules, cancels, deletes, changes flows or touches profiles is refused,
-//     whatever the caller asks for. There is deliberately no code path to /campaign-send-jobs.
+//     campaigns as drafts), assign a template to a campaign message, create a segment, and CREATE a NEW flow
+//   - a new flow may only contain emails, SMS, time delays and conditional splits, and every email/SMS must be
+//     a draft (checked on the request body below); the flow itself is created in Draft
+//   - anything that sends, schedules, cancels, deletes, changes or turns on an EXISTING flow, or touches
+//     profiles, is refused whatever the caller asks for. There is deliberately no PATCH/DELETE at all and no
+//     code path to /campaign-send-jobs.
 // Every write is logged in klaviyo_writes.
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { KLAVIYO_REVISION } from "./api";
@@ -15,7 +18,26 @@ const ALLOWED: [string, RegExp][] = [
   ["POST", /^\/campaigns\/?$/],
   ["POST", /^\/campaign-message-assign-template\/?$/],
   ["POST", /^\/segments\/?$/],
+  ["POST", /^\/flows\/?(\?additional-fields\[flow\]=definition)?$/], // create only; never /flows/<id>
 ];
+const FLOW_ACTIONS = new Set(["send-email", "send-sms", "time-delay", "conditional-split"]);
+
+/** Why a flow-create body is refused (null = OK): new objects only, safe action types only, every message a draft. */
+export function flowBodyProblem(body: any): string | null {
+  const d = body?.data, def = d?.attributes?.definition;
+  if (d?.type !== "flow" || !def) return "not a flow create request";
+  if (d.id) return "flows can only be created, never updated";
+  if ("status" in (d.attributes ?? {})) return "a new flow can't set its own status";
+  if (!Array.isArray(def.triggers) || def.triggers.length !== 1) return "exactly one trigger";
+  if (!["list", "segment", "metric"].includes(def.triggers[0]?.type)) return `trigger type ${def.triggers[0]?.type} isn't allowed`;
+  for (const a of def.actions ?? []) {
+    if (a.id) return "actions must be new (temporary_id), never existing ids";
+    if (!FLOW_ACTIONS.has(a.type)) return `action type ${a.type} isn't allowed (emails, SMS, delays and conditional splits only)`;
+    if ((a.type === "send-email" || a.type === "send-sms") && a.data?.status !== "draft") return "every email and SMS in a new flow must be status draft";
+    if (a.data?.message?.id) return "messages must be new";
+  }
+  return null;
+}
 const NEVER = /send-job|send_job|schedule|cancel|flow-action|flows\/|profile|subscri|suppress|delete|bulk|webhook|catalog|coupon/i;
 
 export class DraftOnlyError extends Error {}
@@ -49,7 +71,10 @@ export async function draftWriter(db: SupabaseClient, clientId: string): Promise
   }
 
   return {
-    post: (path, body, note, revision) => call("POST", path, { body: JSON.stringify(body), headers: { "content-type": "application/vnd.api+json" } }, note, 0, revision),
+    post: (path, body, note, revision) => {
+      if (/^\/flows/.test(path)) { const why = flowBodyProblem(body); if (why) throw new DraftOnlyError(`Refused flow: ${why}`); }
+      return call("POST", path, { body: JSON.stringify(body), headers: { "content-type": "application/vnd.api+json" } }, note, 0, revision);
+    },
     upload: async (file, name, type) => {
       const form = new FormData();
       form.append("file", new Blob([new Uint8Array(file)], { type }), name);

@@ -13,7 +13,7 @@ export function tokens(s: string) {
   return s.toLowerCase().replace(/[’']s\b/g, "").replace(/(\d+)\s*-?\s*(?:day|days|d)\b/g, "$1").split(/[^a-z0-9$+]+/).filter((w) => w && !STOP.has(w));
 }
 
-async function keyFor(db: SupabaseClient, clientId: string) {
+export async function keyFor(db: SupabaseClient, clientId: string) {
   const { data: key } = await db.rpc("get_connection_secret", { p_client: clientId, p_provider: "klaviyo" });
   if (!key) throw new Error("This client has no Klaviyo connection.");
   return key as string;

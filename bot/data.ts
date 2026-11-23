@@ -14,6 +14,7 @@ import { z } from "zod";
 import { db } from "./db";
 import { openComments, publishDesign, replyToComment, reviewByPath } from "./review";
 import { pushEmail } from "../lib/klaviyo/push-email";
+import { buildFlow, FlowPlanSchema } from "../lib/klaviyo/flows";
 import { runAudits } from "./onboarding";
 import { buildSegment, findAudiences } from "../lib/klaviyo/audiences";
 import { CLIENTS_DIR } from "./config";
@@ -176,6 +177,25 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     },
   );
 
+  const buildKlaviyoFlow = tool(
+    "build_klaviyo_flow",
+    "Build a NEW flow in this client's Klaviyo as a Draft from a flow plan file (flows/<name>.json): trigger, emails (each from a finished design folder), waits, SMS and splits. Creates the templates, then one new draft flow, then reads it back to confirm everything is a draft. It never edits, turns on or deletes an existing flow, and refuses a plan that was already built unless fresh_copy is true (which makes a second, separate draft flow). Only works if the client allows drafts.",
+    { plan: z.string().describe("e.g. flows/welcome-flow.json"), fresh_copy: z.boolean().optional().describe("Only when someone explicitly asks for another copy of a flow that was already built") },
+    async ({ plan, fresh_copy }) => {
+      try {
+        const base = pjoin(CLIENTS_DIR, folder), file = presolve(base, plan);
+        if (!file.startsWith(base + psep) || !fileExists(file)) return ok({ error: "That flow plan isn't in this client's folder." });
+        const parsed = FlowPlanSchema.safeParse(JSON.parse(readText(file, "utf8")));
+        if (!parsed.success) return ok({ error: `The flow plan doesn't match the format: ${parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ")}` });
+        const designs: string[] = [];
+        const walk = (steps: any[]) => { for (const s of steps) { if (s.email) designs.push(s.email); for (const b of s.split ?? []) walk(b.steps); walk(s.otherwise ?? []); } };
+        walk(parsed.data.steps);
+        for (const d of [...new Set(designs)]) { const ruo = ruoProblem(d); if (ruo) return ok({ error: `${d}: ${ruo}` }); }
+        return ok(await buildFlow({ clientsDir: CLIENTS_DIR, folder, planRel: plan, db: db(), freshCopy: fresh_copy }));
+      } catch (e: any) { return ok({ error: e.message }); }
+    },
+  );
+
   const pushCio = tool(
     "push_to_customerio",
     "For Customer.io clients (all peptide brands): build a finished design into their Customer.io as a DRAFT one-time send (never sends or schedules). Slices and QC-checks it like the Klaviyo push, uploads the images to Customer.io, and creates the draft with the subject, preview, sender and segments from the copy file (re-pushing updates the same draft). Only works if the client allows drafts.",
@@ -247,7 +267,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     async () => { try { return ok(await runAudits(clientId, folder)); } catch (e: any) { return ok({ error: e.message }); } },
   );
 
-  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, pushCio, find, build, publishDoc, publishCalendar, audits] });
+  return createSdkMcpServer({ name: "fluid", version: "1.0.0", tools: [emailReport, campaignResults, publish, comments, reply, pushKlaviyo, buildKlaviyoFlow, pushCio, find, build, publishDoc, publishCalendar, audits] });
 }
 
-export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__publish_calendar", "mcp__fluid__run_onboarding_audits"];
+export const DATA_TOOLS = ["mcp__fluid__email_report", "mcp__fluid__campaign_results", "mcp__fluid__publish_design", "mcp__fluid__design_comments", "mcp__fluid__reply_to_comment", "mcp__fluid__push_to_klaviyo", "mcp__fluid__build_klaviyo_flow", "mcp__fluid__push_to_customerio", "mcp__fluid__find_audiences", "mcp__fluid__build_segment", "mcp__fluid__publish_doc", "mcp__fluid__publish_calendar", "mcp__fluid__run_onboarding_audits"];

@@ -41,6 +41,7 @@ function sandbox(clientDir: string): HookCallback {
         // Both are generated from Supabase: the brand book (save_brand_book) and the client library (save_to_library).
         if (p === join(clientDir, "brand", "brand-kit.md")) return deny("brand/brand-kit.md is generated from the brand book. Change the brand with save_brand_book (start from brand_book)");
         if (p === join(clientDir, "brand", "library.md")) return deny("brand/library.md is rebuilt by save_to_library / remove_from_library");
+        if (/\.klaviyo\.json$/.test(p)) return deny("the Klaviyo build record is written by build_klaviyo_flow only");
       } else if (!inside(p, clientDir) && !inside(p, REF_DIR) && !SHARED_READ.some((r) => inside(p, r))) {
         return deny(`${relative(ROOT, p) || p} is outside this client's folder and Fluid's shared SOPs`);
       }
@@ -154,6 +155,7 @@ You're Fluid's email guy: a professional who's genuinely funny and a little obse
 - Writing copy: if brand/library.md lists copy or past designs, call client_library (kind copy, or design) first and match the client's voice, offers and words they use.
 - Audiences: whenever someone names an audience ("send it to engaged 120", "exclude VIPs"), call find_audiences. Use a clear match (exact or clearly best). If several are close, ask which one in one line listing them. If none exists and it's a master-sheet segment (Engaged N, New Subs, Placed Order N days, Lapsed/Winback), call build_segment and use the new one, telling them you created it. Otherwise list the closest names.
 - "Push it to Klaviyo" / "build it in Klaviyo": call push_to_klaviyo with the design folder (and include/exclude with the exact audience names when they named audiences). It only ever makes a DRAFT. Reply in one or two lines: "<Campaign name> is in Klaviyo as a draft." plus the status line, and name any audience that didn't match (they add it in Klaviyo). If it errors because the client doesn't allow drafts, say an admin has to switch on Klaviyo drafts for this client.
+- "Build the <flow> in Klaviyo" / "set up the flow in Klaviyo": follow ../../brain/skills/fluid-klaviyo-builder/references/flows-from-slack.md. Write the flow plan to flows/<flow-name>.json (trigger, every email as its design folder, waits, SMS, splits, exit_if_ordered for abandonment and post-purchase flows) from the flow strategy and copy, then call build_klaviyo_flow. It only ever creates a NEW draft flow: never offer to edit, turn on, pause or delete an existing flow; if they ask, say Fluid only builds new draft flows and someone changes live flows in Klaviyo. Reply: "The [welcome flow](<Klaviyo link>) is in Klaviyo as a draft." plus one line per manual step it returned (short), and the status line. If it says the flow was already built, share that link instead; only pass fresh_copy when they explicitly ask for another copy.
 - Approvals happen on the review link; the README's Status line shows them. Never mark something approved yourself.
 - Campaign calendars and monthly plans: write them in the strategist's calendar format (one '**Ddd Mon D · Email | SMS | Email + SMS · Name**' header per send, '- Label: value' bullets, a '- Type: value' or '- Type: promo' line, then all seven brief fields on their own lines in this order: Angle, Message, Offer, Segment, Excluding, Format, Goal, writing 'none' rather than leaving one out), then call publish_calendar and share only that link: "Here's the [December calendar](<link>)" plus the status line. Never paste the calendar into Slack or share it as a doc link.
 - Weekly or monthly recap (use email_report; "this week" = Monday to today, "last week" = the previous Monday–Sunday, "this month" = the 1st to today). Reply in exactly this shape, with real numbers, $ rounded to whole dollars with commas:
@@ -232,6 +234,7 @@ function label(tool: string, input: any, clientDir: string): string {
     case "render_preview": return "final design check";
     case "publish_design": return "review link";
     case "push_to_klaviyo": return "Klaviyo draft";
+    case "build_klaviyo_flow": return "Klaviyo flow";
     case "push_to_customerio": return "Customer.io draft";
     case "email_report": case "campaign_results": return "numbers";
     case "find_audiences": case "build_segment": return "audiences";

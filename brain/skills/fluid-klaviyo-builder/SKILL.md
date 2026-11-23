@@ -25,6 +25,7 @@ Build only into the client named in the task, with **that client's own** Klaviyo
 | `references/approval-gate.md` | Before anything that schedules or goes live | How the gate works and what to check |
 | `references/klaviyo-api.md` | Before any Klaviyo call | Revision, endpoints, rate limits, what's verified |
 | `references/flows.md` | Building a flow | Turning a brain flow framework into a Klaviyo flow |
+| `references/flows-from-slack.md` | Building a flow from Slack (build_klaviyo_flow) | The plan file format, the new-drafts-only rule, manual steps |
 
 ## Build a campaign (from an approved design)
 

@@ -31,7 +31,7 @@ export function copyMeta(designDir: string, designRel: string) {
   };
 }
 
-export async function pushEmail(o: { clientsDir: string; folder: string; designRel: string; db: SupabaseClient; push: boolean; code?: boolean; newCampaign?: boolean; include?: string[]; exclude?: string[]; log?: (s: string) => void }): Promise<PushResult> {
+export async function pushEmail(o: { clientsDir: string; folder: string; designRel: string; db: SupabaseClient; push: boolean; code?: boolean; newCampaign?: boolean; templateOnly?: boolean; include?: string[]; exclude?: string[]; log?: (s: string) => void }): Promise<PushResult> {
   const { folder, designRel, db } = o, PUSH = o.push, CODE = !!o.code, NEW_CAMPAIGN = !!o.newCampaign, log = o.log ?? (() => {});
   const clientDir = resolve(o.clientsDir, folder), designDir = resolve(clientDir, designRel), buildDir = join(designDir, "build");
   if (!designDir.startsWith(clientDir + sep)) throw new Error("Design must be inside the client folder");
@@ -75,6 +75,15 @@ export async function pushEmail(o: { clientsDir: string; folder: string; designR
     : await k.post("/templates", { data: { type: "template", attributes: { name: tName, editor_type: "SYSTEM_DRAGGABLE", text: r.text,
         definition: dndDefinition(r.slices.map((s, i) => { const u = uploaded[i]; return Array.isArray(u) ? { cols: s.cols!.map((c, j) => ({ src: u[j].url, assetId: u[j].id, href: c.href, alt: c.alt })) } : { src: u.url, assetId: u.id, href: s.href, alt: s.alt }; }), { bg: r.footer.bg, legal: r.footer.legal, logo: logo ? { src: logo.url, assetId: logo.id, alt: client.name, href: homepage } : undefined }) } } }, tName, DND_REVISION);
   const templateId = tpl.data.id;
+
+  // Flow emails: the template is all that's needed (the flow builder attaches it to a draft flow email).
+  if (o.templateOnly) {
+    const prevFile = join(buildDir, "klaviyo.json");
+    const prev = existsSync(prevFile) ? JSON.parse(readFileSync(prevFile, "utf8")) : {};
+    const out = { ...prev, template_id: templateId, template_name: tName, editor: CODE ? "CODE" : "SYSTEM_DRAGGABLE", images: urls, template_built_at: new Date().toISOString() };
+    writeFileSync(prevFile, JSON.stringify(out, null, 2));
+    return { ...base, pushed: true, klaviyo: out };
+  }
 
   // Reuse the existing draft (assign the new template to its message) instead of creating another draft.
   const prevFile = join(buildDir, "klaviyo.json");
