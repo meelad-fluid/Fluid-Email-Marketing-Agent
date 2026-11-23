@@ -28,6 +28,8 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - 2026-11-23 · Browse Abandonment #3 v4 · Gloria (review comment "on one line please"): the hero line under the code ("Use it on what you were looking at before 11:59 p.m. CT.") no longer wraps. Rule: short hero sublines go on one line, without an orphaned wrap.
 - 2026-11-23 · Browse Abandonment #2 v3 · Gloria: "make this more converting" on the headline → "Still deciding? Here's 10% off." (offer-led, bigger, links to the product); removed the giant "10% off with code" numerals. Rule: in abandonment emails, lead the hero with the offer and the reader's hesitation, not the education angle.
 - 2026-11-23 · Browse Abandonment #2 v4 · Gloria: kicker "Before you decide" clashed with the new headline "Still deciding?" → now "Pick up where you left off" (links to product). Rule: when a headline changes, recheck the kicker/eyebrow above it for repetition.
+- 2026-11-23 · Real logo · Gloria (Slack): "use this logo in all emails" → stored in library (brand/assets/library/meta-molecule-primary-logo-gradient-molecule-wordm.png), brand book created, logo swapped into header + footer of all 15 designed emails (browse bars turned white; elsewhere white rounded chip on dark), all republished. Rule: logo always on white (band or chip), never the old ring + spaced-text placeholder. Plain-text Welcome #2 has no logo.
+- 2026-11-23 · note: renders show every metamolecule.com hotlinked product photo as broken (site blocking). Need product photos saved locally.
 - 2026-11-20 · note: the write hook blocks a CSS class named after the dotfile for secrets (dot + "env"): name classes differently.
 
 ## Facts & decisions

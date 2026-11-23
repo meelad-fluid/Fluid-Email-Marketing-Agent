@@ -1,42 +1,43 @@
-# Meta Molecule — Brand kit
+# Meta Molecule: brand book (v1, draft, updated 2026-11-23)
 
-_Built 2026-11-19 from metamolecule.com (home, /shop, /faqs, /coas) and the onboarding answers. The uploaded "Brand Guidelines" doc is an onboarding questionnaire with no visual guidelines (no fonts, colours or logo rules), so visuals come from the site. RUO brand: compliance.md wins over this file._
+> Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
 
-## Identity
-- **Name:** Meta Molecule (logo file "Logo.png" + wordmark "Meta Molecule" in the header)
-- **What they sell:** research peptides, blends and bundles labelled for laboratory research (site /shop)
-- **Positioning line (site hero):** "Research peptides with documentation you can inspect."
-- **Hero sub (site):** "Browse laboratory research materials, review third-party COAs, and order from U.S. fulfillment."
-- **Brand line (onboarding answers):** "To provide the highest quality products and service to researchers in an industry full of smoke and mirrors."
-- **Platform:** WooCommerce · email: Customer.io (new account)
-
-## Fonts
-- **Not readable from the site fetch and not in the guidelines doc. Open question:** ask for font names and logo files (SVG/PNG).
-- Until confirmed, for designs: a clean geometric/technical sans (e.g. Inter or Space Grotesk for headlines, Inter for body; IBM Plex Mono for lot numbers, report IDs and spec tables). Replace once the client confirms.
-
-## Colours
-- **Not confirmed (no hex in guidelines; CSS not readable).** Ask the client for hex values or pull them from the logo file.
-- Working palette until confirmed: lab white #FFFFFF, near-black ink #0F1115, cool grey #E9ECEF, one accent taken from the logo.
-
-## Buttons and CTA casing
-- **CTA casing: Title Case** (site writes "Shop Research Catalog", "View COA Library", "Add to Cart", "Shop Now", "Explore Collection", "Load More").
-- RUO: use only CTAs approved in compliance.md. Until approved: View COA Library · Explore Research Catalog · Review Specifications · View Batch Information · Contact Support.
-
-## Imagery
-- Allowed: real vials and packaging, real COA documents (lot number, report ID, lab name visible), lab equipment (HPLC instruments, glassware, cold storage), clean lab benches, shipping boxes going out same day.
-- Never: people, bodies, syringes, injections, scales, gyms, mirrors, before/after, treatment rooms (SOP §12).
-- Site product photos were empty placeholders when checked (2026-11-19): ask for real product photography.
-
-## Trust points (use only those marked verified in compliance.md)
-- COA library at /coas (verified it exists; per-batch coverage HOLD)
-- Orders before 1 p.m. CT Mon–Fri ship same day (verified)
-- Free U.S. shipping at $200 after discounts (verified)
-- Researcher verification at entry (verified)
-- Wholesale inquiries (verified form)
-- HOLD until documented: HPLC + MS per batch, ≥99% purity, Freedom Diagnostics as testing lab, "50,000+ research customers"
-
-## Disclaimer (default until the brand approves its own)
-"FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION." In the body of every product email, readable contrast, plus the footer.
-
-## Sender
-- Proposed persona: **Claire from Meta Molecule** (pending approval). Reply-to: support@metamolecule.com (to confirm).
+- **Colors:**
+  - Lab white #FFFFFF: backgrounds; logo always sits on white
+  - Ink navy #0E1B24: working dark/text colour (not confirmed by client)
+  - Mint accent #5CE1C6: working accent (not confirmed by client)
+  - Logo teal #0E8478: start of the logo wordmark gradient (sampled from logo)
+  - Logo blue #1268A0: end of the logo wordmark gradient (sampled from logo)
+  - Cool grey #E9ECEF: light panels
+- **Fonts:**
+  - headings: Space Grotesk (Google Font), fallback Arial, sans-serif. Stand-in: client fonts not confirmed
+  - body: Inter (Google Font), fallback Arial, sans-serif. Stand-in until client confirms
+  - numbers: IBM Plex Mono (Google Font), fallback monospace. Lot numbers, report IDs, codes, spec tables
+- **Buttons:** rounded. **CTA casing: Title Case**. Site writes 'Shop Research Catalog', 'View COA Library'. RUO: only approved CTAs; until approved: View COA Library · Explore Research Catalog · Review Specifications · View Batch Information · Contact Support.
+- **Logos:**
+  - Primary logo (gradient molecule icon + stacked META / MOLECULE wordmark) (brand/assets/library/meta-molecule-primary-logo-gradient-molecule-wordm.png): Every designed email, header and footer. Place on white (white header band or white rounded chip on dark sections). Never recreate it as text or an icon. Provided by Gloria (Fluid), 2026-11-23.
+- **Imagery:**
+  - Allowed: real vials and packaging, real COA documents, lab equipment (HPLC, glassware, cold storage), clean lab benches, shipping boxes.
+  - Never: people, bodies, syringes, injections, scales, gyms, mirrors, before/after, treatment rooms.
+  - Use the site's real product photos; never generated or type-only vials.
+- **Voice:**
+  - Professional, confident, science-driven and approachable.
+  - Talk to the research buyer; sell documentation, testing, traceability, availability and support.
+- **Do:**
+  - Disclaimer 'FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.' in the body of every product email and in the footer.
+  - Show discounts big and bold above the fold.
+- **Don't:**
+  - Don't use the old placeholder ring + spaced-text logo.
+  - Designed emails never mention Claire (plain-text only).
+- **Claims we can use:**
+  - COA library at /coas
+  - Orders before 1 p.m. CT Mon–Fri ship same day
+  - Free U.S. shipping at $200 after discounts
+  - Researcher verification at entry
+- **Never say:**
+  - Human benefits, results, dosing or use
+  - HPLC + MS per batch / ≥99% purity / Freedom Diagnostics / 50,000+ research customers (HOLD until documented)
+- **Notes:**
+  - Positioning line: 'Research peptides with documentation you can inspect.'
+  - Fonts and hex colours still to confirm with client.
+- **Sources:** metamolecule.com · onboarding answers · Fluid team (logo, 2026-11-23)
