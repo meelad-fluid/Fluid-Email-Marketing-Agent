@@ -54,7 +54,7 @@ Subject: Check the COA before you decide
 Preview: Four things to look for on any report. Plus 10% off with BROWSE10.
 
 Hero kicker: Before you decide
-Hero headline: Check the COA. Then take 10% off.
+Hero headline: Still deciding? Here's 10% off. (changed 2026-11-23 per Gloria: "make this more converting"; giant "10% off with code" numerals removed)
 Big offer: 10% OFF · Code chip: BROWSE10
 Subheadline: Use BROWSE10 on what you were looking at. It expires at 11:59 p.m. CT tomorrow.
 Button: Review Specifications

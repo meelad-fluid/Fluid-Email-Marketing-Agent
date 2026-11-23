@@ -26,6 +26,7 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - 2026-11-23 · Browse Abandonment v2 (all 3) · Gloria (review comment): dynamic product section must be ESP-ready → plain white background, straight product image + name + price + button only; removed tags, stickers, code pills, rotations and on-design build notes. Rule: dynamic/ESP blocks are always plain, with no decorative or placeholder text (dynamic logic notes go in the README only).
 - 2026-11-23 · Browse Abandonment #3 v3 · Gloria: removed the giant "10% off with code" numerals from the hero (headline already says 10%; code chip kept). Rule: don't repeat the offer as giant numerals when the headline already states it.
 - 2026-11-23 · Browse Abandonment #3 v4 · Gloria (review comment "on one line please"): the hero line under the code ("Use it on what you were looking at before 11:59 p.m. CT.") no longer wraps. Rule: short hero sublines go on one line, without an orphaned wrap.
+- 2026-11-23 · Browse Abandonment #2 v3 · Gloria: "make this more converting" on the headline → "Still deciding? Here's 10% off." (offer-led, bigger, links to the product); removed the giant "10% off with code" numerals. Rule: in abandonment emails, lead the hero with the offer and the reader's hesitation, not the education angle.
 - 2026-11-20 · note: the write hook blocks a CSS class named after the dotfile for secrets (dot + "env"): name classes differently.
 
 ## Facts & decisions
