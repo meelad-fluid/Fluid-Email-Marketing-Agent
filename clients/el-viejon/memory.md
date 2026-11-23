@@ -13,6 +13,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 ## Open questions
 <!-- - … -->
+- 2026-11-23 · Figma campaigns file (8LGSU1HolDTIy58zrwRKQY) is private (403); saved to the library as a link only. Need PNG/PDF exports of the frames to read the designs and copy.
 
 ## Assets
 <!-- - brand/assets/<file> — what it is, how it was made -->

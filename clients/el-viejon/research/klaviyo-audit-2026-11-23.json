@@ -1,0 +1,795 @@
+{
+ "pulled_at": "2026-11-23T21:41:05.620Z",
+ "window_days": 60,
+ "account": {
+  "name": "El Viejon Ranch Style Jerky",
+  "sender": "support@elviejonbeefjerky.com",
+  "timezone": "US/Mountain",
+  "currency": "USD"
+ },
+ "lists": [
+  {
+   "id": "RLCmY4",
+   "name": "VIP LIST",
+   "created": "2025-11-13"
+  },
+  {
+   "id": "RYLGcD",
+   "name": "SMS Subscribers",
+   "created": "2024-03-12"
+  },
+  {
+   "id": "RmKDA2",
+   "name": "Preview List",
+   "created": "2024-03-12"
+  },
+  {
+   "id": "XZ5pkH",
+   "name": "Newsletter",
+   "created": "2024-03-12"
+  },
+  {
+   "id": "Xc7axP",
+   "name": "APP ERROR JULY 4",
+   "created": "2026-07-07"
+  },
+  {
+   "id": "Y2uPMf",
+   "name": "TEST FORM",
+   "created": "2025-11-13"
+  }
+ ],
+ "forms": [
+  {
+   "name": "FC | Pop-UP Form Mobile",
+   "status": "live"
+  },
+  {
+   "name": "FC | Pop-UP Form Desktop",
+   "status": "live"
+  },
+  {
+   "name": "Newsletter Embede",
+   "status": "live"
+  }
+ ],
+ "flows": {
+  "live_count": 9,
+  "live": [
+   "FC | Browse Abandonment",
+   "FC | Winback",
+   "FC | Site Abandonment",
+   "FC | Welcome Email #2 (Bold but balanced.)",
+   "FC | Post Purchase",
+   "FC | Abandoned Checkout",
+   "FC | Welcome Email #3 (Let me try everything.)",
+   "FC | Welcome Email #1 (Spicy. The hotter the better.)",
+   "4-REVIEW REQUEST 080524 - 11PM"
+  ],
+  "top10_60d": [
+   {
+    "name": "FC | Welcome Email #1 (Spicy. The hotter the better.)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email+sms",
+    "recipients": 15698,
+    "revenue": 38204,
+    "rpr": 2.43,
+    "conversions": 614
+   },
+   {
+    "name": "FC | Welcome Email #3 (Let me try everything.)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email+sms",
+    "recipients": 8926,
+    "revenue": 18093,
+    "rpr": 2.03,
+    "conversions": 289
+   },
+   {
+    "name": "FC | Welcome Email #2 (Bold but balanced.)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email+sms",
+    "recipients": 6230,
+    "revenue": 17419,
+    "rpr": 2.8,
+    "conversions": 299
+   },
+   {
+    "name": "FC | Browse Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 20606,
+    "revenue": 14390,
+    "rpr": 0.7,
+    "conversions": 162
+   },
+   {
+    "name": "FC | Post Purchase",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 37336,
+    "revenue": 13731,
+    "rpr": 0.37,
+    "conversions": 171
+   },
+   {
+    "name": "FC | Abandoned Checkout",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 13428,
+    "revenue": 13211,
+    "rpr": 0.98,
+    "conversions": 184
+   },
+   {
+    "name": "4-REVIEW REQUEST 080524 - 11PM",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 18787,
+    "revenue": 6871,
+    "rpr": 0.37,
+    "conversions": 76
+   },
+   {
+    "name": "FC | Site Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 10748,
+    "revenue": 4440,
+    "rpr": 0.41,
+    "conversions": 52
+   }
+  ]
+ },
+ "campaigns_60d": {
+  "email_sends": 30,
+  "sms_sends": 8,
+  "per_week": 3.5,
+  "avg_open_rate": 0.4538,
+  "avg_click_rate": 0.0111,
+  "best": [
+   {
+    "name": "FC | BFCM | VIP Email AM | Familia Your VIP Access Is Live",
+    "channel": "email",
+    "sent": "2026-11-15T15:00:00+00:00",
+    "status": "Sent",
+    "subject": "Your 20% off is live!",
+    "preview": "VIP early access is open through November 19.",
+    "audiences": {
+     "included": [
+      "RLCmY4"
+     ],
+     "excluded": []
+    },
+    "recipients": 970,
+    "open_rate": 0.45124,
+    "click_rate": 0.12241,
+    "conversions": 46,
+    "revenue": 4636,
+    "rpr": 4.8093,
+    "unsub_rate": 0.00415
+   },
+   {
+    "name": "FC | BFCM | VIP | Email AM | Reminder",
+    "channel": "email",
+    "sent": "2026-11-17T22:00:00+00:00",
+    "status": "Sent",
+    "subject": "20% off, 3 days left",
+    "preview": "Stack a few flavors and shipping is on us at $75.",
+    "audiences": {
+     "included": [
+      "RLCmY4"
+     ],
+     "excluded": []
+    },
+    "recipients": 1130,
+    "open_rate": 0.40994,
+    "click_rate": 0.0417,
+    "conversions": 31,
+    "revenue": 2537,
+    "rpr": 2.25115,
+    "unsub_rate": 0
+   },
+   {
+    "name": "FC | BFCM | VIP | Email AM | Final chance",
+    "channel": "email",
+    "sent": "2026-11-19T13:00:00+00:00",
+    "status": "Sent",
+    "subject": "Your VIP offer closes tonight",
+    "preview": "Last day for 20% off before prices go back.",
+    "audiences": {
+     "included": [
+      "RLCmY4"
+     ],
+     "excluded": []
+    },
+    "recipients": 1133,
+    "open_rate": 0.39434,
+    "click_rate": 0.03006,
+    "conversions": 15,
+    "revenue": 1585,
+    "rpr": 1.4014,
+    "unsub_rate": 0.00354
+   },
+   {
+    "name": "FC | BFCM | Cats out the bag",
+    "channel": "email",
+    "sent": "2026-11-16T15:00:00+00:00",
+    "status": "Sent",
+    "subject": "That jerky stash won’t refill itself 🔥",
+    "preview": "Take 20% off every flavor. VIP access ends November 19.",
+    "audiences": {
+     "included": [
+      "Vu5kmw"
+     ],
+     "excluded": []
+    },
+    "recipients": 36243,
+    "open_rate": 0.4655,
+    "click_rate": 0.00853,
+    "conversions": 212,
+    "revenue": 17018,
+    "rpr": 0.47138,
+    "unsub_rate": 0.00227
+   },
+   {
+    "name": "FC | Palabras Del Viejon #4",
+    "channel": "email",
+    "sent": "2026-10-20T14:00:00+00:00",
+    "status": "Sent",
+    "subject": "The part I did not plan for",
+    "preview": "When I started El Viejon, I only thought about the jerky.",
+    "audiences": {
+     "included": [
+      "Vu5kmw"
+     ],
+     "excluded": []
+    },
+    "recipients": 33746,
+    "open_rate": 0.54461,
+    "click_rate": 0.00512,
+    "conversions": 141,
+    "revenue": 12737,
+    "rpr": 0.37915,
+    "unsub_rate": 0.00375
+   }
+  ],
+  "worst": [
+   {
+    "name": "FC | BFCM | Build Your Flavour Lineup V2",
+    "channel": "email",
+    "sent": "2026-11-13T21:11:50.952075+00:00",
+    "status": "Sent",
+    "subject": "Familia, get your jerky for 20% less 🔥",
+    "preview": "Black Friday starts early for VIPs. Get on the list before November 15.",
+    "audiences": {
+     "included": [
+      "WhHFb5"
+     ],
+     "excluded": []
+    },
+    "recipients": 44759,
+    "open_rate": 0.27495,
+    "click_rate": 0.00365,
+    "conversions": 18,
+    "revenue": 1389,
+    "rpr": 0.03108,
+    "unsub_rate": 0.00085
+   },
+   {
+    "name": "FC | BFCM | Build Your Flavour Lineup",
+    "channel": "email",
+    "sent": "2026-11-13T17:00:00+00:00",
+    "status": "Sent",
+    "subject": "Familia, get your jerky for 20% less 🔥",
+    "preview": "Black Friday starts early for VIPs. Get on the list before November 15.",
+    "audiences": {
+     "included": [
+      "RsumHF"
+     ],
+     "excluded": []
+    },
+    "recipients": 50044,
+    "open_rate": 0.34662,
+    "click_rate": 0.00631,
+    "conversions": 43,
+    "revenue": 2800,
+    "rpr": 0.05627,
+    "unsub_rate": 0.00125
+   },
+   {
+    "name": "FC | BFCM | Pre-sale | Email | Deadline Reminder",
+    "channel": "email",
+    "sent": "2026-11-23T13:00:00+00:00",
+    "status": "Sent",
+    "subject": "Pre sale ends tomorrow",
+    "preview": "Quick one from me before it closes.",
+    "audiences": {
+     "included": [
+      "Vu5kmw"
+     ],
+     "excluded": []
+    },
+    "recipients": 37891,
+    "open_rate": 0.25397,
+    "click_rate": 0.00474,
+    "conversions": 33,
+    "revenue": 2328,
+    "rpr": 0.06166,
+    "unsub_rate": 0.00117
+   }
+  ],
+  "all": [
+   {
+    "name": "FC | BFCM | VIP Email AM | Familia Your VIP Access Is Live",
+    "sent": "2026-11-15T15:00:00+00:00",
+    "subject": "Your 20% off is live!",
+    "open_rate": 0.45124,
+    "click_rate": 0.12241,
+    "revenue": 4636,
+    "rpr": 4.8093,
+    "recipients": 970
+   },
+   {
+    "name": "FC | BFCM | VIP | Email AM | Reminder",
+    "sent": "2026-11-17T22:00:00+00:00",
+    "subject": "20% off, 3 days left",
+    "open_rate": 0.40994,
+    "click_rate": 0.0417,
+    "revenue": 2537,
+    "rpr": 2.25115,
+    "recipients": 1130
+   },
+   {
+    "name": "FC | BFCM | VIP | Email AM | Final chance",
+    "sent": "2026-11-19T13:00:00+00:00",
+    "subject": "Your VIP offer closes tonight",
+    "open_rate": 0.39434,
+    "click_rate": 0.03006,
+    "revenue": 1585,
+    "rpr": 1.4014,
+    "recipients": 1133
+   },
+   {
+    "name": "FC | BFCM | Cats out the bag",
+    "sent": "2026-11-16T15:00:00+00:00",
+    "subject": "That jerky stash won’t refill itself 🔥",
+    "open_rate": 0.4655,
+    "click_rate": 0.00853,
+    "revenue": 17018,
+    "rpr": 0.47138,
+    "recipients": 36243
+   },
+   {
+    "name": "FC | Palabras Del Viejon #4",
+    "sent": "2026-10-20T14:00:00+00:00",
+    "subject": "The part I did not plan for",
+    "open_rate": 0.54461,
+    "click_rate": 0.00512,
+    "revenue": 12737,
+    "rpr": 0.37915,
+    "recipients": 33746
+   },
+   {
+    "name": "FC | Palabras Del Viejon #5",
+    "sent": "2026-10-26T16:00:00+00:00",
+    "subject": "You have been writing back, Familia",
+    "open_rate": 0.49362,
+    "click_rate": 0.00374,
+    "revenue": 10537,
+    "rpr": 0.3104,
+    "recipients": 34095
+   },
+   {
+    "name": "FC | Palabras Del Viejon #7",
+    "sent": "2026-11-08T10:00:00+00:00",
+    "subject": "What a week looks like here",
+    "open_rate": 0.48188,
+    "click_rate": 0.00439,
+    "revenue": 8083,
+    "rpr": 0.2651,
+    "recipients": 30612
+   },
+   {
+    "name": "FC | Palabras Del Viejon #2",
+    "sent": "2026-09-29T18:00:00+00:00",
+    "subject": "I read one this week that got me",
+    "open_rate": 0.56112,
+    "click_rate": 0.00534,
+    "revenue": 6275,
+    "rpr": 0.22509,
+    "recipients": 28002
+   },
+   {
+    "name": "FC | Confessions of a snack-table thief.",
+    "sent": "2026-10-29T16:00:00+00:00",
+    "subject": "The bowl that gets emptied first",
+    "open_rate": 0.48162,
+    "click_rate": 0.00489,
+    "revenue": 7322,
+    "rpr": 0.21581,
+    "recipients": 34178
+   },
+   {
+    "name": "FC | Follow one bag from the cutting board.",
+    "sent": "2026-10-03T16:00:00+00:00",
+    "subject": "Watch one bag get made.",
+    "open_rate": 0.48712,
+    "click_rate": 0.00561,
+    "revenue": 6192,
+    "rpr": 0.19098,
+    "recipients": 32560
+   },
+   {
+    "name": "FC | The calendar moves on. The tradition stays.",
+    "sent": "2026-10-15T14:00:00+00:00",
+    "subject": "The month ends. The work does not",
+    "open_rate": 0.45415,
+    "click_rate": 0.00428,
+    "revenue": 6543,
+    "rpr": 0.18777,
+    "recipients": 35012
+   },
+   {
+    "name": "FC | BFCM | The Pre Sale Is Here",
+    "sent": "2026-11-20T14:00:00+00:00",
+    "subject": "20% off, now open to everyone",
+    "open_rate": 0.44718,
+    "click_rate": 0.00636,
+    "revenue": 6404,
+    "rpr": 0.17396,
+    "recipients": 36989
+   },
+   {
+    "name": "FC | Pumpkin spice can sit this one out.",
+    "sent": "2026-10-01T14:00:00+00:00",
+    "subject": "The weather turned. Your snack should too.",
+    "open_rate": 0.47957,
+    "click_rate": 0.00536,
+    "revenue": 5348,
+    "rpr": 0.16567,
+    "recipients": 32408
+   },
+   {
+    "name": "FC | Vampires were not consulted.",
+    "sent": "2026-10-13T14:00:00+00:00",
+    "subject": "Keeps vampires away. Keeps everyone else coming back.",
+    "open_rate": 0.48559,
+    "click_rate": 0.00363,
+    "revenue": 5241,
+    "rpr": 0.15835,
+    "recipients": 33236
+   },
+   {
+    "name": "FC | What goes into the price of a bag?",
+    "sent": "2026-10-09T20:00:00+00:00",
+    "subject": "Here's exactly what your money buys",
+    "open_rate": 0.49127,
+    "click_rate": 0.00545,
+    "revenue": 5152,
+    "rpr": 0.15694,
+    "recipients": 32976
+   },
+   {
+    "name": "FC | BFCM | Pre-sale | Email | Non-buyers",
+    "sent": "2026-11-21T13:00:00+00:00",
+    "subject": "Your 20% off is still open",
+    "open_rate": 0.43805,
+    "click_rate": 0.00637,
+    "revenue": 5473,
+    "rpr": 0.14761,
+    "recipients": 37232
+   },
+   {
+    "name": "FC | Carne seca, three ways.",
+    "sent": "2026-10-19T13:00:00+00:00",
+    "subject": "Three ways to eat it that aren't just \"open bag\"",
+    "open_rate": 0.48194,
+    "click_rate": 0.00397,
+    "revenue": 4844,
+    "rpr": 0.14459,
+    "recipients": 33662
+   },
+   {
+    "name": "FC | You've done enough sharing.",
+    "sent": "2026-11-01T00:00:00+00:00",
+    "subject": "You handled tonight. Now handle next week.",
+    "open_rate": 0.48641,
+    "click_rate": 0.0042,
+    "revenue": 4914,
+    "rpr": 0.14423,
+    "recipients": 34229
+   },
+   {
+    "name": "FC | The Familia's serving notes.",
+    "sent": "2026-11-04T15:00:00+00:00",
+    "subject": "Three ways the Familia actually eats this",
+    "open_rate": 0.47788,
+    "click_rate": 0.00332,
+    "revenue": 4905,
+    "rpr": 0.14273,
+    "recipients": 34503
+   },
+   {
+    "name": "FC | You do not have to chase the heat.",
+    "sent": "2026-11-02T15:00:00+00:00",
+    "subject": "Not everything has to burn",
+    "open_rate": 0.48131,
+    "click_rate": 0.00237,
+    "revenue": 4820,
+    "rpr": 0.14105,
+    "recipients": 34317
+   },
+   {
+    "name": "FC | Palabras Del Viejon #3",
+    "sent": "2026-10-11T16:00:00+00:00",
+    "subject": "Slow morning, Familia",
+    "open_rate": 0.50359,
+    "click_rate": 0.00514,
+    "revenue": 4177,
+    "rpr": 0.127,
+    "recipients": 33044
+   },
+   {
+    "name": "FC | BFCM | Pre-sale | Email AM | Social Proof + Reminder",
+    "sent": "2026-11-22T15:15:00+00:00",
+    "subject": "20% off, 3 days left",
+    "open_rate": 0.40563,
+    "click_rate": 0.00503,
+    "revenue": 4704,
+    "rpr": 0.12587,
+    "recipients": 37534
+   },
+   {
+    "name": "FC | Candy for them. Carne seca for the grown-ups.",
+    "sent": "2026-10-07T14:00:00+00:00",
+    "subject": "You plan the candy. Plan the good table too.",
+    "open_rate": 0.47918,
+    "click_rate": 0.00488,
+    "revenue": 4047,
+    "rpr": 0.12346,
+    "recipients": 32939
+   },
+   {
+    "name": "FC | BFCM | Last chance to join VIP list",
+    "sent": "2026-11-14T15:00:00+00:00",
+    "subject": "VIP opens tomorrow",
+    "open_rate": 0.47249,
+    "click_rate": 0.01031,
+    "revenue": 4385,
+    "rpr": 0.12279,
+    "recipients": 35848
+   },
+   {
+    "name": "FC | Enough sweet. Bring the heat.",
+    "sent": "2026-10-31T14:00:00+00:00",
+    "subject": "Your mouth wants salt. Give it salt.",
+    "open_rate": 0.48255,
+    "click_rate": 0.00288,
+    "revenue": 3642,
+    "rpr": 0.10721,
+    "recipients": 34135
+   },
+   {
+    "name": "FC | 2oz or 4.5oz? Make it your kind of bag.",
+    "sent": "2026-11-06T15:00:00+00:00",
+    "subject": "2oz or 4.5oz? Here's the honest answer.",
+    "open_rate": 0.4551,
+    "click_rate": 0.00447,
+    "revenue": 3878,
+    "rpr": 0.10635,
+    "recipients": 36637
+   },
+   {
+    "name": "FC | BFCM | Recruitment | Email | The Familia Gets First Dibs",
+    "sent": "2026-11-12T13:00:00+00:00",
+    "subject": "Get 20% off before everyone else",
+    "open_rate": 0.44697,
+    "click_rate": 0.00863,
+    "revenue": 3856,
+    "rpr": 0.10332,
+    "recipients": 37480
+   },
+   {
+    "name": "FC | BFCM | Pre-sale | Email | Deadline Reminder",
+    "sent": "2026-11-23T13:00:00+00:00",
+    "subject": "Pre sale ends tomorrow",
+    "open_rate": 0.25397,
+    "click_rate": 0.00474,
+    "revenue": 2328,
+    "rpr": 0.06166,
+    "recipients": 37891
+   },
+   {
+    "name": "FC | BFCM | Build Your Flavour Lineup",
+    "sent": "2026-11-13T17:00:00+00:00",
+    "subject": "Familia, get your jerky for 20% less 🔥",
+    "open_rate": 0.34662,
+    "click_rate": 0.00631,
+    "revenue": 2800,
+    "rpr": 0.05627,
+    "recipients": 50044
+   },
+   {
+    "name": "FC | BFCM | Build Your Flavour Lineup V2",
+    "sent": "2026-11-13T21:11:50.952075+00:00",
+    "subject": "Familia, get your jerky for 20% less 🔥",
+    "open_rate": 0.27495,
+    "click_rate": 0.00365,
+    "revenue": 1389,
+    "rpr": 0.03108,
+    "recipients": 44759
+   }
+  ],
+  "sms": [
+   {
+    "name": "FC | Your next snack idea, sorted.",
+    "channel": "sms",
+    "sent": "2026-10-06T16:00:00+00:00",
+    "status": "Sent",
+    "body": "Try this. Chile Limón with a squeeze of lime and a hit of Valentina. A customer's idea, and he was right: https://elviejonbeefjerky.com/collections/all-products/products/chile-limon\n\n",
+    "audiences": {
+     "included": [
+      "RYLGcD"
+     ],
+     "excluded": []
+    },
+    "recipients": 2357,
+    "open_rate": 0,
+    "click_rate": 0.30189,
+    "conversions": 8,
+    "revenue": 450,
+    "rpr": 0.19284,
+    "unsub_rate": 0.00986
+   },
+   {
+    "name": "FC | Let the flavor do the talking.",
+    "channel": "sms",
+    "sent": "2026-10-14T16:00:00+00:00",
+    "status": "Sent",
+    "body": "El Viejon: Original is salt, ground pepper and spices. No heat to hide behind, just real carne seca. Taste it: https://elviejonbeefjerky.com/\n\n",
+    "audiences": {
+     "included": [
+      "RYLGcD"
+     ],
+     "excluded": []
+    },
+    "recipients": 2727,
+    "open_rate": 0,
+    "click_rate": 0.28381,
+    "conversions": 6,
+    "revenue": 324,
+    "rpr": 0.11996,
+    "unsub_rate": 0.00852
+   },
+   {
+    "name": "FC | Hosting in October? Put this on the list.",
+    "channel": "sms",
+    "sent": "2026-10-17T16:00:00+00:00",
+    "status": "Sent",
+    "body": "October's booking up. We make every bag to order, so grab your Sampler now and skip the scramble: https://elviejonbeefjerky.com/\n\n",
+    "audiences": {
+     "included": [
+      "RYLGcD"
+     ],
+     "excluded": []
+    },
+    "recipients": 2897,
+    "open_rate": 0,
+    "click_rate": 0.29449,
+    "conversions": 7,
+    "revenue": 536,
+    "rpr": 0.1869,
+    "unsub_rate": 0.00942
+   },
+   {
+    "name": "FC | Keep a treat for yourself, Familia.",
+    "channel": "sms",
+    "sent": "2026-10-21T16:00:00+00:00",
+    "status": "Sent",
+    "body": "You’ve bought candy for everyone else all month. Get yourself something real for once: https://elviejonbeefjerky.com/\n\n",
+    "audiences": {
+     "included": [
+      "RYLGcD"
+     ],
+     "excluded": []
+    },
+    "recipients": 3213,
+    "open_rate": 0,
+    "click_rate": 0.30003,
+    "conversions": 9,
+    "revenue": 893,
+    "rpr": 0.2807,
+    "unsub_rate": 0.01414
+   },
+   {
+    "name": "FC | Your Halloween list is missing something savory.",
+    "channel": "sms",
+    "sent": "2026-10-27T20:00:00+00:00",
+    "status": "Sent",
+    "body": "Halloween’s coming, and the good table needs stocking. Grab your favorite El Viejon jerky now so you’re ready to share when the crew comes around.\nhttps://elviejonbeefjerky.com/collections/all-products",
+    "audiences": {
+     "included": [
+      "RYLGcD"
+     ],
+     "excluded": []
+    },
+    "recipients": 3389,
+    "open_rate": 0,
+    "click_rate": 0.29792,
+    "conversions": 11,
+    "revenue": 646,
+    "rpr": 0.19221,
+    "unsub_rate": 0.00714
+   },
+   {
+    "name": "FC | BFCM | VIP | SMS PM | VIP Access Is Live",
+    "channel": "sms",
+    "sent": "2026-11-15T21:00:00+00:00",
+    "status": "Sent",
+    "body": "Familia, your early access is live. 20% off with FAMILIA20 through Nov 19: https://elviejonbeefjerky.com/collections/all-products\n\n\n",
+    "audiences": {
+     "included": [
+      "RYLGcD"
+     ],
+     "excluded": []
+    },
+    "recipients": 4163,
+    "open_rate": 0,
+    "click_rate": 0.30973,
+    "conversions": 45,
+    "revenue": 3392,
+    "rpr": 0.82278,
+    "unsub_rate": 0.00752
+   },
+   {
+    "name": "FC | BFCM | VIP | SMS PM | Reminder",
+    "channel": "sms",
+    "sent": "2026-11-18T00:00:00+00:00",
+    "status": "Sent",
+    "body": "VIP access ends in 3 days! Grab your favorites before they sell out. Take 20% off with FAMILIA20: https://elviejonbeefjerky.com/\n\n",
+    "audiences": {
+     "included": [
+      "RLCmY4"
+     ],
+     "excluded": []
+    },
+    "recipients": 483,
+    "open_rate": 0,
+    "click_rate": 0.34864,
+    "conversions": 5,
+    "revenue": 508,
+    "rpr": 1.06002,
+    "unsub_rate": 0.00209
+   },
+   {
+    "name": "FC | BFCM | VIP | SMS PM | Final Chance",
+    "channel": "sms",
+    "sent": "2026-11-19T23:00:00+00:00",
+    "status": "Sent",
+    "body": "VIP access ends TONIGHT! Grab your favorites before they sell out. Save 20% with FAMILIA20: https://elviejonbeefjerky.com/collections/all-products\n\n",
+    "audiences": {
+     "included": [
+      "RLCmY4"
+     ],
+     "excluded": []
+    },
+    "recipients": 481,
+    "open_rate": 0,
+    "click_rate": 0.32075,
+    "conversions": 3,
+    "revenue": 443,
+    "rpr": 0.92868,
+    "unsub_rate": 0.0021
+   }
+  ]
+ }
+}
