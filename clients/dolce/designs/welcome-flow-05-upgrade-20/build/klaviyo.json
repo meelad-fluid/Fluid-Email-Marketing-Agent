@@ -1,15 +1,15 @@
 {
-  "template_id": "WZ38Zj",
+  "template_id": "SaVz8A",
   "template_name": "FC | Welcome Email #5 (sliced)",
   "images": [
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/5af03d02-1b24-4702-aa71-2a67a6aa94d8.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/8b43f3bc-a329-40be-897f-c58a2e25582c.jpeg",
     [
-      "https://cdn.klaviyomail.com/company/WVFzi6/images/365a6606-ec4b-4e43-8cd4-6f82b53b7d69.jpeg",
-      "https://cdn.klaviyomail.com/company/WVFzi6/images/ab7b2e9e-b24b-4e63-9eb5-cfdcffddbb37.jpeg",
-      "https://cdn.klaviyomail.com/company/WVFzi6/images/6b61f1ef-3da4-42d3-9036-23ab6a9ca6c3.jpeg"
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/81961be8-1131-4f6d-b4bf-4aa6fb4f204f.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/252f73ae-5abb-44a1-a6e5-c6feb3027f91.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/3513bf3d-ae9f-45fd-be4a-a3d944cc8c74.jpeg"
     ],
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/1198826b-fe9a-48d5-ab5d-cff7058ae66a.jpeg",
-    "https://cdn.klaviyomail.com/company/WVFzi6/images/f85d8be8-426a-4c76-832a-244451a1ac55.jpeg"
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/821eaf92-8399-499e-919e-2e29576afd3e.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/692514ca-cc77-476b-bd75-c2eeff091b85.jpeg"
   ],
   "audiences": {
     "included": [],
@@ -18,5 +18,7 @@
   "missing_audiences": [],
   "suggestions": {},
   "campaign": null,
-  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created."
+  "note": "No included audience matched a Klaviyo list/segment name, so only the template was created.",
+  "editor": "SYSTEM_DRAGGABLE",
+  "template_built_at": "2026-11-24T00:10:20.761Z"
 }

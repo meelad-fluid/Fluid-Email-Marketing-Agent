@@ -1,0 +1,19 @@
+{
+  "flow_id": "WKVEkC",
+  "flow_name": "FC | FC | Welcome Flow (Fluid rebuild) (draft)",
+  "url": "https://www.klaviyo.com/flow/WKVEkC/edit",
+  "status": "draft",
+  "built_at": "2026-11-24T00:10:53.352Z",
+  "templates": {
+    "designs/welcome-flow-01-matcha": "S4wyE8",
+    "designs/welcome-flow-01v2-cacao": "VBmjwz",
+    "designs/welcome-flow-01v3-smoothie": "Ua3Hs2",
+    "designs/welcome-flow-02-jeff-note": "Y82L3r",
+    "designs/welcome-flow-03-reviews": "Sakj6e",
+    "designs/welcome-flow-04-best-sellers": "QShdGt",
+    "designs/welcome-flow-05-upgrade-20": "SaVz8A"
+  },
+  "manual_steps": [
+    "Splits use profile properties: they only route people once those properties exist on profiles (e.g. after the new pop-up is live)."
+  ]
+}

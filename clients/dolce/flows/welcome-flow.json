@@ -1,0 +1,23 @@
+{
+  "name": "FC | Welcome Flow (Fluid rebuild)",
+  "trigger": { "list": "Newsletter" },
+  "steps": [
+    { "split": [
+        { "when": { "property": "stocking_up_on", "equals": "Matcha" }, "steps": [ { "email": "designs/welcome-flow-01-matcha" } ] },
+        { "when": { "property": "stocking_up_on", "equals": "Cacao and baking" }, "steps": [ { "email": "designs/welcome-flow-01v2-cacao" } ] },
+        { "when": { "property": "stocking_up_on", "equals": "Smoothie boosts" }, "steps": [ { "email": "designs/welcome-flow-01v3-smoothie" } ] }
+      ],
+      "otherwise": [ { "email": "designs/welcome-flow-01-matcha" } ] },
+    { "sms": "Dolce Superfoods: Welcome! Here's 15% off your first order with code DOLCE15: dolcesuperfoods.com/discount/DOLCE15 Reply STOP to opt out." },
+    { "wait": { "hours": 4 } },
+    { "email": "designs/welcome-flow-02-jeff-note" },
+    { "wait": { "days": 1 } },
+    { "email": "designs/welcome-flow-03-reviews" },
+    { "wait": { "days": 1 } },
+    { "email": "designs/welcome-flow-04-best-sellers" },
+    { "wait": { "days": 1 } },
+    { "email": "designs/welcome-flow-05-upgrade-20" },
+    { "sms": "Dolce Superfoods: 24 hours only. Your welcome code is now 20% off with WELCOME20: dolcesuperfoods.com/discount/WELCOME20 Reply STOP to opt out." }
+  ],
+  "exit_if_ordered": true
+}
