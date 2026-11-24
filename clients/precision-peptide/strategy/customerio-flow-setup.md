@@ -1,0 +1,107 @@
+# Precision Peptide: Customer.io setup sheet
+_Prepared 2026-11-24 · Goes with the flow plan · Status: draft, nothing built yet_
+
+**The point:** these are the segments, settings and automation shells for all six flows. Emails drop in once copy clears compliance (gate: ESCALATE, see compliance.md).
+
+## 1. Sending setup (do first)
+1. **One sender:** Sarah from The Precision Peptide Company, sending from @precisionpeptidecompany.com (proposed, needs approval)
+2. **Authenticate the domain:** SPF, DKIM and DMARC verified in Customer.io
+3. **Retire for marketing:** info@precisionpep.co, orders@precisionpep.co, support@tppc.co
+4. **Footer layout:** business address (missing), unsubscribe `{% unsubscribe_url %}`, preferences `{% manage_subscription_preferences_url %}`, the approved disclaimer once counsel provides it
+5. **Subscription topic:** one "Marketing" topic, so transactional mail stays separate
+
+## 2. Segments to create (data-driven)
+- **Engaged 30 / 60 / 90 / 120**
+  - Opened or clicked any email in the last N days, OR performed `order_created` in the last N days
+  - AND email is valid and the person is subscribed
+- **New Subs (Engaged 30 ex. Purchasers)**
+  - Created in the last 30 days
+  - AND opened or clicked any email in the last 30 days
+  - AND no `order_created` in the last 30 days
+- **Placed Order 7d / 14d / 30d**
+  - Performed `order_created` in the last 7 / 14 / 30 days
+- **Lapsed Customers (Winback)**
+  - Performed `order_created` at least once
+  - AND no `order_created` in the last 180 days
+  - AND subscribed
+- **Unengaged 120** (for a later sunset flow)
+  - No opens, clicks or `order_created` in 120 days, created over 120 days ago
+- **Retail buyers / Rx buyers**
+  - `order_created` where `line` = retail / rx (needs the new `line` field)
+
+## 3. Pop-up
+- **Tool:** to confirm. Customer.io stores the answer from any form tool that can pass attributes.
+- **Steps**
+  1. Question: "What brings you to Precision Peptide?"
+     - A company I can actually verify → `popup_answer` = `verify`
+     - A needle-free option → `popup_answer` = `needle_free`
+     - A prescription program → `popup_answer` = `rx`
+  2. Email
+  3. Phone, skippable, with the consent line → `sms_consent` = true
+  4. Confirmation with the welcome code and one button
+- **Offer:** 10% (proposed, retail only until counsel decides on Rx)
+- **Wording:** held for compliance approval
+
+## 4. Automations
+Every automation: conversion goal = `order_created` within 5 days. Smart sending off. SMS steps filtered to `sms_consent` = true.
+
+**Welcome (7 emails + 2 SMS)**
+- Trigger: segment entry, new pop-up sign-ups (plus X Leads and Reddit Leads)
+- Frequency: once per person
+- Exit: performed `order_created`
+- Steps
+  1. True/false branch on `popup_answer`: `verify` → Email 1 · `needle_free` → Email 1 v2 · else → Email 1 v3
+  2. SMS 1
+  3. Wait 4 hours → Email 2 (plain text)
+  4. Wait 1 day → Email 3
+  5. Wait 1 day → Email 4
+  6. Wait 1 day → Email 5
+  7. SMS 2
+- Replaces: Site sign-up Welcome, Welcome X Leads, OTC Welcome (ads)
+
+**Site abandonment (2 emails)**
+- Trigger: event `page_viewed`
+- Filter: no `product_viewed`, `checkout_started` or `order_created` in the last 1 day
+- Frequency: every 7 days at most
+- Exit: performs `product_viewed`, `checkout_started` or `order_created`
+- Steps: wait 2 hours → Email 1 · wait 1 day → Email 2
+
+**Browse abandonment (3 emails + 1 SMS)**
+- Trigger: event `product_viewed`
+- Frequency: every 7 days at most
+- Exit: performs `checkout_started` or `order_created`
+- Steps: wait 2 hours → Email 1 · wait 1 day → Email 2 → SMS 1 · wait 1 day → Email 3
+- Liquid: `{{event.product_name}}`, `{{event.product_url}}`, `{{event.image_url}}`
+
+**Abandoned cart (4 emails + 2 SMS)**
+- Trigger: event `checkout_started`
+- Frequency: every 1 day at most
+- Exit: performs `order_created`
+- Steps: wait 30 min → Email 1 → SMS 1 · wait 1 day → Email 2 · wait 1 day → Email 3 → SMS 2 · wait 1 day → Email 4
+- Liquid: `{% for item in event.items %}` loop for the cart table, `{{event.checkout_url}}`
+
+**Post-purchase (4 emails + 1 SMS)**
+- Trigger: event `order_created`
+- Filter: first order only (`order_created` count = 1)
+- Frequency: once per person
+- Steps: wait 5 min → Email 1 (plain text) → SMS 1 · wait 1 day → Email 2 · wait 7 days → Email 3 (plain text) · wait 2 days → Email 4
+- Replaces: Post Purchase Education, after its content is reviewed
+
+**Winback (2 emails + 1 SMS)**
+- Trigger: event `order_created`, first order only
+- Steps: wait 90 days → check no `order_created` since → Email 1 → SMS 1 · wait 5 days → Email 2
+- Exit: performs `order_created`
+
+## 5. Clean-up
+- Pause new entries to Site sign-up Nurture (60 days) when Welcome goes live
+- Archive Untitled Automation 1 and Site sign-up Welcome
+- Hold Amino active and Amino list Nurture until the client says what Amino is
+
+## 6. Discount codes (proposed, need approval, retail only)
+- WELCOME10 · 10%
+- WELCOME15 · 15%, 24 hours
+- BROWSE10 · 10%
+- MYSTERY · real 15%, teased as "up to 25%"
+- Second order · 15%
+- Winback · 20%
+- Created on their custom platform by the client (we can't create codes there)

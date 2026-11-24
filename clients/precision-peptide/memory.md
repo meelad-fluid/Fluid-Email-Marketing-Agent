@@ -22,6 +22,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-24 · no BFCM send this year: can't clear legal by Nov 27
 
 - 2026-11-24 · Gloria asked to start the flows; held copy/design because the compliance gate is ESCALATE (Rx = class C, retail = class D). Offered the non-copy prep instead (event spec for their dev, Customer.io segments/build setup, pop-up structure)
+- 2026-11-24 · Meelad: "good to start working on everything" → built research/customerio-event-spec.md (dev events) and strategy/customerio-flow-setup.md (sender, segments, pop-up, automation shells, clean-up, codes). Flow copy still held: no confirmation that counsel cleared the claim set
 
 ## Open questions
 <!-- - … -->
