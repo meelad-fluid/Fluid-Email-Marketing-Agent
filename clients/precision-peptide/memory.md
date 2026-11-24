@@ -31,6 +31,7 @@ Research-use-only peptide brand: worked like any client, with the copy/design gu
 - 2026-11-24 · Gloria: "start the designs". Style chosen for the Welcome flow (dark-to-copper editorial, inset photo cards). Built designs/2026-11-24-welcome-1-verify (rendered clean, no cut-offs). Brand book v2: palette from their real vial packaging (indigo #2A2668, copper #D4A27F, midnight #1A1838, cream #F7F3EE), stand-in fonts Playfair Display + Inter. Generated: hero vials (from site renders), lab bench, copper texture. Image limit is 4 per request.
 - 2026-11-24 · BLOCKER: publish_design treats this client as RUO and refuses "prescription", "health", "results", "treatment" and the site's own approved disclaimer. Can't publish any Rx-line email until an admin reclassifies the client (not RUO) or the team adds these to compliance.md's Allowed terms. Did NOT work around the filter. Other 6 Welcome designs paused until fixed.
 - 2026-11-24 · Meelad said he'll fix the RUO classification/publish block. Next: publish Welcome #1, then build the rest of the Welcome flow.
+- 2026-11-24 · Meelad asked to build Welcome + Site Abandonment flows. Re-tried publishing Welcome #1: still blocked by the RUO filter ("prescription", "health", "treatment", "results", incl. the counsel-approved site disclaimer). Both flows lean on Rx program copy, so held the builds and asked Meelad: wait for reclassification, or reword around the filter (which means changing the approved disclaimer).
 
 ## Open questions
 <!-- - … -->
