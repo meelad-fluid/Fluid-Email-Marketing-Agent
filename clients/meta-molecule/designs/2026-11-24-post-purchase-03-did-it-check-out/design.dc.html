@@ -1,0 +1,19 @@
+<div class="email">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+a{color:#1155CC}
+.email{width:600px;margin:0 auto;background:#FFFFFF;font-family:Arial,Helvetica,sans-serif;color:#222222;font-size:16px;line-height:1.6;padding:36px 32px 40px}
+.email p{margin:0 0 18px}
+.small{font-size:12px;color:#555555;line-height:1.5;margin-top:26px}
+.foot{font-size:12px;color:#777777;margin-top:28px;border-top:1px solid #E5E5E5;padding-top:16px}
+.foot a{color:#777777}
+</style>
+<p>Hi {{ customer.first_name | default: "there" }},</p>
+<p>Your order should have landed by now, so I wanted to ask the one question we care about most: did the lot on your label match the documentation?</p>
+<p>If it did, a quick review would help other labs who are where you were a week ago, comparing vendors in three tabs. Keep it to what you could check: the paperwork, the packaging, how fast it shipped and how we answered. We can't publish anything about how a product is used, so we'll leave those out.</p>
+<p><a href="https://metamolecule.com/"><b>Leave a quick review</b></a></p>
+<p>If it didn't match, or anything else wasn't right, reply to this email. I'd much rather hear it from you now than find out later.</p>
+<p>Claire<br>Meta Molecule</p>
+<p class="small">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</p>
+<p class="foot">Meta Molecule · Richardson, TX 75081 · <a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+</div>

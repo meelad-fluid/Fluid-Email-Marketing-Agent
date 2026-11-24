@@ -1,0 +1,138 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#fff;font-family:'Outfit',Arial,sans-serif;color:#111A20;overflow:hidden}
+.top{display:block;background:#fff;text-align:center;padding:16px 0 14px}
+.mmlogo{height:46px;width:auto;display:inline-block}
+.bar{display:block;background:linear-gradient(90deg,#0E8478,#1268A0);color:#fff;text-align:center;font-weight:600;font-size:14px;letter-spacing:1.6px;padding:11px 0}
+.hero{position:relative;height:960px;background:#EEE9E1 url('asset:brand/assets/generated/2026-11-24-mm-unboxing-bench-sunlit.jpg') center 48%/cover no-repeat}
+.hero:before{content:'';position:absolute;left:0;right:0;top:0;height:640px;background:linear-gradient(180deg,rgba(238,233,225,.97) 0%,rgba(238,233,225,.93) 62%,rgba(238,233,225,0) 100%)}
+.hero:after{content:'';position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
+.hin{position:relative;text-align:center;padding:38px 46px 0}
+.kick{display:inline-block;font-size:14px;font-weight:600;letter-spacing:2.4px;color:#0E8478;text-transform:uppercase}
+.h1{font-family:'DM Serif Display',Georgia,serif;font-size:50px;line-height:1.04;letter-spacing:-.6px;margin-top:14px;color:#111A20}
+.h1 i{color:#0E8478}
+.sub{font-size:18px;line-height:1.5;color:#4B5257;margin:16px auto 0;max-width:450px;font-weight:400}
+.offer{display:flex;align-items:center;justify-content:center;gap:14px;margin:24px auto 0}
+.offer .pct{font-family:'DM Serif Display',Georgia,serif;font-size:64px;line-height:1;color:#0E8478}
+.offer .lbl{text-align:left;font-size:17px;font-weight:600;line-height:1.25;color:#111A20}
+.chip{display:inline-block;margin-left:6px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:24px;letter-spacing:3px;color:#111A20;background:#fff;border:2px dashed #0E8478;border-radius:10px;padding:10px 18px}
+.btn{display:block;width:340px;margin:24px auto 0;background:#0E8478;color:#fff;font-weight:600;font-size:19px;border-radius:8px;padding:18px 0;text-align:center;box-shadow:0 10px 24px rgba(14,132,120,.28)}
+.dynsec{background:#fff;padding:52px 44px 18px;text-align:center}
+.dynsec h2{font-family:'DM Serif Display',Georgia,serif;font-size:36px;font-weight:400;color:#111A20}
+.dline{display:flex;align-items:center;gap:20px;text-align:left;padding:20px 0;border-bottom:1px solid #EEEEEE}
+.dline img{width:110px;height:110px;object-fit:cover;flex:0 0 110px}
+.dline .nm{flex:1}
+.dline .nm b{display:block;font-size:20px;font-weight:600}
+.dline .nm small{display:block;font-size:15px;color:#6B7378;margin-top:6px}
+.dynsec .btn{margin-top:28px}
+.ruo{display:block;margin:22px 0 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#111A20;border-top:1px solid #E4E4E4;border-bottom:1px solid #E4E4E4;padding:13px 0}
+.quote{display:block;text-align:center;padding:54px 56px 60px;position:relative}
+.quote .qm{font-family:'DM Serif Display',Georgia,serif;font-size:120px;line-height:.7;color:#CFE7E2;height:60px}
+.quote h3{font-family:'Outfit',Arial,sans-serif;font-style:italic;font-weight:300;font-size:30px;line-height:1.25;color:#111A20;letter-spacing:-.3px}
+.quote p{font-size:18px;line-height:1.55;color:#4B5257;margin-top:16px}
+.stepsw{padding:0 34px 64px;position:relative}
+.card{position:relative;background:#EEF6F4;border-radius:22px;padding:46px 40px 40px}
+.card h2{font-family:'DM Serif Display',Georgia,serif;font-size:40px;font-weight:400;line-height:1.05}
+.tl{position:relative;margin-top:30px}
+.tl:before{content:'';position:absolute;left:21px;top:20px;bottom:40px;width:2px;background:#0E8478;opacity:.45}
+.st{display:flex;gap:22px;padding:0 0 30px;position:relative}
+.st .dot{flex:0 0 44px;height:44px;border-radius:50%;background:#fff;border:2px solid #0E8478;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;color:#0E8478;display:flex;align-items:center;justify-content:center}
+.st b{display:block;font-size:21px;font-weight:600;margin-top:8px}
+.st span{display:block;font-size:17px;line-height:1.5;color:#4B5257;margin-top:4px}
+.card .btn{width:100%;margin-top:6px}
+.lens{position:absolute;right:-18px;top:-38px;width:150px;height:150px;border-radius:50%;border:6px solid #fff;box-shadow:0 18px 36px rgba(0,0,0,.18);background:url('asset:brand/assets/generated/2026-11-24-mm-unboxing-bench-sunlit.jpg') 73% 79%/520px auto no-repeat}
+.lot{position:absolute;right:120px;top:-18px;transform:rotate(-7deg);background:#111A20;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:1.5px;padding:8px 14px;border-radius:6px;box-shadow:0 8px 16px rgba(0,0,0,.2)}
+.off{display:flex;gap:26px;align-items:center;padding:0 40px 64px}
+.off .ph{flex:0 0 220px;height:280px;border-radius:120px 120px 18px 18px;background:url('asset:brand/assets/generated/2026-11-24-mm-unboxing-bench-sunlit.jpg') 44% 56%/640px auto no-repeat;box-shadow:0 18px 40px rgba(60,50,30,.18)}
+.off .tx h2{font-family:'DM Serif Display',Georgia,serif;font-size:34px;font-weight:400;line-height:1.08}
+.off .tx p{font-size:17px;line-height:1.5;color:#4B5257;margin-top:12px}
+.off .tx .sm{font-size:14px;color:#6B7378;margin-top:10px}
+.off .btn{width:100%;margin:20px 0 0;background:#fff;color:#0E8478;border:2px solid #0E8478;box-shadow:none}
+.close{display:block;position:relative;background:linear-gradient(135deg,#0E8478,#1268A0);color:#fff;text-align:center;padding:64px 44px 58px;border-radius:40px 40px 0 0}
+.close .k{font-size:14px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;opacity:.85}
+.close .big{font-family:'DM Serif Display',Georgia,serif;font-size:72px;line-height:1;margin-top:12px}
+.close .code{display:inline-block;margin-top:18px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:26px;letter-spacing:4px;border:2px dashed rgba(255,255,255,.8);border-radius:10px;padding:10px 22px}
+.close .btn{background:#fff;color:#0E8478;box-shadow:0 12px 26px rgba(0,0,0,.2)}
+.trust{display:flex;background:#0B2A33;color:#fff;padding:34px 24px 6px}
+.trust a{flex:1;text-align:center}
+.ic{width:52px;height:52px;margin:0 auto;border:1.5px solid rgba(255,255,255,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+.trust span{display:block;font-size:14px;margin-top:10px;line-height:1.35;color:#D5E4E6}
+.foot{background:#0B2A33;color:#9FB4B8;text-align:center;font-size:12px;line-height:1.6;padding:26px 40px 32px}
+.lg{display:inline-block;background:#fff;padding:9px 16px;border-radius:10px}
+.lg .mmlogo{height:34px}
+.foot .r{color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:16px}
+</style>
+
+  <a href="https://metamolecule.com/" class="top"><img class="mmlogo" src="asset:brand/assets/library/meta-molecule-primary-logo-gradient-molecule-wordm.png" alt="Meta Molecule"></a>
+  <a href="https://metamolecule.com/faqs/" class="bar">ORDERS BEFORE 1 P.M. CT SHIP SAME DAY · MON–FRI</a>
+
+  <div class="hero">
+    <div class="hin">
+      <a href="https://metamolecule.com/coas/" class="kick">Your order is on its way</a>
+      <a href="https://metamolecule.com/coas/"><div class="h1">Label in one hand.<br><i>Paperwork</i> in the other.</div></a>
+      <a href="https://metamolecule.com/coas/"><p class="sub">When it arrives, check the lot number on the label against our COA library. It takes a minute.</p></a>
+      <a href="https://metamolecule.com/shop/" class="offer"><span class="pct">15%</span><span class="lbl">off your<br>next order</span><span class="chip">SECOND15</span></a>
+      <a href="https://metamolecule.com/coas/" class="btn">View COA Library</a>
+    </div>
+  </div>
+
+  <div class="dynsec">
+    <h2>In your order</h2>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="dline"><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-52-1024x1024.webp" alt="MOTS-C 40mg"><div class="nm"><b>MOTS-C 40mg</b><small>Qty 1</small></div></a>
+    <a href="https://metamolecule.com/product/tesa-10mg/" class="dline"><img src="https://metamolecule.com/wp-content/uploads/2026/01/tesamorelin-1024x1024.jpeg" alt="Tesamorelin 10mg"><div class="nm"><b>Tesamorelin 10mg</b><small>Qty 1</small></div></a>
+    <a href="https://metamolecule.com/product/mots-c-40mg/" class="btn">Review Specifications</a>
+    <a href="https://metamolecule.com/faqs/" class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</a>
+  </div>
+
+  <a href="https://metamolecule.com/coas/" class="quote">
+    <div class="qm">“</div>
+    <h3>You've had a vendor send the COA after the box.</h3>
+    <p>Or never. That's why ours is public before you pay, and why the lot number on your label is the first thing to check.</p>
+  </a>
+
+  <div class="stepsw">
+    <div class="card">
+      <a href="https://metamolecule.com/coas/" class="lens"></a>
+      <a href="https://metamolecule.com/coas/" class="lot">LOT # ✓</a>
+      <a href="https://metamolecule.com/coas/"><h2>Check your order<br>in three steps</h2></a>
+      <div class="tl">
+        <a href="https://metamolecule.com/coas/" class="st"><div class="dot">01</div><div><b>Find the lot number</b><span>It's printed on the vial label.</span></div></a>
+        <a href="https://metamolecule.com/coas/" class="st"><div class="dot">02</div><div><b>Look it up</b><span>Open our COA library and search that lot.</span></div></a>
+        <a href="mailto:support@metamolecule.com" class="st"><div class="dot">03</div><div><b>Can't find it?</b><span>Reply with the lot number and our team will look into it.</span></div></a>
+      </div>
+      <a href="https://metamolecule.com/coas/" class="btn">View COA Library</a>
+    </div>
+  </div>
+
+  <div class="off">
+    <a href="https://metamolecule.com/contact/" class="ph"></a>
+    <div class="tx">
+      <a href="https://metamolecule.com/contact/"><h2>Damaged or not what you ordered?</h2></a>
+      <a href="https://metamolecule.com/faqs/"><p>We can't take returns once an order ships, so check the box when it lands. Email support with your order number and we'll sort it out.</p></a>
+      <a href="https://metamolecule.com/faqs/"><p class="sm">Store everything as stated on its label.</p></a>
+      <a href="https://metamolecule.com/contact/" class="btn">Contact Support</a>
+    </div>
+  </div>
+
+  <a href="https://metamolecule.com/shop/" class="close">
+    <div class="k">For your next order</div>
+    <div class="big">15% off</div>
+    <div class="code">SECOND15</div>
+    <div class="btn">Explore Research Catalog</div>
+  </a>
+
+  <div class="trust">
+    <a href="https://metamolecule.com/faqs/"><div class="ic">1PM</div><span>Ships same day<br>before 1 p.m. CT</span></a>
+    <a href="https://metamolecule.com/coas/"><div class="ic">COA</div><span>Public<br>COA library</span></a>
+    <a href="https://metamolecule.com/faqs/"><div class="ic">$200</div><span>Free U.S. shipping<br>at $200+</span></a>
+  </div>
+  <div class="foot">
+    <a href="https://metamolecule.com/"><div class="lg"><img class="mmlogo" src="asset:brand/assets/library/meta-molecule-primary-logo-gradient-molecule-wordm.png" alt="Meta Molecule"></div></a>
+    <a href="https://metamolecule.com/faqs/"><p class="r">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</p></a>
+    <a href="https://metamolecule.com/contact/"><p style="margin-top:10px">Meta Molecule · Richardson, TX 75081 · support@metamolecule.com</p></a>
+    <p style="margin-top:8px;color:#D5E4E6"><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+</div>

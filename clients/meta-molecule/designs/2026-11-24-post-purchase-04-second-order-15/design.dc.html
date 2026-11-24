@@ -1,0 +1,121 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#fff;font-family:'Poppins',Arial,sans-serif;color:#0E1B24;overflow:hidden}
+.top{display:block;background:#fff;text-align:center;padding:18px 0 16px}
+.mmlogo{height:50px;width:auto;display:inline-block}
+.hero{position:relative;background:linear-gradient(180deg,#D6E9E7 0%,#CBE1E4 100%);text-align:center;padding:40px 40px 0}
+.kick{display:inline-block;font-size:14px;font-weight:600;letter-spacing:2.6px;color:#0E8478;text-transform:uppercase;background:#fff;border-radius:30px;padding:7px 16px}
+.h1{font-size:50px;font-weight:700;line-height:1.08;letter-spacing:-1.4px;margin-top:18px}
+.h1 em{font-style:normal;color:#0E8478}
+.sub{font-size:18px;line-height:1.5;color:#3A4A54;margin:14px auto 0;max-width:460px}
+.code{font-size:34px;font-weight:800;letter-spacing:-.5px;margin-top:20px;text-transform:uppercase}
+.code span{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:3px;background:#0E1B24;color:#fff;border-radius:10px;padding:4px 14px;margin-left:6px;font-size:30px}
+.btn{display:block;width:340px;margin:24px auto 0;background:linear-gradient(90deg,#0E8478,#1268A0);color:#fff;font-weight:600;font-size:19px;border-radius:40px;padding:18px 0;text-align:center}
+.line{display:block;position:relative;height:300px;margin:34px -40px 0}
+.ledge{position:absolute;left:0;right:0;bottom:0;height:78px;background:linear-gradient(180deg,#1268A0,#0B3F66)}
+.ledge:before{content:'';position:absolute;left:0;right:0;top:0;height:10px;background:#3C8FC2}
+.vl{position:absolute;bottom:52px;width:170px;height:200px;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 22px 30px rgba(6,40,66,.35)}
+.vl img{width:100%;height:100%;object-fit:cover;display:block}
+.vl1{left:38px;transform:rotate(-3deg)}
+.vl2{left:215px;height:228px;width:170px;z-index:2}
+.vl3{right:38px;transform:rotate(3deg)}
+.bridge{display:block;text-align:center;padding:52px 60px 10px}
+.bridge p{font-size:18px;line-height:1.6;color:#3A4A54}
+.bridge p b{color:#0E1B24}
+.dynsec{background:#fff;padding:40px 30px 20px;text-align:center}
+.dynsec h2{font-size:32px;font-weight:800;letter-spacing:-.6px;text-transform:uppercase}
+.grid{display:flex;gap:14px;margin-top:26px}
+.pc{flex:1;display:block;text-align:center}
+.pc img{width:100%;height:170px;object-fit:cover;display:block}
+.pc b{display:block;font-size:17px;font-weight:700;margin-top:12px;line-height:1.25}
+.pc .pr{display:block;font-size:16px;color:#3A4A54;margin-top:4px}
+.pc .lnk{display:block;font-size:15px;font-weight:600;color:#0E8478;text-decoration:underline;margin-top:8px}
+.ruo{display:block;margin:28px 0 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#0E1B24;background:#EEF4F4;border-radius:12px;padding:13px 8px}
+.gap{display:block;margin:44px 30px 0;background:#0E1B24;color:#fff;border-radius:26px;padding:44px 36px 40px;position:relative}
+.gap h3{font-size:30px;font-weight:700;line-height:1.15;letter-spacing:-.5px}
+.gap h3 span{color:#5CE1C6}
+.track{position:relative;height:16px;border-radius:10px;background:#24343F;margin-top:56px}
+.track i{position:absolute;left:0;top:0;bottom:0;width:85%;border-radius:10px;background:linear-gradient(90deg,#0E8478,#5CE1C6)}
+.pin{position:absolute;top:-44px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px}
+.pin.a{left:85%;transform:translateX(-80%);color:#9AABB4}
+.pin.a:after{content:'';position:absolute;left:50%;top:30px;width:2px;height:30px;background:#9AABB4}
+.pin.b{right:-6px;color:#5CE1C6}
+.flag{position:absolute;right:-8px;top:-10px;width:34px;height:34px;border-radius:50%;background:#5CE1C6;color:#0E1B24;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(92,225,198,.22)}
+.gap p{font-size:17px;line-height:1.55;color:#C9D5DB;margin-top:30px}
+.stk{position:absolute;right:26px;top:-24px;transform:rotate(8deg);background:linear-gradient(90deg,#0E8478,#1268A0);color:#fff;font-weight:800;font-size:15px;padding:10px 16px;border-radius:30px;box-shadow:0 10px 20px rgba(0,0,0,.25)}
+.why{padding:56px 40px 10px}
+.why h2{font-size:32px;font-weight:800;letter-spacing:-.6px;text-transform:uppercase;text-align:center}
+.row{display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid #E6ECEE}
+.row:last-child{border-bottom:0}
+.row .n{flex:0 0 68px;height:68px;border-radius:18px;background:#D6E9E7;font-size:26px;font-weight:800;color:#0E8478;display:flex;align-items:center;justify-content:center}
+.row b{display:block;font-size:20px;font-weight:700}
+.row span{display:block;font-size:16px;line-height:1.45;color:#3A4A54;margin-top:2px}
+.close{display:block;margin:40px 0 0;background:linear-gradient(180deg,#D6E9E7,#CBE1E4);text-align:center;padding:60px 40px 62px;position:relative}
+.close h2{font-size:42px;font-weight:800;line-height:1.08;letter-spacing:-1px}
+.close p{font-size:18px;color:#3A4A54;margin-top:12px}
+.close .ch{display:inline-block;margin-top:22px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:28px;letter-spacing:4px;border:2px dashed #0E8478;border-radius:12px;padding:10px 24px;background:#fff;color:#0E1B24}
+.foot{background:#0E1B24;color:#9AABB4;text-align:center;font-size:12px;line-height:1.6;padding:40px 40px 34px}
+.lg{display:inline-block;background:#fff;padding:9px 16px;border-radius:10px}
+.lg .mmlogo{height:34px}
+.foot .r{color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:18px}
+.foot .ln{font-size:14px;color:#C9D5DB;margin-top:16px;line-height:1.55}
+</style>
+
+  <a href="https://metamolecule.com/" class="top"><img class="mmlogo" src="asset:brand/assets/library/meta-molecule-primary-logo-gradient-molecule-wordm.png" alt="Meta Molecule"></a>
+
+  <div class="hero">
+    <a href="https://metamolecule.com/shop/" class="kick">For your next order</a>
+    <a href="https://metamolecule.com/shop/"><div class="h1"><em>15% off</em> your<br>second order.</div></a>
+    <a href="https://metamolecule.com/shop/"><div class="code">Use code<span>SECOND15</span></div></a>
+    <a href="https://metamolecule.com/faqs/"><p class="sub">Good for 7 days. Free U.S. shipping kicks in at $200 after discounts.</p></a>
+    <a href="https://metamolecule.com/shop/" class="btn">Explore Research Catalog</a>
+    <a href="https://metamolecule.com/shop/" class="line">
+      <div class="vl vl1"><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-52-1024x1024.webp" alt="MOTS-C 40mg"></div>
+      <div class="vl vl2"><img src="https://metamolecule.com/wp-content/uploads/2026/01/tesamorelin-1024x1024.jpeg" alt="Tesamorelin 10mg"></div>
+      <div class="vl vl3"><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-36-1024x1024.webp" alt="BPC157/TB500 Blend"></div>
+      <div class="ledge"></div>
+    </a>
+  </div>
+
+  <div class="dynsec">
+    <a href="https://metamolecule.com/shop/"><h2>Pairs with what you ordered</h2></a>
+    <div class="grid">
+      <a href="https://metamolecule.com/product/bpc-157-tb-500-blend/" class="pc"><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-36-1024x1024.webp" alt="BPC157/TB500 Blend 5mg/5mg"><b>BPC157/TB500 Blend 5mg/5mg</b><span class="pr">$48.00</span><span class="lnk">Review Specifications</span></a>
+      <a href="https://metamolecule.com/product/tesa-10mg/" class="pc"><img src="https://metamolecule.com/wp-content/uploads/2026/01/tesamorelin-1024x1024.jpeg" alt="Tesamorelin 10mg"><b>Tesamorelin<br>10mg</b><span class="pr">$60.00</span><span class="lnk">Review Specifications</span></a>
+      <a href="https://metamolecule.com/product/mots-c-40mg/" class="pc"><img src="https://metamolecule.com/wp-content/uploads/2026/04/Frame-52-1024x1024.webp" alt="MOTS-C 40mg"><b>MOTS-C<br>40mg</b><span class="pr">$119.00</span><span class="lnk">Review Specifications</span></a>
+    </div>
+    <a href="https://metamolecule.com/faqs/" class="ruo">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</a>
+  </div>
+
+  <a href="https://metamolecule.com/shop/" class="gap">
+    <div class="stk">15% off + free shipping</div>
+    <h3>$170 in the cart.<br><span>$200 for free shipping.</span></h3>
+    <div class="track"><i></i><div class="pin a">$170</div><div class="pin b">$200</div><div class="flag">✓</div></div>
+    <p>Add something you'll need next month, or pay for shipping now. With 15% off, rounding up to $200 is the easy call.</p>
+  </a>
+
+  <div class="why">
+    <a href="https://metamolecule.com/faqs/"><h2>Why it's easy to reorder</h2></a>
+    <a href="https://metamolecule.com/faqs/" class="row"><div class="n">01</div><div><b>Same-day shipping</b><span>Order by 1 p.m. CT, Monday to Friday.</span></div></a>
+    <a href="https://metamolecule.com/coas/" class="row"><div class="n">02</div><div><b>Public COA library</b><span>Check the lot before you pay, every time.</span></div></a>
+    <a href="https://metamolecule.com/contact/" class="row"><div class="n">03</div><div><b>A real reply</b><span>Questions go to a person on our team.</span></div></a>
+  </div>
+
+  <a href="https://metamolecule.com/shop/" class="close">
+    <h2>SECOND15 ends<br>in 7 days.</h2>
+    <p>15% off your second order. Free U.S. shipping at $200.</p>
+    <div class="ch">SECOND15</div>
+    <div class="btn">Explore Research Catalog</div>
+  </a>
+
+  <div class="foot">
+    <a href="https://metamolecule.com/"><div class="lg"><img class="mmlogo" src="asset:brand/assets/library/meta-molecule-primary-logo-gradient-molecule-wordm.png" alt="Meta Molecule"></div></a>
+    <a href="https://metamolecule.com/"><p class="ln">Research peptides with documentation you can inspect.</p></a>
+    <a href="https://metamolecule.com/faqs/"><p class="r">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</p></a>
+    <a href="https://metamolecule.com/contact/"><p style="margin-top:10px">Meta Molecule · Richardson, TX 75081 · support@metamolecule.com</p></a>
+    <p style="margin-top:8px;color:#C9D5DB"><a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
+  </div>
+</div>
