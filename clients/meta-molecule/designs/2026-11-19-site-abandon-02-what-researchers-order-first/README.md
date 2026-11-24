@@ -1,7 +1,7 @@
 # Site Abandonment Email #2 — What researchers order first
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/SbvfTWuxKOIbaqDSyc7VKKJG
 
-Status: draft · needs approval · goes live when the Site Abandonment automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v4) · goes live when the Site Abandonment automation is built in Customer.io
 Copy: copy/2026-11-19-site-abandonment-flow.md (Email #2) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: What researchers order first · Preview: Three catalog staples. Ordered by 1 p.m. CT, they ship today.
 
