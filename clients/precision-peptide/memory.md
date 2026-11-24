@@ -2,8 +2,6 @@
 
 Read before any work for this client. Append (dated) after every change. Rules here outrank general skills where they conflict, except Fluid's SOP fundamentals.
 
-Research-use-only peptide brand: worked like any client, with the copy/design guardrails in brain/skills/fluid-email-copywriter/references/ruo-peptides.md. No gates.
-
 ## Preferences (standing rules)
 <!-- - 2026-01-01 · design · "…" (source: who/where) → rule -->
 
@@ -52,3 +50,4 @@ Research-use-only peptide brand: worked like any client, with the copy/design gu
 
 Email platform: Customer.io
 Website: https://www.precisionpeptidecompany.com
+- 2026-11-24 · compliance · Meelad: no gates. NOT research-use-only (compliance.md "Research-use-only: no"), so no RUO word check; counsel-approved claims and site disclaimers are used as written, including the prescription-program copy. Old ESCALATE/HOLD notes are superseded: write, design and build all flows.

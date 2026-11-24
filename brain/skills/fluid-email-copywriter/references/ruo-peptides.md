@@ -1,6 +1,6 @@
 # Research-use-only (RUO) peptide brands
 
-**When this applies:** the client sells peptides or research compounds as "research use only" (their `compliance.md` or `memory.md` says so, or their site does). It applies to every email, SMS, subject line, image and design for that client, and it **replaces** the human-avatar method in `speak-to-the-avatar.md`.
+**When this applies:** only when the client's `compliance.md` says `Research-use-only: yes` (they sell research compounds as "research use only"). A peptide name alone doesn't make a brand RUO: a prescription or telehealth brand is `Research-use-only: no`, and none of this applies to it. It applies to every email, SMS, subject line, image and design for that client, and it **replaces** the human-avatar method in `speak-to-the-avatar.md`.
 
 **How we work with them (updated 2026-11-24, Meelad):** peptide clients are treated like every other client. Write, design and build what's asked, straight away, with no classification step, no approval step and no HOLD or ESCALATE before starting. What's different is only **guardrails on the copy and the design**: nothing we make may suggest the products are for human (or animal) use. The guardrails come from `../../../knowledge/sops/ruo-peptide-compliance-sop.md` §4–§12 and win over any other copy or design rule for these clients. The people who approve the work are the same as for every client: the review page.
 
@@ -8,7 +8,7 @@ Why the guardrails matter: one email that implies a human benefit, a dose or a r
 
 ## 0. The client's profile (compliance.md)
 
-`compliance.md` holds what's specific to the brand: the disclaimer wording they use, product naming, extra banned words, the facts we can state, and an `Allowed terms:` line (brand and product names the automatic word check should ignore). If it's missing, start anyway: use the default disclaimer and the facts on the brand's site, and write a short `compliance.md` (format: `clients/_template` style, the sections above) so the automatic check covers this client.
+`compliance.md` holds what's specific to the brand: the disclaimer wording they use, product naming, extra banned words, the facts we can state, and an `Allowed terms:` line (brand and product names the automatic word check should ignore). Its first lines must include `Research-use-only: yes` (that line is what switches on the automatic word check). If it's missing for a brand that sells research-use-only, start anyway: use the default disclaimer and the facts on the brand's site, and write a short `compliance.md` with that line (format: `clients/_template` style, the sections above) so the automatic check covers this client.
 
 Nothing in it is a gate. If it lists open questions, keep working and use the safe default for that point.
 

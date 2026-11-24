@@ -2,8 +2,16 @@
 
 _Built 2026-11-24 at onboarding · Sources: onboarding form (PDF in onboarding/docs), precisionpeptidecompany.com (home, /protocols, /about, /faq, /blog), company press releases (Jul 2026)_
 
-**Gate result for all promotional work: ESCALATE — REGULATORY REVIEW REQUIRED.**
-Nothing promotional gets written, designed or sent until legal/regulatory review clears the items below.
+Research-use-only: no
+
+## Working rules (updated 2026-11-24, Meelad): no gate
+
+Not a research-use-only brand, so the RUO guardrails and word check don't apply. Counsel approved the claims, disclaimers and offers (Meelad, Fluid, Slack 2026-11-24: "Yes those are all approved"). Fluid works this client like any other: copy, design and builds start straight away, including the prescription-program emails. **Every ESCALATE / HOLD / "not yet approved" note below is superseded** and stays only as background on sources.
+
+- Claims: as the site and counsel-approved materials state them. Don't add new medical claims, numbers or outcomes beyond those.
+- Prescription line: never call compounded medications FDA-approved or equivalent to a brand-name drug; prescriptions are "issued by a licensed US clinician after a clinical review".
+- Disclaimers: the site's wording in §2 is the approved wording (counsel-approved), verbatim, in every email that mentions the programs or products.
+- Never use "research use only" framing for this brand.
 
 ## 1. Classification (SOP §2)
 This is **not** a research-use-only brand. Both business lines are sold for human use, so the RUO framing and disclaimer must not be used (SOP §3: a disclaimer must match how the product is actually marketed).

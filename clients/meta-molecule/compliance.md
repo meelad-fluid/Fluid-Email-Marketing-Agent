@@ -1,5 +1,7 @@
 # Meta Molecule — RUO compliance profile
 
+Research-use-only: yes
+
 _Built 2026-11-19 at onboarding._
 - **Sources:** the onboarding answers ("Brand Guidelines" doc), metamolecule.com (home, /shop, /faqs, /coas, fetched 2026-11-19), Fluid's RUO SOP
 - Every line carries its source; anything not verified is a HOLD question for the client

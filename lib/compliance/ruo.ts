@@ -21,13 +21,16 @@ const DISCLAIMER = /research use only|not for human|veterinary|food and drug adm
 
 export type RuoHit = { rule: string; phrase: string; text: string };
 
-/** True when the client is a research-use-only peptide brand: compliance.md says so, memory.md says so, or
- *  the client's name (README title) is a peptide brand. Guardrails apply from day one, even before onboarding. */
+/** True only when the client's compliance.md says "Research-use-only: yes". Nothing is guessed from names or
+ *  wording: a peptide brand can be a prescription/telehealth business, where these guardrails would block
+ *  counsel-approved copy. Old profiles without the line still count if their title is "RUO compliance profile". */
 export function isRuoClient(clientDir: string): boolean {
-  const read = (n: string) => (existsSync(join(clientDir, n)) ? readFileSync(join(clientDir, n), "utf8") : "");
-  if (/research[- ]use[- ]only|\bRUO\b/i.test(read("compliance.md"))) return true;
-  if (/research[- ]use[- ]only|\bRUO\b|peptide brand/i.test(read("memory.md").slice(0, 3000))) return true;
-  return /peptide/i.test(read("README.md").split("\n")[0] ?? "");
+  const f = join(clientDir, "compliance.md");
+  if (!existsSync(f)) return false;
+  const t = readFileSync(f, "utf8");
+  const flag = t.match(/^\**Research[- ]use[- ]only:?\**:?\s*(yes|no)\b/im);
+  if (flag) return flag[1].toLowerCase() === "yes";
+  return /^#.*\bRUO compliance profile\b/im.test(t);
 }
 
 /** Words the client is allowed to use anyway (e.g. their brand name), from "Allowed terms:" in compliance.md. */

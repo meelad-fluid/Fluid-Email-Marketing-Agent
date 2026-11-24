@@ -1,5 +1,7 @@
 # Formera Research — RUO compliance profile
 
+Research-use-only: yes
+
 _Built at onboarding, 2026-11-20, by Fluid. Sources: onboarding doc (onboarding/docs/Formera-Research-_-Brand-Guidelines.docx), formeraresearch.com (home, /shop/ pages 1–4, /coa-library/, /about-us/, /refund-policy/), Trustpilot. Rules: Fluid RUO SOP (knowledge/sops/ruo-peptide-compliance-sop.md). Nothing here is a legal determination; final publication always needs human review._
 
 ## Working rules (updated 2026-11-24, Meelad): guardrails, not gates
