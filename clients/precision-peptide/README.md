@@ -1,6 +1,6 @@
 # Precision Peptide
 
-<One line: what they sell, who for, replenishable or one-off.> Site: <url> · <platform> · <ESP>. Max discount <x>%.
+Prescription peptide programs via telehealth (GLP-1, Sermorelin, NAD+) plus an OTC retail line led by the needle-free Recovery Patch; replenishable. Site: https://www.precisionpeptidecompany.com · custom platform · Customer.io. Max discount 25%. Compliance: ESCALATE (see compliance.md).
 
 **Read `memory.md` first.**
 

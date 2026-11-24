@@ -1,0 +1,51 @@
+# Precision Peptide: brand book (v1, draft, updated 2026-11-24)
+
+> Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
+
+- **Colors:**
+  - White #FFFFFF: Logo (the site logo is white-only, built for dark backgrounds); type on dark sections. Verified from logo-full-light.svg.
+  - Near Black (placeholder) #0B0D10: PLACEHOLDER until the CSEBPC design system PDF is shared: dark background the white logo sits on.
+  - Gold (placeholder) #C9A54C: PLACEHOLDER: accent taken from the gold Made in the USA badge on the site; confirm exact hex.
+- **Fonts:**
+  - headings: To confirm (clean modern sans on site), fallback Helvetica Neue, Arial, sans-serif. Not readable from the site markup. Lock from the 'CSEBPC Branding assets design system.pdf' in their Drive folder.
+  - body: To confirm (clean modern sans on site), fallback Helvetica Neue, Arial, sans-serif. Same as headings until the design system PDF is shared.
+- **Buttons:** rounded. **CTA casing: Title Case**. Site buttons: Get Started, Shop Now, View Protocols, Explore Protocols, Talk to Us, Subscribe. Fill, radius and shape not yet verified. CTA wording itself needs legal approval (see compliance.md).
+- **Logos:**
+  - Full logo, light (white): Symbol (interlocking loop mark) + three-line wordmark, all white. On dark backgrounds only. Source: site /images/logo/logo-full-light.svg; originals in their Drive 'BPC branding assets' (AI, EPS, PNG, SVG).
+- **Imagery:**
+  - Product renders on clean backgrounds: semaglutide, tirzepatide, sermorelin, NAD+ vials (site home)
+  - Drive folder has PPC vial alpha renders, Recovery Patch alphas, an Rx sizzle reel and TPPC product shots
+  - Trust badges in use: LegitScript seal, gold Made in the USA badge
+  - Never: injections, syringes in use, bodies, before/after, scales, gyms, mirrors, treatment rooms (pending legal review)
+- **Voice:**
+  - Thought leadership, trusting, safe (onboarding form)
+  - Plain English, direct, short declarative sentences (blog)
+  - Honest framing: 'what the research shows, and what it does not' (blog)
+  - Contrast headlines: X vs Y (blog)
+  - Closing line on site: 'Done properly. Done legally. Done once.'
+- **Do:**
+  - Lead with legitimacy: publicly listed (CSE: BPC, OTCQB: PNGAF), licensed US clinicians, 503A pharmacy, LegitScript
+  - Use compound/product names, not effect categories
+  - No em dashes in any copy (team note)
+- **Don't:**
+  - No outcome or body claims of any kind until counsel approves a claim set
+  - No 'research use only' framing: products are sold for human use
+  - No 'FDA approved', 'pharmaceutical grade', 'clinically proven', '100% pure'
+  - Never imply compounded GLP-1 equals a branded drug
+- **Claims we can use:**
+  - Publicly listed: CSE: BPC | OTCQB: PNGAF
+  - Prescribed by US-licensed clinicians after a clinical review
+  - Clinician review within 24 hours
+  - Ships from a 503A compounding pharmacy, discreetly packaged
+  - Independent third-party tested (company statement; documents not seen)
+  - Made in the USA
+  - Exclusive MMA.INC partnership
+- **Never say:**
+  - Weight loss, appetite, metabolism, muscle, recovery, sleep, energy, skin, hair, gut, longevity outcomes
+  - FDA approved / FDA registered as product approval
+  - Generic or equivalent of a branded drug
+  - Dosing or administration instructions
+- **Notes:**
+  - All claims are pending legal review: compliance gate is ESCALATE (compliance.md)
+  - Colors and fonts are placeholders until the client shares the CSEBPC design system PDF
+- **Sources:** precisionpeptidecompany.com (home, /protocols, /about, /faq, /blog), 2026-11-24 · Onboarding form PDF (no visual guidelines in it) · Drive folder 'BPC branding assets' file list (contents not accessible)
