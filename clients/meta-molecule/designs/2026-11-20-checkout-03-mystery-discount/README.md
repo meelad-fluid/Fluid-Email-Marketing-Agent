@@ -1,7 +1,7 @@
 # Abandoned Checkout Email #3 — We put a mystery discount on your order
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/156Nh8MzFO1oQo1Y3A_VeqX8
 
-Status: draft · needs approval · goes live when the Abandoned Checkout automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v3) · goes live when the Abandoned Checkout automation is built in Customer.io
 Copy: copy/2026-11-20-abandoned-checkout-flow.md (Email #3) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: There's a mystery discount on your order · Preview: Enter MYSTERY at checkout to reveal it. Ends 11:59 p.m. CT tomorrow.
 Send: 1 day after Email #2 · SMS #2 right after. Offer MYSTERY (15%, revealed at checkout) is a proposal pending approval.
