@@ -63,7 +63,7 @@ Code chip: COMEBACK20
 Subheadline: One order, 20% off, and free U.S. shipping at $200 after discounts.
 Button: Explore Research Catalog
 
-Dynamic block — "Pick up where you left off": items from their last order (image, name + size, price) · Button: Review Specifications · Disclaimer line under it.
+(Dynamic "Pick up where you left off" block removed 2026-11-24 per Gloria. Disclaimer line sits above the "That's me" card.)
 
 Section — That's me
 Heading: Building next quarter's order list?

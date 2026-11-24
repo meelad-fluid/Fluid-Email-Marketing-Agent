@@ -14,3 +14,4 @@ Style: bold Plus Jakarta Sans, cinematic warm photo hero, hard colour blocks (bl
 |---|---|---|
 | v1 | 2026-11-24 | First design |
 | v2 | 2026-11-24 | Gloria: stat tile label "FREE SHIP" → "FREE SHIPPING" |
+| v3 | 2026-11-24 | Gloria: removed the "Pick up where you left off" dynamic block; research-use line moved to the top of the grey band |
