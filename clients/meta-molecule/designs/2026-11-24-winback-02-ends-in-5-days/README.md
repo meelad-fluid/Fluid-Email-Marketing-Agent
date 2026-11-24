@@ -1,7 +1,7 @@
 # Winback Email #2 — 20% off ends in 5 days.
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/MHJxknUekm2_eiLTcTOwIz2R
 
-Status: draft · needs approval · goes live when the Winback automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v3) · goes live when the Winback automation is built in Customer.io
 Copy: copy/2026-11-24-winback-flow.md (Email #2) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Your 20% code expires soon · Preview: COMEBACK20 ends in 5 days. Plan the next order in one go.
 Send: 5 days after Email #1. COMEBACK20 expires 5 days after this email.
