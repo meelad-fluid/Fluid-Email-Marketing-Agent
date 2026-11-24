@@ -28,6 +28,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-24 · all flow copy gated PASS except Winback #1 (HOLD: "new since" block needs confirmed launches). Designs not started: waiting on compliance.md update by the team + the CSEBPC design system PDF (brand colours/fonts are placeholders)
 - 2026-11-24 · Gloria: "start the designs". Style chosen for the Welcome flow (dark-to-copper editorial, inset photo cards). Built designs/2026-11-24-welcome-1-verify (rendered clean, no cut-offs). Brand book v2: palette from their real vial packaging (indigo #2A2668, copper #D4A27F, midnight #1A1838, cream #F7F3EE), stand-in fonts Playfair Display + Inter. Generated: hero vials (from site renders), lab bench, copper texture. Image limit is 4 per request.
 - 2026-11-24 · BLOCKER: publish_design treats this client as RUO and refuses "prescription", "health", "results", "treatment" and the site's own approved disclaimer. Can't publish any Rx-line email until an admin reclassifies the client (not RUO) or the team adds these to compliance.md's Allowed terms. Did NOT work around the filter. Other 6 Welcome designs paused until fixed.
+- 2026-11-24 · Meelad said he'll fix the RUO classification/publish block. Next: publish Welcome #1, then build the rest of the Welcome flow.
 
 ## Open questions
 <!-- - … -->
