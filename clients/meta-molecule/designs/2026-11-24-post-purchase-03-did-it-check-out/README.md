@@ -1,7 +1,7 @@
 # Post-Purchase Email #3 — Did the paperwork check out? (plain text)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/WnRvC-sdIQP4DqexDAVXmGW9
 
-Status: draft · needs approval · goes live when the Post-Purchase automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v2) · goes live when the Post-Purchase automation is built in Customer.io
 Copy: copy/2026-11-24-post-purchase-flow.md (Email #3) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Claire from Meta Molecule · Subject: Did the paperwork check out? · Preview: One honest question about your order.
 Send: 7 days after Email #2.
