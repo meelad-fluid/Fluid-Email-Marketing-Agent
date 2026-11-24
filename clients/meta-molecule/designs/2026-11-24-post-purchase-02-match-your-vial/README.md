@@ -1,7 +1,7 @@
 # Post-Purchase Email #2 — Label in one hand. Paperwork in the other.
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/9ggYxB5EHWlGlPZIFjprTD-L
 
-Status: draft · needs approval · goes live when the Post-Purchase automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v1) · goes live when the Post-Purchase automation is built in Customer.io
 Copy: copy/2026-11-24-post-purchase-flow.md (Email #2) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Match your vial to its paperwork · Preview: Lot number, COA library, done. Plus 15% off your next order.
 Send: 1 day after Email #1.
