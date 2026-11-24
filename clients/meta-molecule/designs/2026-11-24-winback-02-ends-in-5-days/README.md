@@ -13,3 +13,4 @@ Style: bold Plus Jakarta Sans, cinematic warm photo hero, hard colour blocks (bl
 | Version | Date | Change |
 |---|---|---|
 | v1 | 2026-11-24 | First design |
+| v2 | 2026-11-24 | Gloria: stat tile label "FREE SHIP" → "FREE SHIPPING" |
