@@ -6,8 +6,8 @@ Website: https://metamolecule.com
 Email platform: Customer.io (brand-new account, no key connected yet; nothing to audit)
 
 ## Preferences (standing rules)
-- 2026-11-19 · compliance · RUO peptide brand: compliance.md + RUO SOP win over everything. Gate today = ESCALATE (classification D pending legal review). No promotional copy or design until resolved.
-- 2026-11-19 · CTA casing: Title Case (site). Until CTAs approved: View COA Library · Explore Research Catalog · Review Specifications.
+- 2026-11-19 · compliance · RUO peptide brand: compliance.md + RUO SOP win over everything. Superseded 2026-11-24: no gate; work like any client with the copy/design guardrails in compliance.md "Working rules".
+- 2026-11-19 · CTA casing: Title Case (site). Normal CTAs are fine (Shop Now, View COA Library…), updated 2026-11-24.
 - 2026-11-19 · sender persona proposed: "Claire from Meta Molecule" (pending approval).
 - 2026-11-19 · design (Meelad, Slack): every email with a discount shows it huge and bold above the fold (big % numerals + large code chip), visible the moment it opens. Use the brand's real product photos from the site, never generated vials.
 - 2026-11-19 · persona (Meelad, Slack): "Claire" appears ONLY in plain-text emails (as sender and signature). Designed emails send as "Meta Molecule" and never mention Claire. Plain-text "founder" emails are from Claire for now.
@@ -72,3 +72,4 @@ Email platform: Customer.io (brand-new account, no key connected yet; nothing to
 - Order data (last 90 days) for best sellers, AOV, repeat timing.
 
 ## Assets
+- 2026-11-24 · compliance · Meelad: peptide clients are no longer gated. No classification, approvals, HOLD or ESCALATE before writing, designing or building; offers and normal CTAs are fine. Only the copy/design guardrails apply (no human use implied). Older HOLD/ESCALATE notes in this file are superseded.

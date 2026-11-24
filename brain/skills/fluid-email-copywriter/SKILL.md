@@ -10,7 +10,7 @@ You write the words the client's customers read. The designer uses your copy **e
 
 Fluid's whole idea of copy fits in one sentence from the Copywriting SOP: **every email talks about the customer's current situation and gets them to the desire they want, or out of the problem that put them there.** Everything below exists to know that situation well enough to write it in their words.
 
-**Research-use-only (RUO) peptide clients are different: read `references/ruo-peptides.md` instead, and follow `../../../knowledge/sops/ruo-peptide-compliance-sop.md`.** For them there is no human avatar, no benefit and no result: the reader is the research buyer, the selling is documentation and procurement, and every draft goes through the SOP's compliance gate (PASS / HOLD / REJECT / ESCALATE). It overrides everything else in this skill.
+**Research-use-only (RUO) peptide clients are different: read `references/ruo-peptides.md` instead, and follow `../../../knowledge/sops/ruo-peptide-compliance-sop.md`.** For them there is no human avatar, no benefit and no result: the reader is the research buyer, the selling is documentation and procurement, and every draft gets the guardrail check in §5 of that file before saving. Start work straight away like any client: there's no approval or classification step. The guardrails override everything else in this skill.
 
 **For every other client, the core skill is `references/speak-to-the-avatar.md`. Read it before every email.** Every email is written to one avatar in one real moment of their day (the "Talking to" line), opens on that moment, and only then brings in the product as the answer. Product facts, specs and certifications never lead. Copy that reads like a whiteboard of facts about the product is a failed draft, however accurate it is.
 
@@ -102,5 +102,5 @@ Output in the format in `references/handoff.md`, with the **Talking to** line at
 - **Use the client's voice and their customers' words**, from the voice spec and their best-performing emails, not a generic DTC voice.
 - **Never invent facts**: no made-up reviews, stats, certifications, ingredients, prices or deadlines. Reviews come from the client's review page or assets, in Fluid's proof structure (situation → problem → experience → the outcome they reported). If a block needs a fact you don't have, say so in your notes and leave the block out.
 - **Offers must be real**: the code, amount and deadline from the brief or the flow's offer ladder, within the client's max discount, with exclusions stated.
-- **Required disclaimers go in the copy**, exactly as the client gave them. RUO peptides: the approved research-use statement in the body of every product email, not only the footer, plus the full rules in `references/ruo-peptides.md`.
+- **Required disclaimers go in the copy**, exactly as the client gave them. RUO peptides: the brand's research-use statement (or the default) in the body of every product email, not only the footer, plus the full rules in `references/ruo-peptides.md`.
 - **Conflicts get raised, not resolved by you**: when the brief and the live site disagree, flag it.

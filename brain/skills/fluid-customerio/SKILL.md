@@ -38,7 +38,7 @@ The API can't create automations or data-driven segments, and it shouldn't edit 
 
 - A **verified sender identity** that matches the persona; the push picks it from the copy's From line or falls back to the workspace default.
 - The **subscription topic** the account uses (if it has a subscription center) and a layout or footer with the physical business address (the push warns when it can't find one: add `Business address: …` to `memory.md` or `compliance.md`).
-- For peptide brands: the RUO compliance gate result is PASS and a person at Fluid approved it.
+- For peptide brands: the copy's NOTES say "Guardrails: checked" (the push also scans for prohibited wording). Approval is the normal review page, like any client.
 
 ## Reporting format
 

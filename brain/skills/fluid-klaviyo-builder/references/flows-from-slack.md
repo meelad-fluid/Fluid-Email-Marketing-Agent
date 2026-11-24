@@ -19,7 +19,7 @@ The bot builds flows with one tool, `build_klaviyo_flow`, from a plan file you w
 1. **Designs are finished.** Every email in the flow has a design folder with a `Copy:` line in its README pointing to a copy file that has `SUBJECT (pick):`, `PREVIEW (pick):` and, if approved, `From:`. Plain-text emails (a founder note) are designs too.
 2. **The flow strategy is the source.** Use `strategy/flow-strategy.md` (or the flow plan) for the trigger, timing, splits and exit conditions, and use the copy file for the order of the emails.
 3. **Audiences and metrics exist.** List and segment names go through the same matching as `find_audiences`. Metric triggers use the account's metric names (Started Checkout, Added to Cart, Viewed Product, Placed Order, Active on Site, Checkout Started…).
-4. **Peptide / RUO clients** go through the compliance gate on every email (the tool checks this too). Customer.io clients don't use this tool: give them the build sheet from fluid-customerio.
+4. **Peptide / RUO clients** get the copy and design guardrails on every email (the tool scans for prohibited wording too); no extra approval. Customer.io clients don't use this tool: give them the build sheet from fluid-customerio.
 
 ## The plan file (flows/<flow-name>.json)
 

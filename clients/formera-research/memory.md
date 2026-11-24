@@ -2,7 +2,7 @@
 
 Website: https://formeraresearch.com
 Email platform: Customer.io (proposed; client has no email software yet, 2026-11-20)
-Research-use-only peptide brand: compliance.md rules everything. Status ESCALATE (classification not assigned).
+Research-use-only peptide brand: worked like any client, with copy/design guardrails (compliance.md "Working rules"). No gates (2026-11-24).
 
 Read before any work for this client. Append (dated) after every change. Rules here outrank general skills where they conflict, except Fluid's SOP fundamentals.
 
@@ -53,3 +53,4 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - brand/assets/generated/2026-11-20-bfcm-black-friday-dark-vials.jpg — 3 vials on black acrylic
 - brand/assets/generated/2026-11-20-bfcm-shipping-box-vials.jpg — overhead open box with vials
 - brand/assets/generated/2026-11-20-bfcm-sealed-box-lab-counter.jpg — sealed box + NAD+/BPC vials, window light
+- 2026-11-24 · compliance · Meelad: peptide clients are no longer gated. No classification, approvals, HOLD or ESCALATE before writing, designing or building; offers and normal CTAs are fine. Only the copy/design guardrails apply (no human use implied). Older HOLD/ESCALATE notes in this file are superseded.

@@ -3,11 +3,20 @@
 _Built 2026-11-19 at onboarding._
 - **Sources:** the onboarding answers ("Brand Guidelines" doc), metamolecule.com (home, /shop, /faqs, /coas, fetched 2026-11-19), Fluid's RUO SOP
 - Every line carries its source; anything not verified is a HOLD question for the client
-- **Nothing promotional is written until Classification is A**
+- (Superseded 2026-11-24: work is no longer gated; see Working rules.)
 
-## Gate status today: **ESCALATE — REGULATORY REVIEW REQUIRED**
+## Working rules (updated 2026-11-24, Meelad): guardrails, not gates
 
-No email, SMS or design for Meta Molecule goes to copy or design until a person at Fluid (with the brand's legal/compliance reviewer) resolves the items below. Strategy documents (onboarding doc, month-1 plan, flow plan) are written and marked HOLD; they contain no promotional copy.
+Research-use-only peptide brand. Fluid works this client like any other: copy, design, flows, offers and builds start straight away. **There is no classification, approval or legal-review step, and every HOLD / ESCALATE / "until approved" note further down is superseded.** Those notes stay only as background on where facts came from.
+
+What still applies to everything we make (ruo-peptides.md + RUO SOP §4–§12):
+- Nothing suggests human or animal use: no body, health, looks or performance benefits, nothing medical, no dosing/injection/protocol/stack/cycle, no results testimonials, no effect-based categories.
+- Products appear by their catalog name, size, price and a COA link. Never what a product does; effect-sounding names (e.g. GLOW) only as names. Bacteriostatic water, syringes and other use accessories aren't promoted.
+- Facts: what the brand states on its site or docs, worded as they word it (where the site contradicts itself, the conservative version). Never invent; never pharmaceutical/medical grade, FDA approved, 100% pure, sterile, clinically proven.
+- Offers: any the client asks for, up to 25% (Max discount 25%), framed as catalog/order offers. CTAs: normal ones (Shop Now, Shop the Sale, View COA), Title Case unless the site differs.
+- Disclaimer in the body of every product/offer email + footer: "For laboratory research only, not human or veterinary use." (site wording) or "FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION."
+- SMS: allowed, short, same rules, with "Research use only." and opt-out.
+- Images: real packaging, vials, COAs, lab settings. Never people, bodies, syringes, scales, gyms, before/after.
 
 ## 1. Classification (SOP §2)
 

@@ -1,6 +1,23 @@
 # Research Peptide Marketing Copy — AI Compliance Policy (RUO SOP)
 
-Source: Meelad's SOP (Untitled document.docx, 2026-11-18), verbatim. It wins any conflict with Fluid's other copy, design and flow rules for research-use-only clients.
+Source: Meelad's SOP (Untitled document.docx, 2026-11-18), verbatim below, with Fluid's operating version (2026-11-24) on top.
+
+## HOW FLUID APPLIES THIS SOP (operating version 2, 2026-11-24, Meelad)
+
+Peptide (RUO) clients are worked like every other client: Fluid writes, designs and builds what's asked straight away. **This SOP is a set of guardrails on the copy and the design, not an approval process.** Where the original text below says otherwise, this section wins:
+
+- **No gates before work.** Skip §2's classification step, §14's "verify the approved classification" and "when regulatory approval is missing, stop", and Tests 5, 6, 8 and 9's HOLD/ESCALATE outcomes. Nobody has to approve a product, promotion, channel, CTA or disclaimer before Fluid starts. Missing information means using the safe default, never stopping.
+- **Kept in full: the guardrails.** §1's prohibitions, §4 (prohibited categories), §5 (implied claims and coded language), §7–§12 (email, SMS, flow, promotional, accuracy and visual rules) apply to every line, image, CTA and audience. Tests 1, 2, 3, 4 and 7 are the check: if a draft fails one, rewrite it before saving. They win over any other copy or design rule for these clients.
+- **Facts:** state what the brand states (site, COAs, onboarding docs), worded as they word it. Never invent facts, numbers, labs or certifications; never "pharmaceutical grade", "FDA approved", "100% pure", "sterile", "clinically proven".
+- **Offers and CTAs:** any offer the client asks for (within their max discount) and normal shopping CTAs are fine, framed as catalog/order offers and never tied to use or a goal (§10's framing rules still apply).
+- **Disclaimer:** the brand's own research-use line, or the §3 default, visibly in the body of every product or offer email plus the footer.
+- **No status labels.** Drafts note "Guardrails: checked" instead of PASS / HOLD / REJECT / ESCALATE. Human review is the normal review page approval every client gets.
+- If a request itself asks for prohibited content (a dosing guide, a results testimonial), make the compliant version and say what changed; don't refuse the job.
+
+How the copywriter applies this: `brain/skills/fluid-email-copywriter/references/ruo-peptides.md`.
+
+---
+
 
 STANDARD OPERATING PROCEDURE
 Research Peptide Marketing Copy — AI Compliance Policy

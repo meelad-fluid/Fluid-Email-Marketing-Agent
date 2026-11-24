@@ -145,9 +145,9 @@ Every product shot, person, logo and line of text must be fully visible inside t
 Fluid's RUO SOP (`knowledge/sops/ruo-peptide-compliance-sop.md` §12) applies to every image, icon and layout:
 - Never: people, bodies, faces, hands holding vials, injections, syringes or needles, scales, gyms, mirrors, before/after, treatment rooms, doctors or patients, dosage graphics.
 - Use: the brand's real packaging and vials, real COAs and analytical documents, lab equipment and lab settings, catalog graphics.
-- The approved research-use line sits visibly in the body near the products (readable contrast), plus the footer.
-- Product blocks show compound name, format and a documentation CTA (View COA / Review Specifications), never benefit blurbs.
-- `generate_image` refuses prompts with people or use for RUO clients, and `publish_design` / `push_to_klaviyo` refuse designs with prohibited wording.
+- The brand's research-use line (or the default) sits visibly in the body near the products (readable contrast), plus the footer.
+- Product blocks show compound name, format, price and a normal CTA (Shop Now, View COA…), never benefit blurbs. Offers are designed as big and bold as any client's sale.
+- `generate_image` refuses prompts with people or use for RUO clients, and `publish_design` / the pushes send back prohibited wording to rewrite. These are guardrails, not approvals: peptide emails are designed and built like any client's.
 
 ## 13. Built for 1200px
 Emails are laid out at 600px (the email standard, so they fit every inbox and phone) and exported at 2x: every slice pushed to Klaviyo or Customer.io is 1200px wide, JPEG quality 90.

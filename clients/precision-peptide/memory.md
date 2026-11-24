@@ -2,6 +2,8 @@
 
 Read before any work for this client. Append (dated) after every change. Rules here outrank general skills where they conflict, except Fluid's SOP fundamentals.
 
+Research-use-only peptide brand: worked like any client, with the copy/design guardrails in brain/skills/fluid-email-copywriter/references/ruo-peptides.md. No gates.
+
 ## Preferences (standing rules)
 <!-- - 2026-01-01 · design · "…" (source: who/where) → rule -->
 

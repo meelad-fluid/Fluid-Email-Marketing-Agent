@@ -1,8 +1,8 @@
 // Automatic wording check for research-use-only (RUO) peptide clients, from Fluid's RUO SOP
 // (knowledge/sops/ruo-peptide-compliance-sop.md). It catches the plain violations (human benefits, medical
 // claims, administration, personal results, unverified quality claims, effect-based category framing) so
-// a design can't be published or pushed with them. It is a floor, not the review: implied claims still
-// need the copywriter's compliance gate and a person at Fluid.
+// a design can't be published or pushed with them; the agent rewrites the flagged lines and publishes again.
+// It's a guardrail, not an approval step: implied claims are caught by the copywriter's guardrail check.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -21,10 +21,13 @@ const DISCLAIMER = /research use only|not for human|veterinary|food and drug adm
 
 export type RuoHit = { rule: string; phrase: string; text: string };
 
-/** True when the client is marked research-use-only (compliance.md in their folder). */
+/** True when the client is a research-use-only peptide brand: compliance.md says so, memory.md says so, or
+ *  the client's name (README title) is a peptide brand. Guardrails apply from day one, even before onboarding. */
 export function isRuoClient(clientDir: string): boolean {
-  const f = join(clientDir, "compliance.md");
-  return existsSync(f) && /research[- ]use[- ]only|\bRUO\b/i.test(readFileSync(f, "utf8"));
+  const read = (n: string) => (existsSync(join(clientDir, n)) ? readFileSync(join(clientDir, n), "utf8") : "");
+  if (/research[- ]use[- ]only|\bRUO\b/i.test(read("compliance.md"))) return true;
+  if (/research[- ]use[- ]only|\bRUO\b|peptide brand/i.test(read("memory.md").slice(0, 3000))) return true;
+  return /peptide/i.test(read("README.md").split("\n")[0] ?? "");
 }
 
 /** Words the client is allowed to use anyway (e.g. their brand name), from "Allowed terms:" in compliance.md. */
