@@ -1,4 +1,5 @@
 # Welcome Email #1 — A company you can look up (track A: verify)
+Review link: fluid-email-marketing-agent-production.up.railway.app/r/VlFuCPosZf8RYeXrNsNPMAY7
 Status: draft · needs approval · goes live when the Welcome flow is built in Customer.io
 Copy: copy/welcome-flow.md (Email #1, track A) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 Subject: You can look us up, and we hope you do · Preview: Here's your code, and here's who we are

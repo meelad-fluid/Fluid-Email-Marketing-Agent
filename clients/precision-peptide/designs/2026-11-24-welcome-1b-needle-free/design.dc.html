@@ -1,0 +1,136 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.serif{font-family:'Playfair Display',Georgia,serif}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 44px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+
+.bar{background:#1A1838;text-align:center;padding:18px 0}
+.bar img{height:40px}
+.hero{position:relative;height:1010px;background:#EAE3DA url('asset:brand/assets/generated/2026-11-24-pp-welcome-needlefree-bag.jpg') center bottom/600px auto no-repeat;text-align:center}
+.hero:before{content:"";position:absolute;left:0;right:0;top:0;height:470px;background:linear-gradient(#F7F3EE 0%,#F7F3EE 62%,rgba(247,243,238,0) 100%)}
+.hero-in{position:relative;padding:34px 44px 0}
+.kicker{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#A8774F;font-weight:700}
+.h1{margin-top:14px;font-size:33px;line-height:1.22;font-weight:500;color:#1A1838}
+.h1 em{font-style:italic;color:#A8774F}
+.sub{margin:16px auto 0;font-size:16px;line-height:1.55;color:#4A4760;max-width:470px}
+.hero .btn{margin-top:22px}
+.code{display:inline-block;margin-top:12px;border:1.5px dashed #A8774F;border-radius:999px;padding:8px 20px;font-size:14px;color:#4A4760;background:rgba(247,243,238,.85)}
+.code b{letter-spacing:1.5px;color:#1A1838}
+.sticker{position:absolute;right:34px;top:640px;width:118px;height:118px;border-radius:50%;background:#2A2668;color:#F1E4D8;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:700;letter-spacing:1.4px;line-height:1.35;transform:rotate(-10deg);box-shadow:0 10px 22px rgba(26,24,56,.35)}
+.sticker b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:22px;letter-spacing:0;color:#E9C3A4;font-weight:500}
+
+/* before / after */
+.ba{padding:46px 30px 40px;text-align:center}
+.h2{font-family:'Playfair Display',serif;font-size:30px;line-height:1.25;color:#1A1838;font-weight:500}
+.p{margin:14px auto 0;font-size:16px;line-height:1.6;color:#4A4760;max-width:480px}
+.pair{display:flex;gap:14px;margin-top:28px;text-align:left}
+.col{flex:1;border-radius:16px;padding:22px 22px 24px}
+.col small{font-size:11px;letter-spacing:2.4px;font-weight:700;text-transform:uppercase}
+.col ul{list-style:none;margin-top:12px}
+.col li{font-size:15px;line-height:1.5;padding:8px 0;border-top:1px solid rgba(0,0,0,.08)}
+.before{background:#EDE7DF;color:#6b6780;transform:rotate(-1.5deg)}
+.before li{text-decoration:line-through;text-decoration-color:#A8774F}
+.after{background:#1A1838;color:#F1EEF8;transform:rotate(1.5deg);box-shadow:0 14px 28px rgba(26,24,56,.25)}
+.after small{color:#E9C3A4}
+.after li{border-top-color:rgba(255,255,255,.12)}
+
+/* stacked nos */
+.nos{background:#1A1838;color:#fff;padding:50px 44px 46px;position:relative}
+.no{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid #2f2c5c}
+.no:last-of-type{border-bottom:0}
+.no .w{font-family:'Playfair Display',serif;font-size:50px;line-height:1;font-style:italic;color:#E9C3A4;width:110px}
+.no h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:500}
+.no p{font-size:15px;color:#C9C5DD;margin-top:4px}
+.nos .close{margin-top:22px;font-size:14.5px;line-height:1.6;color:#9F9AC2;text-align:center}
+
+/* fits in a bag */
+.bag{display:flex;align-items:center;gap:26px;padding:46px 34px}
+.arch{width:250px;height:320px;flex:none;border-radius:125px 125px 16px 16px;background:url('asset:brand/assets/generated/2026-11-24-pp-welcome-needlefree-bag.jpg') 22% 82%/760px auto;box-shadow:0 14px 30px rgba(26,24,56,.2)}
+.bag h2{font-family:'Playfair Display',serif;font-size:32px;color:#1A1838;font-weight:500;line-height:1.15}
+.bag p{margin-top:12px;font-size:16px;line-height:1.6;color:#4A4760}
+.bag .btn{margin-top:20px}
+
+/* products */
+.prods{background:#EDE7DF;padding:40px 20px 44px;text-align:center}
+.prods h2{font-family:'Playfair Display',serif;font-size:28px;color:#1A1838;font-weight:500;margin-bottom:22px}
+.row{display:flex;gap:12px}
+.pc{flex:1;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 20px rgba(26,24,56,.08)}
+.pc .img{height:160px;background:url('asset:brand/assets/generated/2026-11-24-pp-dark-gold-texture.jpg') center/cover;display:flex;align-items:center;justify-content:center;padding:0 10px}
+.pc .img span{font-family:'Playfair Display',serif;font-style:italic;font-size:25px;color:#F6E7DA;line-height:1.15}
+.pc .nm{font-size:15px;font-weight:700;color:#1A1838;padding:16px 6px 12px}
+.pc .btn{font-size:14px;padding:12px 22px;margin-bottom:18px}
+.prods .all{margin-top:24px}
+
+.usp{display:flex;background:#0f0e1d;padding:6px 18px 32px}
+.u{flex:1;text-align:center;color:#E9E5F2;font-size:13px;font-weight:600;padding-top:24px}
+.u svg{display:block;margin:0 auto 10px}
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="hero"><div class="hero-in">
+  <div class="kicker">Welcome to Precision Peptide</div>
+  <h1 class="h1 serif">If you've ever moved vials around the fridge door to fit the milk in, <em>you'll like the patch</em></h1>
+  <p class="sub">The Recovery Patch is our best seller, and it needs no mixing, no measuring and no refrigeration. Your 10% welcome code works on the whole retail range.</p>
+  <span class="btn">Shop Now</span><br>
+  <span class="code">Your code <b>WELCOME10</b></span>
+</div>
+<div class="sticker"><div><b>No fridge</b>required</div></div>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="ba">
+  <h2 class="h2">The kit on the counter gets old fast</h2>
+  <p class="p">Vials need space in the fridge, mixing needs a steady hand, and travel means packing a cold bag.</p>
+  <div class="pair">
+    <div class="col before"><small>The kit</small><ul><li>Space in the fridge</li><li>A steady hand to mix</li><li>A cold bag to travel</li></ul></div>
+    <div class="col after"><small>The patch</small><ul><li>Lives in a drawer</li><li>Comes ready</li><li>Packs like anything else</li></ul></div>
+  </div>
+  <p class="p" style="margin-top:28px">Plenty of people tell us they wanted peptides without any of that. That's why the patch came first in our retail range.</p>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="nos">
+  <div class="no"><span class="w">No</span><div><h3>mixing</h3><p>It comes ready, so there's nothing to prepare.</p></div></div>
+  <div class="no"><span class="w">No</span><div><h3>measuring</h3><p>There's nothing to draw up or get wrong.</p></div></div>
+  <div class="no"><span class="w">No</span><div><h3>refrigeration</h3><p>It stays in a drawer or a bag, not the fridge door.</p></div></div>
+  <p class="close">Every batch goes through independent third-party testing, and our retail products are made to cGMP standards.</p>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bag">
+  <div class="arch"></div>
+  <div><h2>It fits in a bag</h2><p>Because there's no cold storage, the patch travels the way the rest of your things do.</p><span class="btn">Shop Now</span></div>
+</div></a>
+
+<div class="prods">
+  <h2>The retail range</h2>
+  <div class="row">
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>Recovery Patch</span></div><div class="nm">Recovery Patch</div><span class="btn">Shop Now</span></a>
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>KPV</span></div><div class="nm">KPV</div><span class="btn">Shop Now</span></a>
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>BPC</span></div><div class="nm">BPC</div><span class="btn">Shop Now</span></a>
+  </div>
+  <a href="https://www.precisionpeptidecompany.com"><span class="btn btn--dark all">Shop Now</span></a>
+</div>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="usp">
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><rect x="4" y="6" width="16" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/></svg>Needle-free patch</div>
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Made to cGMP standards</div>
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/></svg>Third-party tested</div>
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17l-5.9 3 1.2-6.5L2.5 8.9 9.1 8z"/></svg>Made in the USA</div>
+</div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

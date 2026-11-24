@@ -58,6 +58,15 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
   6. Wait 1 day → Email 5
   7. SMS 2
 - Replaces: Site sign-up Welcome, Welcome X Leads, OTC Welcome (ads)
+- Designs (2026-11-24, all in review; whole flow: https://fluid-email-marketing-agent-production.up.railway.app/f/qbDPo_LdzsonsHx4B9B1I7ie)
+  - Email 1 (verify): https://fluid-email-marketing-agent-production.up.railway.app/r/VlFuCPosZf8RYeXrNsNPMAY7
+  - Email 1 v2 (needle_free): https://fluid-email-marketing-agent-production.up.railway.app/r/Xn1exzcHS-apF_pRvFSg70aZ
+  - Email 1 v3 (rx / no answer): https://fluid-email-marketing-agent-production.up.railway.app/r/1giZZlhoTQKOuTBaQ_gGxwZe
+  - Email 2 (founder note): https://fluid-email-marketing-agent-production.up.railway.app/r/0S3-cTf5YYKW0fI7qOpBML1O
+  - Email 3 (FAQ): https://fluid-email-marketing-agent-production.up.railway.app/r/ZokYn3cKvchiThQeRj9J4PBp
+  - Email 4 (two ways in): https://fluid-email-marketing-agent-production.up.railway.app/r/6kp4__pjVonkaSe7SO0f2fAE
+  - Email 5 (15%, non-buyers): https://fluid-email-marketing-agent-production.up.railway.app/r/ieTIrtR8mvrcemt9XMul46MX
+  - Subjects, previews and SMS text: copy/welcome-flow.md. Email HTML comes from each design's build/customerio.html after a push.
 
 **Site abandonment (2 emails)**
 - Trigger: event `page_viewed`
