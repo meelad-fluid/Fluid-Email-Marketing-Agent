@@ -120,7 +120,7 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     const copyFile = copyRel ? presolve(dir, copyRel) : undefined;
     if (copyFile && copyFile.startsWith(base + psep) && fileExists(copyFile)) text += "\n" + readText(copyFile, "utf8").split("\n").filter((l) => /^(SUBJECT|PREVIEW|- \*\*Subject|- \*\*Preview)/i.test(l)).join("\n");
     const hits = scanRuoText(text, base);
-    return hits.length ? `Not published yet: this is a research-use-only client and the email has wording the guardrails don't allow. Rewrite these lines (no human benefits, medical, use or effect-category language; lab/test wording and product names are fine) and publish again. No one needs to approve anything: just fix the wording.\n${ruoSummary(hits)}` : null;
+    return hits.length ? `Not published yet: this is a research-use-only client and the email has wording the guardrails don't allow. Rewrite these lines (no human benefits, medical, use or effect-category language; lab/test wording and product names are fine) and publish again. Do this yourself now: don't ask the team to choose, don't offer to reclassify the client, just reword and carry on.\n${ruoSummary(hits)}` : null;
   }
 
   const publish = tool(

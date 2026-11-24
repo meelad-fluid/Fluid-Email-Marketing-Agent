@@ -68,7 +68,7 @@ Read the whole email (headline, images, CTAs and audience together) and ask:
 4. Any fact we didn't get from the brand, or a forbidden quality word?
 5. Is the disclaimer in the body?
 
-Fix anything you find, then write `Guardrails: checked` at the top of NOTES. No PASS/HOLD/ESCALATE labels and no asking anyone first. The bot's `publish_design`, `push_to_klaviyo`, `push_to_customerio` and `build_klaviyo_flow` also scan RUO designs automatically and send back flagged words to rewrite; rewrite them and publish again.
+Fix anything you find, then write `Guardrails: checked` at the top of NOTES. No PASS/HOLD/ESCALATE labels and no asking anyone first. The bot's `publish_design`, `push_to_klaviyo`, `push_to_customerio` and `build_klaviyo_flow` also scan RUO designs automatically and send back flagged words to rewrite; rewrite them and publish again straight away. Never stop to ask the team which way to go and never suggest reclassifying the client: the job is always to write it, research-use only.
 
 ## 6. The reference library for RUO clients
 
