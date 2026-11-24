@@ -13,3 +13,4 @@ Style: plain text, no images or buttons (Claire persona)
 |---|---|---|
 | v1 | 2026-11-24 | First design |
 | v2 | 2026-11-24 | Gloria: works for repeat buyers too ("for ordering with us"); added P.S. to add items before it ships + catalog link |
+| v3 | 2026-11-24 | Gloria (Slack): removed the P.S. |

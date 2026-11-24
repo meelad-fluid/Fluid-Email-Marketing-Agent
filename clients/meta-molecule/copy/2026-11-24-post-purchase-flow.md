@@ -41,8 +41,6 @@ Any question at all, just reply. A person reads every one.
 Claire
 Meta Molecule
 
-P.S. Forgot something? If your order hasn't shipped yet, reply with what you'd like to add and our team will try to send it in the same box. Or browse the research catalog. (added 2026-11-24 per Gloria; "try to" because adding to a placed order isn't a published site policy: client to confirm the support process)
-
 FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.
 
 ## SMS #1 — right after Email #1 (SMS consent only)
