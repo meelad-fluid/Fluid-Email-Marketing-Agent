@@ -1,0 +1,341 @@
+{
+  "pulled_at": "2026-11-24T14:21:39.816Z",
+  "region": "us",
+  "senders": [
+    {
+      "id": 1,
+      "name": "The Precision Peptide Company",
+      "email": "support@precisionpeptidecompany.com"
+    },
+    {
+      "id": 2,
+      "name": "The Precision Pep Co.",
+      "email": "info@precisionpep.co"
+    },
+    {
+      "id": 3,
+      "name": "The Precision Pep Co.",
+      "email": "orders@precisionpep.co"
+    },
+    {
+      "id": 4,
+      "name": "Support",
+      "email": "support@tppc.co"
+    }
+  ],
+  "segments": [
+    {
+      "id": 1,
+      "name": "All Users",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 2,
+      "name": "Have not logged in recently",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 3,
+      "name": "Paying Customers",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 4,
+      "name": "Free Customers",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 5,
+      "name": "Unsubscribed",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 6,
+      "name": "Valid Email Address",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 7,
+      "name": "Invalid Email Address",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 8,
+      "name": "Have a Mobile Device",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 9,
+      "name": "Doesn't have a Mobile Device",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 15,
+      "name": "Form website_newsletter",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 17,
+      "name": "X Leads[traffic]",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 19,
+      "name": "Customers",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 20,
+      "name": "Reddit Leads",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 22,
+      "name": "moosend active",
+      "type": "manual",
+      "state": "finished"
+    },
+    {
+      "id": 24,
+      "name": "Data Dojo: All Domains",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 25,
+      "name": "X Leads Ads",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 26,
+      "name": "D2C Leads",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 27,
+      "name": "Wholesale Leads",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 28,
+      "name": "OTC Landing Leads",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 30,
+      "name": "Shop Customers",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 32,
+      "name": "Nurture: got old 10% welcome",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 33,
+      "name": "Nurture: has ordered",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 35,
+      "name": "Nurture: clicked a nurture email",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 37,
+      "name": "Amino: engaged (broadcast or sunset)",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 38,
+      "name": "Nurture: clicked an Amino nurture email",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 39,
+      "name": "Nurture: in site sign-up nurture",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 40,
+      "name": "Amino: sunset audience",
+      "type": "dynamic",
+      "state": "finished"
+    },
+    {
+      "id": 41,
+      "name": "Amino: inactive after sunset",
+      "type": "dynamic",
+      "state": "finished"
+    }
+  ],
+  "automations": [
+    {
+      "id": 1,
+      "name": "Untitled Automation 1",
+      "active": false,
+      "state": "draft",
+      "trigger": null
+    },
+    {
+      "id": 3,
+      "name": "Site sign-up Welcome",
+      "active": false,
+      "state": "stopped",
+      "trigger": null
+    },
+    {
+      "id": 4,
+      "name": "Welcome, X Leads",
+      "active": true,
+      "state": "running",
+      "trigger": [
+        17,
+        19,
+        20
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Amino active",
+      "active": true,
+      "state": "running",
+      "trigger": [
+        22
+      ]
+    },
+    {
+      "id": 6,
+      "name": "OTC Welcome (ads)",
+      "active": true,
+      "state": "running",
+      "trigger": "otc_signup"
+    },
+    {
+      "id": 7,
+      "name": "Post Purchase Education",
+      "active": true,
+      "state": "running",
+      "trigger": [
+        30
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Site sign-up Nurture (60 days)",
+      "active": true,
+      "state": "running",
+      "trigger": [
+        15,
+        33
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Amino list Nurture (60 days)",
+      "active": false,
+      "state": "draft",
+      "trigger": [
+        33,
+        37,
+        39
+      ]
+    }
+  ],
+  "order_event": {
+    "name": "order_created",
+    "field": "order_value"
+  },
+  "last_30_days": {
+    "range": {
+      "start": "2026-10-25",
+      "end": "2026-11-24"
+    },
+    "revenue_window_note": "Revenue covers 2026-10-25 onward (Customer.io keeps order events for 30 days).",
+    "order_event": "order_created",
+    "totals": {
+      "email_revenue": 0,
+      "orders": 0,
+      "campaign_revenue": 0,
+      "flow_revenue": 0,
+      "sends": 0
+    },
+    "campaigns": [],
+    "flows": [
+      {
+        "id": 4,
+        "name": "Welcome, X Leads",
+        "active": true,
+        "sent": 0,
+        "opened": 0,
+        "clicked": 0,
+        "revenue": 0,
+        "orders": 0
+      },
+      {
+        "id": 5,
+        "name": "Amino active",
+        "active": true,
+        "sent": 0,
+        "opened": 0,
+        "clicked": 0,
+        "revenue": 0,
+        "orders": 0
+      },
+      {
+        "id": 6,
+        "name": "OTC Welcome (ads)",
+        "active": true,
+        "sent": 223,
+        "opened": 2,
+        "clicked": 0,
+        "revenue": 0,
+        "orders": 0
+      },
+      {
+        "id": 7,
+        "name": "Post Purchase Education",
+        "active": true,
+        "sent": 137,
+        "opened": 25,
+        "clicked": 3,
+        "revenue": 0,
+        "orders": 0
+      },
+      {
+        "id": 8,
+        "name": "Site sign-up Nurture (60 days)",
+        "active": true,
+        "sent": 2028,
+        "opened": 93,
+        "clicked": 18,
+        "revenue": 0,
+        "orders": 0
+      }
+    ]
+  }
+}
