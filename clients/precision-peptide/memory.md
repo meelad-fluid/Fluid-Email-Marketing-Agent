@@ -16,3 +16,5 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 ## Assets
 <!-- - brand/assets/<file> — what it is, how it was made -->
+
+Email platform: Customer.io
