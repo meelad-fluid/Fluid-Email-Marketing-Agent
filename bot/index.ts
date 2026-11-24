@@ -36,7 +36,7 @@ function estimateMinutes(text: string) {
 }
 
 /** After 2 minutes, post one "still working" note in the thread and keep it updated with the step and time left. */
-function progressNotes(web: typeof app.client, channel: string, thread: string, estimate: number) {
+function progressNotes(web: typeof app.client, channel: string, thread: string, estimate: number, status?: { ts: string; text: string }) {
   const started = Date.now();
   let msgTs: string | undefined, step = "";
   const text = () => {
@@ -47,6 +47,8 @@ function progressNotes(web: typeof app.client, channel: string, thread: string, 
   };
   const tick = async () => {
     try {
+      // Status-message mode (review page actions): the time estimate goes on that one message, nothing new is posted.
+      if (status) { const mins = Math.round((Date.now() - started) / 60000), left = Math.max(1, Math.round(estimate - mins)); await web.chat.update({ channel, ts: status.ts, text: `${status.text} ${mins >= estimate ? "Almost there." : `About ${left} minute${left === 1 ? "" : "s"} left.`}` }); return; }
       if (!msgTs) msgTs = (await web.chat.postMessage({ channel, thread_ts: thread, text: text() })).ts;
       else await web.chat.update({ channel, ts: msgTs, text: text() });
     } catch {}
@@ -153,16 +155,19 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
   }
 }
 
-async function run(client: LinkedClient, a: { channel: string; threadTs: string; user?: string; team: string; request: string; names: Awaited<ReturnType<typeof foreignNames>>; ts: string; files?: SlackFile[]; inThread?: boolean }) {
+async function run(client: LinkedClient, a: { channel: string; threadTs: string; user?: string; team: string; request: string; names: Awaited<ReturnType<typeof foreignNames>>; ts: string; files?: SlackFile[]; inThread?: boolean; status?: string }) {
   const web = app.client;
-  // ⏳ on their message while working (no "On it…" message); it comes off when the reply is posted.
-  await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
+  // a.status: a.ts is the bot's own "Working on…" message (review page actions); the result replaces its text.
+  // Otherwise: ⏳ on their message while working (no "On it…" message); it comes off when the reply is posted.
+  if (!a.status) await web.reactions.add({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
+  let replied = false;
   const reply = async (text: string) => {
+    if (a.status && !replied) { replied = true; await web.chat.update({ channel: a.channel, ts: a.ts, text }); return; }
     await web.chat.postMessage({ channel: a.channel, thread_ts: a.threadTs, text });
-    await web.reactions.remove({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
+    if (!a.status) await web.reactions.remove({ channel: a.channel, timestamp: a.ts, name: "hourglass_flowing_sand" }).catch(() => {});
   };
   let last = 0, lastLabel = "";
-  const notes = progressNotes(web, a.channel, a.threadTs, estimateMinutes(a.request));
+  const notes = progressNotes(web, a.channel, a.threadTs, estimateMinutes(a.request), a.status ? { ts: a.ts, text: a.status } : undefined);
   const progress = (label: string) => {
     notes.step(label);
     if (!label) return;
@@ -378,11 +383,12 @@ async function reviewAction(a: ReviewAction) {
   const client = await clientForChannel(channel, TEAM_ID);
   if (!client) return console.error("[review] channel not linked", channel);
   const short = a.title.split(/\s+[—–-]\s+/)[0];
-  const intro = a.kind === "comments" ? `${a.author} submitted ${a.count} comment${a.count === 1 ? "" : "s"} on ${short}. Working on ${a.count === 1 ? "it" : "them"} now.`
-    : a.kind === "build_flow" ? `${a.author} approved the last email, so the whole ${a.flow!.toLowerCase()} is approved. Building it in Klaviyo as a draft now.`
-    : `${a.author} approved ${short}. Building it in Klaviyo as a draft now.`;
-  const posted = await web.chat.postMessage({ channel, thread_ts: a.thread ?? undefined, text: intro });
-  const threadTs = a.thread ?? posted.ts!;
+  // One open message in the channel that turns into the result when the work is done (chat.update), no thread intro.
+  const intro = a.kind === "comments" ? `Working on the comments for ${short}…`
+    : a.kind === "build_flow" ? `Building the ${a.flow!.toLowerCase()} as a draft…`
+    : `Building ${short} as a draft…`;
+  const posted = await web.chat.postMessage({ channel, text: intro });
+  const threadTs = posted.ts!;
   const request = a.kind === "comments"
     ? `${a.author} clicked "Submit comments" on the review page for "${a.title}" (${a.designPath}). Call design_comments, make every change in design.dc.html, publish_design (note = what changed), reply_to_comment under each comment saying what you did (resolve=true), then reply here like a teammate: "Updated [<email>](<link>): <changes>. Take a look."`
     : a.kind === "build_flow" ? `${a.author} approved every email in the ${a.flow} on the review page and clicked "Approve & build". Build the flow in Klaviyo now: write the flow plan from the flow strategy and copy (emails: ${a.designs!.join(", ")}) and call build_klaviyo_flow. Reply with the Klaviyo link and any manual steps.`
@@ -391,7 +397,7 @@ async function reviewAction(a: ReviewAction) {
   for (let i = 0; busy.has(key) && i < 60; i++) await new Promise((r) => setTimeout(r, 10_000)); // wait for a job already running in this thread
   busy.add(key);
   try {
-    await run(client, { channel, threadTs, team: TEAM_ID, request, names: await foreignNames(CLIENTS_DIR, client.folder, db()), ts: posted.ts!, inThread: false });
+    await run(client, { channel, threadTs, team: TEAM_ID, request, names: await foreignNames(CLIENTS_DIR, client.folder, db()), ts: posted.ts!, inThread: false, status: intro });
   } catch (e: any) { console.error("[review]", e.message); }
   finally {
     busy.delete(key);
