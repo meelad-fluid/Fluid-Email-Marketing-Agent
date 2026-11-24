@@ -23,6 +23,9 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 - 2026-11-24 · Gloria asked to start the flows; held copy/design because the compliance gate is ESCALATE (Rx = class C, retail = class D). Offered the non-copy prep instead (event spec for their dev, Customer.io segments/build setup, pop-up structure)
 - 2026-11-24 · Meelad: "good to start working on everything" → built research/customerio-event-spec.md (dev events) and strategy/customerio-flow-setup.md (sender, segments, pop-up, automation shells, clean-up, codes). Flow copy still held: no confirmation that counsel cleared the claim set
+- 2026-11-24 · APPROVAL: Meelad (Fluid) in Slack: "Yes those are all approved" = counsel approved claims, disclaimers and offers for Rx + retail. Applied as: compliance.md §5 facts usable as written; site disclaimers (§2) verbatim are the approved disclaimers; §3 CTAs incl. Shop Now (retail) approved; offer ladder approved, retail only, max 25%, no Rx discounts; §6 "never write" (outcomes, dosing, effect categories, FDA/pharma-grade, branded-drug equivalence) still applies. compliance.md is team-managed (bot can't edit): team needs to update its status from ESCALATE.
+- 2026-11-24 · wrote all flow copy: copy/welcome-flow.md (pop-up + 7 emails + 2 SMS), copy/abandonment-flows.md (site 2, browse 3+1 SMS, cart 4+2 SMS), copy/post-purchase-winback-flows.md (PP 4+1 SMS, winback 2+1 SMS). Retail links point to the homepage until the client gives the shop URL
+- 2026-11-24 · all flow copy gated PASS except Winback #1 (HOLD: "new since" block needs confirmed launches). Designs not started: waiting on compliance.md update by the team + the CSEBPC design system PDF (brand colours/fonts are placeholders)
 
 ## Open questions
 <!-- - … -->
