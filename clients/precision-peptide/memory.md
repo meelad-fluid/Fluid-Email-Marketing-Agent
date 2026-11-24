@@ -21,6 +21,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-24 · brand colors/fonts in brand book are placeholders (only white logo verified) until the CSEBPC design system PDF from their Drive is shared
 - 2026-11-24 · no BFCM send this year: can't clear legal by Nov 27
 
+- 2026-11-24 · Gloria asked to start the flows; held copy/design because the compliance gate is ESCALATE (Rx = class C, retail = class D). Offered the non-copy prep instead (event spec for their dev, Customer.io segments/build setup, pop-up structure)
+
 ## Open questions
 <!-- - … -->
 - Counsel: may Fluid market the Rx programs and the retail line by email/SMS? Approved claims, safety wording, disclaimers, CTAs, offers per line
