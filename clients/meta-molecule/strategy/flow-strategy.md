@@ -104,7 +104,8 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #1
 - **Goals:** Welcome and the code; link to the COA library so the first click is documentation
-- "Welcome to Meta Molecule. Your 10% code: WELCOME10. Check any lot's COA before you order: [COA library link] For research use only. Reply STOP to opt out."
+- **Sending to:** New subscribers with SMS consent
+- **Final copy (157 characters, 1 SMS):** "Meta Molecule: Welcome! Your 10% code: WELCOME10. Check our COA library before you order: metamolecule.com/coas For research use only. Reply STOP to opt out."
 
 ### Email #1 v2: Welcome Offer (Option #2 – Blends & bundles)
 
@@ -221,7 +222,8 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #5
 - **Goals:** The upgraded code and the deadline
-- "24 hours only: your Meta Molecule code is now 15% off with WELCOME15. [catalog link] For research use only. Reply STOP to opt out."
+- **Sending to:** Subscribers with SMS consent who haven't ordered
+- **Final copy (134 characters, 1 SMS):** "Meta Molecule: 24 hours only, your code is now 15% off: WELCOME15. metamolecule.com/shop For research use only. Reply STOP to opt out."
 
 ## Site Abandonment Flow (2 Emails)
 
@@ -295,7 +297,8 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #2
 - **Goals:** Simple reminder pointing to the product's documentation
-- "Still looking at [viewed product]? Its COA and specs are here: [product link] For research use only. Reply STOP to opt out."
+- **Sending to:** Product viewers with SMS consent who haven't added to cart or ordered
+- **Final copy (about 140 characters with a product name like "MOTS-C 40mg", 1 SMS):** "Meta Molecule: Still looking at {{ event.product_name }}? Our COA library is public: metamolecule.com/coas For research use only. Reply STOP to opt out."
 
 ### Email #3: Reminder + Incentive Expiry
 
@@ -333,7 +336,8 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #1
 - **Goals:** Simple reminder about the cart
-- "Your Meta Molecule cart is saved. Finish checking out: [checkout link] For research use only. Reply STOP to opt out."
+- **Sending to:** Checkout starters with SMS consent who haven't ordered
+- **Final copy (109 characters + the short checkout link, 1 SMS):** "Meta Molecule: Your order is saved. Pick up where you left off: {{ event.checkout_url }} For research use only. Reply STOP to opt out."
 
 ### Email #2: Reminder + Social Proof
 
@@ -370,7 +374,8 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #3
 - **Goals:** Point them to the mystery code
-- "Your Meta Molecule mystery discount is in your inbox. Code MYSTERY, expires tomorrow at midnight: [checkout link] For research use only. Reply STOP to opt out."
+- **Sending to:** Checkout starters with SMS consent who haven't ordered
+- **Final copy (132 characters + the short checkout link, 1 SMS if the link is 28 characters or less):** "Meta Molecule: Your mystery discount is in: code MYSTERY, ends 11:59 p.m. CT tomorrow. {{ event.checkout_url }} For research use only. Reply STOP to opt out."
 
 ### Email #4: Mystery Discount (last chance)
 
@@ -409,7 +414,8 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #1
 - **Goals:** Shipping expectation and a support line
-- "Thanks for your Meta Molecule order. Orders before 1 p.m. CT ship today; tracking follows by email. Questions? Reply here. For research use only. Reply STOP to opt out."
+- **Sending to:** Every buyer (first and repeat orders) with SMS consent
+- **Final copy (157 characters, 1 SMS):** "Meta Molecule: Thanks for your order! Placed before 1 p.m. CT Mon-Fri? It ships today. Tracking comes by email. For research use only. Reply STOP to opt out."
 
 ### Email #2: Your lot's documentation (+ second-purchase offer)
 
@@ -474,7 +480,7 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 ### Email #1: We miss you
 
-- **Send Time:** 90 days after their first and only order
+- **Send Time:** 90 days after their last order (any buyer)
 - **Email Topic:** Since your last order: new lots and published COAs
 - **Design:** Yes
 - **Sending to:** First-time customers who haven't ordered again
@@ -494,7 +500,9 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 
 - **Send Time:** Immediately after Email #1
 - **Goals:** The news hook and the code
-- "New lots are in at Meta Molecule and their COAs are published. 20% off with COMEBACK20: [catalog link] For research use only. Reply STOP to opt out."
+- **Sending to:** Buyers with SMS consent who haven't ordered in 90 days
+- **Final copy (142 characters, 1 SMS):** "Meta Molecule: It's been a while. 20% off your next order with COMEBACK20: metamolecule.com/shop For research use only. Reply STOP to opt out."
+- "New lots" hook dropped: we can't verify new lots or newly published COAs yet
 
 ### Email #2: Come back offer
 
@@ -511,6 +519,51 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 - The catalog's bundles as the better standing deal
 - One primary CTA: Explore Research Catalog
 - Research-use line next to the products
+
+## SMS Build Sheet (all flows, 7 SMS)
+
+Final copy for building in Customer.io, updated 2026-11-24. Each one matches its flow's copy doc.
+
+**Rules for every SMS**
+- Send only to profiles with SMS consent. Put a "has SMS consent" check right before each SMS step.
+- Starts with "Meta Molecule:" and ends with "For research use only. Reply STOP to opt out."
+- Keep each one to 1 SMS (160 characters, plain text). Use straight quotes and a plain hyphen. Curly quotes, an en dash or an emoji turn it into a 70-character message and roughly double the cost.
+- Use Customer.io's link shortening on the dynamic checkout links so they stay inside 1 SMS.
+- Quiet hours: send only between 9 a.m. and 8 p.m. in the recipient's time zone. Anything that would go out later waits until the next morning.
+- Codes (WELCOME10, WELCOME15, BROWSE10 is email-only, MYSTERY, COMEBACK20) and the SMS disclosure still need client approval before going live.
+
+**Welcome flow**
+1. SMS #1, right after Email #1. Sending to: new subscribers with SMS consent.
+  - "Meta Molecule: Welcome! Your 10% code: WELCOME10. Check our COA library before you order: metamolecule.com/coas For research use only. Reply STOP to opt out."
+  - 157 characters
+2. SMS #2, right after Email #5. Sending to: subscribers with SMS consent who haven't ordered.
+  - "Meta Molecule: 24 hours only, your code is now 15% off: WELCOME15. metamolecule.com/shop For research use only. Reply STOP to opt out."
+  - 134 characters
+
+**Browse Abandonment flow**
+3. SMS #1, right after Email #2. Sending to: product viewers with SMS consent who haven't added to cart or ordered.
+  - "Meta Molecule: Still looking at {{ event.product_name }}? Our COA library is public: metamolecule.com/coas For research use only. Reply STOP to opt out."
+  - About 140 characters with a product name like "MOTS-C 40mg"
+
+**Abandoned Checkout flow**
+4. SMS #1, right after Email #1. Sending to: checkout starters with SMS consent who haven't ordered.
+  - "Meta Molecule: Your order is saved. Pick up where you left off: {{ event.checkout_url }} For research use only. Reply STOP to opt out."
+  - 109 characters + the short link
+5. SMS #2, right after Email #3. Sending to: checkout starters with SMS consent who haven't ordered.
+  - "Meta Molecule: Your mystery discount is in: code MYSTERY, ends 11:59 p.m. CT tomorrow. {{ event.checkout_url }} For research use only. Reply STOP to opt out."
+  - 132 characters + the short link (keep the link to 28 characters or less)
+
+**Post-Purchase flow**
+6. SMS #1, right after Email #1. Sending to: every buyer (first and repeat orders) with SMS consent.
+  - "Meta Molecule: Thanks for your order! Placed before 1 p.m. CT Mon-Fri? It ships today. Tracking comes by email. For research use only. Reply STOP to opt out."
+  - 157 characters
+
+**Winback flow**
+7. SMS #1, right after Email #1. Sending to: buyers with SMS consent who haven't ordered in 90 days.
+  - "Meta Molecule: It's been a while. 20% off your next order with COMEBACK20: metamolecule.com/shop For research use only. Reply STOP to opt out."
+  - 142 characters
+
+Site Abandonment has no SMS.
 
 ## Flow Rules
 

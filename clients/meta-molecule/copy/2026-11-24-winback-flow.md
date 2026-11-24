@@ -51,7 +51,7 @@ COMEBACK20 · 20% off your next order
 Button: Explore Research Catalog
 
 ## SMS #1 — right after Email #1 (SMS consent only)
-Meta Molecule: It's been a while. 20% off your next order with COMEBACK20: metamolecule.com/shop Our COA library is still public at metamolecule.com/coas For research use only. Reply STOP to opt out.
+Meta Molecule: It's been a while. 20% off your next order with COMEBACK20: metamolecule.com/shop For research use only. Reply STOP to opt out.
 
 ## Email #2 — 5 days later
 Subject: Your 20% code expires soon

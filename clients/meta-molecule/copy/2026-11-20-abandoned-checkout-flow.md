@@ -99,7 +99,7 @@ Heading: MYSTERY ends 11:59 p.m. CT tomorrow.
 Code chip: MYSTERY · Button: Review Your Order
 
 ## SMS #2 — right after Email #3
-Meta Molecule: There's a mystery discount on your saved order. Code MYSTERY, ends 11:59 p.m. CT tomorrow: {{ event.checkout_url }} For research use only. Reply STOP to opt out.
+Meta Molecule: Your mystery discount is in: code MYSTERY, ends 11:59 p.m. CT tomorrow. {{ event.checkout_url }} For research use only. Reply STOP to opt out.
 
 ## Email #4 — 1 day later
 Subject: Your mystery code ends tonight

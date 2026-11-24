@@ -44,7 +44,7 @@ Meta Molecule
 FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.
 
 ## SMS #1 — right after Email #1 (SMS consent only)
-Meta Molecule: Thanks for your order. Orders before 1 p.m. CT Mon–Fri ship today, and tracking follows by email. Questions? Reply here. For research use only. Reply STOP to opt out.
+Meta Molecule: Thanks for your order! Placed before 1 p.m. CT Mon-Fri? It ships today. Tracking comes by email. For research use only. Reply STOP to opt out.
 
 ## Email #2 — 1 day later (designed)
 Subject: Match your vial to its paperwork

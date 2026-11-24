@@ -85,7 +85,7 @@ BROWSE10 · 10% off · expires 11:59 p.m. CT tomorrow
 Button: Review Specifications
 
 ## SMS #1 — right after Email #2
-Meta Molecule: Still looking at {{ event.product_name }}? Specs are on the product page, and our COA library is public: metamolecule.com/coas For research use only. Reply STOP to opt out.
+Meta Molecule: Still looking at {{ event.product_name }}? Our COA library is public: metamolecule.com/coas For research use only. Reply STOP to opt out.
 
 ## Email #3 — 1 day later
 Subject: Your 10% code expires tonight

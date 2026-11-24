@@ -94,7 +94,7 @@ Disclaimer line under products.
 Close (same as Email #1)
 
 ## SMS #1 — Immediately after Email #1 (SMS-consented only)
-Welcome to Meta Molecule. Your 10% code: WELCOME10. Check our COA library before you order: metamolecule.com/coas For research use only. Reply STOP to opt out.
+Meta Molecule: Welcome! Your 10% code: WELCOME10. Check our COA library before you order: metamolecule.com/coas For research use only. Reply STOP to opt out.
 
 ## Email #2 — Plain text, 4 hours later
 From: Claire from Meta Molecule
@@ -187,4 +187,4 @@ Heading: 24 hours. Then it's back to 10%.
 Button: Explore Research Catalog
 
 ## SMS #2 — Immediately after Email #5
-24 hours only: your Meta Molecule code is now 15% off with WELCOME15. metamolecule.com/shop For research use only. Reply STOP to opt out.
+Meta Molecule: 24 hours only, your code is now 15% off: WELCOME15. metamolecule.com/shop For research use only. Reply STOP to opt out.
