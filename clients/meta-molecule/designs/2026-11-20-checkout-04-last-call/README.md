@@ -1,7 +1,7 @@
 # Abandoned Checkout Email #4 — Last call. Your code ends tonight.
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/wHwxBqtBBG6-jSwV_zJ0BGCi
 
-Status: draft · needs approval · goes live when the Abandoned Checkout automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v3) · goes live when the Abandoned Checkout automation is built in Customer.io
 Copy: copy/2026-11-20-abandoned-checkout-flow.md (Email #4) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Your mystery code ends tonight · Preview: MYSTERY ends at 11:59 p.m. CT. Order by 1 p.m. CT and it ships today.
 Send: 1 day after Email #3. Offer MYSTERY (15%) is a proposal pending approval.
