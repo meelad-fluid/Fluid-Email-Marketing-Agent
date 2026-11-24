@@ -1,7 +1,7 @@
 # Browse Abandonment Email #1 — Still comparing?
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/bfXGG6Agd0FDlSTRYJaalT85
 
-Status: draft · needs approval · goes live when the Browse Abandonment automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v3) · goes live when the Browse Abandonment automation is built in Customer.io
 Copy: copy/2026-11-20-browse-abandonment-flow.md (Email #1) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Still comparing {{ event.product_name }}? · Preview: Three tabs, three prices. Only one lets you check first.
 Send: 2 hours after product_viewed
