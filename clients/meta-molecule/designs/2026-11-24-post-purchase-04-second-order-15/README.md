@@ -14,3 +14,4 @@ Style: clean restock look, Poppins bold, pale teal + logo gradient pills, produc
 |---|---|---|
 | v1 | 2026-11-24 | First design |
 | v2 | 2026-11-24 | Order-neutral for repeat buyers: "15% off your next order" (was "second order") |
+| v3 | 2026-11-24 | Gloria: removed the "$170 in the cart" section and progress track (we can't know the cart) → "Two ways to save on the same order": 15% + $0 shipping tiles |

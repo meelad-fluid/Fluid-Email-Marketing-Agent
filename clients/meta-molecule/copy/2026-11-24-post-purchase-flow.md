@@ -111,8 +111,10 @@ Button: Explore Research Catalog
 Dynamic block — "Pairs with what you ordered": 2–3 recommended products (image, name + size, price, Review Specifications button) · Disclaimer line under it.
 
 Section — That's me
-Heading: $170 in the cart. $200 for free shipping.
-Body: Add something you'll need next month, or pay for shipping now. With 15% off, rounding up to $200 is the easy call.
+Heading: Two ways to save on the same order.
+Tiles: 15% off with SECOND15 + $0 U.S. shipping at $200+
+Body: Plan your next order once and get both. Free shipping applies at $200 after discounts.
+(changed 2026-11-24 per Gloria: we can't know what's in their cart, so no "$170 in the cart")
 
 Section — Why it's easy to reorder (3 rows)
 01 — Same-day shipping: order by 1 p.m. CT, Monday to Friday.
