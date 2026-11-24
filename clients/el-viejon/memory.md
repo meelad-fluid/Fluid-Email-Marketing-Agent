@@ -10,6 +10,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 - 2026-11-24 · Black Friday 20% v2 · Meelad: remove gold hero card, code in hero, three floating bags, fix sticker text, remove "that's me" section, headlines "You run out too fast." / "Grab these before they're gone.", products right under hero · all done, comments resolved · file: designs/2026-11-27-black-friday-20/
 - 2026-11-24 · Black Friday 20% v3 · Meelad: "remove this" on the red ending-date sticker over the hero bags · removed it (end date still in the closing pill), comment resolved
+- 2026-11-24 · Black Friday 20% v4 · Meelad: benefits headline → "These Are So Good, You'll Run Out Too Quick" · changed, comment resolved
 
 ## Facts & decisions
 <!-- - 2026-01-01 · verified/decided: … (source) -->

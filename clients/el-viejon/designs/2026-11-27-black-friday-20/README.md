@@ -6,7 +6,7 @@ Copy: copy/2026-11-27-black-friday-20.md
 Audience: FC | Engaged 120 (to build) · excluding FC | Placed Order 7d
 Subject: 20% off every bag, Familia
 Preview: Every flavor through Monday. Stock up before the Christmas rush.
-Layout: Dark ember hero (giant gold "20% OFF", dashed BLACKFRIDAY20 code box, button) over three floating pouches with red "Ends Mon 11/30" sticker → "Grab these before they're gone." 3 black product cards on gold + free-shipping pill → "You run out too fast." 3 outlined icon cards on black → stock-up pile photo fading into a 3-step made-to-order timeline on Carne Brown → tilted gold review card → dark close with dashed offer pill → gold wave footer
+Layout: Dark ember hero (giant gold "20% OFF", dashed BLACKFRIDAY20 code box, button) over three floating pouches → "Grab these before they're gone." 3 black product cards on gold + free-shipping pill → "These are so good, you'll run out too quick." 3 outlined icon cards on black → stock-up pile photo fading into a 3-step made-to-order timeline on Carne Brown → tilted gold review card → dark close with dashed offer pill → gold wave footer
 Style: Event-style sale: giant gold Oswald "20% OFF" on dark ember, floating pouches, red scalloped sticker, wavy edges between every section.
 
 ## Versions
