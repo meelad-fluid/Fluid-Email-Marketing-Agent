@@ -1,7 +1,7 @@
 # Post-Purchase Email #4 — 15% off your second order.
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/EEJZgbNLewxcQYjc-tnaTifi
 
-Status: draft · needs approval · goes live when the Post-Purchase automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v3) · goes live when the Post-Purchase automation is built in Customer.io
 Copy: copy/2026-11-24-post-purchase-flow.md (Email #4) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Your next order, 15% lighter · Preview: SECOND15 ends in 7 days. Free U.S. shipping at $200.
 Send: 2 days after Email #3. SECOND15 expires 7 days after this email.
