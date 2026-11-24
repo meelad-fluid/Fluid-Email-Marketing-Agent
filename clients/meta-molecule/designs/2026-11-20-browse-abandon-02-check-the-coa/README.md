@@ -1,7 +1,7 @@
 # Browse Abandonment Email #2 — Check the COA before you decide
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/NMg4P4KdvGu7i4ihyoR5LrfL
 
-Status: draft · needs approval · goes live when the Browse Abandonment automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v5) · goes live when the Browse Abandonment automation is built in Customer.io
 Copy: copy/2026-11-20-browse-abandonment-flow.md (Email #2) · Compliance gate: PASS — READY FOR HUMAN REVIEW (BROWSE10 is a proposed code)
 From: Meta Molecule · Subject: Check the COA before you decide · Preview: Four things to look for on any report. Plus 10% off with BROWSE10.
 Send: 1 day after Email #1 (SMS #1 right after)
