@@ -1,7 +1,7 @@
 # Winback Email #1 — Been a while. Here's 20% off.
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/CYm0KJCN5zKIwPPfXEK5OquW
 
-Status: draft · needs approval · goes live when the Winback automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v2) · goes live when the Winback automation is built in Customer.io
 Copy: copy/2026-11-24-winback-flow.md (Email #1) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Been a while. Here's 20% off. · Preview: Our COA library is still public, still at the same link. Use COMEBACK20.
 Send: 90 days after their last order (any buyer). SMS #1 follows right after (SMS consent only).
