@@ -13,3 +13,4 @@ Style: bold italic Playfair Display + Source Sans, pale mint + logo blue colour 
 | Version | Date | Change |
 |---|---|---|
 | v1 | 2026-11-24 | First design |
+| v2 | 2026-11-24 | Gloria: removed the "From your last order" dynamic block; research-use line now sits under the hero; blue section gets a rounded top |

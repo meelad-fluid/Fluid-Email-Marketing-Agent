@@ -29,7 +29,7 @@ Code chip: COMEBACK20
 Subheadline: Our COA library is still public and still at the same link. Use the code on your next order.
 Button: Explore Research Catalog
 
-Dynamic block — "From your last order": items (image, name + size, price) · Button: Review Specifications · Disclaimer line under it.
+(Dynamic "From your last order" block removed 2026-11-24 per Gloria. Disclaimer line sits under the hero.)
 
 Section — That's me
 Heading: Ever gone back to a vendor's COA page and hit a 404?
