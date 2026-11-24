@@ -1,7 +1,7 @@
 # Site Abandonment Email #1 — Still comparing suppliers?
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/wwd1Hv_tx6AXP4Hoo_RXHlz5
 
-Status: draft · needs approval · goes live when the Site Abandonment automation is built in Customer.io
+Status: approved by Nick on 2026-11-24 (v2) · goes live when the Site Abandonment automation is built in Customer.io
 Copy: copy/2026-11-19-site-abandonment-flow.md (Email #1) · Compliance gate: PASS — READY FOR HUMAN REVIEW
 From: Meta Molecule · Subject: Still comparing suppliers? · Preview: Check our documentation first. That's what it's there for.
 
