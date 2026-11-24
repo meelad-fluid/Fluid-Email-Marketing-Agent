@@ -12,20 +12,25 @@ a{text-decoration:none;color:inherit}
 .btn-gold{background:#F5B70E;color:#111}
 
 /* HERO */
-.hero{position:relative;height:1000px;background:linear-gradient(to bottom,#1b0f08 0,#1b0f08 300px,rgba(27,15,8,0) 420px),url('asset:brand/assets/generated/2026-11-23-bf-hero-counter-night.jpg') 0 300px/600px auto no-repeat,#1b0f08}
-.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(to bottom,rgba(17,17,17,0),#111)}
-.hcard{position:absolute;left:28px;right:28px;top:26px;background:#F5B70E;border-radius:28px;text-align:center;padding:24px 34px 34px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
-.badge{width:78px;height:78px;border-radius:50%;margin:0 auto 12px;background:url('asset:brand/assets/products/original/1.jpg') no-repeat;background-size:312px auto;background-position:-117px -98px;box-shadow:0 0 0 3px #111}
-.eyebrow{font-size:15px;font-weight:600;letter-spacing:4px;color:#111}
-.giant{font-size:150px;line-height:.9;font-weight:700;color:#111;letter-spacing:-2px;margin-top:8px}
+.hero{position:relative;background:radial-gradient(ellipse 420px 320px at 50% 78%,rgba(200,90,20,.28),rgba(27,15,8,0) 70%),#1b0f08;padding-bottom:40px}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(to bottom,rgba(17,17,17,0),#111)}
+.hcard{position:relative;text-align:center;padding:34px 40px 0}
+.badge{width:78px;height:78px;border-radius:50%;margin:0 auto 14px;background:url('asset:brand/assets/products/original/1.jpg') no-repeat;background-size:312px auto;background-position:-117px -98px;box-shadow:0 0 0 3px #F5B70E}
+.eyebrow{font-size:15px;font-weight:600;letter-spacing:4px;color:#F6EEDC}
+.giant{font-size:150px;line-height:.9;font-weight:700;color:#F5B70E;letter-spacing:-2px;margin-top:10px}
 .giant small{font-size:64px;vertical-align:top;line-height:1.5;margin-left:4px}
-.giant-sub{display:inline-block;background:#111;color:#F5B70E;font-size:30px;font-weight:600;letter-spacing:2px;padding:6px 18px 8px;margin-top:6px;transform:rotate(-2deg)}
-.hsub{font-size:16px;line-height:1.5;color:#111;margin:18px auto 22px;max-width:440px}
-.sticker{position:absolute;right:40px;top:600px;width:150px;height:150px;transform:rotate(12deg);z-index:3;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}
-.sticker svg{position:absolute;inset:0}
+.giant-sub{display:inline-block;background:#F5B70E;color:#111;font-size:30px;font-weight:600;letter-spacing:2px;padding:6px 18px 8px;margin-top:6px;transform:rotate(-2deg)}
+.hsub{font-size:16px;line-height:1.5;color:#F6EEDC;margin:20px auto 18px;max-width:440px}
+.code{display:inline-block;border:2px dashed #F5B70E;border-radius:14px;padding:10px 26px 12px;margin-bottom:22px}
+.code span{display:block;font-family:'Oswald';font-size:12px;letter-spacing:3px;color:#F6EEDC;text-transform:uppercase}
+.code b{display:block;font-family:'Oswald';font-size:30px;letter-spacing:3px;color:#F5B70E;font-weight:700;line-height:1.15}
+.bags{position:relative;width:600px;height:402px;margin-top:8px}
+.bags img{width:600px;height:402px;display:block;object-fit:cover;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 86%,transparent)}
+.sticker{position:absolute;right:18px;top:-30px;width:130px;height:130px;transform:rotate(12deg);z-index:3;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}
+.sticker svg{position:absolute;inset:0;width:100%;height:100%}
 .sticker .st-t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff}
-.st-t b{font-family:'Oswald';font-size:22px;line-height:1.05;font-weight:700;margin:3px 0}
-.st-t span{font-family:'Oswald';font-size:12px;letter-spacing:1.5px;line-height:1.35;text-transform:uppercase}
+.st-t b{font-family:'Oswald';font-size:26px;line-height:1;font-weight:700;margin:3px 0}
+.st-t span{font-family:'Oswald';font-size:12px;letter-spacing:1.5px;line-height:1.2;text-transform:uppercase}
 
 /* THAT'S ME */
 .me{position:relative;background:#F6EEDC;padding:70px 34px 64px}
@@ -105,53 +110,14 @@ a{text-decoration:none;color:inherit}
       <div class="giant osw">20%<small>OFF</small></div>
       <div class="giant-sub osw">Every bag.</div>
       <p class="hsub">You finished the last bag faster than you meant to. Through Monday, every flavor is 20% off, so this time grab enough to last.</p>
-      <span class="btn btn-black">Stock Up Now</span>
+      <div class="code"><span>Use code at checkout</span><b>BLACKFRIDAY20</b></div><br>
+      <span class="btn btn-gold">Stock Up Now</span>
     </div>
-    <div class="sticker">
-      <svg viewBox="0 0 100 100"><path fill="#C8231E" d="M50 2l6.2 7.4 9.3-2.6 2.9 9.2 9.6 1.2-.6 9.6 8.6 4.4-4 8.8 6.3 7.3-7 6.6 2.9 9.2-9.1 3-.4 9.6-9.6-.2-4.2 8.7-8.6-4.3-7.6 5.9-5.8-7.7-9.4 2-1.7-9.5-9.3-2.4 1.6-9.5-7.6-5.9 5-8.2-5-8.2 7.6-5.9-1.6-9.5 9.3-2.4 1.7-9.5 9.4 2z"/></svg>
-      <div class="st-t"><span>Code</span><b>BLACK<br>FRIDAY20</b><span>Ends Mon 11/30</span></div>
-    </div>
-  </a>
-
-  <!-- THAT'S ME -->
-  <a href="https://elviejonbeefjerky.com/collections/all" class="me" style="display:block">
-    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#111" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
-    <div class="me-row">
-      <div class="polaroid">
-        <img src="asset:brand/assets/generated/2026-11-23-bf-empty-pouch.jpg" alt="An empty jerky pouch on the counter">
-        <div class="cap script">Wednesday night...</div>
-      </div>
-      <div>
-        <h2 class="osw">Already?<br><em>I just</em><br>ordered.</h2>
-      </div>
-    </div>
-    <ul class="moments" style="margin-top:30px">
-      <li><i>1</i>You reach for the pouch on the counter and it's empty.</li>
-      <li><i>2</i>You stop at the gas station and settle for the sweet stuff.</li>
-      <li><i>3</i>You tell yourself you'll order more next week.</li>
-    </ul>
-    <div class="fix script">This is the week to fix that.</div>
-  </a>
-
-  <!-- WHY -->
-  <a href="https://elviejonbeefjerky.com/collections/all" class="why" style="display:block">
-    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#F6EEDC" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
-    <h2 class="osw" style="margin-top:14px">Why it never lasts.</h2>
-    <div class="icons">
-      <div class="ic">
-        <div class="circ"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 32L28 10c3-3 6-2 6 1L14 32z"/><path d="M14 32h-8"/></svg></div>
-        <h3 class="osw">Hand-sliced thin</h3>
-        <p>Beef inside round, cut and dried by hand.</p>
-      </div>
-      <div class="ic">
-        <div class="circ"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M27 9c-2-3-1-5 1-6"/><path d="M26 10c6 2 6 10 1 16-4 5-11 9-19 10 5-4 8-9 9-15 1-7 4-12 9-11z"/></svg></div>
-        <h3 class="osw">Real chile, real lime</h3>
-        <p>No preservatives, colors or fake flavor.</p>
-      </div>
-      <div class="ic">
-        <div class="circ"><span class="osw" style="font-size:26px;font-weight:700;color:#111">24g</span></div>
-        <h3 class="osw">Protein</h3>
-        <p>In every 2oz serving, for the long days.</p>
+    <div class="bags">
+      <img src="asset:brand/assets/generated/2026-11-24-bf-three-pouches-floating.jpg" alt="Chile Limón, Original and Picosa Lime pouches">
+      <div class="sticker">
+        <svg viewBox="0 0 100 100"><path fill="#C8231E" d="M50 2l6.2 7.4 9.3-2.6 2.9 9.2 9.6 1.2-.6 9.6 8.6 4.4-4 8.8 6.3 7.3-7 6.6 2.9 9.2-9.1 3-.4 9.6-9.6-.2-4.2 8.7-8.6-4.3-7.6 5.9-5.8-7.7-9.4 2-1.7-9.5-9.3-2.4 1.6-9.5-7.6-5.9 5-8.2-5-8.2 7.6-5.9-1.6-9.5 9.3-2.4 1.7-9.5 9.4 2z"/></svg>
+        <div class="st-t"><span>Ends</span><b>MON<br>11/30</b><span style="font-size:10px;letter-spacing:1px">11:59pm MT</span></div>
       </div>
     </div>
   </a>
@@ -159,7 +125,7 @@ a{text-decoration:none;color:inherit}
   <!-- PRODUCTS -->
   <div class="prods">
     <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#111" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
-    <a href="https://elviejonbeefjerky.com/collections/all"><h2 class="osw">The ones that<br>disappear first.</h2></a>
+    <a href="https://elviejonbeefjerky.com/collections/all"><h2 class="osw">Grab these before<br>they're gone.</h2></a>
     <div class="grid">
       <a class="pc" href="https://elviejonbeefjerky.com/products/chile-limon">
         <img src="asset:brand/assets/products/chile-limon/3.jpg" alt="Chile Limón" style="object-position:center 40%">
@@ -179,6 +145,29 @@ a{text-decoration:none;color:inherit}
     </div>
     <a href="https://elviejonbeefjerky.com/collections/all" class="ship">Free shipping on orders over $75.</a>
   </div>
+
+  <!-- WHY -->
+  <a href="https://elviejonbeefjerky.com/collections/all" class="why" style="display:block">
+    <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path fill="#F5B70E" d="M0 0h600v14c-50 18-100 18-150 6S350 2 300 14 200 32 150 22 50 4 0 16z"/></svg>
+    <h2 class="osw" style="margin-top:14px">You run out too fast.</h2>
+    <div class="icons">
+      <div class="ic">
+        <div class="circ"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 32L28 10c3-3 6-2 6 1L14 32z"/><path d="M14 32h-8"/></svg></div>
+        <h3 class="osw">Hand-sliced thin</h3>
+        <p>Beef inside round, cut and dried by hand.</p>
+      </div>
+      <div class="ic">
+        <div class="circ"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M27 9c-2-3-1-5 1-6"/><path d="M26 10c6 2 6 10 1 16-4 5-11 9-19 10 5-4 8-9 9-15 1-7 4-12 9-11z"/></svg></div>
+        <h3 class="osw">Real chile, real lime</h3>
+        <p>No preservatives, colors or fake flavor.</p>
+      </div>
+      <div class="ic">
+        <div class="circ"><span class="osw" style="font-size:26px;font-weight:700;color:#111">24g</span></div>
+        <h3 class="osw">Protein</h3>
+        <p>In every 2oz serving, for the long days.</p>
+      </div>
+    </div>
+  </a>
 
   <!-- MADE TO ORDER -->
   <a href="https://elviejonbeefjerky.com/collections/all" class="mto" style="display:block">

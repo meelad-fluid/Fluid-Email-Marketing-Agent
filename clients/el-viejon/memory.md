@@ -8,6 +8,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 ## Design log (every change, newest last)
 <!-- - 2026-01-01 · <email> v2 · asked: … · changed: … · file: designs/<email>/ -->
 
+- 2026-11-24 · Black Friday 20% v2 · Meelad: remove gold hero card, code in hero, three floating bags, fix sticker text, remove "that's me" section, headlines "You run out too fast." / "Grab these before they're gone.", products right under hero · all done, comments resolved · file: designs/2026-11-27-black-friday-20/
+
 ## Facts & decisions
 <!-- - 2026-01-01 · verified/decided: … (source) -->
 - 2026-11-23 · Onboarding done: brand book v1 (draft), research/onboarding-doc.md, strategy/2026-11-23-month-1-plan.md, strategy/flow-plan.md, all published.
