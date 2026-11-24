@@ -2,11 +2,11 @@
 
 Status: draft · needs client approval · goes live once the automation is built in Customer.io
 
-**Talking to:** the independent lab buyer who just placed a first order with a new supplier and is already asking "Did it ship yet?" (Email #1), who is opening the box and checking the label against the order and the paperwork (Email #2), who has the vial on the bench and the COA open and wants to know who to tell if they don't match (Email #3), and who is planning the next order with the cart sitting just under the $200 free-shipping line (Email #4).
+**Talking to:** the independent lab buyer who just placed an order (first or repeat) and is already asking "Did it ship yet?" (Email #1), who is opening the box and checking the label against the order and the paperwork (Email #2), who has the vial on the bench and the COA open and wants to know who to tell if they don't match (Email #3), and who is planning the next order with the cart sitting just under the $200 free-shipping line (Email #4).
 
 From: #1 and #3 Claire from Meta Molecule (plain text) · #2 and #4 Meta Molecule (designed) · Reply-to: support@metamolecule.com (to confirm)
 
-Trigger (Customer.io): `placed_order` where order count = 1 · Exit: a second `placed_order` (for #2's and #4's offer only: suppress the SECOND15 blocks once they've ordered again) · Re-entry: never · Conversion goal: `placed_order` within 5 days of #4. Doesn't replace WooCommerce's order confirmation or shipping emails.
+Trigger (Customer.io): every `placed_order` (first-time AND repeat buyers, per Gloria 2026-11-24; copy is order-neutral) · Exit: a new `placed_order` (they re-enter from that order) · Re-entry: on each order, max once per 14 days · Conversion goal: `placed_order` within 5 days of #4. Doesn't replace WooCommerce's order confirmation or shipping emails.
 Held products (Reta, Tirz, GLOW, CEO in a Bottle, strips, capsules, Amino H2O) never appear in a dynamic block; if they're the only line items, show the block without them / fall back to the starting products.
 
 ## NOTES
@@ -27,7 +27,7 @@ Preview: Not your receipt. Just what happens next.
 
 Hi {{ customer.first_name | default: "there" }},
 
-Your order's in. The receipt is already in your inbox, so this isn't that. It's a thank-you from the team for trying a new supplier.
+Your order's in. The receipt is already in your inbox, so this isn't that. It's a thank-you from the team for ordering with us.
 
 Here's what happens next:
 - Placed before 1 p.m. CT, Monday to Friday? It ships today.
@@ -40,6 +40,8 @@ Any question at all, just reply. A person reads every one.
 
 Claire
 Meta Molecule
+
+P.S. Forgot something? If your order hasn't shipped yet, reply with what you'd like to add and our team will try to send it in the same box. Or browse the research catalog. (added 2026-11-24 per Gloria; "try to" because adding to a placed order isn't a published site policy: client to confirm the support process)
 
 FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.
 
@@ -81,13 +83,13 @@ Button: Explore Research Catalog
 
 ## Email #3 — 7 days later (plain text, from Claire)
 Subject: Did the paperwork check out?
-Preview: One honest question about your first order.
+Preview: One honest question about your order.
 
 Hi {{ customer.first_name | default: "there" }},
 
 Your order should have landed by now, so I wanted to ask the one question we care about most: did the lot on your label match the documentation?
 
-If it did, a quick review would help other labs who are where you were a week ago, comparing vendors in three tabs. Keep it to what you could check: the paperwork, the packaging, how fast it shipped and how we answered. We can't publish anything about how a product is used, so we'll leave those out.
+If it did, a quick review would help other labs who are still comparing vendors in three tabs. Keep it to what you could check: the paperwork, the packaging, how fast it shipped and how we answered. We can't publish anything about how a product is used, so we'll leave those out.
 
 Leave a quick review: [review link — platform to confirm]
 
@@ -103,7 +105,7 @@ Subject: Your next order, 15% lighter
 Preview: SECOND15 ends in 7 days. Free U.S. shipping at $200.
 
 Hero kicker: For your next order
-Hero headline: 15% off your second order.
+Hero headline: 15% off your next order.
 Code chip: SECOND15
 Subheadline: Good for 7 days. Free U.S. shipping kicks in at $200 after discounts.
 Button: Explore Research Catalog
@@ -121,5 +123,5 @@ Section — Why it's easy to reorder (3 rows)
 
 Offer close
 Heading: SECOND15 ends in 7 days.
-Body: 15% off your second order. Free U.S. shipping at $200.
+Body: 15% off your next order. Free U.S. shipping at $200.
 Button: Explore Research Catalog

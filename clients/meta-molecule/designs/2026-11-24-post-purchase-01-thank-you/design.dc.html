@@ -11,7 +11,7 @@ a{color:#1155CC}
 .foot a{color:#777777}
 </style>
 <p>Hi {{ customer.first_name | default: "there" }},</p>
-<p>Your order's in. The receipt is already in your inbox, so this isn't that. It's a thank-you from the team for trying a new supplier.</p>
+<p>Your order's in. The receipt is already in your inbox, so this isn't that. It's a thank-you from the team for ordering with us.</p>
 <p>Here's what happens next:</p>
 <ul>
 <li>Placed before 1 p.m. CT, Monday to Friday? It ships today.</li>
@@ -21,6 +21,7 @@ a{color:#1155CC}
 <p>One thing we'd rather say now than later: we can't take returns once an order ships. So when the box arrives, check the labels against your order. If anything is damaged or not what you ordered, email <a href="mailto:support@metamolecule.com">support@metamolecule.com</a> with your order number and we'll sort it out.</p>
 <p>Any question at all, just reply. A person reads every one.</p>
 <p>Claire<br>Meta Molecule</p>
+<p><b>P.S.</b> Forgot something? If your order hasn't shipped yet, reply with what you'd like to add and our team will try to send it in the same box. Or browse the <a href="https://metamolecule.com/shop/">research catalog</a>.</p>
 <p class="small">FOR RESEARCH USE ONLY. NOT FOR HUMAN OR VETERINARY USE OR CONSUMPTION.</p>
 <p class="foot">Meta Molecule · Richardson, TX 75081 · <a href="{% manage_subscription_preferences_url %}">Manage preferences</a> | <a href="{% unsubscribe_url %}">Unsubscribe</a></p>
 </div>
