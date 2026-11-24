@@ -122,7 +122,14 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
 
   // 3. What
   const names = await foreignNames(CLIENTS_DIR, client.folder, db());
-  const screen = await screenRequest(request, client.name, names);
+  // The thread so far, so short follow-ups ("do the first one", "continue") are read in context.
+  let thread = "";
+  if (args.threadTs && args.threadTs !== args.ts) try {
+    const r = await web.conversations.replies({ channel, ts: args.threadTs, latest: args.ts, inclusive: false, limit: 50 });
+    thread = (r.messages ?? []).filter((m: any) => m.ts !== args.ts).slice(-6)
+      .map((m: any) => `${m.bot_id || m.user === BOT_USER_ID ? "Assistant" : "Fluid team"}: ${String(m.text ?? "").slice(0, 700)}`).join("\n");
+  } catch { /* no context: screen the message alone */ }
+  const screen = await screenRequest(request, client.name, names, thread);
   if (!screen.allowed && screen.reason.startsWith("screen unavailable")) {
     // Our own setup problem (e.g. a missing API key), not the request: fail closed, but say what's wrong.
     await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "error", reason: screen.reason });
