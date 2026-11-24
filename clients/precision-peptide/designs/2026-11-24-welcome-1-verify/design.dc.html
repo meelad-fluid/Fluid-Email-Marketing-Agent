@@ -1,0 +1,170 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;letter-spacing:.2px;padding:17px 44px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+.serif{font-family:'Playfair Display',Georgia,serif}
+
+/* hero */
+.hero{position:relative;height:990px;background:#0d0c12 url('asset:brand/assets/generated/2026-11-24-pp-hero-vials-dark-gold.jpg') center bottom/600px auto no-repeat;text-align:center;color:#fff}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(rgba(247,243,238,0),#F7F3EE)}
+.hero-in{position:relative;z-index:2;padding:34px 36px 0}
+.logo{height:46px}
+.kicker{margin-top:30px;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#D4A27F;font-weight:600}
+.h1{margin-top:14px;font-size:35px;line-height:1.22;font-weight:500}
+.h1 em{font-style:italic;color:#E9C3A4}
+.sub{margin:16px auto 0;font-size:16px;line-height:1.55;color:#D9D5E6;max-width:460px}
+.hero .btn{margin-top:24px}
+.code{display:inline-block;margin-top:14px;border:1.5px dashed #D4A27F;border-radius:999px;padding:8px 20px;font-size:14px;color:#F1E4D8}
+.code b{letter-spacing:1.5px;color:#fff}
+
+/* story */
+.story{position:relative;padding:34px 56px 40px;text-align:center}
+.ghost{position:absolute;left:0;right:0;top:-6px;font-family:'Playfair Display',serif;font-style:italic;font-size:150px;line-height:1;color:rgba(42,38,104,.06);text-align:center}
+.h2{position:relative;font-family:'Playfair Display',serif;font-size:30px;line-height:1.25;color:#1A1838;font-weight:500}
+.p{position:relative;margin-top:14px;font-size:16px;line-height:1.6;color:#4a4760}
+.tabs{position:relative;margin:26px auto 0;width:420px;height:112px}
+.tab{position:absolute;width:210px;height:92px;border-radius:12px;background:#fff;box-shadow:0 10px 24px rgba(20,18,31,.12);padding:14px 16px;text-align:left}
+.tab i{display:block;height:8px;border-radius:4px;background:#e4dfe9;margin-top:8px}
+.tab .q{font-size:13px;font-weight:600;color:#8a8599}
+.t1{left:0;top:16px;transform:rotate(-5deg)}
+.t2{left:105px;top:4px;transform:rotate(1deg);z-index:2}
+.t3{left:210px;top:18px;transform:rotate(6deg)}
+.stamp{position:absolute;z-index:3;right:-8px;top:-14px;width:96px;height:96px;border-radius:50%;background:#2A2668;color:#F1E4D8;font-size:11px;font-weight:700;letter-spacing:1.2px;line-height:1.35;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(10deg);box-shadow:0 8px 18px rgba(42,38,104,.35)}
+
+/* proof cards */
+.cards{padding:0 20px}
+.card{position:relative;height:300px;border-radius:18px;overflow:hidden;margin-bottom:14px;color:#fff;text-align:center;padding:0 46px}
+.card .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.card .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,20,.82) 0%,rgba(13,12,20,.55) 55%,rgba(13,12,20,.2) 100%)}
+.card .in{position:relative;padding-top:44px}
+.pill{display:inline-block;border:1.5px solid rgba(255,255,255,.85);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.card h3{margin-top:16px;font-family:'Playfair Display',serif;font-size:27px;font-weight:500}
+.card p{margin:10px auto 0;font-size:15.5px;line-height:1.55;color:#ECE8F2;max-width:430px}
+.big{font-family:'Playfair Display',serif;font-size:64px;line-height:1;color:#E9C3A4;margin-top:16px}
+.closing{text-align:center;padding:16px 64px 6px;font-size:15.5px;line-height:1.6;color:#4a4760}
+.closing .ul{color:#2A2668;font-weight:600;border-bottom:1.5px solid #D4A27F}
+
+/* ticker */
+.check{margin-top:34px;position:relative;background:#1A1838;color:#fff;text-align:center;padding:62px 48px 50px}
+.wave{position:absolute;left:0;top:-1px;width:600px;height:40px}
+.check h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:500}
+.check p{margin:12px auto 0;font-size:16px;line-height:1.6;color:#CFCBE0;max-width:440px}
+.tick{margin:26px auto 0;display:flex;gap:12px;justify-content:center}
+.tk{background:#24214a;border:1px solid #3b3772;border-radius:12px;padding:14px 18px;min-width:150px}
+.tk small{display:block;font-size:11px;letter-spacing:2px;color:#9f9ac2;font-weight:600}
+.tk b{display:block;margin-top:4px;font-size:26px;letter-spacing:1px;color:#E9C3A4;font-weight:700}
+.check .btn{margin-top:28px}
+
+/* products */
+.prods{background:linear-gradient(#1A1838,#0f0e1d);padding:6px 20px 46px;text-align:center}
+.prods h2{font-family:'Playfair Display',serif;font-size:28px;color:#fff;font-weight:500;padding:30px 0 22px}
+.row{display:flex;gap:12px}
+.pc{flex:1;border-radius:16px;overflow:hidden;background:#141228}
+.pc .img{height:170px;background:url('asset:brand/assets/generated/2026-11-24-pp-dark-gold-texture.jpg') center/cover;display:flex;align-items:center;justify-content:center;padding:0 10px}
+.pc .img span{font-family:'Playfair Display',serif;font-style:italic;font-size:26px;color:#F6E7DA;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.pc .nm{font-size:15px;font-weight:700;color:#fff;padding:16px 6px 12px}
+.pc .btn{font-size:14px;padding:12px 22px;margin-bottom:18px}
+.prods .all{margin-top:26px}
+
+/* usp */
+.usp{display:flex;background:#0f0e1d;padding:6px 18px 34px;border-top:1px solid #24214a}
+.u{flex:1;text-align:center;color:#E9E5F2;font-size:13px;font-weight:600;padding-top:24px}
+.u svg{display:block;margin:0 auto 10px}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<!-- HERO -->
+<a href="https://www.precisionpeptidecompany.com"><div class="hero"><div class="hero-in">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="kicker">Welcome to Precision Peptide</div>
+  <h1 class="h1 serif">If you've ever searched a peptide company's name with <em>“scam”</em> after it, this one's for you</h1>
+  <p class="sub">We're a publicly listed company, so everything about us is on the record. Your 10% welcome code works on the whole retail range.</p>
+  <span class="btn">Shop Now</span><br>
+  <span class="code">Your code <b>WELCOME10</b></span>
+</div></div></a>
+
+<!-- STORY -->
+<a href="https://www.precisionpeptidecompany.com/about"><div class="story">
+  <div class="ghost">scam?</div>
+  <h2 class="h2">You shouldn't have to guess who you're buying from</h2>
+  <p class="p">A lot of peptide sites look the same. There's no name on the about page, no address you can find, and nobody answers when you write in.</p>
+  <div class="tabs">
+    <div class="tab t1"><span class="q">About us</span><i style="width:80%"></i><i style="width:55%"></i></div>
+    <div class="tab t2"><span class="q">Contact</span><i style="width:70%"></i><i style="width:40%"></i></div>
+    <div class="tab t3"><span class="q">Who are we?</span><i style="width:85%"></i><i style="width:50%"></i></div>
+    <div class="stamp">NAME<br>NOT<br>FOUND</div>
+  </div>
+  <p class="p">You end up reading forum threads late at night, trying to work out which one is real. We built Precision Peptide so you never have to do that with us.</p>
+</div></a>
+
+<!-- PROOF CARDS -->
+<div class="cards">
+  <a href="https://www.precisionpeptidecompany.com/about"><div class="card"><div class="bg" style="background-image:url('asset:brand/assets/generated/2026-11-24-pp-dark-gold-texture.jpg')"></div><div class="shade" style="background:linear-gradient(180deg,rgba(13,12,20,.7),rgba(13,12,20,.35))"></div><div class="in">
+    <span class="pill">01 · Publicly listed</span>
+    <div class="big">BPC · PNGAF</div>
+    <p>We trade on the CSE as BPC and on the OTCQB as PNGAF, so our filings are public.</p>
+  </div></div></a>
+  <a href="https://www.precisionpeptidecompany.com/protocols"><div class="card"><div class="bg" style="background-image:url('asset:brand/assets/generated/2026-11-24-pp-pharmacy-lab-bench.jpg');background-size:820px auto;background-position:30% 75%"></div><div class="shade"></div><div class="in">
+    <span class="pill">02 · Licensed US clinicians</span>
+    <h3>A real clinician reviews every prescription</h3>
+    <p>Every prescription program is reviewed by a US-licensed clinician after a private health intake.</p>
+  </div></div></a>
+  <a href="https://www.precisionpeptidecompany.com/faq"><div class="card"><div class="bg" style="background-image:url('asset:brand/assets/generated/2026-11-24-pp-pharmacy-lab-bench.jpg');background-size:1250px auto;background-position:78% 80%"></div><div class="shade"></div><div class="in">
+    <span class="pill">03 · Independent third-party testing</span>
+    <h3>Every batch, tested</h3>
+    <p>Every batch goes through independent third-party testing for purity and potency.</p>
+  </div></div></a>
+</div>
+<a href="https://www.precisionpeptidecompany.com/about"><p class="closing">Our people are named on our <span class="ul">about page</span>, from our CEO to our Chief Scientific Officer.</p></a>
+
+<!-- CHECK US -->
+<a href="https://www.precisionpeptidecompany.com/about"><div class="check">
+  <svg class="wave" viewBox="0 0 600 40" preserveAspectRatio="none"><path d="M0 0 H600 V10 C480 42 360 2 300 18 C220 40 110 6 0 24 Z" fill="#F7F3EE"/></svg>
+  <h2>Check us the way you'd check anyone</h2>
+  <p>Look up our ticker, find the LegitScript seal on our site, and read who sits on our board. We'd rather you verify us than take our word for it.</p>
+  <div class="tick">
+    <div class="tk"><small>CSE</small><b>BPC</b></div>
+    <div class="tk"><small>OTCQB</small><b>PNGAF</b></div>
+    <div class="tk"><small>VERIFIED BY</small><b style="font-size:19px;padding-top:6px">LegitScript</b></div>
+  </div>
+  <span class="btn">Shop Now</span>
+</div></a>
+
+<!-- PRODUCTS -->
+<div class="prods">
+  <h2>Where most people start</h2>
+  <div class="row">
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>Recovery Patch</span></div><div class="nm">Recovery Patch</div><span class="btn">Shop Now</span></a>
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>KPV</span></div><div class="nm">KPV</div><span class="btn">Shop Now</span></a>
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>BPC</span></div><div class="nm">BPC</div><span class="btn">Shop Now</span></a>
+  </div>
+  <a href="https://www.precisionpeptidecompany.com"><span class="btn all">Shop Now</span></a>
+</div>
+
+<!-- USP -->
+<a href="https://www.precisionpeptidecompany.com"><div class="usp">
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M3 17l5-5 4 4 8-8"/><path d="M14 8h6v6"/></svg>Publicly listed</div>
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Licensed US clinicians</div>
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/></svg>Third-party tested</div>
+  <div class="u"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17l-5.9 3 1.2-6.5L2.5 8.9 9.1 8z"/></svg>Made in the USA</div>
+</div></a>
+
+<!-- FOOTER -->
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+
+</div>

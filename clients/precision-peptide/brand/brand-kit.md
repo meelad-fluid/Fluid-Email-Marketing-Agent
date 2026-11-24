@@ -1,34 +1,42 @@
-# Precision Peptide: brand book (v1, draft, updated 2026-11-24)
+# Precision Peptide: brand book (v2, draft, updated 2026-11-24)
 
 > Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
 
 - **Colors:**
-  - White #FFFFFF: Logo (the site logo is white-only, built for dark backgrounds); type on dark sections. Verified from logo-full-light.svg.
-  - Near Black (placeholder) #0B0D10: PLACEHOLDER until the CSEBPC design system PDF is shared: dark background the white logo sits on.
-  - Gold (placeholder) #C9A54C: PLACEHOLDER: accent taken from the gold Made in the USA badge on the site; confirm exact hex.
+  - White #FFFFFF: Logo (white-only, for dark backgrounds); type on dark sections. Verified from logo-full-light.svg.
+  - Indigo #2A2668: Product label colour (vial packaging renders on the site). Accents, stamps, links.
+  - Midnight #1A1838: Deep indigo for dark sections and headings on light.
+  - Ink #0B0A16: Footer and darkest backgrounds.
+  - Copper #D4A27F: Label type colour on packaging. Buttons (with Ink text), kickers, icons.
+  - Light Copper #E9C3A4: Accent type on dark: italic words, numbers, ticker values.
+  - Cream #F7F3EE: Light section background.
+  - Slate Text #4A4760: Body copy on cream.
+  - Lavender Grey #9F9AC2: Small labels and secondary text on dark. Tints #24214A, #C9C5DD, #8D89A6 allowed for cards/footer text.
 - **Fonts:**
-  - headings: To confirm (clean modern sans on site), fallback Helvetica Neue, Arial, sans-serif. Not readable from the site markup. Lock from the 'CSEBPC Branding assets design system.pdf' in their Drive folder.
-  - body: To confirm (clean modern sans on site), fallback Helvetica Neue, Arial, sans-serif. Same as headings until the design system PDF is shared.
-- **Buttons:** rounded. **CTA casing: Title Case**. Site buttons: Get Started, Shop Now, View Protocols, Explore Protocols, Talk to Us, Subscribe. Fill, radius and shape not yet verified. CTA wording itself needs legal approval (see compliance.md).
+  - headings: Playfair Display (Google Font), fallback Georgia, serif. STAND-IN until the CSEBPC design system PDF is shared. Editorial serif for headlines and italic accents.
+  - body: Inter (Google Font), fallback Helvetica Neue, Arial, sans-serif. STAND-IN; close to the clean sans on the site and the vial labels.
+- **Buttons:** rounded, 10px radius, fill #D4A27F, text #14121F. **CTA casing: Title Case**. Site buttons: Get Started, Shop Now, View Protocols, Explore Protocols, Talk to Us, Subscribe (Title Case). Copper fill is our email choice from the packaging; confirm against the design system PDF.
 - **Logos:**
-  - Full logo, light (white): Symbol (interlocking loop mark) + three-line wordmark, all white. On dark backgrounds only. Source: site /images/logo/logo-full-light.svg; originals in their Drive 'BPC branding assets' (AI, EPS, PNG, SVG).
+  - Full logo, light (white): Symbol (interlocking loop mark) + three-line wordmark 'The Precision Peptide Company', white. Dark backgrounds only. https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg; originals in their Drive 'BPC branding assets'.
 - **Imagery:**
-  - Product renders on clean backgrounds: semaglutide, tirzepatide, sermorelin, NAD+ vials (site home)
-  - Drive folder has PPC vial alpha renders, Recovery Patch alphas, an Rx sizzle reel and TPPC product shots
-  - Trust badges in use: LegitScript seal, gold Made in the USA badge
-  - Never: injections, syringes in use, bodies, before/after, scales, gyms, mirrors, treatment rooms (pending legal review)
+  - Real product renders: indigo-label glass vials with indigo caps and copper type (semaglutide, tirzepatide, sermorelin, NAD+) on the site
+  - Dark, warm-lit still life: charcoal stone, copper/gold rim light
+  - Clean pharmacy lab benches in low warm light
+  - Drive folder has vial alpha renders, Recovery Patch alphas, an Rx sizzle reel and product shots (request access)
+  - Trust badges: LegitScript seal, gold Made in the USA badge
+  - Never: injections in use, syringes, bodies, people, before/after, scales, gyms, mirrors, treatment rooms
 - **Voice:**
   - Thought leadership, trusting, safe (onboarding form)
   - Plain English, direct, short declarative sentences (blog)
   - Honest framing: 'what the research shows, and what it does not' (blog)
   - Contrast headlines: X vs Y (blog)
-  - Closing line on site: 'Done properly. Done legally. Done once.'
+  - Site closing line: 'Done properly. Done legally. Done once.'
 - **Do:**
   - Lead with legitimacy: publicly listed (CSE: BPC, OTCQB: PNGAF), licensed US clinicians, 503A pharmacy, LegitScript
   - Use compound/product names, not effect categories
   - No em dashes in any copy (team note)
 - **Don't:**
-  - No outcome or body claims of any kind until counsel approves a claim set
+  - No outcome or body claims of any kind
   - No 'research use only' framing: products are sold for human use
   - No 'FDA approved', 'pharmaceutical grade', 'clinically proven', '100% pure'
   - Never imply compounded GLP-1 equals a branded drug
@@ -37,7 +45,8 @@
   - Prescribed by US-licensed clinicians after a clinical review
   - Clinician review within 24 hours
   - Ships from a 503A compounding pharmacy, discreetly packaged
-  - Independent third-party tested (company statement; documents not seen)
+  - Independent third-party testing of every batch for purity and potency
+  - Retail products made to cGMP standards
   - Made in the USA
   - Exclusive MMA.INC partnership
 - **Never say:**
@@ -46,6 +55,6 @@
   - Generic or equivalent of a branded drug
   - Dosing or administration instructions
 - **Notes:**
-  - All claims are pending legal review: compliance gate is ESCALATE (compliance.md)
-  - Colors and fonts are placeholders until the client shares the CSEBPC design system PDF
-- **Sources:** precisionpeptidecompany.com (home, /protocols, /about, /faq, /blog), 2026-11-24 · Onboarding form PDF (no visual guidelines in it) · Drive folder 'BPC branding assets' file list (contents not accessible)
+  - Claims, disclaimers and offers approved by Meelad (Fluid), Slack, 2026-11-24
+  - Fonts are stand-ins and colours come from the product packaging until the CSEBPC design system PDF is shared
+- **Sources:** precisionpeptidecompany.com (home, /protocols, /about, /faq, /blog) and its product renders, 2026-11-24 · Onboarding form PDF · Drive folder 'BPC branding assets' file list
