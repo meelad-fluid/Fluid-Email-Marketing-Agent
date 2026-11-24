@@ -47,6 +47,9 @@ Body: A person on our team reads every reply.
 Button: Contact Support
 Disclaimer line.
 
+## SMS #1 — right after Email #1 (SMS consent only; added 2026-11-24 per Gloria)
+Meta Molecule: Still comparing suppliers? Our COA library is public, no login needed: metamolecule.com/coas For research use only. Reply STOP to opt out.
+
 ## Email #2 — 1 day later
 Subject: What researchers order first
 Preview: Three catalog staples. Ordered by 1 p.m. CT, they ship today.

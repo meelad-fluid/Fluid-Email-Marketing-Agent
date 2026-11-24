@@ -225,7 +225,7 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 - **Sending to:** Subscribers with SMS consent who haven't ordered
 - **Final copy (134 characters, 1 SMS):** "Meta Molecule: 24 hours only, your code is now 15% off: WELCOME15. metamolecule.com/shop For research use only. Reply STOP to opt out."
 
-## Site Abandonment Flow (2 Emails)
+## Site Abandonment Flow (2 Emails + 1 SMS)
 
 **Flow note:** Trigger: page view on the site with no product view, add to cart or checkout. Flow filter: exits on `product_viewed`, `checkout_started` or `placed_order`; not in the Browse Abandonment or Abandoned Checkout flow. Re-entry: after 7 days. No new discount.
 
@@ -243,6 +243,13 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 - Three proof points: the COA library, same-day shipping before 1 p.m. CT, free U.S. shipping at $200
 - Mention WELCOME10 only if they hold it and haven't used it
 - CTA: View COA Library; secondary "reply with any question"
+
+### SMS #1
+
+- **Send Time:** Immediately after Email #1
+- **Sending to:** Site visitors with SMS consent who left without viewing a product
+- **Goals:** The comparing-suppliers hook and the COA library, no offer
+- **Final copy (153 characters, 1 SMS):** "Meta Molecule: Still comparing suppliers? Our COA library is public, no login needed: metamolecule.com/coas For research use only. Reply STOP to opt out."
 
 ### Email #2: Best sellers
 
@@ -520,7 +527,7 @@ All values proposed for client approval (the brand's ceiling is 25%). Codes can'
 - One primary CTA: Explore Research Catalog
 - Research-use line next to the products
 
-## SMS Build Sheet (all flows, 7 SMS)
+## SMS Build Sheet (all flows, 8 SMS)
 
 Final copy for building in Customer.io, updated 2026-11-24. Each one matches its flow's copy doc.
 
@@ -563,7 +570,10 @@ Final copy for building in Customer.io, updated 2026-11-24. Each one matches its
   - "Meta Molecule: It's been a while. 20% off your next order with COMEBACK20: metamolecule.com/shop For research use only. Reply STOP to opt out."
   - 142 characters
 
-Site Abandonment has no SMS.
+**Site Abandonment flow**
+8. SMS #1, right after Email #1. Sending to: site visitors with SMS consent who left without viewing a product.
+  - "Meta Molecule: Still comparing suppliers? Our COA library is public, no login needed: metamolecule.com/coas For research use only. Reply STOP to opt out."
+  - 153 characters
 
 ## Flow Rules
 
