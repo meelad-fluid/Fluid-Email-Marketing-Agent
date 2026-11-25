@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arq8 · Welcome Email #2 — A note from the founder</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;600&display=swap');
+body{margin:0;background:#f4f4f4}
+a{color:#108474}
+.slot{background:#FFE27A;padding:0 4px}
+</style>
+</helmet>
+<div style="width:600px;margin:0 auto;background:#fff;font-family:Geist,'Helvetica Neue',Arial,sans-serif;color:#191919;font-size:16px;line-height:1.65">
+  <div style="padding:40px 44px 44px">
+    <p style="margin:0 0 18px">Hi {first_name},</p>
+    <p style="margin:0 0 18px"><span class="slot">[Founder name]</span> here. I started Arq8, and I wanted to say thanks for joining us myself.</p>
+    <p style="margin:0 0 18px">Confession: I almost gave up on creatine before I ever made it. <span class="slot">[One true line from the founder about when creatine first helped them, beyond the gym.]</span></p>
+    <p style="margin:0 0 18px">The trouble was taking it. Every option I tried was gritty, chalky, gave me bloat or was loaded with sugar. And every label looked like it was made for a 22-year-old in a tank top. Not for someone who just wants to stay strong and sharp for the next 30 years.</p>
+    <p style="margin:0 0 18px">So we made a few decisions on purpose. We refine our creatine with a Swiss patent-pending process so it fully dissolves. We purify it to 99.9%. And we use zero sugar, sweetened with monk fruit, even though that costs us more.</p>
+    <p style="margin:0 0 18px">The goal is simple: creatine as normal as your morning coffee.</p>
+    <p style="margin:0 0 18px">I'd love to know what brought you here. Hit reply and tell me. I read them.</p>
+    <p style="margin:0 0 4px"><span class="slot">[Founder name]</span></p>
+    <p style="margin:0 0 26px;color:#5a5a5a">Founder, Arq8</p>
+    <p style="margin:0">P.S. Your 15% off is still waiting with code <b>WELCOME</b> on your first order: <a href="https://arq-8.com/products/arq8-creatine-monohydrate-gummies" style="text-decoration:underline">start your first jar here</a>.</p>
+  </div>
+  <div style="border-top:1px solid #e6e6e6;padding:20px 44px 30px;font-size:11px;line-height:1.6;color:#8a8a8a">
+    *Individual results may vary. These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.<br>
+    <a href="{% manage_preferences_url %}" style="color:#8a8a8a">Manage preferences</a> · <a href="{% unsubscribe_url %}" style="color:#8a8a8a">Unsubscribe</a>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

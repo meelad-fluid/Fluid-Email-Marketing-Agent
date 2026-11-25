@@ -1,0 +1,12 @@
+{
+  "logo": "brand/assets/logo-black.svg",
+  "hero_scene": "brand/assets/generated/2026-11-25-welcome-morning-coffee-jar.jpg",
+  "ingredient_scene": "brand/assets/generated/2026-11-25-welcome-ingredient-composite.jpg",
+  "jar_strawberry": "brand/assets/jar-strawberry-cut.webp",
+  "magnesium": "brand/assets/magnesium.webp",
+  "variety_pack": "brand/assets/hero-jars2.webp",
+  "gummy_mango": "brand/assets/gummies-mango-f.webp",
+  "gummy_strawberry": "brand/assets/gummies-straw-f.webp",
+  "badge_informed_sport": "brand/assets/badge-informed-w.png",
+  "badge_clean_label": "brand/assets/badge-clp-w.png"
+}

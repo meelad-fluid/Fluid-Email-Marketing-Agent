@@ -71,3 +71,9 @@ Read before any work for Arq8. Append (dated) after every change. Rules here out
 
 ## 2026-11-25 — welcome flow check
 - Meelad asked if the welcome flow is strategized → yes, in strategy/flow-plan.md (7 emails + 2 SMS, WELCOME 15% → WELCOME20 24h); re-shared the flow plan link. Still needs approval; copy/design not started.
+
+## 2026-11-25 — Welcome flow written + designed
+- Meelad asked to write & design the welcome flow. Copy: copy/welcome-flow.md (#1 v1/v2/v3 per pop-up goal, #2 founder note, #3 reviews, #4 where to start, #5 WELCOME20, SMS 1–2). Designs: designs/welcome-1-stay-strong, -1-focus-energy, -1-workouts, -2-founder-note, -3-what-people-say, -4-where-to-start, -5-welcome20. Flow review link: https://fluid-email-marketing-agent-production.up.railway.app/f/n7S4C4lfcmQxUI8q2jYJtEe9
+- Look: moody lifestyle hero cutting to silver/black, flat square buttons, color-coded product cards (new vs the dark lab / silver BF20 / cream winback looks). New generated scenes: 2026-11-25-welcome-morning-coffee-jar, -ingredient-composite, -tote-on-the-go, -lineup-counter.
+- New URLs: powder /products/arq8-fulldissolve-nano-creatine-powder; Creatine + Magnesium /products/arq8-creatine-magnesium-gummies-bundle; HYDRO /products/arq8-electrolytes. The Creatine+Magnesium Shopify cutout keeps a white box → compose jar-strawberry-cut + magnesium.webp instead.
+- Open before live: founder name + one true detail (#2 has highlighted slots); WELCOME value (15% assumed) + WELCOME20 approval and whether it stacks on subscribe; reviews limited to the 5 on the home page; studies count and particle size left out.
