@@ -68,3 +68,6 @@ Read before any work for Arq8. Append (dated) after every change. Rules here out
 
 ## 2026-11-22 — BF20 review link
 - Meelad asked for the next designed campaign → BF20 sitewide (Nov 25). Re-pointed its images to brand/assets (assets.json added), Newsreader replaced the GT Canon font files, offer band shortened to "20% OFF EVERYTHING · CODE BF20 · ENDS NOV 30" (was cut off). Published review link (in README). Still uses the v1 copy, not the avatar-led v2 copy.
+
+## 2026-11-25 — welcome flow check
+- Meelad asked if the welcome flow is strategized → yes, in strategy/flow-plan.md (7 emails + 2 SMS, WELCOME 15% → WELCOME20 24h); re-shared the flow plan link. Still needs approval; copy/design not started.
