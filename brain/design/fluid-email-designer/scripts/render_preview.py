@@ -9,7 +9,7 @@ columns, read top to bottom, left to right) to --out, then prints a report:
   FOLD        button or offer starts below the fold line (designed emails only)
   OFFER       no code pill or offer numerals in the hero (skipped for emails marked data-offer="optional")
   EDGE        two sections meet with different backgrounds and no transition
-  PRODUCT     extra text inside a product block (name + button only)
+  PRODUCT     more than one line of text inside a product block (name + one short line + button)
   PLACEHOLDER unfilled {{PLACEHOLDER}} left in the copy
   IMAGE       an image failed to load
 """
@@ -60,8 +60,10 @@ CHECK_JS = r"""
       issues.push(['EDGE', `${name(a)} meets ${name(b)} with no transition`]);
     }
     email.querySelectorAll('.pcard, .pfeat').forEach(p => {
-      const extra = [...p.querySelectorAll('p, li, .guide-text')];
-      if (extra.length) issues.push(['PRODUCT', `extra text in a product block: "${extra[0].textContent.trim().slice(0,50)}"`]);
+      // One short line of what it does for them is the standard (copy-models.md); more than that is a paragraph.
+      const extra = [...p.querySelectorAll('p, li, .guide-text')].filter(e => e.textContent.trim());
+      const long = extra.find(e => e.textContent.trim().length > 140);
+      if (extra.length > 1 || long) issues.push(['PRODUCT', `more than one short line in a product block: "${(long || extra[1]).textContent.trim().slice(0,50)}"`]);
     });
     const ph = (email.innerText.match(/\{\{[A-Z0-9_]+\}\}/g) || []);
     if (ph.length) issues.push(['PLACEHOLDER', [...new Set(ph)].join(', ')]);

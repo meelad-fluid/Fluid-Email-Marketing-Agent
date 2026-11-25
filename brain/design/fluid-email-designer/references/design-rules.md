@@ -99,11 +99,12 @@ transition:
 This includes the move into the footer. Older Fluid examples still have hard edges;
 don't copy them.
 
-## 6. Product blocks: name and button only
+## 6. Product blocks: name, one line, button
 
-A product block is the product image, the product name, and a button. **No product
-descriptions and no labels** (no "BESTSELLER", no per-product discount badges), even
-though older examples have them. Guidance cards ("Top break or underbarrel?") and
+A product block is the product image, the product name, **one short line from the copy
+about what it does for the reader** ("A mistake doesn't have to cost you a shirt."), and a
+button. Never a paragraph or a list of specs. On sale emails a sticker may repeat how to
+get the deal ("Add 2 to cart, use the code and one is free"); no "BESTSELLER" labels. Guidance cards ("Top break or underbarrel?") and
 reviews are not product blocks and keep their text.
 
 ## 7. Fresh images across a flow

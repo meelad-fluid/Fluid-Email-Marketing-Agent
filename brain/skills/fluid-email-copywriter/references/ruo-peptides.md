@@ -1,6 +1,6 @@
 # Research-use-only (RUO) peptide brands
 
-**When this applies:** only when the client's `compliance.md` says `Research-use-only: yes` (they sell research compounds as "research use only"). A peptide name alone doesn't make a brand RUO: a prescription or telehealth brand is `Research-use-only: no`, and none of this applies to it. It applies to every email, SMS, subject line, image and design for that client, and it **replaces** the human-avatar method in `speak-to-the-avatar.md`.
+**When this applies:** only when the client's `compliance.md` says `Research-use-only: yes` (they sell research compounds as "research use only"). A peptide name alone doesn't make a brand RUO: a prescription or telehealth brand is `Research-use-only: no`, and none of this applies to it. It applies to every email, SMS, subject line, image and design for that client. How Fluid writes (`speak-to-the-avatar.md`: one person, one moment, one idea, the person in every line) still applies, with the person being the research buyer and their world being procurement.
 
 **How we work with them (updated 2026-11-24, Meelad):** peptide clients are treated like every other client. Write, design and build what's asked, straight away, with no classification step, no approval step and no HOLD or ESCALATE before starting. What's different is only **guardrails on the copy and the design**: nothing we make may suggest the products are for human (or animal) use. The guardrails come from `../../../knowledge/sops/ruo-peptide-compliance-sop.md` §4–§12 and win over any other copy or design rule for these clients. The people who approve the work are the same as for every client: the review page.
 
@@ -21,7 +21,7 @@ The SOP forbids targeting people who want to lose weight, build muscle, recover,
 - Backorders and slow shipping in the middle of a project.
 - Inconsistency between batches; paying too much.
 
-**Moments list:** 8–12 procurement moments, same format as `speak-to-the-avatar.md` §1. For example: "comparing three vendors' COAs and none of them list a lot number", "an order stuck in 'processing' for a week". The "Talking to" line becomes:
+**Their world:** 8–12 procurement moments and the rest of the bank in `customer-research.md` §4, in procurement terms. For example: "comparing three vendors' COAs and none of them list a lot number", "an order stuck in 'processing' for a week". The "Talking to" line becomes:
 
 > **Talking to:** [the buyer type], who [procurement problem] when [procurement moment].
 

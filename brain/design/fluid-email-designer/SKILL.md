@@ -110,7 +110,7 @@ prints entries to add to `fonts.files` in brand.json (custom fonts the user uplo
 there too).
 
 The preview screenshots every email into viewing sheets and flags rule breaks: a button or offer
-below the fold, sections touching with no transition, extra text inside product blocks,
+below the fold, sections touching with no transition, more than one short line inside product blocks,
 and leftover placeholders. Fix every flag, then **view the sheets yourself** and compare
 against the example sheets. Ask: does it feel like a Fluid email, or like stacked boxes?
 Re-render after fixes.

@@ -1,66 +1,75 @@
-# Speak to the avatar (the core of every email)
+# Speak to the person: how Fluid writes
 
-> **Not for research-use-only (RUO) peptide clients.** Talking to a person about their body, health or results is exactly what the RUO SOP forbids. For them, use `ruo-peptides.md`: the avatar is the research buyer and the moments are procurement moments.
+> **Research-use-only (RUO) peptide clients:** the person is the research buyer and their world is procurement (`ruo-peptides.md`). Everything below still applies, translated into that world; never a body, a health goal or a result.
 
-Fluid's standing rule, from Meelad (2026-11-18): an email should sound like it was written to one person about their day, not like a whiteboard of product facts. Our copy had drifted into describing the product: certifications, specs, ingredients, "what it is". The avatar research was good, but it sat in a note at the bottom and never reached the copy.
+Marketing isn't a lot of words. It's knowing the one person who would want this, well enough that the email sounds like it was written about their day, then getting out of the way. Two things make that possible, and every email Fluid writes stands on both:
 
-The fix is a procedure, not a vibe. Do these four things for every email (campaign, flow, plain text, SMS).
+1. **Research that knows their world**: what they do, what they're holding, what they say, which moment of their week or year they're in, the doubts they have and the words their trade uses (`customer-research.md`).
+2. **Writing that puts them in every line**: the headline, the product lines, the section titles, the proof and the buttons all speak to that person. The product shows up as the obvious next step in their day, never as a lecture about itself.
 
-## 1. The moments list (per avatar, built once, reused)
+Worked examples of every move below: `copy-models.md`. Read 3–5 of them that match the email's type before writing.
 
-The avatar table says who they are. The moments list says **where they are when the problem shows up**. For each avatar in `research/onboarding-doc.md` (or `research/customer-research.md`), add 8–12 moments:
+## 1. Know who's reading: what they're doing, not who they are
 
-| Moment | When / where | What they're doing | What they say to themselves | Source |
-|---|---|---|---|---|
-| The 3pm wall | mid-afternoon, at the desk | rereading the same email twice | "I slept seven hours, why am I this tired?" | form pain list; review |
+Not "health-conscious women 30–45". A person in the middle of something:
+- the tattoo artist looking at the grays on their tray,
+- the market vendor packing up at 2pm with half the rack still full,
+- the parent who handled Halloween and finally sits down the night after,
+- the buyer comparing three vendors' COAs (RUO).
 
-Rules:
-- A moment is a **scene you could photograph**: a time, a place, an action. "Low energy" is not a moment; "yawning in the car before school pickup" is.
-- **Their words in the last column** come from reviews, the onboarding form, FAQs, social comments, or Reddit/Amazon reviews of the category (WebFetch/WebSearch). Mark which. Never invent a quote and attribute it.
-- Add the **things they've already tried that didn't work** ("bought powder, quit after two weeks", "switched to decaf, still crashing"). Those make the best second lines.
-- If the research doc has no moments list yet, **build it before writing the email** and save it to the doc.
+Pick one for the email and write it down first:
 
-## 2. The "Talking to" line (every brief, before any copy)
+> **Talking to:** [who, by what they do], who [situation, in their words] when [one moment].
 
-One line, written first, at the top of the copy file:
+The moment usually comes from the calendar or their routine (the night after the holiday, the Sunday of a sale, the first day back at work, the end of a bag) or from their work (a client reference, a booth weekend, an order that just arrived). It comes from the client's "their world" bank in the research doc. If you can't fill the line, the research isn't done: go back to it.
 
-> **Talking to:** [avatar], who [situation, in their words] when [one moment from the list].
+## 2. Find the idea (every email, and a different one every send)
 
-One person and one moment per email. If you can't fill it, the email isn't ready to write: go back to the moments list or ask the strategist which avatar the send is for. A sitewide sale still gets one: pick the moment the biggest share of the list has lived (for example, the half-used tub of powder in the cupboard).
+The offer can stay the same for ten emails. The reason this person should care today can't. Before writing, name the email's idea in one line: the frame that makes this send worth opening. Patterns that work:
 
-## 3. Write from the moment outward
+- **A scene from their day or the calendar**: the night after Halloween; "Reserved: whoever brought the launcher" on a Thanksgiving place card; "Tomorrow we all get back to work and you'll forget."
+- **A device that carries the offer**: a WANTED poster with each product as a suspect; an APPROVED stamp on a requisition form; a deli ticket ("Now serving: #1, you."); a lost-and-found box for an unclaimed code; a command typed into a terminal.
+- **The maths, done for them**: "One bag is $23.99. With the code, two bags are $23.99." · "90 days from now lands you in February." · pre-built baskets that reach a free-gift threshold · "You save $470.85."
+- **One hero instead of the catalog**: one color, one product, one use ("A red that's earned its place in 6 of our sets").
+- **Their words as the email**: reviews or a public thread, picked to answer one doubt ("Their ideas, not ours").
+- **How people actually use it**: three recipes, hot vs iced, the use you didn't expect ("tell them it's algae").
+- **A confession or a habit from a real person**: "I have a reputation for extending our sales. Not tonight." · "hey, you awake? I'm up too."
+- **The story behind a name, a price or a decision**: where the brand name came from; why a free bag is rare when prices are low all year.
 
-**Headline**: names the moment or the problem in their words, then (optionally) the promise. Patterns that work:
-- **Moment + fix**: "The afternoon, without the crash." / "Brain fog at 3pm, and workouts that stopped showing?"
-- **If-you**: "If probiotics never did much for you, this is probably why."
-- **The thing they quit**: "That half-used tub? This is the version you'll finish."
-- **Their own words, quoted**: a real review line about the problem or the moment it changed.
-- **The honest version**: "The supplement you'll actually take every day."
-Exceptions stay as in copy-rules.md (sale emails lead with the sale, last-call/upgrade emails lead with the numbers), but even then the subheadline speaks to the moment.
+In a sequence (a sale, a flow), check the ideas already used in the other sends and pick a new one. Write it at the top of the copy file as **Idea:** under the Talking to line.
 
-**First section after the hero is "that's me"**: describe their situation before the product appears. Two or three specific moments, or one short scene, in second person and their words. The reader should recognise themselves before they're sold anything.
+## 3. Put them in every line
 
-**Then the product, as the answer**: every feature is translated into what it changes in their day.
-- "5 g creatine per serving" → "four gummies at breakfast, nothing to mix" (only claim outcomes the client can back up, with the disclaimer).
-- "99.9% purified" → "you've been let down by labels before, so here's how to check this one."
-Proof (certifications, numbers, reviews) answers a doubt the avatar has. It never opens the email.
+- **Headline**: their moment ("You did the costumes. You did the candy."), the offer said plainly (sale, last-call and upgrade emails), or the idea ("WANTED: 4 matchas"). Never a sentence about the product that any brand could send.
+- **Subheadline**: makes the headline pay off in one or two sentences, usually with the offer.
+- **Product lines**: one line each about what it does in their hands, in their world. "Line it, shade it, pack it, thin it into a wash: it does all four from the same bottle." · "A mistake doesn't have to cost you a shirt." · "On for the job, off when you're done." · "It doesn't melt, crush or need a cooler." Specs only when the spec is the point, and then exact (328 feet, 15 bottles in five families).
+- **Section titles about people**: "For the parents who say 'don't get me anything'" · "For the friend who bakes for everyone" · "What you'll tattoo with it" · "Need help getting to $160?"
+- **Proof answers a doubt**: pick the review that answers what this person is worried about ("I place 2-3 orders a month" next to "worth doing properly"). Name an objection honestly when it's real ("We're not going to argue with the pricey part"). Their words, verbatim, typos and all.
+- **Buttons in the reader's voice**: "I'll Get This Set" · "My Crew Needs Hard Hat Stickers" · "Turn My Recipes Blue" · "I'll Need The Coffee Too" · "I'm not missing it. Take me to the store". Let buttons sort people when it helps ("I Prefer Capsules" / "I Prefer Gummies"; a row of "I want…" buttons).
+- **Subject and preview as a pair**: the subject opens something, the preview finishes it, like a text from a person. "WANTED: 4 matchas" / "Bring them in & get one free" · "Thanksgiving confession…" / "(it's about how we got our name)" · "hey, you awake?" / "I'm up too." Non-openers get their own angle ("making sure you saw this").
 
-**Close on how their day looks after**, plus the offer or the risk reversal.
+## 4. Make the offer impossible to misread
 
-## 4. The whiteboard test (before handing over)
+Clarity is copy. On every offer email:
+- the code (or "no code needed, it applies at checkout"), the amount, and the exact end with time zone ("11:59 PM ET tonight, Tuesday, Dec 1");
+- how it works in plain numbered steps, with the edge cases answered before anyone asks ("Two different bags? The cheaper one is free. Two of the same? The second one is free.");
+- exclusions once, in plain words;
+- the money worked out for them where it helps (savings, per month, per day);
+- the mechanic repeated on each product as a sticker.
 
-Run all five; fix anything that fails:
-1. **Anyone test**: could this headline be sent to any brand's list? If yes, it isn't talking to anyone. Rewrite it around the moment.
-2. **Count**: at least half the body sentences are about the reader (their day, their problem, their words), not about the product or the brand.
-3. **Cover the brand name**: does the email still speak to a specific person? It should.
-4. **Read it out loud**: would a friend say it like this in a text? (copy-rules.md "Sound like a person, not AI".)
-5. **Proof placement**: no certification, spec or ingredient list appears before the "that's me" section.
+## 5. Plain text is a person, with a personality
 
-## Before and after (made-up brand, for illustration)
+Founder and team notes read like one specific human: a confession, a habit, a story only they can tell, a moment from their week ("Phones going, boxes moving, somebody's always hunting for packing tape"). The offer often lands after the story or in the P.S. Ask for a reply when it's natural ("What did you grow up on? Hit reply, I read every one"). Leave a marked slot for a real detail from the founder rather than inventing one.
 
-A magnesium sleep powder, avatar "the parent who's exhausted but can't switch off at night":
+## 6. Short
 
-- **Before (product-led):** "Meet our triple-magnesium blend. Glycinate, threonate and taurate in one scoop, third-party tested, zero sugar."
-- **After (avatar-led):** "Lying awake at 1am running tomorrow's to-do list? Most nights it isn't the coffee, it's a mind that won't power down. One warm scoop before bed helps your body do the winding down for you.*"
+Most emails land at 150–350 words; SMS about 100 characters before the link. Cut any section the email doesn't need. If a line doesn't move this person closer to clicking, delete it.
 
-The facts didn't change. The first one is about the powder. The second is about her night.
+## 7. The check before handing over
+
+1. **Anyone test**: could the headline go to any brand's list? Rewrite it around their moment or the idea.
+2. **The person test**: is the person in the product lines, section titles and buttons too, not only the hero?
+3. **New idea**: is this send's idea different from the others in its sequence?
+4. **Offer test**: could someone who skims get the deal right without contacting support?
+5. **Out loud**: would a friend text it this way? (copy-rules.md "Sound like a person".)
+6. **True**: every fact, number, review and story comes from the client or their customers. Missing? Flag it, don't fill it.

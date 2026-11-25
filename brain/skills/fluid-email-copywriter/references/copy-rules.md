@@ -6,17 +6,17 @@ Sources: `knowledge/sops/email-design-sop.md` (SOP), `brain/skills/fluid-email-s
 
 ## Above the fold
 
-- **Headline** names a specific customer pain point or problem (SOP), as a moment from the avatar's day in their words (`speak-to-the-avatar.md`). A headline about the product ("What's in your creatine?", "The everyday essential") fails unless it's a sale or last-call email. Short and punchy, usually 2-4 lines at email size (design rules). Exceptions: on sale emails the sale is the headline; on upgrade and last-call emails the offer numerals are the headline.
+- **Headline** is the reader's moment or problem in their words (SOP), the offer said plainly (sale, last-call and upgrade emails), or the email's idea ("WANTED: 4 matchas") (`speak-to-the-avatar.md`). A headline about the product that any brand could send ("What's in your creatine?", "The everyday essential") fails. Short and punchy, usually 2-4 lines at email size (design rules). Exceptions: on sale emails the sale is the headline; on upgrade and last-call emails the offer numerals are the headline.
 - **Subheadline**: 1-2 sentences. Usually where the offer is stated (design rules).
 - **Offer**: the code, discount or deal, in the subheadline or as the code pill under the button (design rules). Always with a real deadline.
-- **Button**: states the action *and* the solution (SOP). Cased like the brand's website buttons (brand kit "CTA casing": ALL CAPS if the site uses all caps, otherwise Title Case). One primary button above the fold. The first CTA sits within two sentences of the opening copy (SOP).
+- **Button**: states the action *and* the solution (SOP), ideally in the reader's voice ("I'll Get This Set", "Turn My Recipes Blue", "My Crew Needs Hard Hat Stickers"). Cased like the brand's website buttons (brand kit "CTA casing": ALL CAPS if the site uses all caps, otherwise Title Case). One primary button above the fold. The first CTA sits within two sentences of the opening copy (SOP).
 
 ## The body
 
 - Paragraphs of 1-2 sentences (SOP). People skim.
 - Features and benefits as bullets or checklists, **three per section** at most (SOP: the brain processes sets of three).
 - Each section has its own short heading (design rules) and supports the hero; close with the offer and a button again (design rules).
-- **Product blocks carry the product name and a button only** (design rules). No descriptions, no "BESTSELLER" labels. Guidance cards and reviews keep their text.
+- **Product blocks carry the name, one short line about what it does in the reader's hands, and a button** (design rules §6). Never a spec list or a paragraph; no "BESTSELLER" labels. Guidance cards and reviews keep their text.
 - Default skeleton when nothing else applies (SOP): pain-focused headline → two-sentence educational bridge → prominent CTA → three-point benefit checklist → final solution-oriented CTA.
 
 ## Subject lines and preview text (playbook)
@@ -32,7 +32,7 @@ Sources: `knowledge/sops/email-design-sop.md` (SOP), `brain/skills/fluid-email-s
 
 ## Plain-text emails (playbook, flow designs)
 
-- They read like a person wrote them: greeting, the point, one or two text links, sign-off from a real name. No buttons, no images.
+- They read like one specific person wrote them, with a personality: a confession, a habit, a scene from their week, the story behind a name or a price. The offer can arrive after the story or in the P.S. One or two text links, sign-off from a real name. No buttons, no images.
 - **A founder note needs a real reason to exist**: something only the founder can say (a batch that turned out differently, a decision and why, a customer letter). If you can't name it, it's a designed email with a different angle.
 - Invite replies ("A real person reads these").
 
