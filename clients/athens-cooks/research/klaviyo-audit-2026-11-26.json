@@ -1,0 +1,341 @@
+{
+ "pulled_at": "2026-11-26T19:30:41.113Z",
+ "window_days": 60,
+ "account": {
+  "name": "Athens Cooks",
+  "sender": "info@athenscooks.com",
+  "timezone": "America/New_York",
+  "currency": "USD"
+ },
+ "lists": [
+  {
+   "id": "RFp9xq",
+   "name": "Preview List",
+   "created": "2025-09-10"
+  },
+  {
+   "id": "Tyshph",
+   "name": "Email List",
+   "created": "2025-09-10"
+  },
+  {
+   "id": "V3Ez7H",
+   "name": "VIP 2025",
+   "created": "2025-11-07"
+  },
+  {
+   "id": "Ypk9Dv",
+   "name": "SMS List",
+   "created": "2025-09-10"
+  },
+  {
+   "id": "YxTadr",
+   "name": "GoTab",
+   "created": "2025-09-10"
+  }
+ ],
+ "forms": [
+  {
+   "name": "FC | Pop Up",
+   "status": "live"
+  }
+ ],
+ "flows": {
+  "live_count": 7,
+  "live": [
+   "FC | Post Purchase",
+   "FC | Browse Abandonment",
+   "FC | Abandoned Cart",
+   "FC | Welcome (Cookware)",
+   "FC | Winback 90d",
+   "FC | Welcome (Baking)",
+   "FC | Welcome (Table + Bar)"
+  ],
+  "top10_60d": [
+   {
+    "name": "FC | Post Purchase",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 1821,
+    "revenue": 3654,
+    "rpr": 2.01,
+    "conversions": 31
+   },
+   {
+    "name": "FC | Abandoned Cart",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 14595,
+    "revenue": 712,
+    "rpr": 0.05,
+    "conversions": 3
+   },
+   {
+    "name": "FC | Welcome (Cookware)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email",
+    "recipients": 10,
+    "revenue": 48,
+    "rpr": 4.82,
+    "conversions": 1
+   },
+   {
+    "name": "FC | Browse Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 97,
+    "revenue": 0,
+    "rpr": 0,
+    "conversions": 0
+   }
+  ]
+ },
+ "campaigns_60d": {
+  "email_sends": 5,
+  "sms_sends": 0,
+  "per_week": 0.6,
+  "avg_open_rate": 0.495,
+  "avg_click_rate": 0.0064,
+  "best": [
+   {
+    "name": "FC | A Little Something Extra for Thanksgiving",
+    "channel": "email",
+    "sent": "2026-11-23T15:56:33.925717+00:00",
+    "status": "Sent",
+    "subject": "Pink House Alchemy for your Thanksgiving coffee",
+    "preview": "Maple with cinnamon, salted caramel with red miso.",
+    "audiences": {
+     "included": [
+      "VRYh3P"
+     ],
+     "excluded": [
+      "SZuP2G"
+     ]
+    },
+    "recipients": 3746,
+    "open_rate": 0.61347,
+    "click_rate": 0.00588,
+    "conversions": 5,
+    "revenue": 1530,
+    "rpr": 0.40894,
+    "unsub_rate": 0.00936
+   },
+   {
+    "name": "FC | Your Kitchen Upgrade Starts Here",
+    "channel": "email",
+    "sent": "2026-11-24T23:00:00+00:00",
+    "status": "Sent",
+    "subject": "A $275 Shun knife is $175 today",
+    "preview": "Plus the Vitamix immersion bundle at $185, was $239.",
+    "audiences": {
+     "included": [
+      "VRYh3P"
+     ],
+     "excluded": [
+      "SZuP2G"
+     ]
+    },
+    "recipients": 3728,
+    "open_rate": 0.55696,
+    "click_rate": 0.00779,
+    "conversions": 9,
+    "revenue": 1236,
+    "rpr": 0.33214,
+    "unsub_rate": 0.00913
+   },
+   {
+    "name": "FC | Meet Your Thanksgiving Roasting Essentials",
+    "channel": "email",
+    "sent": "2026-11-22T15:30:00+00:00",
+    "status": "Sent",
+    "subject": "Get the roasting pan out before November 26",
+    "preview": "Check the fit, find the thermometer, plan for the gravy.",
+    "audiences": {
+     "included": [
+      "VRYh3P"
+     ],
+     "excluded": [
+      "SZuP2G"
+     ]
+    },
+    "recipients": 3640,
+    "open_rate": 0.5798,
+    "click_rate": 0.00771,
+    "conversions": 3,
+    "revenue": 738,
+    "rpr": 0.20298,
+    "unsub_rate": 0.01156
+   },
+   {
+    "name": "FC | Your Thanksgiving Kitchen Starts Here",
+    "channel": "email",
+    "sent": "2026-11-19T14:38:18.870897+00:00",
+    "status": "Sent",
+    "subject": "Thanksgiving is November 26. Check the kitchen first.",
+    "preview": "Pull out the roasting pan and see what you need.",
+    "audiences": {
+     "included": [
+      "VRYh3P"
+     ],
+     "excluded": [
+      "SZuP2G"
+     ]
+    },
+    "recipients": 3680,
+    "open_rate": 0.51838,
+    "click_rate": 0.00681,
+    "conversions": 4,
+    "revenue": 236,
+    "rpr": 0.06416,
+    "unsub_rate": 0.00926
+   },
+   {
+    "name": "FC | The Ultimate Thanksgiving Checklist",
+    "channel": "email",
+    "sent": "2026-11-17T18:54:30.554119+00:00",
+    "status": "Sent",
+    "subject": "Check your kitchen before Thanksgiving",
+    "preview": "A list for the turkey, sides, baking and table.",
+    "audiences": {
+     "included": [
+      "QNVfLT"
+     ],
+     "excluded": []
+    },
+    "recipients": 20905,
+    "open_rate": 0.20628,
+    "click_rate": 0.00363,
+    "conversions": 6,
+    "revenue": 998,
+    "rpr": 0.06236,
+    "unsub_rate": 0.00744
+   }
+  ],
+  "worst": [
+   {
+    "name": "FC | The Ultimate Thanksgiving Checklist",
+    "channel": "email",
+    "sent": "2026-11-17T18:54:30.554119+00:00",
+    "status": "Sent",
+    "subject": "Check your kitchen before Thanksgiving",
+    "preview": "A list for the turkey, sides, baking and table.",
+    "audiences": {
+     "included": [
+      "QNVfLT"
+     ],
+     "excluded": []
+    },
+    "recipients": 20905,
+    "open_rate": 0.20628,
+    "click_rate": 0.00363,
+    "conversions": 6,
+    "revenue": 998,
+    "rpr": 0.06236,
+    "unsub_rate": 0.00744
+   },
+   {
+    "name": "FC | Your Thanksgiving Kitchen Starts Here",
+    "channel": "email",
+    "sent": "2026-11-19T14:38:18.870897+00:00",
+    "status": "Sent",
+    "subject": "Thanksgiving is November 26. Check the kitchen first.",
+    "preview": "Pull out the roasting pan and see what you need.",
+    "audiences": {
+     "included": [
+      "VRYh3P"
+     ],
+     "excluded": [
+      "SZuP2G"
+     ]
+    },
+    "recipients": 3680,
+    "open_rate": 0.51838,
+    "click_rate": 0.00681,
+    "conversions": 4,
+    "revenue": 236,
+    "rpr": 0.06416,
+    "unsub_rate": 0.00926
+   },
+   {
+    "name": "FC | Meet Your Thanksgiving Roasting Essentials",
+    "channel": "email",
+    "sent": "2026-11-22T15:30:00+00:00",
+    "status": "Sent",
+    "subject": "Get the roasting pan out before November 26",
+    "preview": "Check the fit, find the thermometer, plan for the gravy.",
+    "audiences": {
+     "included": [
+      "VRYh3P"
+     ],
+     "excluded": [
+      "SZuP2G"
+     ]
+    },
+    "recipients": 3640,
+    "open_rate": 0.5798,
+    "click_rate": 0.00771,
+    "conversions": 3,
+    "revenue": 738,
+    "rpr": 0.20298,
+    "unsub_rate": 0.01156
+   }
+  ],
+  "all": [
+   {
+    "name": "FC | A Little Something Extra for Thanksgiving",
+    "sent": "2026-11-23T15:56:33.925717+00:00",
+    "subject": "Pink House Alchemy for your Thanksgiving coffee",
+    "open_rate": 0.61347,
+    "click_rate": 0.00588,
+    "revenue": 1530,
+    "rpr": 0.40894,
+    "recipients": 3746
+   },
+   {
+    "name": "FC | Your Kitchen Upgrade Starts Here",
+    "sent": "2026-11-24T23:00:00+00:00",
+    "subject": "A $275 Shun knife is $175 today",
+    "open_rate": 0.55696,
+    "click_rate": 0.00779,
+    "revenue": 1236,
+    "rpr": 0.33214,
+    "recipients": 3728
+   },
+   {
+    "name": "FC | Meet Your Thanksgiving Roasting Essentials",
+    "sent": "2026-11-22T15:30:00+00:00",
+    "subject": "Get the roasting pan out before November 26",
+    "open_rate": 0.5798,
+    "click_rate": 0.00771,
+    "revenue": 738,
+    "rpr": 0.20298,
+    "recipients": 3640
+   },
+   {
+    "name": "FC | Your Thanksgiving Kitchen Starts Here",
+    "sent": "2026-11-19T14:38:18.870897+00:00",
+    "subject": "Thanksgiving is November 26. Check the kitchen first.",
+    "open_rate": 0.51838,
+    "click_rate": 0.00681,
+    "revenue": 236,
+    "rpr": 0.06416,
+    "recipients": 3680
+   },
+   {
+    "name": "FC | The Ultimate Thanksgiving Checklist",
+    "sent": "2026-11-17T18:54:30.554119+00:00",
+    "subject": "Check your kitchen before Thanksgiving",
+    "open_rate": 0.20628,
+    "click_rate": 0.00363,
+    "revenue": 998,
+    "rpr": 0.06236,
+    "recipients": 20905
+   }
+  ],
+  "sms": []
+ }
+}

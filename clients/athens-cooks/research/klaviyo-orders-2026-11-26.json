@@ -1,0 +1,295 @@
+{
+ "pulled_at": "2026-11-26T19:32:06.704Z",
+ "source": "Klaviyo Shopify Placed Order events",
+ "window_days": 365,
+ "orders": 5247,
+ "customers": 3788,
+ "last_90d": {
+  "orders": 1008,
+  "revenue": 129820,
+  "aov": 128.79,
+  "order_value_p25_p50_p75_p90": [
+   42.86,
+   81.48,
+   158.76,
+   260
+  ],
+  "share_orders_over_160": 0.244,
+  "b2b_sized_orders_1000_plus": 9,
+  "best_sellers": [
+   {
+    "name": "Athens Cooks Gift Card",
+    "units": 34,
+    "revenue": 4315,
+    "orders": 34,
+    "firstOrders": 27
+   },
+   {
+    "name": "Ankarsrum | Stand Mixers IN STORE (separate listing from online listing)",
+    "units": 4,
+    "revenue": 3200,
+    "orders": 4,
+    "firstOrders": 4
+   },
+   {
+    "name": "Jura display",
+    "units": 1,
+    "revenue": 2199,
+    "orders": 1,
+    "firstOrders": 1
+   },
+   {
+    "name": "Carbonara Class",
+    "units": 18,
+    "revenue": 1530,
+    "orders": 9,
+    "firstOrders": 7
+   },
+   {
+    "name": "Nice Buns!",
+    "units": 17,
+    "revenue": 1530,
+    "orders": 11,
+    "firstOrders": 6
+   },
+   {
+    "name": "Austrian Holiday Cookies with Birgit Rutledge-Riel",
+    "units": 18,
+    "revenue": 1350,
+    "orders": 11,
+    "firstOrders": 9
+   },
+   {
+    "name": "Thai Cooking with Tim Dondero",
+    "units": 15,
+    "revenue": 1350,
+    "orders": 9,
+    "firstOrders": 3
+   },
+   {
+    "name": "Cooking Class",
+    "units": 13,
+    "revenue": 1170,
+    "orders": 7,
+    "firstOrders": 6
+   },
+   {
+    "name": "Ravioli Date Night with Chef Nathan Altman!",
+    "units": 6,
+    "revenue": 1080,
+    "orders": 6,
+    "firstOrders": 5
+   },
+   {
+    "name": "Professional Knife Sharpening",
+    "units": 83,
+    "revenue": 1018,
+    "orders": 34,
+    "firstOrders": 26
+   },
+   {
+    "name": "Simplex | Buckingham No. 1 & 3 Rapid Boil Tea Kettles",
+    "units": 2,
+    "revenue": 960,
+    "orders": 2,
+    "firstOrders": 1
+   },
+   {
+    "name": "Le Creuset | Signature Oval Dutch Oven, 8 QT, Marseille",
+    "units": 2,
+    "revenue": 950,
+    "orders": 1,
+    "firstOrders": 1
+   },
+   {
+    "name": "Smithey | Cast Iron Skillets",
+    "units": 4,
+    "revenue": 920,
+    "orders": 4,
+    "firstOrders": 4
+   },
+   {
+    "name": "Make Your Own Savory Galette with Nathan Altman",
+    "units": 12,
+    "revenue": 900,
+    "orders": 7,
+    "firstOrders": 4
+   },
+   {
+    "name": "Mauviel | M'Heritage M'200 B, 3.3-qt Saute Pan with Lid, Brass Handle",
+    "units": 2,
+    "revenue": 850,
+    "orders": 2,
+    "firstOrders": 2
+   }
+  ],
+  "best_first_order_products": [
+   {
+    "name": "Le Bon Garcon | Individual Caramels - Classic Sea Salt",
+    "firstOrders": 35
+   },
+   {
+    "name": "Athens Cooks Gift Card",
+    "firstOrders": 27
+   },
+   {
+    "name": "Professional Knife Sharpening",
+    "firstOrders": 26
+   },
+   {
+    "name": "Athens Cooks Gift Wrapping",
+    "firstOrders": 11
+   },
+   {
+    "name": "Austrian Holiday Cookies with Birgit Rutledge-Riel",
+    "firstOrders": 9
+   },
+   {
+    "name": "Zwiesel Fortessa | Shatterproof Tritan Outdoor Multi-Colored Wine Glasses",
+    "firstOrders": 8
+   },
+   {
+    "name": "Carbonara Class",
+    "firstOrders": 7
+   },
+   {
+    "name": "Cooking Class",
+    "firstOrders": 6
+   },
+   {
+    "name": "Nice Buns!",
+    "firstOrders": 6
+   },
+   {
+    "name": "ThermoWorks | Thermapen ONE, Red",
+    "firstOrders": 5
+   }
+  ],
+  "discount_codes": [
+   {
+    "code": "TENOFF",
+    "orders": 80,
+    "revenue": 10380
+   },
+   {
+    "code": "Class Discount MBQR9",
+    "orders": 6,
+    "revenue": 295
+   },
+   {
+    "code": "Discount",
+    "orders": 3,
+    "revenue": 148
+   },
+   {
+    "code": "damaged",
+    "orders": 1,
+    "revenue": 48
+   },
+   {
+    "code": "Bogo",
+    "orders": 1,
+    "revenue": 22
+   },
+   {
+    "code": "Custom discount",
+    "orders": 1,
+    "revenue": 110
+   },
+   {
+    "code": "Points (had to be refunded with return)",
+    "orders": 1,
+    "revenue": 467
+   },
+   {
+    "code": "Owner",
+    "orders": 1,
+    "revenue": 16
+   },
+   {
+    "code": "EB02VWB84H46",
+    "orders": 1,
+    "revenue": 22
+   },
+   {
+    "code": "TheTable-FADG1TEKVE5Y",
+    "orders": 1,
+    "revenue": 495
+   }
+  ]
+ },
+ "repeat": {
+  "first_time_buyers_60d_plus_ago": 1770,
+  "came_back": 276,
+  "repeat_rate": 0.156,
+  "reordered_same_product": 0.138,
+  "days_to_2nd_order_p25_p50_p75": [
+   4,
+   18,
+   64
+  ],
+  "top_paths": [
+   [
+    "Professional Knife Sharpening → Professional Knife Sharpening (same)",
+    4
+   ],
+   [
+    "Summer Sipping: A Global Wine Journey → Avinyó | Pétillant d'Àguila",
+    3
+   ],
+   [
+    "Regalis Foods | Smoked Baby Razor Clams → Big Dipper Wax Works | Birthday Number Cake Candles - No. 5",
+    2
+   ],
+   [
+    "The Art of Charcuterie Class → Confident in the Kitchen: Beginner Pizza & Garlic Breadsticks From Scratch",
+    2
+   ],
+   [
+    "J.K. Adams | Formula 68 Wood Conditioner → DHOME | With Border Doormat, 24\" x 60\" (same)",
+    2
+   ],
+   [
+    "Athens Cooks Gift Card → Athens Cooks Gift Card (same)",
+    2
+   ],
+   [
+    "Pan Seasoning - Will wait to invoice if we offer service. → Wok seasoning",
+    2
+   ],
+   [
+    "Little Seed Farm | Activated Charcoal Deodorant Refill → Little Seed Farm | Activated Charcoal Deodorant Refill (same)",
+    1
+   ],
+   [
+    "The Floral Society | Long Stem Beeswax Candles, Blossom → Costa Nova | Stacked Organic Sky Oval Plate - Individual",
+    1
+   ],
+   [
+    "FINAL SALE/DAMAGED/EXPIRED PRODUCTS → Le Parfait | Faceted French Jam Jar",
+    1
+   ]
+  ]
+ },
+ "cohorts": {
+  "one_time_30_60d": 240,
+  "one_time_60_120d": 330,
+  "due_to_reorder": 31,
+  "lapsed_repeat_buyers": 597,
+  "vip_top10pct": {
+   "customers": 379,
+   "min_spend": 358
+  },
+  "b2b_sized_buyers": 38,
+  "cross_sell": {
+   "bought coffee, never matcha": 56,
+   "bought coffee, never cacao": 56,
+   "bought coffee, never mushroom": 55,
+   "bought coffee, never vanilla": 54,
+   "bought vanilla, never coffee": 58,
+   "bought vanilla, never matcha": 60,
+   "bought vanilla, never cacao": 58,
+   "bought vanilla, never mushroom": 59
+  }
+ }
+}
