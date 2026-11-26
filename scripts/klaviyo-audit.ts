@@ -2,6 +2,7 @@
 // account basics, the top 10 flows (last 60 days) and campaigns from the last 60 days ranked by revenue per recipient.
 // The key comes from the environment only and is never written anywhere.
 // Usage: KLAVIYO_AUDIT_KEY=pk_... npx tsx scripts/klaviyo-audit.ts <slug>
+import { metricByName } from "../lib/klaviyo/metrics";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { klaviyo, klaviyoAll } from "../lib/klaviyo/api";
 
@@ -19,7 +20,7 @@ async function report(kind: "campaign" | "flow", metricId: string, n: number) {
 async function main() {
   const acct = (await klaviyo<any>(key!, "/accounts/")).data[0].attributes;
   const metrics = (await klaviyoAll<any>(key!, "/metrics/")).data;
-  const placed = metrics.find((m) => m.attributes.name === "Placed Order" && m.attributes.integration?.name === "Shopify") ?? metrics.find((m) => m.attributes.name === "Placed Order");
+  const placed = await metricByName(key!, "Placed Order", metrics);
   if (!placed) throw new Error("No Placed Order metric: new account or no store connected — start from scratch");
 
   // Flows: top 10 by revenue, last 60 days (email + SMS messages summed per flow)

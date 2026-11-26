@@ -82,3 +82,14 @@ export function resolveMetricIds(metrics: any[]): MetricIds {
   }
   return ids;
 }
+
+/** Like resolveMetricIds, but when a name matches several metrics it picks the one that has events. */
+export async function resolveLiveMetricIds(key: string, metrics: any[]): Promise<MetricIds> {
+  const { pickActiveMetric } = await import("./metrics");
+  const ids = resolveMetricIds(metrics);
+  for (const [k, names] of Object.entries(METRICS)) {
+    const hits = metrics.filter((x) => (names as readonly string[]).includes(x.attributes.name));
+    if (hits.length > 1) ids[k as MetricKey] = (await pickActiveMetric(key, hits))?.id;
+  }
+  return ids;
+}

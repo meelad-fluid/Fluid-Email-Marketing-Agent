@@ -2,6 +2,7 @@
 // Same outputs as shopify-audit.ts: best sellers (90d) + first-order products, AOV spread, repeat rate and
 // days to 2nd order, first → next product paths, cohorts with sizes, discount-code usage.
 // Usage: KLAVIYO_AUDIT_KEY=pk_... npx tsx scripts/klaviyo-orders-audit.ts <slug> [days=365]
+import { metricByName } from "../lib/klaviyo/metrics";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { klaviyo, klaviyoAll } from "../lib/klaviyo/api";
 
@@ -13,7 +14,7 @@ type Order = { at: number; value: number; who: string; items: Item[]; codes: str
 
 async function main() {
   const metrics = (await klaviyoAll<any>(key, "/metrics/")).data;
-  const placed = metrics.find((m) => m.attributes.name === "Placed Order" && m.attributes.integration?.name === "Shopify");
+  const placed = await metricByName(key, "Placed Order", metrics.filter((m) => /shopify/i.test(m.attributes.integration?.name ?? "")));
   if (!placed) throw new Error("No Shopify Placed Order metric in Klaviyo — start from scratch");
   const since = new Date(now - DAYS * day).toISOString().slice(0, 19);
   const orders: Order[] = [];

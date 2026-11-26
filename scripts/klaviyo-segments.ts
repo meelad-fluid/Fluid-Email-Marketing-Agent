@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import { klaviyoAll } from "../lib/klaviyo/api";
 import { draftWriter } from "../lib/klaviyo/write";
-import { METRICS, resolveMetricIds, segmentPack, type MetricIds } from "../lib/klaviyo/segments";
+import { METRICS, resolveLiveMetricIds, segmentPack, type MetricIds } from "../lib/klaviyo/segments";
 
 for (const [, k, v] of readFileSync(join(__dirname, "../.env.local"), "utf8").matchAll(/^([A-Z_]+)=(.*)$/gm)) process.env[k] ??= v.trim();
 const folder = process.argv[2];
@@ -20,7 +20,7 @@ async function main() {
   if (!client) throw new Error(`No client with folder ${folder}`);
   const { data: key } = await db.rpc("get_connection_secret", { p_client: client.id, p_provider: "klaviyo" });
   if (!key) throw new Error(`No Klaviyo key for ${client.name}`);
-  const ids = resolveMetricIds((await klaviyoAll<any>(key, "/metrics/")).data);
+  const ids = await resolveLiveMetricIds(key!, (await klaviyoAll<any>(key!, "/metrics/")).data);
   const existing = new Set((await klaviyoAll<any>(key, "/segments/?fields[segment]=name")).data.map((s: any) => s.attributes.name.trim().toLowerCase()));
   const todo = [];
   for (const s of segmentPack()) {

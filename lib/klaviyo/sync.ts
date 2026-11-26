@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "../supabase/admin";
+import { metricByName } from "./metrics";
 import { klaviyo, klaviyoAll } from "./api";
 
 // Copies one client's Klaviyo campaigns (email + SMS), campaign stats, flows and flow stats into
@@ -33,9 +34,7 @@ const add = (c: Counts, s: Record<string, number>) => {
 };
 
 async function placedOrderMetric(key: string): Promise<string> {
-  const { data } = await klaviyoAll<any>(key, "/metrics/");
-  const placed = data.filter((m) => m.attributes.name === "Placed Order");
-  const metric = placed.find((m) => /shopify/i.test(m.attributes.integration?.name ?? "")) ?? placed[0];
+  const metric = await metricByName(key, "Placed Order");
   if (!metric) throw new Error("No 'Placed Order' metric in this Klaviyo account, so revenue can't be attributed");
   return metric.id;
 }

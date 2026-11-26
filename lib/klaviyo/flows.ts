@@ -18,6 +18,7 @@
 //   ],
 //   "exit_if_ordered": true                              → flow filter: has not placed an order since starting this flow
 // }
+import { metricByName } from "./metrics";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join, resolve, sep } from "node:path";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -168,7 +169,7 @@ export async function buildFlow(o: { clientsDir: string; folder: string; planRel
   const entry = compile(plan.steps, ctx, actions);
   let profile_filter: any = null;
   if (plan.exit_if_ordered) {
-    const placed = (await klaviyoAll<any>(key, "/metrics/?fields[metric]=name")).data.find((x) => x.attributes.name === "Placed Order");
+    const placed = await metricByName(key, "Placed Order");
     if (placed) profile_filter = { condition_groups: [{ conditions: [{ type: "profile-metric", metric_id: placed.id, measurement: "count", measurement_filter: { type: "numeric", operator: "equals", value: 0 }, timeframe_filter: { type: "date", operator: "flow-start" } }] }] };
     else manual.push('Add the flow filter "Placed Order zero times since starting this flow" (no Placed Order metric found).');
   }

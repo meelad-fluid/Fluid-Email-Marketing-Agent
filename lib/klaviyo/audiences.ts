@@ -4,7 +4,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { klaviyoAll } from "./api";
 import { draftWriter } from "./write";
-import { resolveMetricIds, segmentForRequest, type MetricIds, type SegmentSpec } from "./segments";
+import { resolveLiveMetricIds, segmentForRequest, type MetricIds, type SegmentSpec } from "./segments";
 
 export type Audience = { id: string; name: string; type: "list" | "segment" };
 
@@ -66,7 +66,7 @@ export async function buildSegment(db: SupabaseClient, clientId: string, request
   const existing = all.find((a) => a.name.toLowerCase() === spec.name.toLowerCase());
   if (existing) return { created: false, audience: existing, spec };
   const key = await keyFor(db, clientId);
-  const ids: MetricIds = resolveMetricIds((await klaviyoAll<any>(key, "/metrics/")).data);
+  const ids: MetricIds = await resolveLiveMetricIds(key, (await klaviyoAll<any>(key, "/metrics/")).data);
   const missing = spec.needs.filter((n) => !ids[n]);
   if (missing.length) return { error: `This account has no ${missing.join(", ")} metric, so ${spec.name} can't be built as specified.` };
   const k = await draftWriter(db, clientId);
