@@ -1,7 +1,7 @@
 # Campaign — Order by 1 p.m. CT, it ships today (Friday)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/jlN5ZYusOYHrKebg6kpN01Un
 
-Status: draft · needs client approval · goes live Fri Dec 4, 2026
+Status: approved by Nick on 2026-11-26 (v1) · goes live Fri Dec 4, 2026
 Copy: copy/2026-11-28-to-12-04-campaigns.md (#6) · Guardrails: checked
 From: Meta Molecule · Subject: Order by 1 p.m. CT, it ships today · Preview: Friday orders in before the cutoff go out before the weekend.
 Send: Fri Dec 4, 8:00 a.m. CT · To: FC | Engaged 120 · Excluding: FC | Placed Order 7d
