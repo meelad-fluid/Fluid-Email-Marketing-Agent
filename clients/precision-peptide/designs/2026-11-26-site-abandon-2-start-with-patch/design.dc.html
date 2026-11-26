@@ -1,0 +1,103 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 44px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+.serif{font-family:'Playfair Display',Georgia,serif}
+
+.bar{background:#1A1838;text-align:center;padding:18px 0}
+.bar img{height:40px}
+.top{position:relative;padding:38px 40px 0;text-align:center}
+.top h1{font-size:35px;line-height:1.18;font-weight:500;color:#1A1838}
+.top h1 em{color:#A8774F}
+.top .sub{margin:14px auto 0;max-width:450px;font-size:16px;line-height:1.55;color:#4A4760}
+.top .btn{margin-top:22px}
+.arch{position:relative;margin:34px auto 0;width:520px;height:560px;border-radius:260px 260px 26px 26px;overflow:hidden;background:url('asset:brand/assets/generated/2026-11-26-pp-site-travel-flatlay.jpg') 50% 20%/560px auto no-repeat;box-shadow:0 18px 36px rgba(26,24,56,.18)}
+.stamp{position:absolute;z-index:3;right:44px;top:690px;width:118px;height:118px;border-radius:50%;background:#2A2668;color:#F7F3EE;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(10deg);box-shadow:0 12px 24px rgba(0,0,0,.3);border:3px dashed #D4A27F}
+.stamp b{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:#E9C3A4;line-height:1}
+.stamp span{font-size:10.5px;letter-spacing:1.8px;font-weight:700;margin-top:5px;text-transform:uppercase}
+
+.nos{display:flex;justify-content:center;gap:16px;padding:34px 30px 10px}
+.no{width:160px;text-align:center}
+.no .c{position:relative;margin:0 auto;width:78px;height:78px;border-radius:50%;background:#fff;box-shadow:0 8px 18px rgba(26,24,56,.1);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:30px;color:#2A2668}
+.no .c:after{content:"";position:absolute;left:14px;right:14px;top:37px;height:3px;background:#D4A27F;transform:rotate(-40deg);border-radius:2px}
+.no p{margin-top:10px;font-size:15px;font-weight:600;color:#1A1838}
+
+.best{position:relative;margin-top:40px;background:#1A1838;padding:76px 26px 50px;text-align:center}
+.best:before{content:"";position:absolute;left:0;right:0;top:-1px;height:46px;background:#F7F3EE;border-radius:0 0 50% 50%/0 0 100% 100%}
+.best h2{position:relative;font-family:'Playfair Display',serif;font-size:32px;font-weight:500;color:#F7F3EE;margin-bottom:30px}
+.best h2 em{color:#E9C3A4}
+.grid{display:flex;gap:12px;align-items:flex-end}
+.pc{flex:1;border-radius:20px;background:#24214A;padding:0 0 20px;position:relative;overflow:hidden}
+.pc .img{height:190px;display:flex;align-items:center;justify-content:center;background:url('asset:brand/assets/generated/2026-11-24-pp-dark-gold-texture.jpg') center/cover;position:relative}
+.pc .img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,24,56,0) 50%,#24214A 100%)}
+.pc .img span{position:relative;z-index:2;font-family:'Playfair Display',serif;font-style:italic;font-size:34px;color:#F6E7DA}
+.pc.feat{transform:translateY(-14px)}
+.pc.feat .img{height:220px}
+.pc .nm{font-size:16px;font-weight:700;color:#F7F3EE;padding:12px 6px 12px}
+.pc .btn{font-size:14px;padding:12px 22px}
+
+.rx{position:relative;background:#F7F3EE;padding:70px 26px 46px}
+.rx:before{content:"";position:absolute;left:0;right:0;top:-1px;height:46px;background:#1A1838;border-radius:0 0 50% 50%/0 0 100% 100%}
+.rxcard{position:relative;display:flex;border-radius:24px;overflow:hidden;background:#EDE7DF;box-shadow:0 14px 28px rgba(26,24,56,.12)}
+.rxcard .ph{flex:0 0 230px;background:url('asset:brand/assets/generated/2026-11-24-pp-pharmacy-lab-bench.jpg') 40% center/cover}
+.rxcard .tx{padding:30px 26px 30px;text-align:left}
+.rxcard .big{font-family:'Playfair Display',serif;font-size:64px;line-height:1;color:#2A2668}
+.rxcard .big i{font-size:28px;color:#A8774F}
+.rxcard h3{margin-top:10px;font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:#1A1838;line-height:1.25}
+.rxcard p{margin-top:8px;font-size:15px;line-height:1.5;color:#4A4760}
+.rxcard .btn{margin-top:16px;font-size:15px;padding:14px 28px}
+
+.foot{position:relative;background:#0b0a16;color:#8d89a6;text-align:center;padding:56px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot:before{content:"";position:absolute;left:0;right:0;top:-1px;height:30px;background:#F7F3EE;border-radius:0 0 50% 50%/0 0 100% 100%}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="top">
+  <h1 class="serif">Packing a cold bag for every trip gets old, which is why most people <em>start with the patch</em></h1>
+  <p class="sub">The Recovery Patch needs no mixing, no measuring and no refrigeration.</p>
+  <span class="btn">Shop Now</span>
+  <div class="arch"></div>
+</div></a>
+<div class="stamp"><b>Recovery</b><span>Patch</span></div>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="nos">
+  <div class="no"><div class="c">✦</div><p>No mixing</p></div>
+  <div class="no"><div class="c">⌀</div><p>No measuring</p></div>
+  <div class="no"><div class="c">❄</div><p>No refrigeration</p></div>
+</div></a>
+
+<div class="best">
+  <h2>Our <em>best sellers</em></h2>
+  <div class="grid">
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>KPV</span></div><div class="nm">KPV</div><span class="btn">Shop Now</span></a>
+    <a class="pc feat" href="https://www.precisionpeptidecompany.com"><div class="img"><span>Patch</span></div><div class="nm">Recovery Patch</div><span class="btn">Shop Now</span></a>
+    <a class="pc" href="https://www.precisionpeptidecompany.com"><div class="img"><span>BPC</span></div><div class="nm">BPC</div><span class="btn">Shop Now</span></a>
+  </div>
+</div>
+
+<div class="rx">
+  <a class="rxcard" href="https://www.precisionpeptidecompany.com/protocols"><div class="ph"></div><div class="tx">
+    <div class="big">24<i>hrs</i></div>
+    <h3>Looking for a prescription program instead?</h3>
+    <p>Fill in a private intake and a US-licensed clinician reviews it within 24 hours.</p>
+    <span class="btn btn--dark">Get Started</span>
+  </div></a>
+</div>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

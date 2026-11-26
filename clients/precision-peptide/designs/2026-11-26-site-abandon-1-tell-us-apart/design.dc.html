@@ -1,0 +1,126 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 44px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+.serif{font-family:'Playfair Display',Georgia,serif}
+
+.hero{position:relative;height:780px;background:#0d0c1c url('asset:brand/assets/generated/2026-11-26-pp-site-tell-apart.jpg') center 62%/600px auto no-repeat;color:#fff;text-align:center}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,28,.92) 0%,rgba(13,12,28,.75) 48%,rgba(13,12,28,0) 66%,rgba(13,12,28,0) 88%,#F7F3EE 100%)}
+.hero>*{position:relative}
+.hero .logo{padding-top:26px}
+.hero .logo img{height:40px}
+.hero h1{margin:30px auto 0;max-width:520px;font-size:37px;line-height:1.16;font-weight:500}
+.hero h1 em{color:#E9C3A4}
+.hero .sub{margin:16px auto 0;max-width:460px;font-size:16px;line-height:1.55;color:#CFCBE0}
+.hero .btn{margin-top:22px}
+.tick{position:absolute;left:40px;top:600px;transform:rotate(-6deg);background:#F7F3EE;color:#1A1838;border-radius:14px;padding:12px 16px;text-align:left;box-shadow:0 14px 30px rgba(0,0,0,.45)}
+.tick small{display:block;font-size:10px;letter-spacing:2px;font-weight:700;color:#A8774F}
+.tick b{display:block;font-size:17px;margin-top:3px}
+.tick b+b{margin-top:1px}
+
+.tabs{padding:20px 40px 50px;text-align:center}
+.browser{position:relative;margin:0 auto;width:470px;height:150px}
+.tab{position:absolute;width:250px;background:#fff;border-radius:12px 12px 6px 6px;box-shadow:0 10px 24px rgba(26,24,56,.12);border:1px solid #E3DDD4;overflow:hidden}
+.tab .chrome{height:24px;background:#EDE7DF;display:flex;align-items:center;gap:5px;padding-left:10px}
+.tab .chrome i{width:7px;height:7px;border-radius:50%;background:#C9C5DD}
+.tab .body{padding:14px 16px;text-align:left}
+.tab .word{font-family:'Playfair Display',serif;font-style:italic;font-size:24px;color:#9F9AC2}
+.tab .ln{height:6px;border-radius:3px;background:#EDE7DF;margin-top:8px}
+.t1{left:0;top:18px;transform:rotate(-5deg)}
+.t2{left:110px;top:0;z-index:2}
+.t3{right:0;top:22px;transform:rotate(5deg);z-index:3}
+.tabs h2{margin-top:30px;font-family:'Playfair Display',serif;font-size:29px;font-weight:500;color:#1A1838;line-height:1.2}
+.tabs p{margin:12px auto 0;max-width:430px;font-size:16px;line-height:1.55;color:#4A4760}
+
+.check{position:relative;background:#2A2668;color:#fff;padding:70px 34px 60px;text-align:center}
+.check:before{content:"";position:absolute;left:0;right:0;top:-1px;height:44px;background:#F7F3EE;border-radius:0 0 50% 50%/0 0 100% 100%}
+.check h2{position:relative;font-family:'Playfair Display',serif;font-size:31px;font-weight:500}
+.check h2 em{color:#E9C3A4}
+.bubbles{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+.bub{position:relative;display:flex;align-items:center;gap:16px;background:#F7F3EE;color:#1A1838;border-radius:20px;padding:18px 22px;text-align:left;box-shadow:0 12px 26px rgba(0,0,0,.25);width:420px}
+.bub:after{content:"";position:absolute;bottom:-10px;width:20px;height:20px;background:#F7F3EE;transform:rotate(45deg)}
+.bub.l{align-self:flex-start}.bub.l:after{left:34px}
+.bub.r{align-self:flex-end}.bub.r:after{right:34px}
+.ico{flex:0 0 52px;height:52px;border-radius:50%;background:#1A1838;display:flex;align-items:center;justify-content:center;color:#E9C3A4;font-weight:700;font-size:13px;letter-spacing:.5px}
+.bub p{font-size:17px;font-weight:600;line-height:1.35}
+.okmark{position:absolute;right:-10px;top:-12px;width:32px;height:32px;border-radius:50%;background:#D4A27F;color:#14121F;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 6px 12px rgba(0,0,0,.25)}
+
+.ways{position:relative;background:#F7F3EE;padding:66px 26px 40px;text-align:center}
+.ways:before{content:"";position:absolute;left:0;right:0;top:-1px;height:44px;background:#2A2668;border-radius:0 0 50% 50%/0 0 100% 100%}
+.ways h2{position:relative;font-family:'Playfair Display',serif;font-size:31px;font-weight:500;color:#1A1838;margin-bottom:24px}
+.wrow{display:flex;gap:16px}
+.wc{flex:1;position:relative;border-radius:22px;overflow:hidden;height:380px;color:#fff;text-align:left;box-shadow:0 14px 28px rgba(26,24,56,.18)}
+.wc .ph{position:absolute;inset:0;background-size:cover}
+.wc:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,28,0) 30%,rgba(13,12,28,.92) 78%)}
+.wc .tx{position:absolute;z-index:2;left:20px;right:20px;bottom:22px}
+.wc .num{font-family:'Playfair Display',serif;font-style:italic;font-size:44px;color:#E9C3A4;line-height:1}
+.wc p{margin-top:6px;font-size:15.5px;line-height:1.45;font-weight:500}
+.wc .btn{margin-top:14px;font-size:14.5px;padding:13px 24px}
+.w1 .ph{background-image:url('asset:brand/assets/generated/2026-11-24-pp-welcome-needlefree-bag.jpg');background-position:22% 82%;background-size:auto 165%}
+.w2 .ph{background-image:url('asset:brand/assets/generated/2026-11-24-pp-hero-vials-dark-gold.jpg');background-position:50% 62%;background-size:auto 115%}
+
+.close{margin:24px 26px 44px;position:relative;border-radius:20px;background:#EDE7DF;padding:30px 30px 30px 110px;text-align:left}
+.close .q{position:absolute;left:26px;top:26px;width:62px;height:62px;border-radius:50%;background:#1A1838;color:#E9C3A4;font-family:'Playfair Display',serif;font-style:italic;font-size:34px;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg)}
+.close p{font-family:'Playfair Display',serif;font-size:21px;line-height:1.35;color:#1A1838}
+.close small{display:block;margin-top:8px;font-size:13px;color:#A8774F;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+
+.foot{position:relative;background:#0b0a16;color:#8d89a6;text-align:center;padding:56px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot:before{content:"";position:absolute;left:0;right:0;top:-1px;height:30px;background:#F7F3EE;border-radius:0 0 50% 50%/0 0 100% 100%}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com/protocols"><div class="hero">
+  <div class="logo"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div>
+  <h1 class="serif">Comparing a few peptide sites that all look the same? <em>Here's how to tell us apart</em></h1>
+  <p class="sub">We're publicly listed as CSE: BPC and OTCQB: PNGAF, so you can look up exactly who you're buying from.</p>
+  <span class="btn">Explore Protocols</span>
+  <div class="tick"><small>Publicly listed</small><b>CSE: BPC</b><b>OTCQB: PNGAF</b></div>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="tabs">
+  <div class="browser">
+    <div class="tab t1"><div class="chrome"><i></i><i></i><i></i></div><div class="body"><div class="word">"premium"</div><div class="ln"></div><div class="ln" style="width:70%"></div></div></div>
+    <div class="tab t2"><div class="chrome"><i></i><i></i><i></i></div><div class="body"><div class="word">"tested"</div><div class="ln"></div><div class="ln" style="width:60%"></div></div></div>
+    <div class="tab t3"><div class="chrome"><i></i><i></i><i></i></div><div class="body"><div class="word">"premium"</div><div class="ln"></div><div class="ln" style="width:75%"></div></div></div>
+  </div>
+  <h2>Every tab says "premium" and "tested"</h2>
+  <p>When every site makes the same promises, the only thing that counts is what you can check yourself.</p>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="check">
+  <h2>What you can <em>check</em> about us</h2>
+  <div class="bubbles">
+    <div class="bub l"><div class="ico">CSE</div><p>Our listing on the CSE and OTCQB</p><span class="okmark">✓</span></div>
+    <div class="bub r"><div class="ico">SEAL</div><p>The LegitScript seal on our site</p><span class="okmark">✓</span></div>
+    <div class="bub l"><div class="ico">TEAM</div><p>The names of our leadership and science team</p><span class="okmark">✓</span></div>
+  </div>
+</div></a>
+
+<div class="ways">
+  <h2>Two ways in</h2>
+  <div class="wrow">
+    <a class="wc w1" href="https://www.precisionpeptidecompany.com"><div class="ph"></div><div class="tx"><div class="num">01</div><p>The retail range, led by the needle-free Recovery Patch</p><span class="btn">Shop Now</span></div></a>
+    <a class="wc w2" href="https://www.precisionpeptidecompany.com/protocols"><div class="ph"></div><div class="tx"><div class="num">02</div><p>Prescription programs reviewed by licensed US clinicians</p><span class="btn">View Protocols</span></div></a>
+  </div>
+</div>
+
+<a href="https://www.precisionpeptidecompany.com/faq"><div class="close">
+  <div class="q">?</div>
+  <p>Got a question first? Reply to this email and our team will answer.</p>
+</div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

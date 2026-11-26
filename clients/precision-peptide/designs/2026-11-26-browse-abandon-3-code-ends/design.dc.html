@@ -1,0 +1,83 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+
+.hero{position:relative;height:900px;background:#0f0e22 url('asset:brand/assets/generated/2026-11-26-pp-browse-midnight-clock.jpg') 50% 100%/600px auto no-repeat;color:#fff;text-align:center}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,14,34,.55) 0%,rgba(15,14,34,.35) 50%,rgba(15,14,34,0) 62%,rgba(15,14,34,0) 92%,#F7F3EE 100%)}
+.hero>*{position:relative}
+.hero .logo{padding-top:26px}
+.hero .logo img{height:40px}
+.hero .big{margin-top:22px;font-family:'Playfair Display',serif;font-weight:700;font-size:150px;line-height:1;color:#F7F3EE;letter-spacing:-3px}
+.hero .big sup{font-size:60px;color:#E9C3A4;vertical-align:top;position:relative;top:24px}
+.hero h1{margin-top:4px;font-family:'Playfair Display',serif;font-weight:500;font-style:italic;font-size:30px;color:#E9C3A4}
+.hero .sub{margin:14px auto 0;max-width:440px;font-size:16px;line-height:1.55;color:#DAD6EA}
+.hero .btn{margin-top:20px}
+.code{display:inline-block;margin-top:14px;border:1.5px dashed #E9C3A4;border-radius:999px;padding:8px 22px;font-size:14px;color:#DAD6EA;background:rgba(15,14,34,.5)}
+.code b{letter-spacing:2px;color:#fff}
+.mid{position:absolute;right:44px;top:560px;background:#D4A27F;color:#14121F;border-radius:14px;padding:12px 18px;text-align:center;transform:rotate(8deg);box-shadow:0 12px 26px rgba(0,0,0,.4)}
+.mid small{display:block;font-size:10.5px;letter-spacing:2px;font-weight:700}
+.mid b{display:block;font-family:'Playfair Display',serif;font-size:26px;line-height:1.1}
+
+.dyn{position:relative;margin:10px 50px 0;border-radius:24px;background:#E4DFE9;padding:28px 26px 26px;text-align:center;border:2px dashed #9F9AC2}
+.dyn .lbl{font-size:12px;letter-spacing:3px;font-weight:700;color:#2A2668}
+.dyn .t{margin-top:6px;font-size:20px;font-weight:700;color:#1A1838}
+.dyn .shape{margin:16px auto 12px;width:130px;height:130px;border-radius:18px;background:#F7F3EE;display:flex;align-items:center;justify-content:center;color:#9F9AC2;font-size:13px;font-weight:600}
+.dyn p{font-size:14px;line-height:1.5;color:#4A4760}
+.dyn .btn{margin-top:12px;font-size:14px;padding:12px 26px}
+.dyn .tag{position:absolute;left:-12px;top:-16px;background:#2A2668;color:#F7F3EE;font-size:11px;font-weight:700;letter-spacing:1.6px;padding:7px 14px;border-radius:0 999px 999px 0;text-transform:uppercase}
+
+.ticket{position:relative;margin:40px 26px 44px;display:flex;border-radius:20px;overflow:hidden;background:#1A1838;color:#fff;box-shadow:0 14px 28px rgba(26,24,56,.2)}
+.ticket .l{flex:1;padding:30px 26px;text-align:left}
+.ticket .l small{font-size:11px;letter-spacing:2.4px;font-weight:700;color:#E9C3A4;text-transform:uppercase}
+.ticket .l b{display:block;margin-top:6px;font-family:'Playfair Display',serif;font-size:40px;letter-spacing:2px}
+.ticket .l p{margin-top:6px;font-size:14.5px;color:#CFCBE0}
+.ticket .r{flex:0 0 190px;border-left:2px dashed #4a4680;display:flex;align-items:center;justify-content:center;background:#24214A}
+.ticket .r .btn{padding:15px 26px}
+.ticket:before,.ticket:after{content:"";position:absolute;left:345px;width:26px;height:26px;border-radius:50%;background:#F7F3EE}
+.ticket:before{top:-13px}.ticket:after{bottom:-13px}
+
+.foot{position:relative;background:#0b0a16;color:#8d89a6;text-align:center;padding:56px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot:before{content:"";position:absolute;left:0;right:0;top:-1px;height:30px;background:#F7F3EE;border-radius:0 0 50% 50%/0 0 100% 100%}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="{{event.product_url}}"><div class="hero">
+  <div class="logo"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div>
+  <div class="big">10<sup>%</sup></div>
+  <h1>Your 10% code ends at midnight tonight</h1>
+  <p class="sub">BROWSE10 takes 10% off {{event.product_name}} and everything else in the retail range. Prescription programs aren't included.</p>
+  <span class="btn">Shop Now</span><br>
+  <span class="code">Code <b>BROWSE10</b></span>
+  <div class="mid"><small>ENDS</small><b>Midnight</b></div>
+</div></a>
+
+<a href="{{event.product_url}}"><div class="dyn">
+  <span class="tag">10% off with BROWSE10</span>
+  <div class="lbl">CUSTOMER.IO</div>
+  <div class="t">DYNAMIC VIEWED PRODUCT</div>
+  <div class="shape">{{event.image_url}}</div>
+  <p>Image + {{event.product_name}} + button to {{event.product_url}}</p>
+  <span class="btn">Shop Now</span>
+</div></a>
+
+<a href="{{event.product_url}}"><div class="ticket">
+  <div class="l"><small>Ends at midnight tonight</small><b>BROWSE10</b><p>Prescription programs aren't included.</p></div>
+  <div class="r"><span class="btn">Shop Now</span></div>
+</div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

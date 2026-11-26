@@ -74,6 +74,11 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Frequency: every 7 days at most
 - Exit: performs `product_viewed`, `checkout_started` or `order_created`
 - Steps: wait 2 hours → Email 1 · wait 1 day → Email 2
+- Pop-up sign-ups only: Email 1 gets the WELCOME10 line (`{% if customer.popup_answer %}`)
+- Designs (2026-11-26, in review; whole flow: https://fluid-email-marketing-agent-production.up.railway.app/f/Xdb4I5GQ9bsRr8OniJMa3e2D)
+  - Email 1 (tell us apart): https://fluid-email-marketing-agent-production.up.railway.app/r/u0T3mEgm_r0vD7Fi1mkeVPBt
+  - Email 2 (start with the patch): https://fluid-email-marketing-agent-production.up.railway.app/r/tEMnyyKfiwRD8Fenox5UsE7H
+  - Subjects/previews: copy/abandonment-flows.md
 
 **Browse abandonment (3 emails + 1 SMS)**
 - Trigger: event `product_viewed`
@@ -81,6 +86,13 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Exit: performs `checkout_started` or `order_created`
 - Steps: wait 2 hours → Email 1 · wait 1 day → Email 2 → SMS 1 · wait 1 day → Email 3
 - Liquid: `{{event.product_name}}`, `{{event.product_url}}`, `{{event.image_url}}`
+- Branch on `event.line`: Rx viewers get the Rx subhead + "Get Started" in Emails 1–2, no BROWSE10, and skip Email 3
+- Needs code BROWSE10 (10%, retail only, excludes prescription programs) before going live
+- Designs (2026-11-26, in review; whole flow: https://fluid-email-marketing-agent-production.up.railway.app/f/JzhuQKqe1MTJffak3zO7VlpO)
+  - Email 1 (still looking): https://fluid-email-marketing-agent-production.up.railway.app/r/JitnAjGTYb8qZP_Lke3ogiJQ
+  - Email 2 (why people switch, BROWSE10): https://fluid-email-marketing-agent-production.up.railway.app/r/ufznx3TQPdlnYHSKup65nxCz
+  - Email 3 (code ends tonight): https://fluid-email-marketing-agent-production.up.railway.app/r/D9XT-w-ZSS_2Z9YWh6BsLIZP
+  - SMS 1 text: copy/abandonment-flows.md
 
 **Abandoned cart (4 emails + 2 SMS)**
 - Trigger: event `checkout_started`

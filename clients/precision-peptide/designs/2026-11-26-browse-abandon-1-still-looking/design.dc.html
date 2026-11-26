@@ -1,0 +1,87 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+
+.bar{background:#0b0a16;text-align:center;padding:18px 0}
+.bar img{height:40px}
+.top{padding:44px 36px 0;text-align:center}
+.top h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:44px;line-height:1.08;color:#1A1838;letter-spacing:-.5px}
+.top h1 .pn{display:inline-block;background:#2A2668;color:#F7F3EE;padding:0 14px 4px;border-radius:8px;transform:rotate(-1.5deg);margin:4px 0}
+.top h1 em{display:block;margin-top:10px;font-weight:500;font-size:28px;color:#A8774F}
+.top .sub{margin:16px auto 0;max-width:450px;font-size:16px;line-height:1.55;color:#4A4760}
+.top .btn{margin-top:22px}
+
+.dyn{position:relative;margin:34px 40px 0;border-radius:26px;background:#E4DFE9;padding:34px 30px 30px;text-align:center;border:2px dashed #9F9AC2}
+.dyn .lbl{font-size:12px;letter-spacing:3px;font-weight:700;color:#2A2668}
+.dyn .t{margin-top:6px;font-size:22px;font-weight:700;color:#1A1838}
+.dyn .shape{margin:18px auto 14px;width:150px;height:150px;border-radius:18px;background:#F7F3EE;display:flex;align-items:center;justify-content:center;color:#9F9AC2;font-size:13px;font-weight:600}
+.dyn p{font-size:14px;line-height:1.5;color:#4A4760}
+.dyn .btn{margin-top:14px;font-size:14px;padding:12px 26px}
+.time{position:absolute;right:-14px;top:-18px;background:#D4A27F;color:#14121F;border-radius:999px;padding:9px 16px;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;transform:rotate(6deg);box-shadow:0 8px 16px rgba(26,24,56,.2)}
+
+.who{position:relative;margin-top:50px;border-radius:40px 40px 0 0;overflow:hidden;background:#0d0c1c url('asset:brand/assets/generated/2026-11-26-pp-browse-discreet-box.jpg') 68% 0/auto 520px no-repeat;color:#fff;padding:52px 36px 46px}
+.who:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,12,28,.82) 0%,rgba(13,12,28,.35) 30%,rgba(13,12,28,.2) 42%,rgba(13,12,28,.92) 62%,#0d0c1c 100%)}
+.who>*{position:relative}
+.who h2{font-family:'Playfair Display',serif;font-weight:700;font-size:30px;line-height:1.18;max-width:430px}
+.who h2 em{font-weight:500;color:#E9C3A4}
+.facts{margin-top:250px;display:flex;flex-direction:column;gap:12px}
+.f{display:flex;align-items:center;gap:16px;background:rgba(247,243,238,.08);border:1px solid rgba(233,195,164,.35);border-radius:16px;padding:16px 20px}
+.f .n{flex:0 0 46px;height:46px;border-radius:50%;background:#D4A27F;color:#14121F;font-family:'Playfair Display',serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.f p{font-size:16.5px;font-weight:600;line-height:1.35}
+
+.close{background:#0d0c1c;padding:0 36px 48px;text-align:center}
+.close .card{background:#F7F3EE;border-radius:22px;padding:28px 30px;position:relative}
+.close .card p{font-family:'Playfair Display',serif;font-size:22px;line-height:1.35;color:#1A1838}
+.close .card .btn{margin-top:16px}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6;border-top:1px solid #24214A}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="{{event.product_url}}"><div class="top">
+  <h1>Still thinking about <span class="pn">{{event.product_name}}?</span><em>Take your time, we'll still be here</em></h1>
+  <p class="sub">It ships in discreet packaging, and every batch is independently third-party tested.</p>
+  <span class="btn">Shop Now</span>
+</div></a>
+
+<a href="{{event.product_url}}"><div class="dyn">
+  <span class="time">You viewed</span>
+  <div class="lbl">CUSTOMER.IO</div>
+  <div class="t">DYNAMIC VIEWED PRODUCT</div>
+  <div class="shape">{{event.image_url}}</div>
+  <p>Image + {{event.product_name}} + button to {{event.product_url}}. No description.</p>
+  <span class="btn">Shop Now</span>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="who">
+  <h2>Before you decide, <em>here's who you'd be buying from</em></h2>
+  <div class="facts">
+    <div class="f"><div class="n">1</div><p>Publicly listed: CSE: BPC and OTCQB: PNGAF</p></div>
+    <div class="f"><div class="n">2</div><p>Licensed US clinicians and a 503A pharmacy for prescriptions</p></div>
+    <div class="f"><div class="n">3</div><p>Retail products made to cGMP standards</p></div>
+  </div>
+</div></a>
+
+<a href="{{event.product_url}}"><div class="close"><div class="card">
+  <p>Questions about {{event.product_name}}? Reply and our team will answer.</p>
+  <span class="btn btn--dark">Shop Now</span>
+</div></div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>
