@@ -1,7 +1,7 @@
 # Campaign — The empty COA column in your materials log (value, no offer)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/zrDZH_moI330YJM3fJETuc5p
 
-Status: draft · needs client approval · goes live Wed Dec 2, 2026
+Status: approved by Nick on 2026-11-26 (v1) · goes live Wed Dec 2, 2026
 Copy: copy/2026-11-28-to-12-04-campaigns.md (#5) · Guardrails: checked
 From: Meta Molecule · Subject: The column in your materials log that stays blank · Preview: Four things to check on any certificate, from any supplier.
 Send: Wed Dec 2, 9:00 a.m. CT · To: FC | Engaged 120
