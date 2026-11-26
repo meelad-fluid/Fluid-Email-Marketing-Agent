@@ -5,14 +5,6 @@ Status: draft · needs approval · goes live once each flow is built in Customer
 
 **The point:** every flow now sells the nine prescription protocols on the website, and nothing else. No retail range, no discount codes, no merge tags in the copy. Each email answers one real doubt a person has between "I'm curious" and "a clinician has my intake".
 
-## What changed from the first plan
-- **Products:** the nine protocols on /protocols only, with the site's names, prices and Get Started links
-- **Offers:** none anywhere. Prescription protocols are never discounted, so WELCOME10, WELCOME15, BROWSE10, MYSTERY, the second-order 15% and the winback 20% are all gone
-- **The hook instead of a code:** clear pricing ("from $125/month"), the licensed clinician, the 503A pharmacy and the public listing
-- **Pop-up question:** "Which protocol brought you here?" replaces "What brings you to Precision Peptide?"
-- **Merge tags:** none in subjects, previews, SMS or images. The only tags left are links (checkout URL, product URL)
-- **Images:** real product shots and site renders only, never made-up packaging
-
 ## Who we're talking to
 - **The price checker:** has priced semaglutide or tirzepatide on five sites and wants to know which one has a real clinician behind it
 - **The careful first-timer:** stops at the last step because they aren't sure who reads the intake
