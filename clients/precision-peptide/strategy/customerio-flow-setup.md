@@ -108,13 +108,17 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Trigger: event `order_created`
 - Filter: first order only (`order_created` count = 1)
 - Frequency: once per person
-- Steps: wait 5 min → Email 1 (plain text) → SMS 1 · wait 1 day → Email 2 · wait 7 days → Email 3 (plain text) · wait 2 days → Email 4
+- Steps: wait 5 min → Email 1 (CEO thank-you) → SMS 1 · wait 1 day → Email 2 (order tracker) · wait 6 days → Email 3 (did it arrive) · wait 4 days → Email 4 (who to ask)
 - Replaces: Post Purchase Education, after its content is reviewed
+- Designs (2026-11-26, prescription protocols only, no codes, no merge tags): flow review page https://fluid-email-marketing-agent-production.up.railway.app/f/mD9K3Ug18SYTafUqSh_WTmu5
+- Copy + SMS: copy/post-purchase-winback-flows.md
 
 **Winback (2 emails + 1 SMS)**
-- Trigger: event `order_created`, first order only
-- Steps: wait 90 days → check no `order_created` since → Email 1 → SMS 1 · wait 5 days → Email 2
+- Trigger: event `order_created`, then wait 90 days after the LAST order
+- Steps: wait 90 days → check no `order_created` since → Email 1 (still public) → SMS 1 · wait 5 days → Email 2 (three steps back)
 - Exit: performs `order_created`
+- No offer (prescription protocols aren't discounted)
+- Designs (2026-11-26): flow review page https://fluid-email-marketing-agent-production.up.railway.app/f/Q7ulkzQRaMkip6NLtx9Y7XhZ
 
 ## 5. Clean-up
 - Pause new entries to Site sign-up Nurture (60 days) when Welcome goes live
@@ -126,6 +130,6 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - WELCOME15 · 15%, 24 hours
 - BROWSE10 · 10%
 - MYSTERY · dropped 2026-11-26: the abandoned checkout flow has no discount (prescription protocols aren't discounted)
-- Second order · 15%
-- Winback · 20%
+- Second order · 15%: dropped 2026-11-26 (site sells prescription protocols only)
+- Winback · 20%: dropped 2026-11-26 (same reason)
 - Created on their custom platform by the client (we can't create codes there)

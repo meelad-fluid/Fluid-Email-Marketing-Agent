@@ -1,0 +1,99 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#fff;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+
+.bar{background:#0b0a16;text-align:center;padding:18px 0}
+.bar img{height:40px}
+
+/* hero: tinted field + vial lineup on an indigo ledge */
+.hero{position:relative;background:linear-gradient(180deg,#E4DFE9 0%,#D9D2E6 100%);text-align:center;padding:48px 40px 0}
+.kick{font-size:12px;letter-spacing:3px;font-weight:700;color:#A8774F;text-transform:uppercase}
+.hero h1{margin:12px -20px 0;white-space:nowrap;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:38px;line-height:1.1;color:#1A1838;letter-spacing:-.4px}
+.hero h1 em{font-weight:500;color:#2A2668}
+.hero .sub{margin:16px auto 0;max-width:450px;font-size:16.5px;line-height:1.55;color:#4A4760}
+.hero .btn{margin-top:22px}
+.line{position:relative;margin:30px -40px 0;height:250px}
+.line .v{position:absolute;bottom:34px;width:150px;height:230px;background-repeat:no-repeat;background-position:center 46%;background-size:auto 150%;filter:drop-shadow(0 16px 18px rgba(26,24,56,.35))}
+.ledge{position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(180deg,#2A2668,#1A1838)}
+
+/* tracker */
+.trk{padding:52px 36px 10px;text-align:center}
+.lbl{font-size:12px;letter-spacing:3px;font-weight:700;color:#A8774F;text-transform:uppercase}
+.h2{margin-top:8px;font-family:'Playfair Display',serif;font-weight:700;font-size:31px;color:#1A1838;line-height:1.2}
+.h2 em{font-weight:500;color:#2A2668}
+.map{position:relative;margin-top:40px;display:flex;justify-content:space-between}
+.map:before{content:"";position:absolute;left:84px;right:84px;top:31px;height:4px;background:repeating-linear-gradient(90deg,#D4A27F 0 10px,transparent 10px 18px)}
+.stop{position:relative;width:168px}
+.pin{width:64px;height:64px;margin:0 auto;border-radius:50%;background:#F7F3EE;border:3px solid #D4A27F;display:flex;align-items:center;justify-content:center}
+.stop.on .pin{background:#2A2668;border-color:#2A2668;box-shadow:0 0 0 9px rgba(42,38,104,.14)}
+.here{position:absolute;left:50%;top:-34px;transform:translateX(-50%) rotate(-4deg);background:#D4A27F;color:#14121F;font-size:10px;font-weight:800;letter-spacing:1.4px;padding:5px 10px;border-radius:6px;white-space:nowrap;text-transform:uppercase}
+.stop small{display:block;margin-top:16px;font-size:11px;letter-spacing:2px;font-weight:700;color:#A8774F;text-transform:uppercase}
+.stop b{display:block;margin-top:4px;font-family:'Playfair Display',serif;font-size:20px;color:#1A1838}
+.stop p{margin-top:6px;font-size:13.5px;line-height:1.45;color:#4A4760}
+
+/* who to ask */
+.ask{margin:48px 0 0;background:#F7F3EE;padding:46px 30px 48px;text-align:center}
+.cards{margin-top:26px;display:flex;gap:14px}
+.card{flex:1;background:#fff;border-radius:20px;padding:26px 20px 24px;text-align:left;box-shadow:0 12px 26px rgba(26,24,56,.08);position:relative;overflow:hidden}
+.card .ic{width:54px;height:54px;border-radius:50%;background:#2A2668;display:flex;align-items:center;justify-content:center}
+.card.b .ic{background:#D4A27F}
+.card small{display:block;margin-top:16px;font-size:11px;letter-spacing:1.8px;font-weight:700;color:#A8774F;text-transform:uppercase}
+.card h3{margin-top:6px;font-family:'Playfair Display',serif;font-size:22px;color:#1A1838;line-height:1.2}
+.card p{margin-top:8px;font-size:14px;line-height:1.5;color:#4A4760}
+.card .btn{margin-top:16px;font-size:14px;padding:12px 22px}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="https://my.precisionpeptidecompany.com/login"><div class="hero">
+  <div class="kick">Where your order is now</div>
+  <h1>Three stops. <em>Here's every one.</em></h1>
+  <p class="sub">Clinician review, pharmacy fulfillment, then your door. You can check where your order is any time in your account.</p>
+  <span class="btn">Track My Order</span>
+  <div class="line">
+    <div class="v" style="left:30px;background-image:url('https://lh3.googleusercontent.com/d/1OVNaUQ0vpTBempdMgZ6dX_tCGeX8x8gd=w800')"></div>
+    <div class="v" style="left:165px;background-image:url('https://lh3.googleusercontent.com/d/1PTDAQNR8MWDpeu6zWLyN9FVy-l0cYgTp=w800')"></div>
+    <div class="v" style="left:300px;background-image:url('https://lh3.googleusercontent.com/d/11kgyQpHEuvSVUvVi4urioYCxqNInCqQE=w800')"></div>
+    <div class="v" style="left:435px;background-image:url('https://lh3.googleusercontent.com/d/1xgjV6lUuqU4F4duqI1pNsN_cbZKZgfYN=w800')"></div>
+    <div class="ledge"></div>
+  </div>
+</div></a>
+
+<a href="https://my.precisionpeptidecompany.com/login"><div class="trk">
+  <div class="lbl">Your order's route</div>
+  <h2 class="h2">From intake <em>to your door</em></h2>
+  <div class="map">
+    <div class="stop on"><span class="here">You're here</span><div class="pin"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F7F3EE" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></div><small>Stop 1</small><b>Clinician review</b><p>A US-licensed clinician reviews your health intake.</p></div>
+    <div class="stop"><div class="pin"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A8774F" stroke-width="1.7"><path d="M4 10l8-6 8 6v10H4z"/><path d="M12 11v6M9 14h6"/></svg></div><small>Stop 2</small><b>Pharmacy</b><p>If prescribed, it's filled by a US 503A compounding pharmacy.</p></div>
+    <div class="stop"><div class="pin"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A8774F" stroke-width="1.7"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 11h18M9 7V4h6v3"/></svg></div><small>Stop 3</small><b>Your door</b><p>It ships in plain, discreet packaging.</p></div>
+  </div>
+</div></a>
+
+<div class="ask">
+  <div class="lbl">Got a question?</div>
+  <h2 class="h2">Here's who <em>answers it</em></h2>
+  <div class="cards">
+    <a class="card" href="https://my.precisionpeptidecompany.com/login"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F7F3EE" stroke-width="1.7"><path d="M9 3h6M10 3v5l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/></svg></div><small>About your prescription</small><h3>Your prescribing clinician</h3><p>Reach them through your account.</p><span class="btn btn--dark">Log In</span></a>
+    <a class="card b" href="https://www.precisionpeptidecompany.com/contact"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14121F" stroke-width="1.7"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div><small>About your order or delivery</small><h3>Our team</h3><p>Reply to this email or send us a note.</p><span class="btn">Contact Us</span></a>
+  </div>
+</div>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

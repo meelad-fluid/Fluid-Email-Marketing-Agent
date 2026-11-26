@@ -1,176 +1,155 @@
 # Post-purchase and winback: copy
-_Client: The Precision Peptide Company · Platform: Customer.io · Written 2026-11-24_
+_Client: The Precision Peptide Company · Platform: Customer.io · Rewritten 2026-11-26 for the prescription protocols only_
 Status: draft · needs approval · goes live once built in Customer.io
-From: Sarah from The Precision Peptide Company (proposed) · plain-text notes from Pratap Sandhu
+From: Sarah from The Precision Peptide Company · #1 and #3 signed by Pratap Sandhu, CEO (needs his OK)
 
-**Compliance basis:** approved by Meelad (Fluid), Slack, 2026-11-24. No use instructions, dosing, timelines or outcomes in any email. Use questions on prescription orders always go to the prescribing clinician. Winback never infers a need for more. Codes apply to the retail range only.
+**What changed (2026-11-26, Gloria):** the website sells only the nine prescription protocols. Retail range, Recovery Patch/KPV/BPC capsules, THANKYOU15 and COMEBACK20 are gone. No discounts (prescription protocols are never discounted). No merge tags in any line, subject, preview or SMS (general language only); the only tag is a link where a link needs one.
 
-LEGAL_LINE and TAGLINE: same as the Welcome flow.
+**Rules for these flows:** no use instructions, dosing, timelines or outcomes. Every question about a prescription goes to the prescribing clinician (via Login: https://my.precisionpeptidecompany.com/login). Order, shipping and company questions go to our team (/contact or reply). Winback never implies someone ran out or needs more. Products only by name and price from /protocols.
+
+LEGAL_LINE and TAGLINE: same as the Welcome flow (site disclaimer incl. compounded-medication line; "Done properly. Done legally. Done once.").
 
 ---
 
 # Post-purchase (4 emails + 1 SMS)
 
-## Email #1: Thank you (plain text, 5 minutes after the first order)
-Template: post-purchase/01-thank-you-plain
-Talking to: the gray-market switcher, who's used to paying and hearing nothing, when they've just placed their first order and are waiting for a sign it's real
+## Email #1: A thank you from Pratap (5 minutes after the first order)
+Talking to: the person who just paid for their first protocol online, who's used to sites that go quiet after checkout, when they're refreshing their inbox for proof a real company has their order
+Idea: a signed note from the CEO of a publicly listed company. Not a receipt, a person.
 
-SUBJECT (pick): Thank you for your first order
-SUBJECT (option): A quick thank you from Pratap
-PREVIEW (pick): And who to talk to if you need anything
-PREVIEW (option): Here's what happens next
+SUBJECT (pick): A thank you from our CEO
+SUBJECT (option): Thank you for trusting us with this
+PREVIEW (pick): And who to talk to from here
+PREVIEW (option): Your order is in good hands
 
-GREETING: Hi {{customer.first_name | default: "there"}},
-PARAGRAPH_1: Thank you for your first order with The Precision Peptide Company. I know trusting a new company with something like this is a real decision, and I don't take it lightly.
-PARAGRAPH_2: Your order confirmation and tracking will come in separate emails. Everything ships in discreet packaging, and if it's a prescription order, it comes from our licensed 503A pharmacy partner.
-PARAGRAPH_3: If anything about your order isn't right, or you just have a question, reply to this email. Our team reads every reply, and you'll hear back from a real person.
+GREETING: Hi there,
+PARAGRAPH_1: Thank you for your first order with The Precision Peptide Company. Choosing who to trust with your health online is a real decision, and I don't take it lightly.
+PARAGRAPH_2: From here, a US-licensed clinician reviews your intake. If they prescribe your protocol, it's filled by a licensed 503A pharmacy in the US and shipped in plain, discreet packaging.
+PARAGRAPH_3: We're a publicly listed company (CSE: BPC, OTCQB: PNGAF), so you can look us up any time. And if anything about your order isn't right, reply to this email. A real person on our team reads every one.
 SIGN_OFF: Pratap Sandhu, CEO, The Precision Peptide Company
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Doesn't repeat the order confirmation (sent by their platform)
-- Needs Pratap's OK to send under his name
+BUTTON: Log In to Your Account
+[slot for one real line from Pratap, e.g. why he started the company]
 
 ## SMS #1 (right after Email #1, consent only)
-Precision Peptide: thanks for your order. Tracking is on its way by email. Questions? Just reply to our email and our team will help.
+Precision Peptide: thank you for your order. A licensed clinician reviews your intake next. Questions? Reply to our email anytime.
 
-## Email #2: What's in the box (1 day later)
-Template: post-purchase/02-get-ready
-Talking to: the needle-averse buyer, who wants it to be simple, when they're opening a flat patch pack for the first time
+## Email #2: Where your order is now (1 day later)
+Talking to: the first-time buyer, who's checking their email between meetings, when they want to know exactly what's happening with their order without having to ask
+Idea: an order tracker. Three stops, and a pin on where they are.
 
-SUBJECT (pick): What to expect when your order arrives
-SUBJECT (option): Your order is on its way
-PREVIEW (pick): And where to send any question
-PREVIEW (option): Plus 15% off your next retail order
+SUBJECT (pick): Where your order is right now
+SUBJECT (option): Here's what happens next
+PREVIEW (pick): Three stops, and who to ask at each one
+PREVIEW (option): Clinician, pharmacy, your door
 
-HEADLINE: When your package lands, here's everything you need to know about what's inside
-SUBHEADLINE: It arrives in plain, discreet packaging, and every batch is independently third-party tested.
-BUTTON: Talk to Us
+HEADLINE: Your order has three stops. Here's every one.
+SUBHEADLINE: Clinician review, pharmacy fulfillment, then your door. You can check where it is any time in your account.
+BUTTON: Track My Order
 
-SECTION_1_TITLE: If you ordered from the retail range
-SECTION_1_TEXT: Follow the directions on the label. The Recovery Patch needs no mixing, no measuring and no refrigeration, so it can go straight into a drawer or your bag.
+TRACKER:
+- STOP 1 · Clinician review · A US-licensed clinician reviews your health intake.
+- STOP 2 · Pharmacy fulfillment · If prescribed, your protocol is filled by a US 503A compounding pharmacy.
+- STOP 3 · Your door · It ships in plain, discreet packaging.
 
-SECTION_2_TITLE: If you ordered a prescription program
-SECTION_2_TEXT: Your prescribing clinician is the right person for every question about your prescription. You can reach them through your account.
-SECTION_2_BUTTON: Login
+WHO_TO_ASK_TITLE: Got a question? Here's who answers it.
+- About your prescription · Your prescribing clinician, through your account · BUTTON: Log In
+- About your order or delivery · Our team · BUTTON: Contact Us
 
-SECTION_3_TITLE: Anything else
-SECTION_3_TEXT: Questions about shipping, your order or our company go to our team. Reply to this email and we'll answer.
-
-OFFER_TITLE: For your next retail order
-OFFER_TEXT: Code THANKYOU15 takes 15% off the retail range for the next 14 days. Prescription programs aren't included.
-OFFER_BUTTON: Shop Now
-CODE: THANKYOU15
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (no use instructions; points to the label and the clinician)
-- Confirm clinicians are reachable through the account login; if not, give the support route the client uses
-- Code name THANKYOU15 is a proposal
-
-## Email #3: How did it go? (plain text, 7 days later)
-Template: post-purchase/03-check-in-plain
-Talking to: the gray-market switcher, who's used to vendors that disappear after the sale, when their first order has arrived and they're deciding if we were worth it
+## Email #3: Did it arrive okay? (plain-text style, 7 days later)
+Talking to: the person who's had their package for a day or two, who's used to vendors that disappear after the sale, when they're deciding if we were worth trusting
+Idea: the CEO checks in himself, and asks about the service, never about them.
 
 SUBJECT (pick): Did everything arrive okay?
 SUBJECT (option): Quick question about your order
 PREVIEW (pick): A real person reads the replies
 PREVIEW (option): Two minutes, if you have them
 
-GREETING: Hi {{customer.first_name | default: "there"}},
-PARAGRAPH_1: Your order should have reached you by now, and I wanted to check that everything turned up the way it should have.
-PARAGRAPH_2: Did it arrive on time, was the packaging discreet, and was anything unclear? If something wasn't right, reply and tell me. We'd much rather fix it than have you wonder.
-PARAGRAPH_3: And if the ordering and delivery went well, a short review of our service would help other people who are trying to find a company they can trust.
-TEXT_LINK: Leave a review: [review link needed from the client]
+GREETING: Hi there,
+PARAGRAPH_1: Your order should have reached you by now, and I wanted to check it turned up the way it should have.
+PARAGRAPH_2: Did it arrive on time? Was the packaging discreet? Was anything about the process unclear? If something wasn't right, reply and tell me. We'd much rather fix it than have you wonder.
+PARAGRAPH_3: Any question about your prescription itself is for your clinician, and you can reach them through your account.
 SIGN_OFF: Pratap Sandhu, CEO, The Precision Peptide Company
+BUTTON_1: Reply to Pratap (→ /contact)
+BUTTON_2: Log In
+[review link: add a "leave a review of our service" line once the client has one]
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (asks for a service review only, never personal results)
-- Needs the client's review link; drop the third paragraph until they have one
+## Email #4: Who to ask, for anything (4 days later)
+Talking to: the settled-in customer, who has their protocol and a dozen small questions, when one of them comes up at 10pm and they don't know where to send it
+Idea: a directory card. Every kind of question, and the one place it goes.
 
-## Email #4: Picked for you (2 days later)
-Template: post-purchase/04-complete-the-kit
-Talking to: the needle-averse buyer, who liked how simple the first order was, when they're unpacking their bag after a trip
+SUBJECT (pick): Keep this one
+SUBJECT (option): Who to ask, for anything
+PREVIEW (pick): Every question has a place to go
+PREVIEW (option): Your clinician, our team and your account
 
-SUBJECT (pick): Your 15% code ends soon
-SUBJECT (option): The rest of our retail range
-PREVIEW (pick): A few days left on THANKYOU15
-PREVIEW (option): All of it needle-free and third-party tested
+HEADLINE: Every question has a place to go. Here's the list.
+SUBHEADLINE: Save this email and you'll never have to hunt for who to ask.
+BUTTON: Log In to Your Account
 
-HEADLINE: If your first order was easy, the rest of the range works the same way
-SUBHEADLINE: Code THANKYOU15 takes 15% off the retail range for a few more days.
-BUTTON: Shop Now
-CODE: THANKYOU15
+DIRECTORY:
+- "Is my protocol still the right one?" · Your clinician · Log In
+- "Where's my order?" · Your account · Track My Order
+- "Something's off with my delivery." · Our team · Contact Us
+- "How does billing work?" · Our refund policy and our team · Read the Policy (→ /refund-policy)
+- "I want to read up on peptides." · The blog · Read the Blog (→ /blog)
 
-PRODUCTS_TITLE: The retail range
-PRODUCT_1_NAME: Recovery Patch · BUTTON: Shop Now
-PRODUCT_2_NAME: KPV · BUTTON: Shop Now
-PRODUCT_3_NAME: BPC · BUTTON: Shop Now
-
-EXCLUSION_LINE: Prescription programs aren't included.
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (no pairing logic tied to use; products by name only)
-- Swap in real "bought X, then Y" pairs once order data exists
+RANGE_TITLE: Nine protocols, one process
+RANGE_TEXT: Every protocol on our site is prescribed by a licensed US clinician and filled by a 503A pharmacy. If you ever wonder whether another one fits, your clinician is the one to ask.
+RANGE_BUTTON: View All Protocols
 
 ---
 
 # Winback (2 emails + 1 SMS)
+Trigger: 90 days after the last order, no new order. No offer.
 
-## Email #1: What's new since your last order (90 days after a first order, no reorder)
-Template: winback/01b-check-in-designed
-Talking to: the gray-market switcher, who drifted back to comparing vendors, when they have three vendor tabs open again
+## Email #1: Still the company you can look up (90 days after last order)
+Talking to: the past customer who's seen three new peptide sites in their feed this month, when they're wondering which ones are even real
+Idea: a stock-ticker card. Everything that was true when they ordered is still true, and public.
 
-SUBJECT (pick): A few things have changed since your last order
-SUBJECT (option): What's new at Precision Peptide
-PREVIEW (pick): Plus 20% off the retail range
-PREVIEW (option): And an easy way to tell us what went wrong
+SUBJECT (pick): Still here, still public
+SUBJECT (option): A quick note from Precision Peptide
+PREVIEW (pick): CSE: BPC and OTCQB: PNGAF, same as before
+PREVIEW (option): The protocol, the prescriber, the pharmacy
 
-HEADLINE: It's been a while, so here's what's new at Precision Peptide since you last ordered
-SUBHEADLINE: Code COMEBACK20 takes 20% off the retail range for the next 7 days.
-BUTTON: Shop Now
-CODE: COMEBACK20
+HEADLINE: New sites every week. We're still the one you can look up.
+SUBHEADLINE: Same licensed US clinicians, same 503A pharmacy, same public listing. Whenever you're ready, starting again takes a few minutes.
+BUTTON: Get Started
 
-NEW_TITLE: New since your last visit
-NEW_TEXT: [client to confirm: new products, formats or restocks at send time]
-
-TRUST_TITLE: Still the same company you can look up
-- Publicly listed: CSE: BPC and OTCQB: PNGAF
-- Licensed US clinicians and a 503A pharmacy
-- Every batch independently third-party tested
-
-FEEDBACK_TITLE: Did something go wrong?
-FEEDBACK_TEXT: If your first order didn't go the way it should have, reply and tell us. Our team reads every reply.
-
-EXCLUSION_LINE: Prescription programs aren't included.
-
-NOTES
-- Compliance gate: HOLD — VERIFICATION REQUIRED until the "new since" block is filled with confirmed launches (the Thymosin Alpha-1 and tirzepatide patches are not on sale yet, so they can't be named as available)
-- Never "running low", "next round" or anything that implies use
+TICKER: CSE: BPC · OTCQB: PNGAF · LegitScript certified
+STILL_TRUE_TITLE: Still true
+- A US-licensed clinician reviews every intake
+- A US 503A compounding pharmacy fills every prescription
+- Every order ships in plain, discreet packaging
+PROTOCOLS_TITLE: All nine protocols
+Semaglutide (as low as $159.67/month) · Tirzepatide (as low as $233/month) · Sermorelin (from $199/month) · BPC-157 (from $139/month) · TB-500 (as low as $125/month) · NAD+ (from $179/month) · Epitalon (from $199/month) · MOTS-c (from $199/month) · Semax (from $249/month)
+BUTTON: View All Protocols
 
 ## SMS #1 (right after Email #1, consent only)
-Precision Peptide: it's been a while. Code COMEBACK20 takes 20% off our retail range for 7 days: https://www.precisionpeptidecompany.com
+Precision Peptide: still here, still the same licensed clinicians and 503A pharmacy. Whenever you're ready: https://www.precisionpeptidecompany.com/protocols
 
-## Email #2: Your code ends soon (5 days later)
-Template: winback/02-come-back-offer
-Talking to: the needle-averse buyer, who meant to come back, when they're seeing the vials in the fridge again
+## Email #2: Starting again is three steps (5 days later)
+Talking to: the past customer who meant to come back and keeps putting it off, when they picture filling in a long form all over again
+Idea: the maths of coming back. Three steps, a few minutes, prices on the page.
 
-SUBJECT (pick): Your 20% ends in two days
-SUBJECT (option): Last few days for COMEBACK20
-PREVIEW (pick): On the whole retail range
-PREVIEW (option): Then it's gone
+SUBJECT (pick): Starting again takes three steps
+SUBJECT (option): The short version of getting back
+PREVIEW (pick): Pick, intake, clinician review
+PREVIEW (option): No long form, no guesswork
 
-HEADLINE: Your 20% code ends in two days
-SUBHEADLINE: COMEBACK20 takes 20% off anything in the retail range, including the needle-free Recovery Patch.
-BUTTON: Shop Now
-CODE: COMEBACK20
+HEADLINE: Coming back takes three steps, not a fresh start.
+SUBHEADLINE: Choose your protocol, complete a short intake, and a licensed US clinician reviews it within 24 hours.
+BUTTON: Get Started
 
-PRODUCTS_TITLE: Our best sellers
-PRODUCT_1_NAME: Recovery Patch · BUTTON: Shop Now
-PRODUCT_2_NAME: KPV · BUTTON: Shop Now
-PRODUCT_3_NAME: BPC · BUTTON: Shop Now
+STEPS:
+1. Choose your protocol · Clear pricing on every page.
+2. Complete your intake · A few minutes, private and secure.
+3. Clinician review · Within 24 hours. If prescribed, it ships from a 503A pharmacy.
 
-EXCLUSION_LINE: Prescription programs aren't included.
+PRICE_STRIP: Protocols from $125/month · BUTTON: Choose My Protocol
+CLOSING_LINE: If something about your last order put you off, reply and tell us. Sarah, The Precision Peptide Company
 
 NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Rx-only customers: skip the code and send a "what's new" note without an offer
+- PP #1 and #3 are signed by Pratap: needs his OK, plus one real line from him
+- Clinician access through the account login is assumed from the site's Login link: confirm with the client
+- "Within 24 hours" review is the site's own line
+- Review link for PP #3 still needed
