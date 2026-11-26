@@ -2,7 +2,7 @@
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/_5EPvXIfCnDNcZtYs1GSdHcG
 Status: draft · needs approval · goes live when the Abandoned Checkout flow is built in Customer.io
 Copy: copy/abandonment-flows.md (Abandoned checkout, Email #1)
-Subject: Your {{protocol}} checkout is saved · Preview: Pick it up right where you stopped
+Subject: Your checkout is saved · Preview: Pick it up right where you stopped
 From: Sarah from The Precision Peptide Company
 
 Layout: ink logo bar → full-bleed evening-couch photo hero with headline, button and a tilted "Saved" sticker, rounded bottom corners → three-step progress track (done / next / if prescribed) → cream checkout card with folder tab and dynamic item row → "fine print, plainly" icon trio on midnight → rounded-top indigo close with ghost "Ask Our Team" + checkout buttons → footer

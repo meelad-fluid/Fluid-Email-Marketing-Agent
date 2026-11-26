@@ -147,29 +147,29 @@ _Rewritten 2026-11-26 (Gloria: "work on the abandoned checkout flow"). Prescript
 Status: draft · needs approval · goes live once `checkout_started` is flowing from their developer
 
 **Trigger:** `checkout_started` (fires when checkout or the intake starts). **Filter:** no `order_created` since starting the flow. **Re-entry:** after 1 day. Exits Browse and Site Abandonment (cart wins).
-**Liquid:** at the top of every email `{% assign protocol = event.items[0].product_name %}`; button links go to `{{event.checkout_url}}` (reopens the same checkout); the checkout block loops `{% for item in event.items %}` with `item.image_url`, `item.product_name`, `item.price`.
+**Merge tags:** none in copy, subjects, previews or SMS (Gloria, 2026-11-26: general language only). The only tag is the button link `{{event.checkout_url}}` (reopens the same checkout). Checkout block is static: real vials + "Your protocol" line.
 **From:** Sarah from The Precision Peptide Company · LEGAL_LINE + TAGLINE as in the Welcome flow.
 
 ## Email #1: Your checkout is saved (30 minutes later)
 Talking to: the person halfway through checkout for a protocol on the couch in the evening, who got pulled away by a call or a kid and closed the tab
 Idea: a progress bar. They already did the hard part; step one is half done and saved.
 
-SUBJECT (pick): Your {{protocol}} checkout is saved
+SUBJECT (pick): Your checkout is saved
 SUBJECT (option): You were almost through
 SUBJECT (option): Picking up where you left off?
 PREVIEW (pick): Pick it up right where you stopped
 PREVIEW (option): Nothing's lost, it's all still there
 
 HEADLINE: You got partway through. We saved your spot.
-SUBHEADLINE: Your {{protocol}} checkout is right where you left it. Finish it and a US-licensed clinician reviews your intake within 24 hours.
+SUBHEADLINE: Your checkout is right where you left it. Finish it and a US-licensed clinician reviews your intake within 24 hours.
 BUTTON: Finish My Checkout
 PROGRESS: Checkout started (done) → Clinician review (next) → Pharmacy fulfillment
-CHECKOUT_BLOCK: dynamic, one row per item: image + name + price · BUTTON: Finish My Checkout
+CHECKOUT_BLOCK: static: example vial + "Your protocol" + "Plus your intake answers so far" + SAVED · BUTTON: Finish My Checkout
 CLOSING_LINE: Got stuck on a question in the form? Reply to this email and our team will help.
 CLOSING_BUTTON: Finish My Checkout
 
 ## SMS #1 (right after Email #1, consent only)
-Precision Peptide: your {{protocol}} checkout is saved right where you left it. Pick it up here: {{event.checkout_url}}
+Precision Peptide: your checkout is saved right where you left it. Pick it up here: {{event.checkout_url}}
 
 ## Email #2: What happens after you submit (1 day later)
 Talking to: the careful first-timer, who stopped at the last step because they weren't sure who reads the form, when they're wondering "will a real doctor actually look at this?"
@@ -187,9 +187,9 @@ BUTTON: Finish My Checkout
 
 TIMELINE_TITLE: After you submit
 - NOW · You finish checkout · Your answers go to a secure, private intake.
-- WITHIN 24 HOURS · A clinician reviews it · A US-licensed clinician reads your health history and decides whether {{protocol}} is right for you.
+- WITHIN 24 HOURS · A clinician reviews it · A US-licensed clinician reads your health history and decides whether the protocol is right for you.
 - IF PRESCRIBED · The pharmacy fills it · Your protocol ships from a 503A pharmacy in discreet packaging.
-TIMELINE_NOTE: If {{protocol}} isn't the right fit, the clinician will tell you.
+TIMELINE_NOTE: If it isn't the right fit, the clinician will tell you.
 
 CHECKOUT_BLOCK: dynamic (same as Email #1) · BUTTON: Finish My Checkout
 HELP_TITLE: Rather ask a person first?
@@ -204,10 +204,10 @@ SUBJECT (pick): What the box looks like
 SUBJECT (option): Nobody has to know what's inside
 SUBJECT (option): About the delivery
 PREVIEW (pick): Plain, discreet, and from a 503A pharmacy
-PREVIEW (option): Your {{protocol}} checkout is still saved
+PREVIEW (option): Your checkout is still saved
 
 HEADLINE: The only thing on the box is your name.
-SUBHEADLINE: If prescribed, {{protocol}} ships from a 503A pharmacy in plain, discreet packaging.
+SUBHEADLINE: If prescribed, your protocol ships from a 503A pharmacy in plain, discreet packaging.
 BUTTON: Finish My Checkout
 
 LABEL_DEVICE: a shipping label: TO: You · FROM: a 503A pharmacy · CONTENTS: your business
@@ -220,7 +220,7 @@ SECTION_TITLE: What you can count on
 CHECKOUT_BLOCK: dynamic (same as Email #1) · BUTTON: Finish My Checkout
 
 ## SMS #2 (right after Email #3, consent only)
-Precision Peptide: your {{protocol}} checkout is still saved. If prescribed, it ships in plain, discreet packaging: {{event.checkout_url}}
+Precision Peptide: your checkout is still saved. If prescribed, it ships in plain, discreet packaging: {{event.checkout_url}}
 
 ## Email #4: What stopped you? (1 day later)
 Talking to: the person who meant to come back and didn't, when they're seeing the fourth email and deciding whether to reply or delete
@@ -230,10 +230,10 @@ SUBJECT (pick): Can I ask what stopped you?
 SUBJECT (option): This is my last note about your checkout
 SUBJECT (option): One question, then I'll leave it
 PREVIEW (pick): One click tells us, and we'll help
-PREVIEW (option): Your {{protocol}} checkout is still saved
+PREVIEW (option): Your checkout is still saved
 
 HEADLINE: This is my last note about it. Can I ask what stopped you?
-SUBHEADLINE: Your {{protocol}} checkout is still saved. Pick whichever sounds like you.
+SUBHEADLINE: Your protocol and intake answers are still saved. Pick whichever reason sounds like you.
 CHOICE_1: "I had a question first." · Our FAQ covers prescriptions, side effects and how the review works. · BUTTON: Read the FAQ (→ /faq)
 CHOICE_2: "I wasn't sure it was the right protocol." · That's the clinician's call, and they'll tell you if it isn't the right fit. · BUTTON: Compare Protocols (→ /protocols)
 CHOICE_3: "I got busy." · Fair enough. Everything you entered is saved. · BUTTON: Finish My Checkout
