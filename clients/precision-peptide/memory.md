@@ -54,6 +54,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria comment on Abandoned Checkout #4: "no tag on an image, construct better" → removed {{protocol}} from the hero line and rebuilt the {{item}} cart card as a static three-vial row (Tirzepatide, Sermorelin, NAD+) + "Your protocol is right where you left it." Republished + resolved.
 - 2026-11-26 · preference (Gloria): never put merge tags ({{...}}) in image-based designs; write static lines instead
 - 2026-11-26 · Gloria (Slack): "remove {{Protocol}}, use general language" → removed {{protocol}} and {{item}} tags from Abandoned Checkout #1 and #2 designs (republished) and from every subject, preview, SMS and line in copy/abandonment-flows.md. Rule now: NO merge tags anywhere in copy (subjects/SMS too); only the button link {{event.checkout_url}} stays.
+- 2026-11-26 · Gloria comment on Abandoned Checkout #3: removed the three-vial row from the "checkout still saved" card, kept the line + button. Republished + resolved.
 
 ## Open questions
 <!-- - … -->
