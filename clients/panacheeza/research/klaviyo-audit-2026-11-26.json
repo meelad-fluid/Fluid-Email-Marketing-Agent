@@ -1,0 +1,574 @@
+{
+ "pulled_at": "2026-11-26T19:36:45.653Z",
+ "window_days": 60,
+ "account": {
+  "name": "Panacheeza",
+  "sender": "hello@panacheeza.com",
+  "timezone": "US/Eastern",
+  "currency": "USD"
+ },
+ "lists": [
+  {
+   "id": "R879f7",
+   "name": "Meal_Delivery",
+   "created": "2024-05-19"
+  },
+  {
+   "id": "TL26ie",
+   "name": "Grocery_Master",
+   "created": "2024-05-19"
+  },
+  {
+   "id": "TxAZha",
+   "name": "Newsletter",
+   "created": "2024-01-08"
+  },
+  {
+   "id": "UGZQb2",
+   "name": "SMS Subscribers",
+   "created": "2024-01-08"
+  },
+  {
+   "id": "VJ8rEr",
+   "name": "B2B Contacts",
+   "created": "2024-01-16"
+  },
+  {
+   "id": "Vw9mTP",
+   "name": "FC | SMS VIP List",
+   "created": "2026-11-02"
+  },
+  {
+   "id": "WUZxDp",
+   "name": "NY_SpecialityGrocery_OrganicFood",
+   "created": "2024-05-16"
+  },
+  {
+   "id": "X8sLi8",
+   "name": "Preview List",
+   "created": "2024-01-08"
+  },
+  {
+   "id": "XGB8m5",
+   "name": "FS Outreach",
+   "created": "2025-10-13"
+  },
+  {
+   "id": "YgCbcj",
+   "name": "Gas-Grocery",
+   "created": "2024-05-19"
+  }
+ ],
+ "forms": [
+  {
+   "name": "FC | Pop-UP Form Panacheeza Mobile",
+   "status": "live"
+  },
+  {
+   "name": "FC | Pop-UP Form Panacheeza Desktop",
+   "status": "live"
+  }
+ ],
+ "flows": {
+  "live_count": 7,
+  "live": [
+   "FC | Abandoned Checkout",
+   "FC | BFCM Offer Code",
+   "FC | Welcome Email",
+   "FC | Post Purchase",
+   "FC | Browse Abandonment",
+   "FC | Winback",
+   "FC | Site Abandonment"
+  ],
+  "top10_60d": [
+   {
+    "name": "FC | Welcome Email",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email+sms",
+    "recipients": 3389,
+    "revenue": 2255,
+    "rpr": 0.67,
+    "conversions": 61
+   },
+   {
+    "name": "FC | Abandoned Checkout",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 788,
+    "revenue": 697,
+    "rpr": 0.88,
+    "conversions": 19
+   },
+   {
+    "name": "FC | Site Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 2020,
+    "revenue": 433,
+    "rpr": 0.21,
+    "conversions": 13
+   },
+   {
+    "name": "FC | Browse Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 845,
+    "revenue": 307,
+    "rpr": 0.36,
+    "conversions": 9
+   },
+   {
+    "name": "FC | Post Purchase",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 3901,
+    "revenue": 254,
+    "rpr": 0.07,
+    "conversions": 5
+   },
+   {
+    "name": "FC | BFCM Offer Code",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 58,
+    "revenue": 58,
+    "rpr": 1,
+    "conversions": 1
+   }
+  ]
+ },
+ "campaigns_60d": {
+  "email_sends": 20,
+  "sms_sends": 2,
+  "per_week": 2.3,
+  "avg_open_rate": 0.5605,
+  "avg_click_rate": 0.0094,
+  "best": [
+   {
+    "name": "FC | VIP BOGO — Final Chance",
+    "channel": "email",
+    "sent": "2026-11-12T14:51:45.003378+00:00",
+    "status": "Sent",
+    "subject": "Your free bag offer ends today",
+    "preview": "Buy any bulk bag, get a free 1 lb Truffle or Hot & Spicy.",
+    "audiences": {
+     "included": [
+      "WJYeLM"
+     ],
+     "excluded": []
+    },
+    "recipients": 8473,
+    "open_rate": 0.60206,
+    "click_rate": 0.01269,
+    "conversions": 32,
+    "revenue": 1163,
+    "rpr": 0.13789,
+    "unsub_rate": 0.00261
+   },
+   {
+    "name": "FC | More Than a Pasta Topping",
+    "channel": "email",
+    "sent": "2026-10-12T15:15:00+00:00",
+    "status": "Sent",
+    "subject": "It is not just a pasta thing",
+    "preview": "6 ways it earns its spot on the counter",
+    "audiences": {
+     "included": [
+      "WJYeLM"
+     ],
+     "excluded": []
+    },
+    "recipients": 8596,
+    "open_rate": 0.60416,
+    "click_rate": 0.00853,
+    "conversions": 20,
+    "revenue": 1020,
+    "rpr": 0.1193,
+    "unsub_rate": 0.00257
+   },
+   {
+    "name": "FC | VIP Early Opening ",
+    "channel": "email",
+    "sent": "2026-11-09T19:53:01.594490+00:00",
+    "status": "Sent",
+    "subject": "Buy Any Bulk Bag, Get a FREE Gift!",
+    "preview": "Choose Truffle or Hot & Spicy FREE.",
+    "audiences": {
+     "included": [
+      "Tm4UPL"
+     ],
+     "excluded": []
+    },
+    "recipients": 15001,
+    "open_rate": 0.35024,
+    "click_rate": 0.01006,
+    "conversions": 48,
+    "revenue": 1773,
+    "rpr": 0.11897,
+    "unsub_rate": 0.00221
+   },
+   {
+    "name": "FC | Parmesan Bruschetta",
+    "channel": "email",
+    "sent": "2026-10-22T15:00:00+00:00",
+    "status": "Sent",
+    "subject": "Looks fancy. Takes 10 minutes.",
+    "preview": "Tomatoes, basil, balsamic, Panacheeza",
+    "audiences": {
+     "included": [
+      "WJYeLM"
+     ],
+     "excluded": []
+    },
+    "recipients": 8525,
+    "open_rate": 0.59845,
+    "click_rate": 0.00624,
+    "conversions": 24,
+    "revenue": 937,
+    "rpr": 0.11031,
+    "unsub_rate": 0.00177
+   },
+   {
+    "name": "FC | Stock Up + Try Another Flavor",
+    "channel": "email",
+    "sent": "2026-11-11T20:55:44.774607+00:00",
+    "status": "Sent",
+    "subject": "Buy any bulk bag, get a free 1 lb bag",
+    "preview": "Choose Truffle or Hot & Spicy. Ends November 12.",
+    "audiences": {
+     "included": [
+      "WJYeLM"
+     ],
+     "excluded": []
+    },
+    "recipients": 8495,
+    "open_rate": 0.60554,
+    "click_rate": 0.00935,
+    "conversions": 23,
+    "revenue": 787,
+    "rpr": 0.09314,
+    "unsub_rate": 0.00272
+   }
+  ],
+  "worst": [
+   {
+    "name": "FC | Cozy White Mushroom Lasagna",
+    "channel": "email",
+    "sent": "2026-10-15T17:06:50.598485+00:00",
+    "status": "Sent",
+    "subject": "Cozy White Mushroom Lasagna",
+    "preview": "Creamy layers, cooler nights, zero dairy",
+    "audiences": {
+     "included": [
+      "WJYeLM"
+     ],
+     "excluded": []
+    },
+    "recipients": 8582,
+    "open_rate": 0.60407,
+    "click_rate": 0.0151,
+    "conversions": 7,
+    "revenue": 247,
+    "rpr": 0.02895,
+    "unsub_rate": 0.00187
+   },
+   {
+    "name": "FC | Thanksgiving Recipe Inspiration",
+    "channel": "email",
+    "sent": "2026-11-24T18:13:38.705148+00:00",
+    "status": "Sent",
+    "subject": "Your Thanksgiving sides, sorted",
+    "preview": "Scalloped potatoes, broccoli, zucchini, asparagus.",
+    "audiences": {
+     "included": [
+      "Tm4UPL"
+     ],
+     "excluded": [
+      "VrXiQE"
+     ]
+    },
+    "recipients": 14913,
+    "open_rate": 0.3336,
+    "click_rate": 0.00675,
+    "conversions": 10,
+    "revenue": 490,
+    "rpr": 0.03308,
+    "unsub_rate": 0.00176
+   },
+   {
+    "name": "FC | Your VIP Shopping Guide",
+    "channel": "email",
+    "sent": "2026-11-06T14:00:00+00:00",
+    "status": "Sent",
+    "subject": "Pick your flavor before November 8",
+    "preview": "3 flavors, and which one fits your cooking",
+    "audiences": {
+     "included": [
+      "WJYeLM"
+     ],
+     "excluded": []
+    },
+    "recipients": 8496,
+    "open_rate": 0.5967,
+    "click_rate": 0.01258,
+    "conversions": 7,
+    "revenue": 282,
+    "rpr": 0.03342,
+    "unsub_rate": 0.00249
+   }
+  ],
+  "all": [
+   {
+    "name": "FC | VIP BOGO — Final Chance",
+    "sent": "2026-11-12T14:51:45.003378+00:00",
+    "subject": "Your free bag offer ends today",
+    "open_rate": 0.60206,
+    "click_rate": 0.01269,
+    "revenue": 1163,
+    "rpr": 0.13789,
+    "recipients": 8473
+   },
+   {
+    "name": "FC | More Than a Pasta Topping",
+    "sent": "2026-10-12T15:15:00+00:00",
+    "subject": "It is not just a pasta thing",
+    "open_rate": 0.60416,
+    "click_rate": 0.00853,
+    "revenue": 1020,
+    "rpr": 0.1193,
+    "recipients": 8596
+   },
+   {
+    "name": "FC | VIP Early Opening ",
+    "sent": "2026-11-09T19:53:01.594490+00:00",
+    "subject": "Buy Any Bulk Bag, Get a FREE Gift!",
+    "open_rate": 0.35024,
+    "click_rate": 0.01006,
+    "revenue": 1773,
+    "rpr": 0.11897,
+    "recipients": 15001
+   },
+   {
+    "name": "FC | Parmesan Bruschetta",
+    "sent": "2026-10-22T15:00:00+00:00",
+    "subject": "Looks fancy. Takes 10 minutes.",
+    "open_rate": 0.59845,
+    "click_rate": 0.00624,
+    "revenue": 937,
+    "rpr": 0.11031,
+    "recipients": 8525
+   },
+   {
+    "name": "FC | Stock Up + Try Another Flavor",
+    "sent": "2026-11-11T20:55:44.774607+00:00",
+    "subject": "Buy any bulk bag, get a free 1 lb bag",
+    "open_rate": 0.60554,
+    "click_rate": 0.00935,
+    "revenue": 787,
+    "rpr": 0.09314,
+    "recipients": 8495
+   },
+   {
+    "name": "FC | Which Panacheeza Belongs in Your Kitchen?",
+    "sent": "2026-10-17T15:00:00+00:00",
+    "subject": "Which one are you?",
+    "open_rate": 0.59329,
+    "click_rate": 0.00739,
+    "revenue": 700,
+    "rpr": 0.08208,
+    "recipients": 8566
+   },
+   {
+    "name": "FC | Scalloped Potatoes Season Has Arrived",
+    "sent": "2026-10-01T14:00:00+00:00",
+    "subject": "The side dish everyone asks you to bring",
+    "open_rate": 0.60193,
+    "click_rate": 0.01096,
+    "revenue": 553,
+    "rpr": 0.06447,
+    "recipients": 8625
+   },
+   {
+    "name": "FC | Parmesan Garlic Knots",
+    "sent": "2026-10-29T15:15:00+00:00",
+    "subject": "Pasta night needs these",
+    "open_rate": 0.59534,
+    "click_rate": 0.00895,
+    "revenue": 540,
+    "rpr": 0.06359,
+    "recipients": 8530
+   },
+   {
+    "name": "FC | Why Panacheeza Earns a Permanent Pantry Spot",
+    "sent": "2026-10-27T01:16:08.605178+00:00",
+    "subject": "3 reasons the jar never goes back in the cupboard",
+    "open_rate": 0.62541,
+    "click_rate": 0.00893,
+    "revenue": 471,
+    "rpr": 0.05535,
+    "recipients": 8549
+   },
+   {
+    "name": "FC | VIP Sale Is Around the Corner",
+    "sent": "2026-11-04T15:23:46.783179+00:00",
+    "subject": "VIP access opens November 8",
+    "open_rate": 0.60172,
+    "click_rate": 0.01686,
+    "revenue": 436,
+    "rpr": 0.05136,
+    "recipients": 8517
+   },
+   {
+    "name": "FC | From Grandma’s Kitchen to Yours",
+    "sent": "2026-09-29T16:30:00+00:00",
+    "subject": "It started in a grandmother's kitchen",
+    "open_rate": 0.595,
+    "click_rate": 0.00745,
+    "revenue": 434,
+    "rpr": 0.05048,
+    "recipients": 8641
+   },
+   {
+    "name": "FC | Five Ingredients. Countless Possibilities.",
+    "sent": "2026-10-20T13:15:00+00:00",
+    "subject": "5 ingredients. Read them all.",
+    "open_rate": 0.60396,
+    "click_rate": 0.00902,
+    "revenue": 420,
+    "rpr": 0.04918,
+    "recipients": 8569
+   },
+   {
+    "name": "FC | Your Shopping Shortcut",
+    "sent": "2026-11-24T00:52:34.408882+00:00",
+    "subject": "What your $20 credit will buy",
+    "open_rate": 0.59423,
+    "click_rate": 0.00742,
+    "revenue": 385,
+    "rpr": 0.04615,
+    "recipients": 8396
+   },
+   {
+    "name": "FC | BFCM Launch",
+    "sent": "2026-11-16T21:00:00+00:00",
+    "subject": "Spend $40, get $20 for your next order",
+    "open_rate": 0.34046,
+    "click_rate": 0.00449,
+    "revenue": 611,
+    "rpr": 0.04093,
+    "recipients": 15025
+   },
+   {
+    "name": "FC | Janessa's Plain-Text Note",
+    "sent": "2026-11-20T15:00:00+00:00",
+    "subject": "Buy $40, get $20 for next time",
+    "open_rate": 0.57449,
+    "click_rate": 0.00738,
+    "revenue": 337,
+    "rpr": 0.04012,
+    "recipients": 8454
+   },
+   {
+    "name": "FC | Artichoke Parmesan Dip",
+    "sent": "2026-10-09T18:06:14.884830+00:00",
+    "subject": "The 2 step dip that wins game day",
+    "open_rate": 0.61048,
+    "click_rate": 0.01085,
+    "revenue": 341,
+    "rpr": 0.03981,
+    "recipients": 8616
+   },
+   {
+    "name": "FC | Your Snack Stash Comes With a Bonus",
+    "sent": "2026-11-18T16:00:00+00:00",
+    "subject": "Spend $40, get $20 back",
+    "open_rate": 0.57867,
+    "click_rate": 0.00678,
+    "revenue": 293,
+    "rpr": 0.03548,
+    "recipients": 8319
+   },
+   {
+    "name": "FC | Your VIP Shopping Guide",
+    "sent": "2026-11-06T14:00:00+00:00",
+    "subject": "Pick your flavor before November 8",
+    "open_rate": 0.5967,
+    "click_rate": 0.01258,
+    "revenue": 282,
+    "rpr": 0.03342,
+    "recipients": 8496
+   },
+   {
+    "name": "FC | Thanksgiving Recipe Inspiration",
+    "sent": "2026-11-24T18:13:38.705148+00:00",
+    "subject": "Your Thanksgiving sides, sorted",
+    "open_rate": 0.3336,
+    "click_rate": 0.00675,
+    "revenue": 490,
+    "rpr": 0.03308,
+    "recipients": 14913
+   },
+   {
+    "name": "FC | Cozy White Mushroom Lasagna",
+    "sent": "2026-10-15T17:06:50.598485+00:00",
+    "subject": "Cozy White Mushroom Lasagna",
+    "open_rate": 0.60407,
+    "click_rate": 0.0151,
+    "revenue": 247,
+    "rpr": 0.02895,
+    "recipients": 8582
+   }
+  ],
+  "sms": [
+   {
+    "name": "FC | BFCM Early Access",
+    "channel": "sms",
+    "sent": "2026-11-09T16:14:54.016565+00:00",
+    "status": "Sent",
+    "body": "A FREE bag? Yes, please! Buy any Bulk Bag and get a FREE Truffle or Spicy bag your choice! Just add both to your cart and the discount applies automatically: https://panacheeza.com/collections/bulk-bags",
+    "audiences": {
+     "included": [
+      "UGZQb2",
+      "Vw9mTP"
+     ],
+     "excluded": []
+    },
+    "recipients": 2056,
+    "open_rate": 0,
+    "click_rate": 0.28305,
+    "conversions": 34,
+    "revenue": 1058,
+    "rpr": 0.51993,
+    "unsub_rate": 0.01867
+   },
+   {
+    "name": "FC | [SMS] Final Hours",
+    "channel": "sms",
+    "sent": "2026-11-12T17:57:08.266797+00:00",
+    "status": "Sent",
+    "body": "Last call. The free bag goes away tonight.\n \n1. Add any 1 lb or 3 lb bulk bag.\n2. Add your free 1 lb Truffle or Hot & Spicy.\n3. Check out. The discount applies automatically.\n\nNO CODE NEEDED.\n\nCLAIM YOUR FREE BAG: https://panacheeza.com/collections/all\n",
+    "audiences": {
+     "included": [
+      "XuzveV"
+     ],
+     "excluded": [
+      "VrXiQE"
+     ]
+    },
+    "recipients": 1984,
+    "open_rate": 0,
+    "click_rate": 0.26169,
+    "conversions": 15,
+    "revenue": 564,
+    "rpr": 0.28648,
+    "unsub_rate": 0.0122
+   }
+  ]
+ }
+}

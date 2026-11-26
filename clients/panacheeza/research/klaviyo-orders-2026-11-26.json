@@ -1,0 +1,279 @@
+{
+ "pulled_at": "2026-11-26T19:38:08.876Z",
+ "source": "Klaviyo Shopify Placed Order events",
+ "window_days": 365,
+ "orders": 6421,
+ "customers": 4585,
+ "last_90d": {
+  "orders": 1653,
+  "revenue": 59482,
+  "aov": 35.98,
+  "order_value_p25_p50_p75_p90": [
+   17.99,
+   29.99,
+   50.75,
+   55.23
+  ],
+  "share_orders_over_160": 0.004,
+  "b2b_sized_orders_1000_plus": 0,
+  "best_sellers": [
+   {
+    "name": "Original Grated Parmesan-Style Cheese 8oz",
+    "units": 882,
+    "revenue": 12217,
+    "orders": 688,
+    "firstOrders": 509
+   },
+   {
+    "name": "3 Pound Bulk Bundle",
+    "units": 215,
+    "revenue": 11658,
+    "orders": 209,
+    "firstOrders": 63
+   },
+   {
+    "name": "1 Pound Bulk Bag",
+    "units": 459,
+    "revenue": 10437,
+    "orders": 416,
+    "firstOrders": 190
+   },
+   {
+    "name": "Panacheeza Lover Bundle",
+    "units": 150,
+    "revenue": 5508,
+    "orders": 148,
+    "firstOrders": 93
+   },
+   {
+    "name": "Panacheeza Tasting Trio",
+    "units": 182,
+    "revenue": 5458,
+    "orders": 172,
+    "firstOrders": 154
+   },
+   {
+    "name": "1 Pound Truffle Bulk Bag",
+    "units": 148,
+    "revenue": 4427,
+    "orders": 138,
+    "firstOrders": 66
+   },
+   {
+    "name": "Panacheeza Truffle",
+    "units": 164,
+    "revenue": 2881,
+    "orders": 150,
+    "firstOrders": 103
+   },
+   {
+    "name": "1 Pound Hot & Spicy Bulk Bag",
+    "units": 73,
+    "revenue": 1821,
+    "orders": 71,
+    "firstOrders": 34
+   },
+   {
+    "name": "Panacheeza Original Plant-Based Parmesan-Style Cheese",
+    "units": 384,
+    "revenue": 1797,
+    "orders": 17,
+    "firstOrders": 5
+   },
+   {
+    "name": "Panacheeza Hot & Spicy",
+    "units": 115,
+    "revenue": 1594,
+    "orders": 107,
+    "firstOrders": 72
+   },
+   {
+    "name": "3 Pound Truffle Bulk Bundle",
+    "units": 16,
+    "revenue": 1170,
+    "orders": 16,
+    "firstOrders": 4
+   },
+   {
+    "name": "Panacheeza Hot & Spicy Plant-Based Parmesan-Style Cheese",
+    "units": 132,
+    "revenue": 618,
+    "orders": 10,
+    "firstOrders": 2
+   },
+   {
+    "name": "Panacheeza Truffle Plant Based Parmesan-Style Cheese",
+    "units": 84,
+    "revenue": 509,
+    "orders": 5,
+    "firstOrders": 2
+   },
+   {
+    "name": "3 Pound Hot & Spicy Bulk Bundle",
+    "units": 7,
+    "revenue": 408,
+    "orders": 6,
+    "firstOrders": 2
+   }
+  ],
+  "best_first_order_products": [
+   {
+    "name": "Original Grated Parmesan-Style Cheese 8oz",
+    "firstOrders": 509
+   },
+   {
+    "name": "1 Pound Bulk Bag",
+    "firstOrders": 190
+   },
+   {
+    "name": "Panacheeza Tasting Trio",
+    "firstOrders": 154
+   },
+   {
+    "name": "Panacheeza Truffle",
+    "firstOrders": 103
+   },
+   {
+    "name": "Panacheeza Lover Bundle",
+    "firstOrders": 93
+   },
+   {
+    "name": "Panacheeza Hot & Spicy",
+    "firstOrders": 72
+   },
+   {
+    "name": "1 Pound Truffle Bulk Bag",
+    "firstOrders": 66
+   },
+   {
+    "name": "3 Pound Bulk Bundle",
+    "firstOrders": 63
+   },
+   {
+    "name": "1 Pound Hot & Spicy Bulk Bag",
+    "firstOrders": 34
+   },
+   {
+    "name": "Panacheeza Original Plant-Based Parmesan-Style Cheese",
+    "firstOrders": 5
+   }
+  ],
+  "discount_codes": [
+   {
+    "code": "CHEEZA10",
+    "orders": 55,
+    "revenue": 1969
+   },
+   {
+    "code": "BF15",
+    "orders": 44,
+    "revenue": 2161
+   },
+   {
+    "code": "PANAFAMILY",
+    "orders": 24,
+    "revenue": 757
+   },
+   {
+    "code": "WELCOME10",
+    "orders": 20,
+    "revenue": 764
+   },
+   {
+    "code": "BUNDLE15",
+    "orders": 18,
+    "revenue": 858
+   },
+   {
+    "code": "WELCOME15",
+    "orders": 12,
+    "revenue": 467
+   },
+   {
+    "code": "EARLYSTOCKUP10",
+    "orders": 11,
+    "revenue": 487
+   },
+   {
+    "code": "UPGRADE15",
+    "orders": 9,
+    "revenue": 365
+   },
+   {
+    "code": "SHANEANDSIMPLECOOKING",
+    "orders": 9,
+    "revenue": 274
+   },
+   {
+    "code": "MYSTERY",
+    "orders": 9,
+    "revenue": 360
+   }
+  ]
+ },
+ "repeat": {
+  "first_time_buyers_60d_plus_ago": 2582,
+  "came_back": 527,
+  "repeat_rate": 0.204,
+  "reordered_same_product": 0.643,
+  "days_to_2nd_order_p25_p50_p75": [
+   61,
+   106,
+   169
+  ],
+  "top_paths": [
+   [
+    "Original Grated Parmesan-Style Cheese 8oz → Original Grated Parmesan-Style Cheese 8oz (same)",
+    107
+   ],
+   [
+    "1 Pound Bulk Bag → 1 Pound Bulk Bag (same)",
+    61
+   ],
+   [
+    "3 Pound Bulk Bundle → 3 Pound Bulk Bundle (same)",
+    40
+   ],
+   [
+    "Original Grated Parmesan-Style Cheese 8oz → 1 Pound Bulk Bag",
+    29
+   ],
+   [
+    "Original Grated Parmesan-Style Cheese 8oz → Panacheeza Truffle",
+    16
+   ],
+   [
+    "Panacheeza Truffle → Panacheeza Truffle (same)",
+    13
+   ],
+   [
+    "1 Pound Bulk Bag → 3 Pound Bulk Bundle",
+    12
+   ],
+   [
+    "Panacheeza Lover Bundle → Panacheeza Lover Bundle (same)",
+    11
+   ],
+   [
+    "1 Pound Bulk Bag → Panacheeza Lover Bundle",
+    9
+   ],
+   [
+    "Original Grated Parmesan-Style Cheese 8oz → Panacheeza Hot & Spicy",
+    8
+   ]
+  ]
+ },
+ "cohorts": {
+  "one_time_30_60d": 310,
+  "one_time_60_120d": 511,
+  "due_to_reorder": 284,
+  "lapsed_repeat_buyers": 126,
+  "vip_top10pct": {
+   "customers": 460,
+   "min_spend": 96
+  },
+  "b2b_sized_buyers": 0,
+  "cross_sell": {}
+ }
+}
