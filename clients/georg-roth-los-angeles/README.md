@@ -1,6 +1,6 @@
 # Georg Roth Los Angeles
 
-<One line: what they sell, who for, replenishable or one-off.> Site: <url> · <platform> · <ESP>. Max discount <x>%.
+LA luxury menswear (Pima tees, belts, golf, shoes) for men 35–65 and the women who buy for them; one-off apparel. Site: https://georgrothlosangeles.com/ · Shopify · Klaviyo (moving from Mailchimp). Max discount 10%.
 
 **Read `memory.md` first.**
 

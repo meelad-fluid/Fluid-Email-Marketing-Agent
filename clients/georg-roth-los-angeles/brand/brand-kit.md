@@ -1,0 +1,55 @@
+# Georg Roth Los Angeles: brand book (v1, draft, updated 2026-11-26)
+
+> Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
+
+- **Colors:**
+  - Black #111111: Primary text, buttons, logo
+  - White #FFFFFF: Backgrounds, button text
+  - Navy #1F2A44: Accent blocks; the hero Pima navy tee
+  - Stone #E9E4DC: Warm neutral section backgrounds (California light)
+  - Warm Grey #6B6B6B: Secondary text, captions
+- **Fonts:**
+  - headings: Cormorant Garamond (Google Font), fallback Georgia, serif. Proposed: elegant serif for an elevated, European-tailoring feel. Confirm with client (site font not verified).
+  - body: Montserrat (Google Font), fallback Helvetica, Arial, sans-serif. Proposed clean sans for body, prices, buttons and wide-tracked caps labels. Confirm with client.
+- **Buttons:** square, 0px radius, fill #111111, text #FFFFFF. **CTA casing: Title Case**. Site buttons read 'Shop Black Friday', 'Choose options', 'Shop', 'Become a reseller' (Title Case). Solid black, square corners, generous padding.
+- **Logos:**
+  - GEORG ROTH LOS ANGELES wordmark: Header, black on light or white on dark. Need vector file from client's assets folder.
+  - GR monogram: Small accents, sign-offs, chest logo seen on tees
+- **Imagery:**
+  - Sunny Los Angeles: rooftops, ocean, palm trees, blue sky, golden light
+  - Men 35-65 looking polished and relaxed, never stiff
+  - Folded Pima tees in stacks to show color range
+  - Complete looks: tee + trousers + belt + Italian shoes
+  - Golf course and clubhouse scenes for golf range
+  - Close-ups of fabric, stitching, buckles, leather
+- **Voice:**
+  - Elevated but not intimidating
+  - Stylish, helpful, service-focused: a personal stylist, not a store
+  - Guides him to the right fit, colors and complete looks
+  - Plain words; never overly formal or complicated
+  - California ease with European craft (Georg grew up in Germany, learned fabric in Milan and Paris)
+- **Do:**
+  - Lead with fit and the personal service (they call every customer after an order)
+  - Give sizing help in every product email (trim fit: size up for a relaxed fit)
+  - Show complete looks for work, travel, dinner, weekends
+  - Speak to women shopping for the men in their lives in gift moments
+  - Mention free U.S. shipping over $150
+- **Don't:**
+  - Discounts above 10% without client approval
+  - Fashion jargon or trend talk
+  - Cheap-basics or bargain framing
+  - Stiff, formal or salesy copy
+  - Unverified celebrity or press claims
+- **Claims we can use:**
+  - Pima cotton
+  - Free U.S. shipping on orders over $150
+  - Handmade in Los Angeles (cuffs)
+  - Belts made in Italy / Germany (per product)
+  - Rated 4.7/5 (site, review count not shown)
+- **Never say:**
+  - No-shrink guarantee or celebrity wearers unless the client confirms them
+  - Medical or body-shaping claims
+- **Notes:**
+  - Brand guidelines file is the onboarding form only: no visual guide. Colors and fonts taken from the site and product photography; fonts proposed, not verified.
+  - Best seller: Pima Luxe tees ($98 short sleeve, $138 long sleeve, 3-packs $265).
+- **Sources:** georgrothlosangeles.com (Nov 2026) · Onboarding form (Brand Guidelines docx) · Product photography
