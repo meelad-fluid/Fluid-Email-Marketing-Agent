@@ -1,0 +1,60 @@
+# panacheeza: brand book (v1, draft, updated 2026-11-26)
+
+> Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
+
+- **Colors:**
+  - Panacheeza Red #C8202E: Primary: buttons, headline accents, color blocks (shaker cap and label band)
+  - Crest Gold #C9A04A: Accent: crown, crest, thin rules, badges
+  - Parmesan Cream #FAF5EA: Main background, cards
+  - Espresso #2B2420: Body text, dark sections
+  - Basil Green #4F6B3A: Small accent only (herbs, fresh notes); use sparingly
+  - White #FFFFFF: Label panels, button text
+- **Fonts:**
+  - logo / accent: Pinyon Script (Google Font), fallback Great Vibes, cursive. Stand-in for the hand-drawn script wordmark; accents only (one or two words), never body or buttons. Always use the real logo for the brand name.
+  - headings: Playfair Display (Google Font), fallback Georgia, serif. Classic Italian-deli serif, matches the 'PARMESAN' label lettering. Proposed until the site font is confirmed.
+  - body: Lato (Google Font), fallback Helvetica, Arial, sans-serif. Clean and readable; 15px+ in emails. Proposed until confirmed.
+- **Buttons:** rounded, 6px radius, fill #C8202E, text #FFFFFF. **CTA casing: Title Case**. Site buttons read 'Shop The Sale', 'Taste the Difference', 'See All Flavors', 'Start Shaking', 'Shop Original', 'Shop Truffle', 'Shop Hot & Spicy'. Use Title Case. Shape/radius to confirm from the live site.
+- **Logos:**
+  - Panacheeza script wordmark with red crest: Header of every email; red on cream/white. Needs the file from their Drive assets folder.
+- **Imagery:**
+  - Real food, close and warm: pasta, garlic knots, roasted vegetables, popcorn, bruschetta with a generous shake on top
+  - Rustic Italian kitchen: wood counters, marble, linen towels, dried herbs, soft daylight
+  - The red-cap shaker always visible and label-forward; bulk bag next to the shaker for refill stories
+  - Heritage cues: crest, crown, nonna's-kitchen warmth, family table
+  - Truffle = deeper, moodier tones; Hot & Spicy = chili, warm reds
+- **Voice:**
+  - Nostalgic Italian, premium (client's own words)
+  - Flavor first, clean label second: lead with taste, back it with the 5 ingredients
+  - Warm, family-table storytelling rooted in Janessa's Italian-Maltese grandmother's kitchen
+  - Confident without knocking other brands by name
+  - Short, sensory lines: 'Looks fancy. Takes 10 minutes.'
+- **Do:**
+  - Lead with Original; Truffle and Hot & Spicy as the upsell
+  - Name the 5 ingredients: organic cashews, nutritional yeast, garlic powder, Himalayan pink sea salt, vinegar powder
+  - Push the bulk bag as the refill for the shaker (save the shaker, refill it)
+  - Show the product on real food
+  - Mention subscribe & save where it applies
+- **Don't:**
+  - Never exceed 15% off
+  - No health or medical claims (lowers cholesterol, cures, etc.)
+  - Don't call it 'cheese' without the plant-based/dairy-free qualifier (use 'parmesan-style', 'dairy-free parmesan')
+  - Don't say 'nut-free': it contains cashews
+  - Don't name competitors in emails
+- **Claims we can use:**
+  - Dairy-free, plant-based, vegan
+  - Soy-free, gluten-free
+  - No preservatives, no additives, no added MSG
+  - 5 ingredients
+  - Shelf-stable unopened (FAQ says 18 months; brief says over a year)
+  - Truffle from the Veneto region of Italy
+  - Contains cashews (tree nut)
+  - 4.9 stars from 500+ reviews on the site (Okendo)
+- **Never say:**
+  - Health/disease claims
+  - 'Healthier than parmesan' as a medical claim (lifestyle framing only)
+  - 'Nut-free' or 'allergen-free'
+  - Organic certification claims beyond 'organic cashews' until confirmed
+- **Notes:**
+  - Fonts and button radius are proposed from the packaging and site copy; confirm from their Drive brand assets.
+  - Founder: Janessa Steenberg. Co-founder/ops contact: Ryan Steenberg (ryan@panacheeza.com).
+- **Sources:** Onboarding answers (Panacheeza - Brand Guidelines.docx) · panacheeza.com home, FAQ, learn-more page, products.json · Product packaging photos
