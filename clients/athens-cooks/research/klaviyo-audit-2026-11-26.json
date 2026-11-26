@@ -1,5 +1,5 @@
 {
- "pulled_at": "2026-11-26T19:30:41.113Z",
+ "pulled_at": "2026-11-26T19:36:40.709Z",
  "window_days": 60,
  "account": {
   "name": "Athens Cooks",
@@ -140,7 +140,7 @@
      ]
     },
     "recipients": 3728,
-    "open_rate": 0.55696,
+    "open_rate": 0.55723,
     "click_rate": 0.00779,
     "conversions": 9,
     "revenue": 1236,
@@ -299,7 +299,7 @@
     "name": "FC | Your Kitchen Upgrade Starts Here",
     "sent": "2026-11-24T23:00:00+00:00",
     "subject": "A $275 Shun knife is $175 today",
-    "open_rate": 0.55696,
+    "open_rate": 0.55723,
     "click_rate": 0.00779,
     "revenue": 1236,
     "rpr": 0.33214,
