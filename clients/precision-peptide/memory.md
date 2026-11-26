@@ -49,6 +49,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · NOTE: copy/welcome-flow.md says (Gloria) the site sells prescription protocols only now; retail line + WELCOME codes gone. Welcome designs still show retail products/codes from earlier today; browse designs show the retail version too. Flag before those go out.
 
 - 2026-11-26 · Gloria comment on Abandoned Checkout #2: hero headline "A licensed US clinician does." in one line → set to 35px, no wrap. Republished + resolved.
+- 2026-11-26 · Gloria comment on Abandoned Checkout #3: no merge tags on image-based emails → hero sub rewritten without {{protocol}}; checkout card's {{item}} row swapped for real Semaglutide/Sermorelin/NAD+ vials + static line. Republished + resolved.
+- 2026-11-26 · preference (Gloria): never put merge tags ({{...}}) in visible design copy; emails ship as images so tags show raw. Check the other flow designs for this.
 
 ## Open questions
 <!-- - … -->
