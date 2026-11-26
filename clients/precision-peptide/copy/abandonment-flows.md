@@ -240,6 +240,15 @@ CHOICE_3: "I got busy." · Fair enough. Everything you entered is saved. · BUTT
 CHECKOUT_BLOCK: dynamic (same as Email #1)
 SIGN_OFF: Or just reply and tell me. I read every one. · Sarah, The Precision Peptide Company
 
+## 2026-11-26 conversion rewrite (Gloria: "copy is vague and not converting, we need people to close")
+Designs carry the live copy; these lines supersede the matching lines above.
+Facts used (protocol pages + FAQ): reviewed "typically within 24 hours", no insurance required, no labwork to begin, free shipping, supplies + step-by-step instructions included, "If your clinician decides it's not right for you, you will not be charged for the medication", HIPAA-compliant, 503A pharmacy made in the USA.
+- #1 HEADLINE: You did the hard part. Let a clinician take it. · SUB: Your answers are saved. Submit them now and a US-licensed clinician typically reviews them within 24 hours. No insurance. No labwork. Free shipping. · PROGRESS: Your answers (saved) → Clinician review (typically 24h) → Ships free (if prescribed) · CARD "What you get": clinician review / 503A pharmacy fill, if prescribed / supplies and step-by-step instructions / free, discreet shipping · TRIO "Nothing to lose by finishing": No insurance / No labwork / Not a fit? Not charged for the medication
+- #2 SUB: Submit your saved answers today and they're typically reviewed within 24 hours. If it isn't right for you, you're not charged for the medication. · Timeline: You hit submit / A clinician reviews it (not a fit = not charged) / It ships free · NOTE: The only step left is yours. · HELP: One question holding you up?
+- #3 SUB adds ships free + supplies; label adds SHIPPING: Free; count-on list: free discreet shipping / supplies + instructions / 503A, made in the USA / not charged if not a fit · CARD: Submit today and a clinician typically reviews them within 24 hours.
+- #4 SUB leads with PROTOCOL15 (15% month one, 72h) · choice answers made concrete; cost choice shows the maths ($199 → $169.15, shipping stays free)
+- Suggested subject for #1: "You're one click from a clinician" / preview "Your answers are saved. No insurance needed."
+
 NOTES (abandoned checkout)
 - Avatar point: Email #1 the current situation (interrupted), #2 the doubt ("will a real doctor read this?"), #3 privacy at the doorstep, #4 whatever's left, sorted by the reader.
 - Frameworks: #1 AIDA (short), #2 PAS, #3 BAB, #4 self-sorting close.

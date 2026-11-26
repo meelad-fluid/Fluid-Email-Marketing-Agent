@@ -64,6 +64,9 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria asked why no 10% in the pop-up/welcome flow → explained: counsel-approved offers were retail-only (no discounts on prescription protocols) and the site now only sells Rx protocols with no codes. Will add a 10% if the client/counsel OKs it for protocols.
 - 2026-11-26 · Gloria: "add 15% to the pop-up and the other emails needed" → added and republished: pop-up (Step 1 offer line, Step 4 WELCOME15 + terms), Welcome #1 v1–v4 (kicker, badge, coupon with maths), Welcome #5 (now the 15% reminder, before/after prices), Browse #3 + Checkout #4 (PROTOCOL15, 15% first month, 72h; new "cost more than I'd planned" choice), Winback #2 (COMEBACK15, 15% next month, 7 days). Also removed {{event.product_name}} from Browse #3's visible copy. Offer spec in copy/welcome-flow.md. Codes don't exist yet (site isn't Shopify: client creates them). Conflicts with counsel's "no Rx discounts": needs client/counsel OK before sending.
 
+- 2026-11-26 · Gloria comment on Abandoned Checkout #1: "copy is vague and not converting, we need people to close" → rewrote all 4 checkout designs with concrete site facts (typically 24h review, no insurance, no labwork, free shipping, supplies included, not charged for the medication if not a fit); #4 leads with PROTOCOL15 + $199→$169.15 maths. Republished all 4, resolved. Lines logged in copy/abandonment-flows.md.
+- 2026-11-26 · preference (Gloria): flow copy must sell, not just inform: name what they get, remove the risk, show the maths. Applies to every flow.
+
 ## Open questions
 <!-- - … -->
 - Counsel: may Fluid market the Rx programs and the retail line by email/SMS? Approved claims, safety wording, disclaimers, CTAs, offers per line
