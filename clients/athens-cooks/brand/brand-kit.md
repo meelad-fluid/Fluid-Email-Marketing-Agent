@@ -1,0 +1,52 @@
+# Athens Cooks: brand book (v1, draft, updated 2026-11-26)
+
+> Generated from the brand book in Fluid's backend. Change it with save_brand_book, never by editing this file.
+
+- **Colors:**
+  - Ink (placeholder) #1F1F1F: Text and dark backgrounds behind the white wordmark. Placeholder until we get the brand assets folder or the site theme colours.
+  - White #FFFFFF: Wordmark colour (site logo file is 'White letters'), backgrounds
+  - Marble cream (placeholder) #F4F0EA: Soft section backgrounds, echoing the pale marble counters in site photography. Placeholder.
+- **Fonts:**
+  - headings: To confirm (site theme font) (custom font), fallback Georgia, serif. Not stated in the onboarding doc and not readable from the site. Ask for the brand assets folder.
+  - body: To confirm (site theme font) (custom font), fallback Helvetica, Arial, sans-serif. Placeholder until confirmed.
+- **Buttons:** rounded, 4px radius, fill #1F1F1F, text #FFFFFF. **CTA casing: Title Case**. Site's main CTAs are Title Case: 'Shop Black Friday Sale', 'Shop Thanksgiving', 'Explore Cooking Classes', 'Learn More', 'Visit Athens Cooks'. Product-card buttons are sentence case ('Add to cart'); use Title Case in email. Fill/radius are placeholders.
+- **Logos:**
+  - Athens Cooks word logo, white letters: On dark or photo backgrounds. Source: athenscooks.com/cdn/shop/files/..._Athens_Cooks_Word_Logo_White_letters_900x240.png. Dark version needed for light backgrounds.
+- **Imagery:**
+  - Real food and real cookware in use: roasts in the Hestan roaster, Dutch ovens on the stove, bread from Emile Henry
+  - Pale marble counters, warm natural light (site product photography)
+  - The Prince Ave store, café and classes: hands in dough, chefs teaching, people at the counter
+  - Local producers: 1000 Faces Coffee, Georgia Sourdough Co., Rock House Creamery, Lucky Bee Farms
+  - Never stock-looking families or plastic, disposable-feeling props
+- **Voice:**
+  - Friendly and knowledgeable, not stuffy (owner's words)
+  - Talks like the person behind the counter who has used the pan, not a catalogue
+  - Light wit is on brand: 'sharper than a witty dinner guest' (knife sharpening page)
+  - Practical seasonal nudges: 'Get the kitchen ready before the guests arrive.'
+  - Value over hype: 'The things you will use, year after year.'
+- **Do:**
+  - Lead with curation: we only carry what we'd use for our own families
+  - Name the maker and the material (Hestan tri-ply, Emile Henry Burgundy clay, Ankarsrum)
+  - Mention the store, classes and knife sharpening as proof there are real people behind the shop
+  - Point out in-stock when others aren't, and expert help before buying
+  - Gift framing for the holidays (gift cards, gift wrapping, classes)
+- **Don't:**
+  - Discount beyond 10% or show prices below what the maker allows (strict MAP)
+  - Compete on price or say 'cheapest'
+  - Name competitors (Williams Sonoma, Sur La Table, Amazon) in client-facing copy
+  - Make health claims about cookware ('non-toxic', 'cures', 'chemical-free') beyond what the maker states
+  - Stuffy, luxury-snob tone
+- **Claims we can use:**
+  - Carefully curated for sustainability, ethical sourcing, quality and safety (brief)
+  - Husband-and-wife owned, est. 2022, 100 Prince Ave, Athens GA (site /pages/about)
+  - Free standard shipping on US orders $199+ (site)
+  - Knife sharpening from $12, back in 2-3 business days (site)
+  - Cooking classes $35-$100 (site /pages/learn)
+- **Never say:**
+  - PFAS-free / non-toxic / microplastic-free unless the maker states it for that exact product
+  - Any review count or rating we haven't verified
+- **Notes:**
+  - Draft: colours and fonts are placeholders. The onboarding doc has no visual guide and the brand assets Drive folder is private; ask for access.
+  - Welcome code on site: TENOFF (10%, some exclusions). Max discount 10%.
+  - Sender persona proposed: Courtney from Athens Cooks is the real co-founder; persona proposed is 'Lucy from Athens Cooks' pending approval.
+- **Sources:** athenscooks.com (home, /pages/about, /pages/learn, knife sharpening page), 2026-11-26 · Onboarding answers doc (onboarding/docs) · Klaviyo audit 2026-11-26

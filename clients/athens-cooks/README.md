@@ -1,6 +1,6 @@
 # Athens Cooks
 
-<One line: what they sell, who for, replenishable or one-off.> Site: <url> · <platform> · <ESP>. Max discount <x>%.
+Curated kitchen store, café and cooking school in Athens, GA, shipping nationwide; home cooks, givers and locals; one-off (durable goods). Site: https://athenscooks.com · Shopify · Klaviyo. Max discount 10%.
 
 **Read `memory.md` first.**
 
