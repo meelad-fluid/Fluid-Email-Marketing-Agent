@@ -2,6 +2,8 @@
 // (from the Slack channel) when the tools are built; the model can't pass or change it, so these tools can
 // only ever return this client's numbers.
 import { checkDesignCutoffs, cutoffSummary } from "../lib/email/qc";
+import { qcEmail, qcSummary, type QcResult } from "../lib/email/review-qc";
+import { currentBrandBook } from "../lib/library/store";
 import { cioCreds } from "../lib/customerio/api";
 import { cioReport } from "../lib/customerio/report";
 import { cioSegments, matchSegments, pushToCustomerio } from "../lib/customerio/push";
@@ -123,9 +125,10 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
     return hits.length ? `Not published yet: this is a research-use-only client and the email has wording the guardrails don't allow. Rewrite these lines (no human benefits, medical, use or effect-category language; lab/test wording and product names are fine) and publish again. Do this yourself now: don't ask the team to choose, don't offer to reclassify the client, just reword and carry on.\n${ruoSummary(hits)}` : null;
   }
 
+  const QC_ROUNDS = 3, qcRounds = new Map<string, number>();
   const publish = tool(
     "publish_design",
-    "Publish (or update) a design's review link: the client-facing page where people see the email at full quality, leave pinned comments and approve. Call it every time you create or change a design. Same design folder = same link, new version. Returns the link.",
+    "Publish (or update) a design's review link: the client-facing page where people see the email at full quality, leave pinned comments and approve. Call it every time you create or change a design. Same design folder = same link, new version. Runs Fluid's QC first (copy: third-grade level, easy, clear to a stranger, talks to the avatar, hits the goal, straight to the point; design: clear headline, CTA above the fold, readable on mobile, discount clear, brand colors, no random badges): if it fails, it returns the fixes instead of publishing; fix them and call it again. Returns the link.",
     { design_folder: z.string().describe("e.g. designs/2026-12-03-matcha-winback-20"), note: z.string().optional().describe("What changed in this version, one line"),
       ignore_cutoffs: z.boolean().default(false).describe("Only for a deliberate bleed of plain background texture. Never for products, people, logos or text.") },
     async ({ design_folder, note, ignore_cutoffs }) => {
@@ -138,7 +141,24 @@ export function clientDataServer(clientId: string, folder: string, slack?: { cha
           if (cut.length) return ok({ error: `Not published: parts of the design are cut off. Fix these, check with render_preview, then publish again.\n${cutoffSummary(cut)}` });
         } catch (e: any) { console.error("[qc]", e.message); }
       }
-      try { const r = await publishDesign({ clientId, folder, designPath: design_folder, note, slack }); return ok({ link: r.url, version: r.version, status: r.review.status, ...(r.flow_url ? { flow_link: r.flow_url, note: "This email is part of a flow: share the flow_link (one link with every email of the flow) instead of separate links." } : {}) }); }
+      // Fluid's copy + design checklist. A fail sends the fixes back; the designer fixes and publishes again.
+      // After QC_ROUNDS failed rounds on the same design it publishes anyway and lists what's still open.
+      let qc: QcResult | null = null, qcNote: string | undefined;
+      if (fileExists(dc)) {
+        const key = design_folder.replace(/^\.\//, "").replace(/\/+$/, "");
+        try {
+          const book = await currentBrandBook(db(), clientId).catch(() => null);
+          qc = await qcEmail({ dcPath: dc, clientDir: pjoin(CLIENTS_DIR, folder), brandColors: book?.kit.colors ?? null, ruo: isRuoClient(pjoin(CLIENTS_DIR, folder)) });
+          if (!qc.pass) {
+            const round = (qcRounds.get(key) ?? 0) + 1;
+            qcRounds.set(key, round);
+            if (round < QC_ROUNDS) return ok({ error: `Not published yet: QC round ${round} of ${QC_ROUNDS} found ${qc.failed.length} problem${qc.failed.length > 1 ? "s" : ""} (email goal: ${qc.goal}). Fix every one in the copy file and design.dc.html, check with render_preview, then call publish_design again (QC runs again). Do it yourself now, don't ask the team.\n${qcSummary(qc)}` });
+            qcNote = `QC still open after ${QC_ROUNDS} rounds, published anyway. Tell the team in one line which of these are still open:\n${qcSummary(qc)}`;
+          }
+          qcRounds.delete(key);
+        } catch (e: any) { console.error("[review-qc]", e.message); qcNote = "QC couldn't run this time (published without it)."; }
+      }
+      try { const r = await publishDesign({ clientId, folder, designPath: design_folder, note, slack }); return ok({ link: r.url, version: r.version, status: r.review.status, qc: qc?.pass ? "passed (copy + design checklist)" : qcNote, ...(r.flow_url ? { flow_link: r.flow_url, note: "This email is part of a flow: share the flow_link (one link with every email of the flow) instead of separate links." } : {}) }); }
       catch (e: any) { return ok({ error: e.message }); }
     },
   );

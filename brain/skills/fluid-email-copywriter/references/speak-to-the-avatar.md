@@ -73,3 +73,4 @@ Most emails land at 150–350 words; SMS about 100 characters before the link. C
 4. **Offer test**: could someone who skims get the deal right without contacting support?
 5. **Out loud**: would a friend text it this way? (copy-rules.md "Sound like a person".)
 6. **True**: every fact, number, review and story comes from the client or their customers. Missing? Flag it, don't fill it.
+7. **Fluid QC (copy)**: every designed email is checked on these before it can be published, so write to them: a third grader could read it (short everyday words, short sentences); easy on the first read; a stranger with no context knows what it is and what to do next; it talks to the avatar; every part serves the email's one goal; plain, not cute or clever. Example: an abandoned checkout's goal is getting them back to checkout, so "Your order is ALMOST complete", never "You were almost at the finish line, let's cross that". Simple and straight to the point beats smart.

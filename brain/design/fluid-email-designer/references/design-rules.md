@@ -155,3 +155,8 @@ Emails are laid out at 600px (the email standard, so they fit every inbox and ph
 - Every photo must be at least 2x the size it's shown at: a full-width image needs 1200px+ wide; a 600×580 background box needs about 1200×1160.
 - Generate background scenes in the shape of the box they fill (a tall hero → 4:5 or 1:1, not 3:2), so cropping doesn't cost resolution. `generate_image` keeps up to 2000px.
 - `render_preview` renders at 1200px and lists any image that will look soft ("low_resolution"); replace those before publishing.
+
+## 14. Fluid QC (runs on every design before publishing)
+`publish_design` checks every email against Fluid's checklist and won't publish until it passes; it returns each problem with a fix, the designer fixes them and publishes again (up to 3 rounds, then it publishes and lists what's still open).
+- **Copy:** third-grade reading level · easy to understand · makes sense to a stranger with no context, with a clear next step · talks to the brand's avatar · achieves the email's goal · straight to the point, not cute or clever.
+- **Design:** a clear headline · a CTA button fully above the fold (first 650px) · fonts easy to read on a phone (body 15px+, footer/legal 11px minimum, no thin or script fonts for key text, good contrast) · a discount, if any, clear at a glance · colors aligned to the brand · no random or misplaced badges.

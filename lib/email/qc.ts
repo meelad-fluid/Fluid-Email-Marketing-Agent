@@ -122,3 +122,25 @@ export async function findLowRes(page: Page): Promise<LowRes[]> {
   });
 }
 export const lowResSummary = (l: LowRes[]) => l.map((x) => `- ${x.what}: shown at ${x.shown}, only ${x.has}. ${x.fix}`).join("\n");
+
+/** Every solid color the design paints (text, backgrounds, borders, gradient stops), with where it's used. */
+export async function usedColors(page: Page) {
+  await page.evaluate("window.__name = window.__name || ((f) => f)");
+  return page.evaluate(() => {
+    const out: { hex: string; where: string }[] = [];
+    const root = document.body.firstElementChild;
+    if (!root) return out;
+    const toHex = (c: string) => { const m = c.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/); if (!m || (m[4] !== undefined && +m[4] < 0.35)) return null; return "#" + [m[1], m[2], m[3]].map((x) => Math.round(+x).toString(16).padStart(2, "0")).join(""); };
+    for (const el of Array.from(root.querySelectorAll<HTMLElement>("*"))) {
+      const s = getComputedStyle(el), r = el.getBoundingClientRect();
+      if (!r.width || !r.height || s.visibility === "hidden" || +s.opacity === 0) continue;
+      const what = `${el.tagName.toLowerCase()}${(el.textContent || "").trim() ? ` "${(el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 30)}"` : ""}`;
+      const hasText = Array.from(el.childNodes).some((n) => n.nodeType === 3 && (n.textContent || "").trim());
+      if (hasText) { const h = toHex(s.color); if (h) out.push({ hex: h, where: `text of ${what}` }); }
+      const bg = toHex(s.backgroundColor); if (bg) out.push({ hex: bg, where: `background of ${what}` });
+      if (parseFloat(s.borderTopWidth) >= 2) { const b = toHex(s.borderTopColor); if (b) out.push({ hex: b, where: `border of ${what}` }); }
+      for (const g of s.backgroundImage.match(/rgba?\([^)]+\)/g) ?? []) { const h = toHex(g); if (h) out.push({ hex: h, where: `gradient in ${what}` }); }
+    }
+    return out;
+  });
+}
