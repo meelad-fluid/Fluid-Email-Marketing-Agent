@@ -8,7 +8,7 @@ a{text-decoration:none;color:inherit}
 .btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
 .btn--dark{background:#1A1838;color:#F7F3EE}
 
-.hero{position:relative;height:900px;background:#0f0e22 url('asset:brand/assets/generated/2026-11-26-pp-browse-midnight-clock.jpg') 50% 100%/600px auto no-repeat;color:#fff;text-align:center}
+.hero{position:relative;height:1000px;background:#0f0e22 url('asset:brand/assets/generated/2026-11-26-pp-browse-midnight-clock.jpg') 50% 100%/600px auto no-repeat;color:#fff;text-align:center}
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,14,34,.55) 0%,rgba(15,14,34,.35) 50%,rgba(15,14,34,0) 62%,rgba(15,14,34,0) 92%,#F7F3EE 100%)}
 .hero>*{position:relative}
 .hero .logo{padding-top:26px}
@@ -51,33 +51,32 @@ a{text-decoration:none;color:inherit}
 
 <a href="{{event.product_url}}"><div class="hero">
   <div class="logo"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div>
-  <div class="big">10<sup>%</sup></div>
-  <h1>Your 10% code ends at midnight tonight</h1>
-  <p class="sub">BROWSE10 takes 10% off {{event.product_name}} and everything else in the retail range. Prescription programs aren't included.</p>
-  <span class="btn">Shop Now</span><br>
-  <span class="code">Code <b>BROWSE10</b></span>
-  <div class="mid"><small>ENDS</small><b>Midnight</b></div>
+  <h1 style="margin-top:28px;font-style:normal;color:#F7F3EE;font-size:31px;line-height:1.2;padding:0 30px">Not sure {{event.product_name}} is right for you? <i style="color:#E9C3A4">That's what the clinician is for.</i></h1>
+  <div class="big" style="font-size:130px;margin-top:10px">24<sup style="font-size:40px;top:30px"> hrs</sup></div>
+  <p class="sub">Fill in the private intake and a US-licensed clinician reviews it within 24 hours. If {{event.product_name}} isn't the right fit, they'll tell you.</p>
+  <span class="btn">Get Started</span>
+  <div class="mid"><small>LICENSED</small><b>US clinician</b></div>
 </div></a>
 
 <a href="{{event.product_url}}"><div class="dyn">
-  <span class="tag">10% off with BROWSE10</span>
+  <span class="tag">You viewed</span>
   <div class="lbl">CUSTOMER.IO</div>
   <div class="t">DYNAMIC VIEWED PRODUCT</div>
   <div class="shape">{{event.image_url}}</div>
-  <p>Image + {{event.product_name}} + button to {{event.product_url}}</p>
-  <span class="btn">Shop Now</span>
+  <p>Protocol image + {{event.product_name}} + button to {{event.product_url}}</p>
+  <span class="btn">Get Started</span>
 </div></a>
 
-<a href="{{event.product_url}}"><div class="ticket">
-  <div class="l"><small>Ends at midnight tonight</small><b>BROWSE10</b><p>Prescription programs aren't included.</p></div>
-  <div class="r"><span class="btn">Shop Now</span></div>
+<a href="https://www.precisionpeptidecompany.com/contact"><div class="ticket">
+  <div class="l"><small>Questions first?</small><b style="font-size:28px;letter-spacing:0;line-height:1.2">Rather talk it through first?</b><p>Our team answers every message.</p></div>
+  <div class="r"><span class="btn">Talk to Us</span></div>
 </div></a>
 
 <div class="foot">
   <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
   <div class="tag">Done properly. Done legally. Done once.</div>
   <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
-  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review.</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review.</div>
   <div class="links">Manage preferences | Unsubscribe</div>
 </div>
 </div>

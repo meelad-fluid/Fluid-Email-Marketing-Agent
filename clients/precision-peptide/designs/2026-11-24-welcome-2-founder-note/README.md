@@ -5,7 +5,7 @@ Copy: copy/welcome-flow.md (Email #2)
 Subject: Why we listed the company publicly · Preview: It wasn't the easy way to do it
 From: Pratap Sandhu, The Precision Peptide Company (needs Pratap's OK to send under his name)
 
-Layout: indigo header with logo and "A note from our CEO" → cream letter card overlapping the header with a copper wax seal, pull-quote of the tagline, script signature, P.S. link → small code card with Shop Now → footer on midnight
+Layout: indigo header with logo and "A note from our CEO" → cream letter card overlapping the header with a copper wax seal, pull-quote of the tagline, script signature, P.S. link → small intake card with Get Started (no code since 2026-11-26) → footer on midnight
 Style: personal letter on cream stationery floating on indigo, copper seal and handwritten signature
 
 Notes

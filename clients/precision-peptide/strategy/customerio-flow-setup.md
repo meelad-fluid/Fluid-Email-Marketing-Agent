@@ -50,7 +50,7 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Frequency: once per person
 - Exit: performed `order_created`
 - Steps
-  1. True/false branch on `popup_answer`: `verify` → Email 1 · `needle_free` → Email 1 v2 · else → Email 1 v3
+  1. Branch on `popup_answer` (updated 2026-11-26): `weight_loss` → Email 1 v2 · `performance` → Email 1 v3 · `longevity` → Email 1 v4 (https://fluid-email-marketing-agent-production.up.railway.app/r/dXYxBm2J71BddFjhpMCGCjM6) · `not_sure` / none → Email 1 v1. No welcome code any more (protocols aren't discounted)
   2. SMS 1
   3. Wait 4 hours → Email 2 (plain text)
   4. Wait 1 day → Email 3
@@ -74,7 +74,6 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Frequency: every 7 days at most
 - Exit: performs `product_viewed`, `checkout_started` or `order_created`
 - Steps: wait 2 hours → Email 1 · wait 1 day → Email 2
-- Pop-up sign-ups only: Email 1 gets the WELCOME10 line (`{% if customer.popup_answer %}`)
 - Designs (2026-11-26, in review; whole flow: https://fluid-email-marketing-agent-production.up.railway.app/f/Xdb4I5GQ9bsRr8OniJMa3e2D)
   - Email 1 (tell us apart): https://fluid-email-marketing-agent-production.up.railway.app/r/u0T3mEgm_r0vD7Fi1mkeVPBt
   - Email 2 (start with the patch): https://fluid-email-marketing-agent-production.up.railway.app/r/tEMnyyKfiwRD8Fenox5UsE7H
@@ -86,8 +85,7 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Exit: performs `checkout_started` or `order_created`
 - Steps: wait 2 hours → Email 1 · wait 1 day → Email 2 → SMS 1 · wait 1 day → Email 3
 - Liquid: `{{event.product_name}}`, `{{event.product_url}}`, `{{event.image_url}}`
-- Branch on `event.line`: Rx viewers get the Rx subhead + "Get Started" in Emails 1–2, no BROWSE10, and skip Email 3
-- Needs code BROWSE10 (10%, retail only, excludes prescription programs) before going live
+- No branching or codes needed (2026-11-26: the site sells prescription protocols only). Buttons go to {{event.product_url}}#intake
 - Designs (2026-11-26, in review; whole flow: https://fluid-email-marketing-agent-production.up.railway.app/f/JzhuQKqe1MTJffak3zO7VlpO)
   - Email 1 (still looking): https://fluid-email-marketing-agent-production.up.railway.app/r/JitnAjGTYb8qZP_Lke3ogiJQ
   - Email 2 (why people switch, BROWSE10): https://fluid-email-marketing-agent-production.up.railway.app/r/ufznx3TQPdlnYHSKup65nxCz

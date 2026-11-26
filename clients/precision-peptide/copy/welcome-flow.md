@@ -1,19 +1,27 @@
 # Welcome flow: copy (pop-up + 7 emails + 2 SMS)
-_Client: The Precision Peptide Company · Platform: Customer.io · Written 2026-11-24_
+_Client: The Precision Peptide Company · Platform: Customer.io · Written 2026-11-24 · Rewritten 2026-11-26 to match precisionpeptidecompany.com_
 Status: draft · needs approval · goes live once built in Customer.io
-From: Sarah from The Precision Peptide Company (proposed persona) · founder notes from Pratap Sandhu
+From: Sarah from The Precision Peptide Company (proposed persona) · founder note from Pratap Sandhu
 
-**Compliance basis:** claims, disclaimers and offers approved by Meelad (Fluid), Slack, 2026-11-24. Only compliance.md §5 facts are used. No outcomes, dosing or effect categories. Offers apply to the retail range only; prescription programs are never discounted.
+**What changed (2026-11-26, Gloria):** the website sells prescription protocols only. Every retail product (Recovery Patch, KPV, BPC capsules), the "retail range", the needle-free angle and the WELCOME10 / WELCOME15 codes are gone. Products are the nine protocols on /protocols, with the site's prices, names, CTAs and messaging. No discounts (prescription protocols are never discounted).
 
-**Links used**
-- Home / retail: https://www.precisionpeptidecompany.com (retail shop URL still needed from the client)
-- Protocols: https://www.precisionpeptidecompany.com/protocols
-- About: https://www.precisionpeptidecompany.com/about
-- FAQ: https://www.precisionpeptidecompany.com/faq
-- Eligibility check: https://www.precisionpeptidecompany.com (the "Get Started" chooser)
+**Products (from /protocols, prices verbatim)**
+- Semaglutide · As low as $159.67/month · /protocols/semaglutide
+- Tirzepatide · As low as $233/month · /protocols/tirzepatide
+- Sermorelin · From $199/month · /protocols/sermorelin
+- BPC-157 · From $139/month · /protocols/bpc-157
+- TB-500 · As low as $125/month · /protocols/tb-500
+- NAD+ · From $179/month · /protocols/nad-plus
+- Epitalon · From $199/month · /protocols/epitalon
+- MOTS-c · From $199/month · /protocols/mots-c
+- Semax · From $249/month · /protocols/semax
+- Each "Get Started" goes to /protocols/<handle>#intake. Site groups: Weight Loss (Semaglutide, Tirzepatide), Performance (Sermorelin, BPC-157, TB-500), Longevity (NAD+, Epitalon, MOTS-c, Semax): used only as small group labels, never in subjects or headlines, and never with an outcome.
+
+**Site lines used:** "Precision medicine, prescribed by licensed US clinicians." · "The protocol. The prescriber. The pharmacy. All in one place." · "Three steps to your protocol" · "Clear pricing, fast review, and fulfillment through a regulated pharmacy." · "Choose your protocol" · "never one-size-fits-all" · MMA.INC partnership
+**Not used, on purpose:** the site's outcome lines ("Lose weight, support cellular energy, and stay sharp", "Feel the Difference") and "FDA-regulated/FDA-registered pharmacy" (counsel rules: no outcomes, no FDA wording near the product).
 
 **Legal line (every email)**
-LEGAL_LINE: The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed] · Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. · Unsubscribe · Manage preferences
+LEGAL_LINE: The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed] · Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review. · Unsubscribe · Manage preferences
 
 TAGLINE: Done properly. Done legally. Done once.
 
@@ -22,22 +30,22 @@ TAGLINE: Done properly. Done legally. Done once.
 ## Pop-up
 
 **Step 1**
-- HEADLINE: Want 10% off your first order?
-- QUESTION: What brought you to Precision Peptide today?
-- ANSWER 1: A company I can actually check out (`verify`)
-- ANSWER 2: A needle-free option (`needle_free`)
-- ANSWER 3: A prescription program (`rx`)
+- HEADLINE: Which protocol brought you here?
+- SUB: Tell us and we'll send the plain-English version: how it works, what it costs and who reviews it.
+- ANSWER 1: Semaglutide or Tirzepatide (`weight_loss`)
+- ANSWER 2: Sermorelin, BPC-157 or TB-500 (`performance`)
+- ANSWER 3: NAD+, Epitalon, MOTS-c or Semax (`longevity`)
+- ANSWER 4: Not sure yet (`not_sure`)
 
 **Step 2**
-- HEADLINE: Where should we send your code?
-- SUB: 10% off your first retail order, plus plain-English answers to the questions people ask us most.
+- HEADLINE: Where should we send it?
 - FIELD: Email
 - BUTTON: Continue
 - TRUST LINE: Publicly listed on the CSE (BPC) and OTCQB (PNGAF).
 
 **Step 3**
-- HEADLINE: Want it by text too?
-- SUB: We only text about new products, restocks and your orders, a few times a month.
+- HEADLINE: Want updates by text too?
+- SUB: We only text about your protocol, your orders and anything new, a few times a month.
 - FIELD: Phone number
 - BUTTON: Yes, Text Me
 - SECONDARY: No thanks, email is fine
@@ -45,317 +53,231 @@ TAGLINE: Done properly. Done legally. Done once.
 
 **Step 4**
 - HEADLINE: You're in.
-- SUB: Your code is WELCOME10 for 10% off the retail range. It's in your inbox now too.
-- BUTTON: Shop Now
+- SUB: Your first email is on its way. Want to start now? The intake takes a few minutes.
+- BUTTON: Get Started
 
 ---
 
-## Email #1 (track A, answered `verify`)
-Template: welcome/01-welcome-offer
-Talking to: the gray-market switcher, who can't tell who's really behind the sites they've bought from, when they're searching a vendor's name with "scam" over morning coffee
+## Email #1 v1 (answered `not_sure`, or no answer)
+Talking to: the careful first-timer, who has read about peptides for months but can't tell which sites are real, when they're comparing three tabs that all promise the same thing
+Idea: "The protocol. The prescriber. The pharmacy." Three things in one place, and you can check every one of them.
 
-SUBJECT (pick): You can look us up, and we hope you do
-SUBJECT (option): Your 10% code, from a company with a ticker
+SUBJECT (pick): The protocol, the prescriber and the pharmacy
 SUBJECT (option): Welcome to The Precision Peptide Company
-PREVIEW (pick): Here's your code, and here's who we are
-PREVIEW (option): CSE: BPC and OTCQB: PNGAF, for a start
+PREVIEW (pick): All in one place, and all on the record
+PREVIEW (option): Here's how it works, start to finish
 
-HEADLINE: If you've ever searched a peptide company's name with "scam" after it, this one's for you
-SUBHEADLINE_WITH_OFFER: We're a publicly listed company, so everything about us is on the record. Your 10% welcome code works on the whole retail range.
-BUTTON: Shop Now
-CODE_LABEL: Your code
-CODE: WELCOME10
-
-STORY_TITLE: You shouldn't have to guess who you're buying from
-STORY_PARAGRAPH_1: A lot of peptide sites look the same. There's no name on the about page, no address you can find, and nobody answers when you write in.
-STORY_PARAGRAPH_2: You end up reading forum threads late at night, trying to work out which one is real. We built Precision Peptide so you never have to do that with us.
-BENEFIT_1_TITLE: Publicly listed
-BENEFIT_1_TEXT: We trade on the CSE as BPC and on the OTCQB as PNGAF, so our filings are public.
-BENEFIT_2_TITLE: Licensed US clinicians
-BENEFIT_2_TEXT: Every prescription program is reviewed by a US-licensed clinician after a private health intake.
-BENEFIT_3_TITLE: Independent third-party testing
-BENEFIT_3_TEXT: Every batch goes through independent third-party testing for purity and potency.
-STORY_CLOSING_LINE: Our people are named on our about page, from our CEO to our Chief Scientific Officer.
-
-INTEREST_TITLE: Check us the way you'd check anyone
-INTEREST_TEXT: Look up our ticker, find the LegitScript seal on our site, and read who sits on our board. We'd rather you verify us than take our word for it.
-
-PRODUCTS_TITLE: Where most people start
-PRODUCT_1_NAME: Recovery Patch
-PRODUCT_1_BUTTON: Shop Now
-PRODUCT_2_NAME: KPV
-PRODUCT_2_BUTTON: Shop Now
-PRODUCT_3_NAME: BPC
-PRODUCT_3_BUTTON: Shop Now
-SHOP_ALL_BUTTON: Shop Now
-
-USP_1: Publicly listed
-USP_2: Licensed US clinicians
-USP_3: Third-party tested
-USP_4: Made in the USA
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (approved facts only, no outcomes; product blocks are name + button)
-- Framework: PAS (problem = unverifiable vendors)
-- Subject pick: invites the exact behavior this avatar already does
-- Open: retail shop URL; best first-order products (picked from the form and press until we have order data)
-
----
-
-## Email #1 v2 (track B, answered `needle_free`)
-Template: welcome/01-welcome-offer
-Talking to: the needle-averse buyer, who's put off by vials, mixing and fridges, when they're moving vials around the fridge door
-
-SUBJECT (pick): Your 10% code, no fridge required
-SUBJECT (option): Peptides in a patch, plus 10% off
-SUBJECT (option): Welcome to Precision Peptide
-PREVIEW (pick): No mixing and no measuring either
-PREVIEW (option): Here's why the patch is our best seller
-
-HEADLINE: If you've ever moved vials around the fridge door to fit the milk in, you'll like the patch
-SUBHEADLINE_WITH_OFFER: The Recovery Patch is our best seller, and it needs no mixing, no measuring and no refrigeration. Your 10% welcome code works on the whole retail range.
-BUTTON: Shop Now
-CODE_LABEL: Your code
-CODE: WELCOME10
-
-STORY_TITLE: The kit on the counter gets old fast
-STORY_PARAGRAPH_1: Vials need space in the fridge, mixing needs a steady hand, and travel means packing a cold bag.
-STORY_PARAGRAPH_2: Plenty of people tell us they wanted peptides without any of that. That's why the patch came first in our retail range.
-BENEFIT_1_TITLE: No mixing
-BENEFIT_1_TEXT: It comes ready, so there's nothing to prepare.
-BENEFIT_2_TITLE: No measuring
-BENEFIT_2_TEXT: There's nothing to draw up or get wrong.
-BENEFIT_3_TITLE: No refrigeration
-BENEFIT_3_TEXT: It stays in a drawer or a bag, not the fridge door.
-STORY_CLOSING_LINE: Every batch goes through independent third-party testing, and our retail products are made to cGMP standards.
-
-INTEREST_TITLE: It fits in a bag
-INTEREST_TEXT: Because there's no cold storage, the patch travels the way the rest of your things do.
-
-PRODUCTS_TITLE: The retail range
-PRODUCT_1_NAME: Recovery Patch
-PRODUCT_1_BUTTON: Shop Now
-PRODUCT_2_NAME: KPV
-PRODUCT_2_BUTTON: Shop Now
-PRODUCT_3_NAME: BPC
-PRODUCT_3_BUTTON: Shop Now
-SHOP_ALL_BUTTON: Shop Now
-
-USP_1: Needle-free patch
-USP_2: Made to cGMP standards
-USP_3: Third-party tested
-USP_4: Made in the USA
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (format facts from the press release only; product name used, no effect described)
-- Framework: BAB (kit on the counter → patch in a drawer)
-- Open: confirm KPV and BPC capsules are live retail products and their URLs
-
----
-
-## Email #1 v3 (track C, answered `rx`)
-Template: welcome/01-welcome-offer
-Talking to: the telehealth-first patient, who wants a prescription program without a clinic visit, when they're looking at a six-week wait for an appointment
-
-SUBJECT (pick): A clinician's review within 24 hours
-SUBJECT (option): How our prescription programs work
-SUBJECT (option): Welcome to Precision Peptide
-PREVIEW (pick): Three steps, all online, no insurance needed
-PREVIEW (option): Plus 10% off our retail range
-
-HEADLINE: If the next clinic appointment is six weeks away, you can start here today
-SUBHEADLINE_WITH_OFFER: Fill in a private online intake and a US-licensed clinician reviews it within 24 hours. No insurance is needed.
+HEADLINE: Most peptide sites sell you a vial. We start with a licensed clinician.
+SUBHEADLINE: Precision medicine, prescribed by licensed US clinicians. The protocol, the prescriber and the pharmacy, all in one place.
 BUTTON: Get Started
-CODE_LABEL: 10% off the retail range
-CODE: WELCOME10
 
-STORY_TITLE: Waiting rooms and coverage letters aren't the only way
-STORY_PARAGRAPH_1: You call, you get the next slot in six weeks, and then you find out insurance won't cover it anyway.
-STORY_PARAGRAPH_2: Our programs run online from start to finish, with a licensed clinician and a licensed pharmacy behind every prescription.
-BENEFIT_1_TITLE: 1. Health assessment
-BENEFIT_1_TEXT: A secure, private intake covering your goals, health history and eligibility.
-BENEFIT_2_TITLE: 2. Medical review
-BENEFIT_2_TEXT: A US-licensed clinician reviews your intake within 24 hours.
-BENEFIT_3_TITLE: 3. Pharmacy fulfillment
-BENEFIT_3_TEXT: If prescribed, it ships from a 503A pharmacy in discreet packaging.
-STORY_CLOSING_LINE: Every prescription comes from a licensed US clinician after a clinical review, and some programs won't be right for everyone.
+STORY_TITLE: Three steps to your protocol
+STEP_1: Health assessment · A secure, private intake covering your goals, health history and eligibility.
+STEP_2: Medical review · A US-licensed clinician reviews your intake within 24 hours.
+STEP_3: Pharmacy fulfillment · If prescribed, your protocol ships from a 503A pharmacy, discreetly packaged.
+STORY_CLOSING_LINE: Protocols are tailored by a licensed clinician, never one-size-fits-all, and some won't be right for everyone.
 
-INTEREST_TITLE: Questions before you start?
-INTEREST_TEXT: Our FAQ covers prescriptions, side effects and how the review works, and our team answers if you write in.
+FAQ_TITLE: Not sure which protocol fits?
+FAQ_TEXT: That's what the eligibility check is for. A licensed clinician recommends a protocol based on your goals and health history.
+FAQ_BUTTON: Read Our FAQ
 
-PRODUCTS_TITLE: Our programs
-PRODUCT_1_NAME: GLP-1
-PRODUCT_1_BUTTON: View Protocols
-PRODUCT_2_NAME: Sermorelin
-PRODUCT_2_BUTTON: View Protocols
-PRODUCT_3_NAME: NAD+
-PRODUCT_3_BUTTON: View Protocols
-SHOP_ALL_BUTTON: Get Started
+PRODUCTS_TITLE: The full peptide portfolio
+PRODUCT_1: Semaglutide · As low as $159.67/month · View Protocol
+PRODUCT_2: Sermorelin · From $199/month · View Protocol
+PRODUCT_3: NAD+ · From $179/month · View Protocol
+ALL_BUTTON: View All Protocols
 
 USP_1: Licensed US clinicians
 USP_2: 503A pharmacy
-USP_3: No insurance needed
+USP_3: Third-party tested
 USP_4: HIPAA-compliant
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (process steps quoted from the site; program names only, no effect labels; the prescription and "not for everyone" lines are in the body; code limited to retail)
-- Framework: PAS
-- Open: whether the welcome code should appear at all on the Rx track (kept small, retail only)
+## Email #1 v2 (answered `weight_loss`)
+Talking to: the person who's priced semaglutide and tirzepatide on five sites, when they're trying to work out which of those sites has a real clinician behind it
+Idea: clear pricing, side by side, with the clinician and the pharmacy named.
+
+SUBJECT (pick): Semaglutide and Tirzepatide, priced up front
+SUBJECT (option): Here's how our GLP-1 protocols work
+PREVIEW (pick): And a licensed clinician behind every prescription
+PREVIEW (option): Review within 24 hours
+
+HEADLINE: Semaglutide or Tirzepatide? Here's what each costs, and who reviews it
+SUBHEADLINE: Both are compounded, prescribed only after a US-licensed clinician reviews your intake, and filled by a 503A pharmacy.
+BUTTON: Get Started
+
+PRODUCTS_TITLE: Your two options
+PRODUCT_1: Semaglutide · As low as $159.67/month · Compounded semaglutide, prescribed after clinician review. · Get Started
+PRODUCT_2: Tirzepatide · As low as $233/month · Compounded tirzepatide, prescribed after clinician review. · Get Started
+
+STORY_TITLE: Three steps to your protocol
+STEP_1 to STEP_3: as v1
+STORY_CLOSING_LINE: Your clinician decides which one, if either, is right for you.
+
+FAQ_TITLE / FAQ_TEXT / FAQ_BUTTON: as v1
+USP_1-4: as v1
+
+## Email #1 v3 (answered `performance`)
+Talking to: the person who trains hard and has read every forum thread on BPC-157 and TB-500, when they're realising none of those sellers will put a name to what they ship
+Idea: the same peptides they've read about, with a prescriber and a pharmacy attached.
+
+SUBJECT (pick): Sermorelin, BPC-157 and TB-500, prescribed properly
+SUBJECT (option): Here's how our protocols work
+PREVIEW (pick): A licensed clinician and a 503A pharmacy behind each one
+PREVIEW (option): From $125 a month
+
+HEADLINE: You've read the threads on BPC-157 and TB-500. Here's the version with a prescriber.
+SUBHEADLINE: Each protocol is prescribed by a US-licensed clinician after a private intake, and filled by a 503A pharmacy.
+BUTTON: Get Started
+
+PRODUCTS_TITLE: Three protocols
+PRODUCT_1: Sermorelin · From $199/month · Get Started
+PRODUCT_2: BPC-157 · From $139/month · Get Started
+PRODUCT_3: TB-500 · As low as $125/month · Get Started
+
+PARTNER_TITLE: The first peptide brand inside MMA.INC
+PARTNER_TEXT: We're the exclusive peptide partner inside MMA.INC's combat sports ecosystem.
+
+STORY_TITLE / STEPS / FAQ / USPs: as v1
+STORY_CLOSING_LINE: Protocols are tailored by a licensed clinician, never one-size-fits-all.
+
+## Email #1 v4 (answered `longevity`)
+Talking to: the planner who reads the research on NAD+ and MOTS-c, when they want a clinician, not a forum, deciding what's right for them
+Idea: four protocols, one clinician conversation.
+
+SUBJECT (pick): NAD+, Epitalon, MOTS-c and Semax
+SUBJECT (option): Here's how our protocols work
+PREVIEW (pick): Four protocols, one licensed clinician
+PREVIEW (option): Review within 24 hours
+
+HEADLINE: Four protocols you've read about. One licensed clinician to decide which fits.
+SUBHEADLINE: Each one is prescribed only after a US-licensed clinician reviews your intake, and filled by a 503A pharmacy.
+BUTTON: Get Started
+
+PRODUCTS_TITLE: Four protocols
+PRODUCT_1: NAD+ · From $179/month · Get Started
+PRODUCT_2: Epitalon · From $199/month · Get Started
+PRODUCT_3: MOTS-c · From $199/month · Get Started
+PRODUCT_4: Semax · From $249/month · Get Started
+
+STORY_TITLE / STEPS / FAQ / USPs: as v1
+STORY_CLOSING_LINE: Some protocols, like Epitalon, are prescribed in set courses after clinician review.
+
+NOTES (all v1-v4)
+- Prices and product names verbatim from /protocols (2026-11-26). Group labels never in subject/headline. No outcomes, no dosing or format.
+- Guardrails: checked (no outcomes, no FDA wording, compounded disclaimer in footer)
 
 ---
 
-## SMS #1 (immediately after Email #1, consent only)
-Precision Peptide: welcome in. Your code WELCOME10 takes 10% off our retail range, including the needle-free Recovery Patch: https://www.precisionpeptidecompany.com
+## SMS #1 (right after Email #1, consent only)
+Precision Peptide: welcome in. Every protocol starts with a private intake and a US-licensed clinician's review within 24 hours. Start here: https://www.precisionpeptidecompany.com/protocols
 
 ---
 
 ## Email #2: A note from Pratap (plain text, 4 hours later)
-Template: welcome/02a-founder-note-plain
-Talking to: the gray-market switcher, who's been burned by vendors that vanish, when they're emailing a vendor for the third time with no reply
+Talking to: the careful first-timer, who's been burned by a seller that vanished, when they're emailing a vendor for the third time with no reply
+Idea: why we chose the harder, public way.
 
 SUBJECT (pick): Why we listed the company publicly
 SUBJECT (option): A quick note from our CEO
 PREVIEW (pick): It wasn't the easy way to do it
 PREVIEW (option): And why you can always reach us
 
-GREETING: Hi {{customer.first_name | default: "there"}},
+GREETING: Hi there,
 PARAGRAPH_1: I'm Pratap, the CEO of The Precision Peptide Company. I wanted to write to you myself, because the reason this company exists is pretty simple.
-PARAGRAPH_2: Too many people buy peptides from sellers they can't look up, can't call and can't hold to anything. We went the other way. We listed the company publicly, so our filings are open to anyone, and we built every prescription program around licensed US clinicians and a licensed pharmacy.
+PARAGRAPH_2: Too many people buy peptides from sellers they can't look up, can't call and can't hold to anything. We went the other way. We listed the company publicly, so our filings are open to anyone, and every protocol we offer runs through a licensed US clinician and a 503A pharmacy.
 PARAGRAPH_3: Our line for it is "done properly, done legally, done once." It's slower and it costs more to run a company this way, and we think that's exactly the point.
-OFFER_LINE: Your code WELCOME10 still takes 10% off our retail range whenever you're ready.
+OFFER_LINE: When you're ready, the intake takes a few minutes and a clinician reviews it within 24 hours.
 REPLY_INVITE: If anything about us isn't clear, just reply to this email. It comes to our team, and real people answer it.
 TEXT_LINK: Read who we are: https://www.precisionpeptidecompany.com/about
 SIGN_OFF: Pratap Sandhu, CEO, The Precision Peptide Company
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Framework: PAS as a letter
-- Needs Pratap's OK to send under his name
+NOTES: Needs Pratap's OK to send under his name
 
 ---
 
 ## Email #3: The questions people ask us first (1 day later)
-Template: welcome/03-reviews (review slots replaced by FAQ; reviews about personal results can't be used and we have none yet)
-Talking to: the gray-market switcher, who doesn't know who to believe, when they're reading a forum argument about whether a product is legit at night
+Talking to: the careful first-timer, who doesn't know who to believe, when they're reading a forum argument at night about whether a site is legit
+Idea: the site's own FAQ, answered like a chat.
 
 SUBJECT (pick): The questions people ask us first
-SUBJECT (option): Do you need a prescription? It depends
+SUBJECT (option): Do I need a prescription? Yes, and here's why
 PREVIEW (pick): Straight answers, no forum required
-PREVIEW (option): Plus your 10% code, still waiting
+PREVIEW (option): Prescriptions, pharmacies, testing
 
 HEADLINE: Forum threads argue about this stuff all night, so here are the plain answers
-SUBHEADLINE_WITH_OFFER: These are the questions people ask us before their first order. Your 10% code is still waiting for the retail range.
+SUBHEADLINE: These are the questions people ask us before they start a protocol.
 BUTTON: Read Our FAQ
-CODE_LABEL: Your code
-CODE: WELCOME10
 
-FRAMING_LINE: What people ask us first
-REVIEW_1_QUOTE: "Do I need a prescription?" For our prescription programs, yes. A licensed US clinician prescribes every one after reviewing your health intake, usually within 24 hours.
-REVIEW_1_NAME: Prescriptions
-REVIEW_2_QUOTE: "Where is it made?" Prescription programs ship from a 503A compounding pharmacy in the US. Our retail products are made to cGMP standards.
-REVIEW_2_NAME: Where it's made
-REVIEW_3_QUOTE: "Is it tested?" Every batch goes through independent third-party testing for purity and potency.
-REVIEW_3_NAME: Testing
+Q1: "Do I need a prescription?" · Yes. A licensed US clinician prescribes every protocol after reviewing your health intake, typically within about 24 hours.
+Q2: "Where is it made?" · At a 503A compounding pharmacy in the US. Every batch goes through independent third-party testing for purity and potency.
+Q3: "How do I know which protocol is right for me?" · You complete an eligibility check, and a licensed clinician recommends a protocol based on your goals and health history.
+Q4: "Are there side effects?" · They vary by protocol and person. Your clinician reviews your health history before approval and discusses the relevant risks.
 
-WHY_TITLE: Why people switch to us
-WHY_1_TITLE: You can look us up
-WHY_1_TEXT: We're publicly listed on the CSE and OTCQB.
-WHY_2_TITLE: Real people answer
-WHY_2_TEXT: Reply to any of our emails and our team picks it up.
-WHY_3_TITLE: Discreet delivery
-WHY_3_TEXT: Orders arrive in plain, discreet packaging.
-CODE_REMINDER_LINE: WELCOME10 takes 10% off the retail range.
-MID_BUTTON: Shop Now
-
-PRODUCTS_TITLE: Start with our best seller
-PRODUCT_1_NAME: Recovery Patch
-PRODUCT_1_BUTTON: Shop Now
-PRODUCT_2_NAME: Explore Protocols
-PRODUCT_2_BUTTON: View Protocols
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (answers paraphrase the site FAQ and home page; no side-effect or outcome claims)
-- Swap in real service reviews (delivery, support) once the client has them
-- "Discreet packaging" is a site claim for Rx; confirm it applies to retail orders too
+WHY_TITLE: Why people choose us
+WHY_1: You can look us up · Publicly listed on the CSE and OTCQB.
+WHY_2: Your data stays private · Our telehealth process is HIPAA-compliant.
+WHY_3: Discreet delivery · Protocols arrive discreetly packaged.
+MID_BUTTON: Get Started
+SAFETY_LINK: Full safety information · /safety-information
 
 ---
 
-## Email #4: Where most people start (1 day later)
-Template: welcome/04-best-sellers
-Talking to: the needle-averse buyer, who wants something simple to start with, when they're throwing things in a gym bag before work
+## Email #4: Choose your protocol (1 day later)
+Talking to: the careful first-timer, who's ready but doesn't know where to begin, when they've got nine names in front of them and no idea which applies
+Idea: the whole portfolio on one page, grouped the way the site groups it, with the price next to each.
 
-SUBJECT (pick): Where most people start with us
-SUBJECT (option): Patch or program?
-PREVIEW (pick): Two ways in, and how to pick
-PREVIEW (option): Your 10% code works on one of them
+SUBJECT (pick): All nine protocols, on one page
+SUBJECT (option): Not sure where to start?
+PREVIEW (pick): With the price next to every one
+PREVIEW (option): And a clinician to help you choose
 
-HEADLINE: Not sure where to start? Most people pick one of two ways in
-SUBHEADLINE_WITH_OFFER: Start with the retail range and your 10% code, or start a prescription program with a clinician's review.
-BUTTON: Shop Now
-CODE_LABEL: Your code
-CODE: WELCOME10
+HEADLINE: Nine protocols, one page, and the price next to every one
+SUBHEADLINE: Clear pricing, fast review, and fulfillment through a regulated pharmacy. Pick one to start, or let the clinician guide you.
+BUTTON: Choose Your Protocol
 
-CHOOSE_TITLE: Two ways to start
-OPTION_1_TITLE: The retail range
-OPTION_1_TEXT: No prescription needed. The needle-free Recovery Patch is our best seller, and your code works here.
-OPTION_2_TITLE: Prescription programs
-OPTION_2_TEXT: A private intake, a licensed clinician's review within 24 hours, and a 503A pharmacy.
+GROUP_1_LABEL: Weight Loss · Semaglutide (As low as $159.67/month) · Tirzepatide (As low as $233/month)
+GROUP_2_LABEL: Performance · Sermorelin (From $199/month) · BPC-157 (From $139/month) · TB-500 (As low as $125/month)
+GROUP_3_LABEL: Longevity · NAD+ (From $179/month) · Epitalon (From $199/month) · MOTS-c (From $199/month) · Semax (From $249/month)
+EACH_BUTTON: Get Started
 
-BEST_SELLERS_TITLE: Our best sellers
-PRODUCT_1_NAME: Recovery Patch
-PRODUCT_1_BUTTON: Shop Now
-PRODUCT_2_NAME: KPV
-PRODUCT_2_BUTTON: Shop Now
+OBJECTION_TITLE: Why does every protocol need a prescription?
+OBJECTION_TEXT: Because a licensed clinician should decide what's right for you, not a checkout page. That's the whole reason we exist. Our blog explains it in plain English.
+OBJECTION_BUTTON: Read the Blog
 
-OBJECTION_TITLE: Why does one need a prescription and the other doesn't?
-OBJECTION_PARAGRAPH_1: Some peptides can only be supplied with a prescription, so a licensed clinician has to review you first. Others are sold at retail.
-OBJECTION_PARAGRAPH_2: We keep both on the right side of the rules, which is the whole reason we exist. Our blog explains the difference in plain English.
-
-BANNER_HEADLINE: Your 10% is still here
-BANNER_LINE: WELCOME10 takes 10% off the retail range.
-BANNER_BUTTON: Shop Now
-DYNAMIC_NOTE: none (static products until order data exists)
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (Rx/retail split echoes the site blog title "Do You Need a Prescription for Peptides? It Depends Which One"; no effect claims)
-- Best sellers from the form ("needle-free patches"); replace with order data when we get it
+BANNER_HEADLINE: Still not sure?
+BANNER_LINE: Start the eligibility check and a clinician recommends a protocol within 24 hours.
+BANNER_BUTTON: Get Started
 
 ---
 
-## Email #5: 15% for the next 24 hours (1 day later, non-buyers)
-Template: welcome/05-upgrade-offer
-Talking to: the needle-averse buyer, who's been meaning to try the patch, when they're opening the fridge and seeing the vials again
+## Email #5: Protocols from $125 a month (1 day later, non-starters)
+Talking to: the careful first-timer, who assumed this would cost a clinic-visit fortune, when they're about to close the tab and come back "some other time"
+Idea: the price is the news. No discount, just the real number, said plainly.
 
-SUBJECT (pick): Your code just went up to 15%
-SUBJECT (option): 15% off, for the next 24 hours
-PREVIEW (pick): For the next 24 hours only
-PREVIEW (option): On the whole retail range
+SUBJECT (pick): Protocols start at $125 a month
+SUBJECT (option): What a protocol actually costs
+PREVIEW (pick): Clinician review included in the process
+PREVIEW (option): Clear pricing, no surprises
 
-HEADLINE: We've bumped your welcome code to
-OFFER_NUMBER: 15% off
-DEADLINE_LINE: on the whole retail range, for the next 24 hours
-BUTTON: Shop Now
-CODE_LABEL: Your new code
-CODE: WELCOME15
+HEADLINE: Our protocols start at
+OFFER_NUMBER: $125
+DEADLINE_LINE: a month, with TB-500. Every price is on the site before you fill in a single form.
+BUTTON: View Protocols
 
 WHY_NOW_TITLE: Still thinking it over?
-WHY_NOW_PARAGRAPH_1: You signed up a few days ago, and we'd like your first order to be an easy one.
-WHY_NOW_PARAGRAPH_2: So for the next 24 hours your code takes 15% off anything in the retail range, including the Recovery Patch.
+WHY_NOW_TEXT: You signed up a few days ago. If cost was the question, here's the answer: clear pricing, a licensed clinician's review and a 503A pharmacy.
 
-USP_1: Needle-free patch
-USP_2: Third-party tested
+PRICE_LIST: TB-500 As low as $125/month · BPC-157 From $139/month · Semaglutide As low as $159.67/month · NAD+ From $179/month
+
+USP_1: Clear pricing
+USP_2: Review within 24 hours
 USP_3: Discreet packaging
 USP_4: Publicly listed
 
-BANNER_KICKER: Ends in 24 hours
-BANNER_LINE: WELCOME15 takes 15% off the retail range. Prescription programs aren't included.
-BANNER_BUTTON: Shop Now
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (offer within the approved 25% max, retail only, exclusion stated)
-- Code WELCOME15 must be created on their platform with a 24-hour window per person, or as a single-use code pushed from Customer.io
+BANNER_KICKER: Takes a few minutes
+BANNER_LINE: Start your intake today and a US-licensed clinician reviews it within 24 hours.
+BANNER_BUTTON: Get Started
 
 ---
 
 ## SMS #2 (right after Email #5, consent only)
-Precision Peptide: for the next 24 hours your code is WELCOME15 for 15% off our retail range. https://www.precisionpeptidecompany.com
+Precision Peptide: our protocols start at $125/month, with a licensed clinician's review within 24 hours. See every price: https://www.precisionpeptidecompany.com/protocols

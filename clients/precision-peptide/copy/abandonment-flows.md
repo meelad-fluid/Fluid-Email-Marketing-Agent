@@ -1,24 +1,23 @@
 # Site, browse and cart abandonment: copy
-_Client: The Precision Peptide Company · Platform: Customer.io · Written 2026-11-24_
+_Client: The Precision Peptide Company · Platform: Customer.io · Written 2026-11-24 · Site + browse rewritten 2026-11-26 to match precisionpeptidecompany.com_
 Status: draft · needs approval · goes live once the events from their developer are flowing
 From: Sarah from The Precision Peptide Company (proposed persona)
 
-**Compliance basis:** approved by Meelad (Fluid), Slack, 2026-11-24. Approved facts only, no outcomes, dosing or effect categories. Viewed or carted products are never described by what they do. Codes apply to the retail range only.
+**2026-11-26 (Gloria):** the site sells the nine prescription protocols only (see copy/welcome-flow.md for the list, prices and site lines). Site and browse abandonment no longer mention retail products, the patch, or any code; prescription protocols are never discounted. **Abandoned cart below still has the old retail copy and MYSTERY code and needs the same rewrite before it's designed.**
 
 **Liquid used** (from the event spec)
-- `{{event.product_name}}`, `{{event.product_url}}`, `{{event.image_url}}`, `{{event.line}}`
+- `{{event.product_name}}`, `{{event.product_url}}`, `{{event.image_url}}`
 - `{{event.checkout_url}}` and the `{% for item in event.items %}` cart table
-- Rx vs retail: `{% if event.line == "rx" %} … {% else %} … {% endif %}`
 
-LEGAL_LINE and TAGLINE: same as the Welcome flow.
+LEGAL_LINE and TAGLINE: same as the Welcome flow (includes the compounded-medication disclaimer).
 
 ---
 
 # Site abandonment (2 emails)
 
-## Email #1: Were you checking us out? (2 hours later)
-Template: site-abandonment/01-find-your-way
-Talking to: the gray-market switcher, who's comparing sites that all look the same, when they have three vendor tabs open on their lunch break
+## Email #1: How to tell us apart (2 hours later)
+Talking to: the careful first-timer, who's comparing peptide sites that all look the same, when they have three tabs open on their lunch break
+Idea: every tab says "premium"; here's what you can actually check.
 
 SUBJECT (pick): Comparing peptide companies?
 SUBJECT (option): Were you just checking us out?
@@ -35,51 +34,46 @@ SECTION_1_TEXT: When every site makes the same promises, the only thing that cou
 SECTION_2_TITLE: What you can check about us
 - Our listing on the CSE and OTCQB
 - The LegitScript seal on our site
-- The names of our leadership and science team
+- The licensed US clinician who reviews every intake
 
-SECTION_3_TITLE: Two ways in
-- The retail range, led by the needle-free Recovery Patch · BUTTON: Shop Now
-- Prescription programs reviewed by licensed US clinicians · BUTTON: View Protocols
+SECTION_3_TITLE: The protocol. The prescriber. The pharmacy.
+SECTION_3_TEXT: All in one place.
+- Choose your protocol from nine, priced up front · BUTTON: View Protocols
+- A US-licensed clinician reviews your intake within 24 hours, and a 503A pharmacy fills it · BUTTON: Get Started
 
 CLOSING_LINE: Got a question first? Reply to this email and our team will answer.
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Mention WELCOME10 only for people who have it and haven't used it: `{% if customer.popup_answer %}`
+## Email #2: Clear pricing (1 day later)
+Talking to: the careful first-timer, who left because they couldn't find a price on the last three sites, when they're bracing for a "book a consult to see pricing" page
+Idea: the prices, all of them, before a single form.
 
-## Email #2: Where most people start (1 day later)
-Template: site-abandonment/02-best-sellers
-Talking to: the needle-averse buyer, who wants the simplest way in, when they're packing the night before a trip
+SUBJECT (pick): Every price, before you fill in a form
+SUBJECT (option): What our protocols actually cost
+PREVIEW (pick): Protocols from $125 a month
+PREVIEW (option): No "book a call to see pricing"
 
-SUBJECT (pick): The one most people start with
-SUBJECT (option): Our best seller, in a patch
-PREVIEW (pick): No mixing, no measuring, no fridge
-PREVIEW (option): Plus our prescription programs
+HEADLINE: Most sites make you book a call to see a price. Ours are all right here.
+SUBHEADLINE: Clear pricing, fast review, and fulfillment through a regulated pharmacy.
+BUTTON: View Protocols
 
-HEADLINE: Packing a cold bag for every trip gets old, which is why most people start with the patch
-SUBHEADLINE: The Recovery Patch needs no mixing, no measuring and no refrigeration.
-BUTTON: Shop Now
+PRODUCTS_TITLE: Where people start
+PRODUCT_1: TB-500 · As low as $125/month · Get Started
+PRODUCT_2: Semaglutide · As low as $159.67/month · Get Started
+PRODUCT_3: NAD+ · From $179/month · Get Started
 
-PRODUCTS_TITLE: Our best sellers
-PRODUCT_1_NAME: Recovery Patch · BUTTON: Shop Now
-PRODUCT_2_NAME: KPV · BUTTON: Shop Now
-PRODUCT_3_NAME: BPC · BUTTON: Shop Now
-
-RX_TITLE: Looking for a prescription program instead?
-RX_TEXT: Fill in a private intake and a US-licensed clinician reviews it within 24 hours.
-RX_BUTTON: Get Started
-
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- No discount (top of funnel)
+STEPS_TITLE: Three steps to your protocol
+STEP_1: Health assessment
+STEP_2: Medical review within 24 hours
+STEP_3: Pharmacy fulfillment, discreetly packaged
+STEPS_BUTTON: Get Started
 
 ---
 
 # Browse abandonment (3 emails + 1 SMS)
 
 ## Email #1: Still looking at it? (2 hours later)
-Template: browse-abandonment/01-reminder
-Talking to: the gray-market switcher, who's been let down by vendors before, when they're reading reviews of a vendor that went dark
+Talking to: the careful first-timer, who's been let down by sellers before, when they're reading reviews of one that went dark
+Idea: no rush; here's who'd be on the other side of this.
 
 SUBJECT (pick): Still looking at {{event.product_name}}?
 SUBJECT (option): You were looking at {{event.product_name}}
@@ -87,157 +81,168 @@ PREVIEW (pick): It's still here, and so are we
 PREVIEW (option): A few things worth knowing first
 
 HEADLINE: Still thinking about {{event.product_name}}? Take your time, we'll still be here
-SUBHEADLINE: {% if event.line == "rx" %}Every prescription program starts with a private intake and a US-licensed clinician's review within 24 hours.{% else %}It ships in discreet packaging, and every batch is independently third-party tested.{% endif %}
-BUTTON: {% if event.line == "rx" %}Get Started{% else %}Shop Now{% endif %}
-DYNAMIC_BLOCK: viewed product image + name + button (no description)
+SUBHEADLINE: Every protocol starts with a private intake and a US-licensed clinician's review within 24 hours.
+BUTTON: Get Started (→ {{event.product_url}}#intake)
+DYNAMIC_BLOCK: viewed protocol image + name + button (no description)
 
 SECTION_TITLE: Before you decide, here's who you'd be buying from
 - Publicly listed: CSE: BPC and OTCQB: PNGAF
-- Licensed US clinicians and a 503A pharmacy for prescriptions
-- Retail products made to cGMP standards
+- Licensed US clinicians and a 503A pharmacy
+- Every batch independently third-party tested
 
 CLOSING_LINE: Questions about {{event.product_name}}? Reply and our team will answer.
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (viewed product shown by name only, never by what it does)
-
 ## Email #2: Why people switch to us (1 day later)
-Template: browse-abandonment/02-social-proof
-Talking to: the gray-market switcher, who wants a company they can verify, when they're searching a vendor's name with "scam"
+Talking to: the careful first-timer, who wants a company they can verify, when they're searching a seller's name with "scam"
+Idea: the difference you can check, plus the three steps.
 
 SUBJECT (pick): The difference you can actually check
 SUBJECT (option): Why people switch to Precision Peptide
-PREVIEW (pick): Plus 10% off the retail range
-PREVIEW (option): Ticker, clinicians, testing
+PREVIEW (pick): Ticker, clinicians, testing
+PREVIEW (option): The protocol, the prescriber, the pharmacy
 
 HEADLINE: Most people who switch to us were tired of buying from sellers they couldn't look up
-SUBHEADLINE: {% if event.line == "rx" %}Every prescription is written by a licensed US clinician and filled by a 503A pharmacy.{% else %}Here's 10% off the retail range to make the switch easy. Code BROWSE10 works through tomorrow night.{% endif %}
-BUTTON: {% if event.line == "rx" %}Get Started{% else %}Shop Now{% endif %}
-CODE (retail only): BROWSE10
-DYNAMIC_BLOCK: viewed product image + name + button
+SUBHEADLINE: Every prescription is written by a licensed US clinician and filled by a 503A pharmacy.
+BUTTON: Get Started
+DYNAMIC_BLOCK: viewed protocol image + name + button
 
 PROOF_TITLE: What you can verify about us
 PROOF_1: Publicly listed on the CSE and OTCQB
 PROOF_2: LegitScript seal on our site
 PROOF_3: Every batch independently third-party tested
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- No result reviews exist or may be used; proof is company facts
-- BROWSE10 must exclude prescription programs
+STEPS_TITLE: Three steps to your protocol
+STEP_1: Health assessment · STEP_2: Medical review · STEP_3: Pharmacy fulfillment
+STEPS_BUTTON: Get Started
 
 ## SMS #1 (right after Email #2, consent only)
-Precision Peptide: still looking at {{event.product_name}}? It's here when you're ready: {{event.product_url}}
+Precision Peptide: still looking at {{event.product_name}}? A licensed clinician reviews your intake within 24 hours: {{event.product_url}}
 
-## Email #3: Your code ends tonight (1 day later)
-Template: browse-abandonment/03-incentive
-Talking to: the needle-averse buyer, who meant to come back, when they're seeing the vials in the fridge again
+## Email #3: Is it right for you? (1 day later)
+Talking to: the careful first-timer, who isn't sure the protocol they viewed is the right one, when they're putting it off until they've "read a bit more"
+Idea: you don't have to work it out alone; that's the clinician's job, and it takes 24 hours.
 
-SUBJECT (pick): Your 10% ends tonight
-SUBJECT (option): Last call on {{event.product_name}}
-PREVIEW (pick): BROWSE10, on the whole retail range
-PREVIEW (option): Then it's gone
+SUBJECT (pick): Not sure {{event.product_name}} is right for you?
+SUBJECT (option): That's what the clinician review is for
+PREVIEW (pick): A licensed clinician answers that within 24 hours
+PREVIEW (option): The intake takes a few minutes
 
-HEADLINE: Your 10% code ends at midnight tonight
-SUBHEADLINE: BROWSE10 takes 10% off {{event.product_name}} and everything else in the retail range. Prescription programs aren't included.
-BUTTON: Shop Now
-CODE: BROWSE10
-DYNAMIC_BLOCK: viewed product image + name + button
+HEADLINE: Not sure {{event.product_name}} is right for you? That's what the clinician is for.
+BIG_NUMBER: 24 hours
+SUBHEADLINE: Fill in the private intake and a US-licensed clinician reviews it within 24 hours. If {{event.product_name}} isn't the right fit, they'll tell you.
+BUTTON: Get Started
+DYNAMIC_BLOCK: viewed protocol image + name + button
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Rx viewers: skip this email (branch on `event.line`), since Rx isn't discounted
+CLOSE_TITLE: Rather talk it through first?
+CLOSE_TEXT: Our team answers every message.
+CLOSE_BUTTON: Talk to Us (→ /contact)
+
+NOTES (browse + site)
+- Guardrails: checked. No outcomes, no dosing or format, no discounts; viewed protocol shown by name only.
 
 ---
 
-# Abandoned cart (4 emails + 2 SMS)
+# Abandoned checkout (4 emails + 2 SMS)
+_Rewritten 2026-11-26 (Gloria: "work on the abandoned checkout flow"). Prescription protocols only, no discount anywhere (protocols are never discounted), so the mystery-code emails became a doorstep email and a "what stopped you?" email._
+Status: draft · needs approval · goes live once `checkout_started` is flowing from their developer
 
-## Email #1: You left this behind (30 minutes later)
-Template: abandoned-checkout/01-reminder
-Talking to: the gray-market switcher, who got interrupted mid-checkout, when they're refreshing a tracking page from another vendor
+**Trigger:** `checkout_started` (fires when checkout or the intake starts). **Filter:** no `order_created` since starting the flow. **Re-entry:** after 1 day. Exits Browse and Site Abandonment (cart wins).
+**Liquid:** at the top of every email `{% assign protocol = event.items[0].product_name %}`; button links go to `{{event.checkout_url}}` (reopens the same checkout); the checkout block loops `{% for item in event.items %}` with `item.image_url`, `item.product_name`, `item.price`.
+**From:** Sarah from The Precision Peptide Company · LEGAL_LINE + TAGLINE as in the Welcome flow.
 
-SUBJECT (pick): You left something in your cart
-SUBJECT (option): Your cart is saved
-PREVIEW (pick): Pick up right where you left off
-PREVIEW (option): It's all still there
+## Email #1: Your checkout is saved (30 minutes later)
+Talking to: the person halfway through checkout for a protocol on the couch in the evening, who got pulled away by a call or a kid and closed the tab
+Idea: a progress bar. They already did the hard part; step one is half done and saved.
 
-HEADLINE: Got pulled away at checkout? Your cart is saved right where you left it
-SUBHEADLINE: Everything's still there, and it ships in discreet packaging once you finish.
-BUTTON: Return to Checkout
-DYNAMIC_TABLE: cart items (name, quantity, price)
-BUTTON_2: Return to Checkout
+SUBJECT (pick): Your {{protocol}} checkout is saved
+SUBJECT (option): You were almost through
+SUBJECT (option): Picking up where you left off?
+PREVIEW (pick): Pick it up right where you stopped
+PREVIEW (option): Nothing's lost, it's all still there
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Rx intake abandons (`event.line == "rx"`): BUTTON = "Finish Your Intake", subhead "Your answers are saved, and a US-licensed clinician reviews it within 24 hours of submitting."
+HEADLINE: You got partway through. We saved your spot.
+SUBHEADLINE: Your {{protocol}} checkout is right where you left it. Finish it and a US-licensed clinician reviews your intake within 24 hours.
+BUTTON: Finish My Checkout
+PROGRESS: Checkout started (done) → Clinician review (next) → Pharmacy fulfillment
+CHECKOUT_BLOCK: dynamic, one row per item: image + name + price · BUTTON: Finish My Checkout
+CLOSING_LINE: Got stuck on a question in the form? Reply to this email and our team will help.
+CLOSING_BUTTON: Finish My Checkout
 
 ## SMS #1 (right after Email #1, consent only)
-Precision Peptide: your cart is saved. Finish checking out here: {{event.checkout_url}}
+Precision Peptide: your {{protocol}} checkout is saved right where you left it. Pick it up here: {{event.checkout_url}}
 
-## Email #2: Questions before you check out? (1 day later)
-Template: abandoned-checkout/02-reviews (reviews replaced by order facts)
-Talking to: the gray-market switcher, who's been burned by a vendor that never shipped, when they're a week into refreshing a tracking page
+## Email #2: What happens after you submit (1 day later)
+Talking to: the careful first-timer, who stopped at the last step because they weren't sure who reads the form, when they're wondering "will a real doctor actually look at this?"
+Idea: the next 24 hours as a timeline, so the unknown after "submit" isn't unknown any more.
 
-SUBJECT (pick): Before you check out
-SUBJECT (option): A few things people ask at checkout
-PREVIEW (pick): Who ships it, how it arrives, who to ask
-PREVIEW (option): Your cart is still saved
+SUBJECT (pick): What happens after you hit submit
+SUBJECT (option): Who actually reads your intake?
+SUBJECT (option): The next 24 hours, step by step
+PREVIEW (pick): A licensed clinician, within 24 hours
+PREVIEW (option): Here's exactly who sees your answers
 
-HEADLINE: If you've ever paid and then waited on a tracking page that never moved, here's what to expect from us
-SUBHEADLINE: Your cart is still saved.
-BUTTON: Return to Checkout
-DYNAMIC_TABLE: cart items
+HEADLINE: Wondering who reads your intake? A licensed US clinician does.
+SUBHEADLINE: Here's what the next 24 hours look like once you finish checking out.
+BUTTON: Finish My Checkout
 
-FACTS_TITLE: What happens after you order
-FACT_1: Discreet packaging
-FACT_2: Prescription orders ship from a licensed 503A pharmacy
-FACT_3: A real team answers your emails
+TIMELINE_TITLE: After you submit
+- NOW · You finish checkout · Your answers go to a secure, private intake.
+- WITHIN 24 HOURS · A clinician reviews it · A US-licensed clinician reads your health history and decides whether {{protocol}} is right for you.
+- IF PRESCRIBED · The pharmacy fills it · Your protocol ships from a 503A pharmacy in discreet packaging.
+TIMELINE_NOTE: If {{protocol}} isn't the right fit, the clinician will tell you.
 
-HELP_TITLE: Still have a question?
-HELP_TEXT: Reply to this email and our team will get back to you before you order.
-HELP_BUTTON: Talk to Us
+CHECKOUT_BLOCK: dynamic (same as Email #1) · BUTTON: Finish My Checkout
+HELP_TITLE: Rather ask a person first?
+HELP_TEXT: Reply to this email and our team will answer.
+HELP_BUTTON: Talk to Us (→ /contact)
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
-- Add shipping times when the client confirms them (not on the site)
+## Email #3: What shows up at your door (1 day later)
+Talking to: the private buyer, who doesn't want the neighbors or the front desk guessing what's in the box, when they picture it sitting on the doorstep
+Idea: a shipping label. The only thing written on the outside is your name.
 
-## Email #3: Your mystery discount (1 day later)
-Template: abandoned-checkout/03-mystery-discount
-Talking to: the needle-averse buyer, who almost ordered the patch, when they're opening the fridge door again
+SUBJECT (pick): What the box looks like
+SUBJECT (option): Nobody has to know what's inside
+SUBJECT (option): About the delivery
+PREVIEW (pick): Plain, discreet, and from a 503A pharmacy
+PREVIEW (option): Your {{protocol}} checkout is still saved
 
-SUBJECT (pick): We left a mystery discount in your cart
-SUBJECT (option): Get up to 25% off your cart
-PREVIEW (pick): You'll see how much at checkout
-PREVIEW (option): Use it before tomorrow night
+HEADLINE: The only thing on the box is your name.
+SUBHEADLINE: If prescribed, {{protocol}} ships from a 503A pharmacy in plain, discreet packaging.
+BUTTON: Finish My Checkout
 
-HEADLINE: Get up to 25% off what's in your cart
-SUBHEADLINE: Use code MYSTERY at checkout to see how much you saved. It works on the retail range until tomorrow at midnight.
-BUTTON: Reveal My Discount
-CODE: MYSTERY
-DYNAMIC_TABLE: cart items
-EXCLUSION_LINE: Prescription programs aren't included.
+LABEL_DEVICE: a shipping label: TO: You · FROM: a 503A pharmacy · CONTENTS: your business
+SECTION_TITLE: What you can count on
+- Discreet packaging, every order
+- Filled by a 503A pharmacy, never a gray-market seller
+- Prescribed by a US-licensed clinician after review
+- A publicly listed company behind it: CSE: BPC and OTCQB: PNGAF
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW (teaser at the approved 25% ceiling; real value 15%)
-- Rx-only carts skip Emails #3 and #4 and SMS #2
+CHECKOUT_BLOCK: dynamic (same as Email #1) · BUTTON: Finish My Checkout
 
 ## SMS #2 (right after Email #3, consent only)
-Precision Peptide: code MYSTERY takes up to 25% off the retail items in your cart, until tomorrow at midnight. {{event.checkout_url}}
+Precision Peptide: your {{protocol}} checkout is still saved. If prescribed, it ships in plain, discreet packaging: {{event.checkout_url}}
 
-## Email #4: Last chance for your mystery discount (1 day later)
-Template: abandoned-checkout/04-last-chance
-Talking to: the needle-averse buyer, who keeps meaning to finish the order, when they're packing a bag at the end of the day
+## Email #4: What stopped you? (1 day later)
+Talking to: the person who meant to come back and didn't, when they're seeing the fourth email and deciding whether to reply or delete
+Idea: no pressure, just ask what stopped them, and let the buttons sort them.
 
-SUBJECT (pick): Your mystery discount ends at midnight
-SUBJECT (option): Last chance on your cart
-PREVIEW (pick): Code MYSTERY, then it's gone
-PREVIEW (option): Your cart is still saved
+SUBJECT (pick): Can I ask what stopped you?
+SUBJECT (option): This is my last note about your checkout
+SUBJECT (option): One question, then I'll leave it
+PREVIEW (pick): One click tells us, and we'll help
+PREVIEW (option): Your {{protocol}} checkout is still saved
 
-HEADLINE: Your mystery discount ends at midnight tonight
-SUBHEADLINE: Code MYSTERY still works on the retail items in your cart until then.
-BUTTON: Return to Checkout
-CODE: MYSTERY
-DYNAMIC_TABLE: cart items
+HEADLINE: This is my last note about it. Can I ask what stopped you?
+SUBHEADLINE: Your {{protocol}} checkout is still saved. Pick whichever sounds like you.
+CHOICE_1: "I had a question first." · Our FAQ covers prescriptions, side effects and how the review works. · BUTTON: Read the FAQ (→ /faq)
+CHOICE_2: "I wasn't sure it was the right protocol." · That's the clinician's call, and they'll tell you if it isn't the right fit. · BUTTON: Compare Protocols (→ /protocols)
+CHOICE_3: "I got busy." · Fair enough. Everything you entered is saved. · BUTTON: Finish My Checkout
+CHECKOUT_BLOCK: dynamic (same as Email #1)
+SIGN_OFF: Or just reply and tell me. I read every one. · Sarah, The Precision Peptide Company
 
-NOTES
-- Compliance gate: PASS — READY FOR HUMAN REVIEW
+NOTES (abandoned checkout)
+- Avatar point: Email #1 the current situation (interrupted), #2 the doubt ("will a real doctor read this?"), #3 privacy at the doorstep, #4 whatever's left, sorted by the reader.
+- Frameworks: #1 AIDA (short), #2 PAS, #3 BAB, #4 self-sorting close.
+- Subject picks: plain, personal and specific to their checkout; no urgency words since there's no offer or deadline.
+- No discounts, no outcomes, no dosing or format. Protocol shown by name and price only. Clinician/24h/503A/discreet/listing facts from the site and compliance.md §5.
+- Open: does the checkout URL reopen the same intake? (event spec asks the dev for this)

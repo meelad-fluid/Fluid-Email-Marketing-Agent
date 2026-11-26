@@ -5,7 +5,7 @@ Copy: copy/abandonment-flows.md (Site abandonment, Email #1)
 Subject: Comparing peptide companies? · Preview: Here's the one thing the others can't show you
 From: Sarah from The Precision Peptide Company
 
-Layout: full-bleed dark hero (lone indigo vial apart from a row of plain vials, serif headline, copper button, tilted ticker card) → three overlapping browser tabs graphic → indigo "what you can check" speech bubbles with check badges (curved edges) → two photo cards "two ways in" with italic numerals → question card → footer
+Layout: full-bleed dark hero (lone indigo vial apart from a row of plain vials, serif headline, copper button, tilted ticker card) → three overlapping browser tabs graphic → indigo "what you can check" speech bubbles with check badges (curved edges) → two photo cards "the protocol, the prescriber, the pharmacy" with italic numerals (updated 2026-11-26: no retail) → question card → footer
 Style: moody midnight editorial, speech-bubble proof on indigo, curved section edges
 
 Notes

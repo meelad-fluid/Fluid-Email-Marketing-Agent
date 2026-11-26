@@ -1,14 +1,13 @@
-# Welcome Email #1 — A company you can look up (track A: verify)
+# Welcome Email #1 — The protocol, the prescriber and the pharmacy (v1: not sure / no answer)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/VlFuCPosZf8RYeXrNsNPMAY7
 Status: draft · needs approval · goes live when the Welcome flow is built in Customer.io
-Copy: copy/welcome-flow.md (Email #1, track A) · Compliance gate: PASS — READY FOR HUMAN REVIEW
-Subject: You can look us up, and we hope you do · Preview: Here's your code, and here's who we are
+Copy: copy/welcome-flow.md (Email #1 v1) · rewritten 2026-11-26 to match the website (protocols only)
+Subject: The protocol, the prescriber and the pharmacy · Preview: All in one place, and all on the record
 From: Sarah from The Precision Peptide Company
 
-Layout: full-bleed dark-to-gold vial hero with serif headline, button and code pill → "that's me" story with ghost "scam?" type and tilted vendor-tab cards with a NAME NOT FOUND stamp → three inset photo cards with numbered outline pills (listed, clinicians, testing) → wavy edge into an indigo "check us" ticker block → type-led product cards on brushed copper → icon USP row → footer
-Style: dark indigo and copper, editorial serif headlines over warm-lit still life, inset rounded photo cards on cream
+Layout: full-bleed labelled-vial hero with serif headline, Get Started and tilted copper "24h" badge → numbered 3-step cards on a dashed copper line → split FAQ band (lab photo + text) → portfolio cards with the site's real vial renders and prices → icon USP row → footer
+Style: dark indigo and copper, editorial serif with big numerals and a stepped timeline (shared by all four #1 versions)
 
 Notes
-- Recovery Patch, KPV and BPC have no product photos yet: type-led cards until the client shares the Drive renders
+- Product renders load from the website (/images/products/...)
 - Fonts are stand-ins (Playfair Display, Inter) until the design system PDF arrives
-- Retail links go to the homepage until we have the shop URL
