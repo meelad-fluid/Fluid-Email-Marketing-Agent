@@ -58,6 +58,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria: "what about the popup form" → designed + published the 4-step pop-up (designs/2026-11-26-popup-form, review https://fluid-email-marketing-agent-production.up.railway.app/r/4lWjvvjceNMT1eXL9eheC42x): protocol question → email → optional SMS with consent → "You're in." + Get Started. No discount. Updated strategy/customerio-flow-setup.md §3 to the protocol answers (weight_loss/performance/longevity/not_sure) + show rules. Form tool still unconfirmed.
 - 2026-11-26 · Gloria comment on Abandoned Checkout #3: removed the three-vial row from the "checkout still saved" card, kept the line + button. Republished + resolved.
 - 2026-11-26 · Gloria comment on Abandoned Checkout #4: removed the three-vial row from the "Still saved for you" card, kept the line + button (matches #3). Republished + resolved.
+- 2026-11-26 · Gloria comments on the pop-up form: Step 2 + Step 3 headlines set to one line (23px, nowrap). She asked to "use the answers the welcome flow was built on": they already are the same four (weight_loss/performance/longevity/not_sure → Welcome #1 v2/v3/v4/v1), so kept them and explained in the reply. Republished + resolved.
 
 ## Open questions
 <!-- - … -->
