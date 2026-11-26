@@ -128,10 +128,10 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - Archive Untitled Automation 1 and Site sign-up Welcome
 - Hold Amino active and Amino list Nurture until the client says what Amino is
 
-## 6. Discount codes (proposed, need approval, retail only)
-- WELCOME10 · 10%
-- WELCOME15 · 15%, 24 hours
-- BROWSE10 · 10%
+## 6. Discount codes: none (2026-11-26, prescription protocols aren't discounted)
+- WELCOME10 · dropped
+- WELCOME15 · dropped
+- BROWSE10 · dropped
 - MYSTERY · dropped 2026-11-26: the abandoned checkout flow has no discount (prescription protocols aren't discounted)
 - Second order · 15%: dropped 2026-11-26 (site sells prescription protocols only)
 - Winback · 20%: dropped 2026-11-26 (same reason)

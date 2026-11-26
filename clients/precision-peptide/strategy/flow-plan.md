@@ -1,204 +1,131 @@
-# The Precision Peptide Company — Flow plan
-_Prepared 2026-11-24 · 22 emails + 7 SMS · Platform: Customer.io (flows are built by hand from the build sheets below)_
+# The Precision Peptide Company: Flow strategy
+_Updated 2026-11-26 · Pop-up + 6 flows · 20 emails (+3 Welcome #1 versions) + 7 SMS · Platform: Customer.io_
 
-**Status: on hold. Compliance gate is ESCALATE.** Structure and timing are ready. Copy is written only after counsel approves claims, disclaimers, CTAs and offers (compliance.md).
+Status: draft · needs approval · goes live once each flow is built in Customer.io
+
+**The point:** every flow now sells the nine prescription protocols on the website, and nothing else. No retail range, no discount codes, no merge tags in the copy. Each email answers one real doubt a person has between "I'm curious" and "a clinician has my intake".
+
+## What changed from the first plan
+- **Products:** the nine protocols on /protocols only, with the site's names, prices and Get Started links
+- **Offers:** none anywhere. Prescription protocols are never discounted, so WELCOME10, WELCOME15, BROWSE10, MYSTERY, the second-order 15% and the winback 20% are all gone
+- **The hook instead of a code:** clear pricing ("from $125/month"), the licensed clinician, the 503A pharmacy and the public listing
+- **Pop-up question:** "Which protocol brought you here?" replaces "What brings you to Precision Peptide?"
+- **Merge tags:** none in subjects, previews, SMS or images. The only tags left are links (checkout URL, product URL)
+- **Images:** real product shots and site renders only, never made-up packaging
+
+## Who we're talking to
+- **The price checker:** has priced semaglutide or tirzepatide on five sites and wants to know which one has a real clinician behind it
+- **The careful first-timer:** stops at the last step because they aren't sure who reads the intake
+- **The private buyer:** doesn't want anyone guessing what's in the box
+- **The researcher:** has read about NAD+, MOTS-c or BPC-157 and wants a clinician, not a forum, to decide
 
 ## The system at a glance
-1. **Pop-up** with one question (3 answers) → Welcome Email #1 has 3 versions
-2. **Welcome:** 7 emails + 2 SMS
+1. **Pop-up:** 4 steps, one question that splits Welcome #1
+2. **Welcome:** 5 emails (Email #1 in 4 versions) + 2 SMS
 3. **Site abandonment:** 2 emails
 4. **Browse abandonment:** 3 emails + 1 SMS
-5. **Abandoned cart:** 4 emails + 2 SMS, with the mystery offer
-6. **Post-purchase:** 4 emails + 1 SMS, with the plain-text founder email
+5. **Abandoned checkout:** 4 emails + 2 SMS
+6. **Post-purchase:** 4 emails + 1 SMS
 7. **Winback:** 2 emails + 1 SMS
 
-## Live flows vs the core system
+All flows: conversion goal = `order_created` within 5 days · SMS only to `sms_consent` = true · sender: Sarah from The Precision Peptide Company
 
-| Live automation | Today | Verdict | What to do |
-|---|---|---|---|
-| Site sign-up Welcome | Stopped | **Build** | Replaced by the new Welcome. Archive. |
-| Site sign-up Nurture (60 days) | Running · 2,028 sent · 4.6% open | **Fix** | Pause new entries once Welcome is live. Reuse its best emails as campaigns. |
-| Welcome, X Leads | Running · 0 sent | **Fix** | Trigger is broken. Fold X and Reddit leads into the new Welcome. |
-| OTC Welcome (ads) | Running · 223 sent · 0.9% open | **Fix** | Becomes Welcome track B (needle-free). Move to the main sender domain. |
-| Amino active | Running · 0 sent | **Fix** | Ask what "Amino" is. Retire if it's an old list. |
-| Amino list Nurture (60 days) | Draft | **Fix** | Same question. Don't launch as is. |
-| Post Purchase Education | Running · 137 sent · 18.2% open | **Keep + fix** | Best opens in the account. Review its content for any use instructions, then extend to the 4-email version below. |
-| Untitled Automation 1 | Draft | **Retire** | Empty draft. |
-| Site abandonment | Missing | **Build** | Needs a page-view event. |
-| Browse abandonment | Missing | **Build** | Needs a product-view event. |
-| Abandoned cart | Missing | **Build** | Needs a checkout-started event. |
-| Winback | Missing | **Build** | Runs off `order_created`. |
+## 1. Pop-up
+- **Step 1:** Which protocol brought you here?
+  - Semaglutide or Tirzepatide → `weight_loss`
+  - Sermorelin, BPC-157 or TB-500 → `performance`
+  - NAD+, Epitalon, MOTS-c or Semax → `longevity`
+  - Not sure yet → `not_sure`
+- **Step 2:** email, with the public-listing trust line
+- **Step 3:** phone (optional) with the SMS consent line
+- **Step 4:** "You're in." + Get Started
+- **Show:** desktop after 8 seconds or 40% scroll, mobile after 10 seconds. Never on intake or checkout pages
+- **Why:** the answer tells Welcome #1 which protocols to show, and stays on the profile for campaigns
 
-Source: Customer.io audit, Oct 25 to Nov 24, 2026.
+## 2. Welcome (5 emails + 2 SMS)
+- **Trigger:** pop-up sign-up (plus X and Reddit leads)
+- **Exit:** `order_created`
+- **Email #1, immediately, by pop-up answer**
+  - `weight_loss`: Semaglutide and Tirzepatide, priced up front
+  - `performance`: Sermorelin, BPC-157 and TB-500, prescribed properly
+  - `longevity`: NAD+, Epitalon, MOTS-c and Semax, one clinician conversation
+  - `not_sure` / no answer: the protocol, the prescriber and the pharmacy
+- **SMS #1:** right after Email #1
+- **Email #2, 4 hours later:** a note from Pratap on why the company listed publicly
+- **Email #3, 1 day later:** the questions people ask first, answered like a chat
+- **Email #4, 1 day later:** all nine protocols on one page, with prices
+- **Email #5, 1 day later, non-starters only:** protocols from $125 a month
+- **SMS #2:** right after Email #5
+
+## 3. Site abandonment (2 emails)
+- **Trigger:** `page_viewed`, no protocol viewed, no checkout, no order
+- **Exit:** views a protocol, starts checkout or orders · re-entry after 7 days
+- **Email #1, 2 hours later:** comparing peptide companies? Here's what you can actually check
+- **Email #2, 1 day later:** every price, before you fill in a form
+
+## 4. Browse abandonment (3 emails + 1 SMS)
+- **Trigger:** `product_viewed` on a protocol page
+- **Exit:** `checkout_started` or `order_created` · re-entry after 7 days
+- **Email #1, 2 hours later:** still looking? Here's who'd be on the other side of it
+- **Email #2, 1 day later:** the difference you can check, plus the three steps
+- **SMS #1:** right after Email #2
+- **Email #3, 1 day later:** not sure it's right for you? That's the clinician's job, within 24 hours
+- **To do:** subjects for #1 and #3 still name the viewed protocol with a merge tag. Switch them to general wording to match the no-tag rule
+
+## 5. Abandoned checkout (4 emails + 2 SMS)
+- **Trigger:** `checkout_started`
+- **Exit:** `order_created` · re-entry after 1 day
+- **Email #1, 30 minutes later:** your checkout is saved (progress bar, step one done)
+- **SMS #1:** right after Email #1
+- **Email #2, 1 day later:** what happens after you submit (the next 24 hours as a timeline)
+- **Email #3, 1 day later:** what shows up at your door (plain, discreet, from a 503A pharmacy)
+- **SMS #2:** right after Email #3
+- **Email #4, 1 day later:** what stopped you? (three self-sorting answers)
+
+## 6. Post-purchase (4 emails + 1 SMS)
+- **Trigger:** first `order_created` · once per person
+- **Replaces:** Post Purchase Education (our best opens today, 18.2%)
+- **Email #1, 5 minutes later:** a thank you from Pratap, and who to talk to from here
+- **SMS #1:** right after Email #1
+- **Email #2, 1 day later:** where your order is now (clinician, pharmacy, your door)
+- **Email #3, 7 days after the order:** did everything arrive okay? Three quick questions from Pratap
+- **Email #4, 11 days after the order:** keep this one. Who to ask for anything, plus the nine protocols
+- **Rule:** every question about a prescription goes to the prescribing clinician through the account login. No use instructions in email
+
+## 7. Winback (2 emails + 1 SMS)
+- **Trigger:** 90 days after the last order with no new order (adjust once we see reorder data)
+- **Exit:** `order_created`
+- **Email #1:** still here, still public (ticker of CSE: BPC and OTCQB: PNGAF, all nine protocols)
+- **SMS #1:** right after Email #1
+- **Email #2, 5 days later:** starting again takes three steps, from $125 a month
+- **Rule:** never "running low", "next round" or anything that implies someone needs more
+
+## Live flows: what happens to each
+- **Site sign-up Welcome** (stopped): archive, the new Welcome replaces it
+- **Site sign-up Nurture (60 days)** (2,028 sent, 4.6% open): pause new entries once Welcome is live
+- **Welcome, X Leads** (0 sent): broken trigger. Fold X and Reddit leads into the new Welcome
+- **OTC Welcome (ads)** (223 sent, 0.9% open): retire. There's no retail line any more
+- **Amino active / Amino list Nurture:** hold until the client tells us what "Amino" is
+- **Post Purchase Education** (137 sent, 18.2% open): replace with the new Post-purchase
+- **Untitled Automation 1:** archive
+
+_Source: Customer.io audit, Oct 25 to Nov 24, 2026_
 
 ## Events we need from their platform
-- **Have:** `order_created` (with `order_value`)
-- **Need before building**
-  - `page_viewed` (site abandonment)
-  - `product_viewed` with product name, URL, image (browse)
-  - `checkout_started` with items and checkout URL (cart)
-  - `popup_answer` stored as a customer attribute (welcome split)
-- **Conversion goal on every flow:** `order_created` within 5 days
-
-## Offer ladder (all proposed, max 25%, retail line only until counsel says otherwise)
-- **Welcome #1–#4 + SMS #1:** 10% (W, code WELCOME10)
-- **Welcome #5 + SMS #2:** 15% for 24 hours (WELCOME15)
-- **Site abandonment:** none
-- **Browse #2–#3:** 10%
-- **Cart #3–#4:** mystery, "up to 25% off", real 15% (MYSTERY)
-- **Post-purchase #2 and #4:** 15% second order
-- **Winback:** 20%
-- **Rx programs:** no discounts unless counsel approves
-
-## Opt-in pop-up
-- **Step 1 headline:** Want 10% off your first order?
-- **Question:** What brings you to Precision Peptide?
-  - Option 1: A company I can actually verify → track A (trust)
-  - Option 2: A needle-free option → track B (Recovery Patch and retail)
-  - Option 3: A prescription program → track C (eligibility check)
-- **Step 2:** email · **Step 3:** SMS with consent line (skippable) · **Step 4:** code + one button
-- **Why this question:** it maps to the three real entry points and stores `popup_answer` for later campaigns
-
-## Welcome flow (7 emails + 2 SMS)
-**Build sheet**
-- Trigger: pop-up sign-up (segment "Form website_newsletter" or the new pop-up event), plus X and Reddit leads
-- Filter: no `order_created` since entering
-- Branch on `popup_answer`: A / B / C for Email #1 only, then one shared path
-- Exit: `order_created`
-- Re-entry: never
-
-**Email #1 (v1, track A): A company you can look up**
-- Send: immediately
-- Goals: welcome, the 10% code, publicly listed + LegitScript + licensed clinicians, 3 entry products
-- Talking to: the gray-market switcher, searching a vendor's name with "scam"
-
-**Email #1 v2 (track B): No mixing, no measuring, no fridge**
-- Send: immediately
-- Goals: welcome, the code, the patch format, the retail range
-- Talking to: the needle-averse buyer, moving vials around the fridge door
-
-**Email #1 v3 (track C): Three steps to a clinician's answer**
-- Send: immediately
-- Goals: welcome, how the eligibility check works, 24-hour review, 503A pharmacy
-- Talking to: the telehealth-first patient, halfway through an intake form
-
-**SMS #1:** welcome + code + link (immediately after #1, consent only)
-
-**Email #2: A note from Pratap** (plain text)
-- Send: 4 hours later
-- Goals: why the company exists, "done properly, done legally", invite a reply, soft code reminder
-
-**Email #3: What people ask us first**
-- Send: 1 day later
-- Goals: the real FAQ (prescription, formats, testing, shipping) in place of reviews, since result reviews can't be used
-- Talking to: the gray-market switcher, reading a forum argument at night
-
-**Email #4: Where most people start**
-- Send: 1 day later
-- Goals: best first products (needs client data), one line each on format and handling
-
-**Email #5: 15% for the next 24 hours**
-- Send: 1 day later
-- Goals: the upgraded code, the first direct ask, deadline
-- Sending to: those who haven't ordered
-
-**SMS #2:** upgraded code + 24-hour deadline (right after #5)
-
-## Site abandonment (2 emails)
-**Build sheet**
-- Trigger: `page_viewed`, no product viewed, no checkout, no order
-- Exit: product view, checkout or `order_created`, or entering browse/cart flows
-- Re-entry: after 7 days
-
-**Email #1: Were you checking us out?** (2 hours later)
-- Goals: who the company is, the public listing, a soft link to protocols and shop
-
-**Email #2: Where most people start** (1 day later)
-- Goals: best sellers by format, no discount
-
-## Browse abandonment (3 emails + 1 SMS)
-**Build sheet**
-- Trigger: `product_viewed`
-- Filter: no checkout, no order, not in cart flow
-- Exit: `checkout_started` or `order_created`
-- Re-entry: after 7 days
-
-**Email #1: Still looking at {{event.product_name}}?** (2 hours later)
-- Goals: the viewed product, format facts only, why buying from a listed company matters
-- Never: any benefit of the viewed product (SOP: no retargeting with benefits)
-
-**Email #2: What sets us apart** (1 day later)
-- Goals: the trust checklist, 10% browse code
-
-**SMS #1:** reminder of the viewed product + link (right after #2)
-
-**Email #3: Your code ends tonight** (1 day later)
-- Goals: same code, deadline
-
-## Abandoned cart (4 emails + 2 SMS)
-**Build sheet**
-- Trigger: `checkout_started`
-- Exit: `order_created`
-- Re-entry: after 1 day
-
-**Email #1: You left this behind** (30 minutes later)
-- Goals: cart items, one checkout button, no discount
-
-**SMS #1:** cart reminder + checkout link (right after #1)
-
-**Email #2: Questions before you check out?** (1 day later)
-- Goals: shipping, discreet packaging, support contact, no discount
-
-**Email #3: Your mystery discount** (1 day later)
-- Goals: "up to 25% off", real 15%, code MYSTERY
-
-**SMS #2:** mystery code + link (right after #3)
-
-**Email #4: Last chance for your mystery discount** (1 day later)
-- Goals: code ends at midnight, cart items, one button
-
-## Post-purchase (4 emails + 1 SMS)
-**Build sheet**
-- Trigger: first `order_created`
-- Re-entry: never
-- Replaces "Post Purchase Education" once approved
-
-**Email #1: Thank you** (plain text, from Pratap, 5 minutes later)
-- Goals: thanks, shipping timeline, how to reach support, no offer
-
-**SMS #1:** order thanks + support contact (right after #1)
-
-**Email #2: What's in the box** (1 day later)
-- Goals: storage and handling as printed on the label, where to find product documentation, who to ask
-- Rx orders: point to the prescribing clinician for every use question, never instructions in email
-- Below: 15% second-order code (retail only)
-
-**Email #3: How did it go?** (plain text, from Pratap, 7 days later)
-- Goals: did it arrive OK, was anything unclear, reply to us
-- Ask for a review about service and delivery only, never results
-
-**Email #4: Picked for you** (2 days later)
-- Goals: other retail products by format, 15% code with expiry
-
-## Winback (2 emails + 1 SMS)
-**Build sheet**
-- Trigger: `order_created` count = 1, then wait 90 days (set from reorder data once we have it)
-- Filter: no order since entering
-- Exit: `order_created`
-
-**Email #1: What's new since your last order** (90 days later)
-- Goals: new products and formats, 20% code, an easy way to tell us if something went wrong
-- Never: "running low", "next round", "keep going"
-
-**SMS #1:** what's new + code (right after #1)
-
-**Email #2: Your code ends soon** (5 days later)
-- Goals: same code, deadline, best sellers
+- **Have:** `order_created`
+- **Need:** `page_viewed` (site) · `product_viewed` with name and URL (browse) · `checkout_started` with checkout URL (checkout) · `popup_answer` and `sms_consent` saved on the profile (pop-up)
 
 ## Build order
-1. Fix the sender domain and authentication
-2. Welcome (replaces three old welcomes)
-3. Abandoned cart, once `checkout_started` exists
-4. Post-purchase (upgrade the one that already gets opens)
+1. Sender domain and authentication (SPF, DKIM, DMARC), one sender
+2. Pop-up + Welcome
+3. Abandoned checkout, once `checkout_started` exists
+4. Post-purchase
 5. Browse, then site abandonment
 6. Winback
+
+## What we still need from the client
+- Approval on every flow (review links in the setup sheet)
+- Pratap's OK to sign Welcome #2 and Post-purchase #1 and #3
+- Confirmation that customers reach their clinician through the account login
+- Business address for the footer
+- The form tool for the pop-up
