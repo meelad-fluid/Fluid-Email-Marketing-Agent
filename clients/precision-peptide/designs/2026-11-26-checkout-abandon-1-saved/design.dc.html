@@ -1,0 +1,128 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#0d0c1c;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--full{display:block;text-align:center;padding:18px 0}
+.btn--ghost{background:transparent;border:2px solid #E9C3A4;color:#F7F3EE}
+
+.bar{background:#0b0a16;text-align:center;padding:18px 0}
+.bar img{height:40px}
+
+/* hero: full-bleed photo, rounded bottom */
+.hero{position:relative;height:820px;background:#0d0c1c url('asset:brand/assets/generated/2026-11-26-pp-checkout-couch-evening.jpg') center bottom/600px auto no-repeat;border-radius:0 0 40px 40px;overflow:hidden;color:#fff;text-align:center}
+.hero:before{content:"";position:absolute;left:0;right:0;top:0;height:470px;background:linear-gradient(180deg,rgba(11,10,22,.96) 0%,rgba(11,10,22,.86) 55%,rgba(11,10,22,0) 100%)}
+.hero-in{position:relative;padding:40px 40px 0}
+.kick{font-size:12px;letter-spacing:3px;font-weight:700;color:#D4A27F;text-transform:uppercase}
+.hero h1{margin-top:14px;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:42px;line-height:1.1;letter-spacing:-.3px}
+.hero h1 em{font-weight:500;color:#E9C3A4}
+.hero .sub{margin:16px auto 0;max-width:470px;font-size:16.5px;line-height:1.55;color:#DAD6E8}
+.hero .btn{margin-top:22px}
+.saved{position:absolute;right:30px;bottom:150px;width:116px;height:116px;border-radius:50%;background:#F7F3EE;color:#1A1838;display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-9deg);box-shadow:0 14px 28px rgba(0,0,0,.45);font-size:11px;font-weight:700;letter-spacing:1.6px;line-height:1.35}
+.saved b{display:block;font-family:'Playfair Display',serif;font-style:italic;font-size:24px;letter-spacing:0;color:#A8774F;font-weight:500}
+
+/* progress */
+.prog{padding:54px 34px 10px;text-align:center;color:#fff}
+.h2{font-family:'Playfair Display',serif;font-weight:700;font-size:30px;line-height:1.2}
+.h2 em{font-weight:500;color:#E9C3A4}
+.track{position:relative;margin:34px 6px 0;display:flex;justify-content:space-between}
+.track:before{content:"";position:absolute;left:60px;right:60px;top:27px;height:4px;border-radius:2px;background:linear-gradient(90deg,#D4A27F 0%,#D4A27F 42%,#2f2c5c 42%)}
+.stp{position:relative;width:170px}
+.dot{width:58px;height:58px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:24px;font-weight:700}
+.done .dot{background:#D4A27F;color:#14121F;box-shadow:0 0 0 8px rgba(212,162,127,.18)}
+.next .dot{background:#1A1838;border:3px solid #D4A27F;color:#E9C3A4}
+.later .dot{background:#1A1838;border:3px solid #3b3772;color:#7d78a6}
+.stp b{display:block;margin-top:14px;font-size:15px;font-weight:700}
+.stp small{display:block;margin-top:4px;font-size:12px;letter-spacing:1.6px;font-weight:700;text-transform:uppercase}
+.done small{color:#D4A27F}.next small{color:#E9C3A4}.later small{color:#7d78a6}
+
+/* checkout block */
+.cart{margin:44px 30px 0;background:#F7F3EE;border-radius:24px;padding:26px 26px 26px;position:relative}
+.cart .lbl{font-size:12px;letter-spacing:3px;font-weight:700;color:#A8774F;text-transform:uppercase;text-align:center}
+.row{margin-top:18px;display:flex;align-items:center;gap:18px;background:#fff;border-radius:16px;padding:12px 18px 12px 12px;box-shadow:0 8px 20px rgba(26,24,56,.08)}
+.ph{flex:0 0 120px;height:130px;border-radius:12px;background:url('https://lh3.googleusercontent.com/d/1OVNaUQ0vpTBempdMgZ6dX_tCGeX8x8gd=w800') center 50%/auto 150% no-repeat,radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)}
+.row .nm{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:#1A1838}
+.row .pr{margin-top:4px;font-size:15px;color:#4A4760}
+.row .q{margin-top:8px;display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.4px;color:#2A2668;background:#E4DFE9;border-radius:999px;padding:5px 12px}
+.dynnote{margin-top:10px;text-align:center;font-size:12px;color:#8a8599}
+.cart .btn{margin-top:18px}
+.tab{position:absolute;left:26px;top:-16px;background:#2A2668;color:#F1E4D8;font-size:11px;font-weight:700;letter-spacing:1.8px;padding:8px 14px;border-radius:10px 10px 0 0;text-transform:uppercase}
+
+/* fine print trio */
+.plain{padding:56px 34px 14px;text-align:center;color:#fff}
+.icons{margin-top:30px;display:flex;gap:12px}
+.ic{flex:1;background:rgba(247,243,238,.06);border:1px solid rgba(233,195,164,.28);border-radius:18px;padding:24px 14px 22px}
+.ic .c{width:58px;height:58px;margin:0 auto;border-radius:50%;border:1.6px solid #D4A27F;display:flex;align-items:center;justify-content:center}
+.ic b{display:block;margin-top:14px;font-family:'Playfair Display',serif;font-size:19px;font-weight:700}
+.ic p{margin-top:6px;font-size:13.5px;line-height:1.45;color:#C9C5DD}
+
+/* close */
+.close{margin:46px 0 0;position:relative;border-radius:40px 40px 0 0;background:linear-gradient(180deg,#2A2668 0%,#1A1838 100%);padding:46px 40px 48px;text-align:center;color:#fff;border-top:2px solid #D4A27F}
+.close p{font-family:'Playfair Display',serif;font-size:24px;line-height:1.3}
+.close p em{color:#E9C3A4}
+.close .pair{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="{{event.checkout_url}}"><div class="hero"><div class="hero-in">
+  <div class="kick">Your checkout is saved</div>
+  <h1>You got partway through. <em>We saved your spot.</em></h1>
+  <p class="sub">Your {{protocol}} checkout is right where you left it. Finish it and a US-licensed clinician reviews your intake within 24 hours.</p>
+  <span class="btn">Finish My Checkout</span>
+</div>
+<div class="saved"><div><b>Saved</b>right where<br>you left it</div></div>
+</div></a>
+
+<a href="{{event.checkout_url}}"><div class="prog">
+  <h2 class="h2">You're one step in. <em>Here's what's left.</em></h2>
+  <div class="track">
+    <div class="stp done"><div class="dot">✓</div><b>Checkout started</b><small>Done</small></div>
+    <div class="stp next"><div class="dot">2</div><b>Clinician review</b><small>Next</small></div>
+    <div class="stp later"><div class="dot">3</div><b>Pharmacy fulfillment</b><small>If prescribed</small></div>
+  </div>
+</div></a>
+
+<a href="{{event.checkout_url}}"><div class="cart">
+  <span class="tab">In your checkout</span>
+  <div class="row">
+    <div class="ph"></div>
+    <div><div class="nm">{{item.product_name}}</div><div class="pr">{{item.price}}</div><span class="q">SAVED</span></div>
+  </div>
+  <div class="dynnote">One row per item from the checkout (example image shown)</div>
+  <span class="btn btn--full">Finish My Checkout</span>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="plain">
+  <h2 class="h2">The fine print, <em>plainly</em></h2>
+  <div class="icons">
+    <div class="ic"><div class="c"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></div><b>A real clinician</b><p>A US-licensed clinician reviews every intake.</p></div>
+    <div class="ic"><div class="c"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><path d="M4 10l8-6 8 6v10H4z"/><path d="M12 11v6M9 14h6"/></svg></div><b>A 503A pharmacy</b><p>If prescribed, it's filled by a licensed pharmacy.</p></div>
+    <div class="ic"><div class="c"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4A27F" stroke-width="1.6"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 11h18M9 7V4h6v3"/></svg></div><b>Discreet delivery</b><p>Every order ships in plain packaging.</p></div>
+  </div>
+</div></a>
+
+<div class="close">
+  <p>Got stuck on a question in the form? <em>Reply to this email</em> and our team will help.</p>
+  <div class="pair">
+    <a href="https://www.precisionpeptidecompany.com/contact"><span class="btn btn--full btn--ghost">Ask Our Team</span></a>
+    <a href="{{event.checkout_url}}"><span class="btn btn--full">Finish My Checkout</span></a>
+  </div>
+</div>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

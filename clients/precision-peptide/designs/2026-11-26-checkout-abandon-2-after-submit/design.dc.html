@@ -1,0 +1,108 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+.btn--full{display:block;text-align:center;padding:18px 0}
+
+.bar{background:#0b0a16;text-align:center;padding:18px 0}
+.bar img{height:40px}
+
+/* split hero: headline on photo's dark wall, photo continues */
+.hero{position:relative;height:800px;background:#141a35 url('asset:brand/assets/generated/2026-11-26-pp-checkout-clinician-desk.jpg') center bottom/600px auto no-repeat;color:#fff}
+.hero:before{content:"";position:absolute;left:0;right:0;top:0;height:420px;background:linear-gradient(180deg,rgba(16,18,40,.9) 0%,rgba(16,18,40,.6) 70%,rgba(16,18,40,0) 100%)}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(rgba(247,243,238,0),#F7F3EE)}
+.hero-in{position:relative;z-index:2;padding:46px 44px 0 44px}
+.q{font-family:'Playfair Display',serif;font-size:21px;font-style:italic;color:#E9C3A4}
+.hero h1{margin-top:10px;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:44px;line-height:1.08;letter-spacing:-.4px;max-width:500px}
+.hero .sub{margin-top:16px;max-width:430px;font-size:16.5px;line-height:1.55;color:#DAD6E8}
+.hero .btn{margin-top:22px}
+.lic{position:absolute;z-index:3;left:46px;top:560px;background:#F7F3EE;color:#1A1838;border-radius:14px;padding:14px 18px;transform:rotate(-4deg);box-shadow:0 14px 28px rgba(0,0,0,.4);font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase}
+.lic b{display:block;font-family:'Playfair Display',serif;font-size:22px;letter-spacing:0;text-transform:none;color:#2A2668;margin-top:2px}
+
+/* timeline */
+.tl{padding:30px 34px 10px}
+.tl .lbl{text-align:center;font-size:12px;letter-spacing:3px;font-weight:700;color:#A8774F;text-transform:uppercase}
+.tl h2{text-align:center;margin-top:8px;font-family:'Playfair Display',serif;font-weight:700;font-size:32px;color:#1A1838}
+.ev{position:relative;display:flex;gap:20px;margin-top:22px}
+.ev .when{flex:0 0 150px;text-align:right;padding-top:6px}
+.ev .when b{display:block;font-family:'Playfair Display',serif;font-weight:700;font-size:40px;line-height:1;color:#2A2668}
+.ev .when small{display:block;margin-top:4px;font-size:11px;letter-spacing:2px;font-weight:700;color:#A8774F;text-transform:uppercase}
+.ev .rail{flex:0 0 24px;position:relative}
+.ev .rail:before{content:"";position:absolute;left:11px;top:0;bottom:-26px;width:2px;background:repeating-linear-gradient(#D4A27F 0 6px,transparent 6px 12px)}
+.ev:last-of-type .rail:before{display:none}
+.ev .rail i{position:absolute;left:3px;top:14px;width:18px;height:18px;border-radius:50%;background:#D4A27F;box-shadow:0 0 0 6px rgba(212,162,127,.22)}
+.ev .card{flex:1;background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 10px 24px rgba(26,24,56,.08)}
+.ev .card h3{font-family:'Playfair Display',serif;font-size:21px;color:#1A1838;font-weight:700}
+.ev .card p{margin-top:6px;font-size:14.5px;line-height:1.5;color:#4A4760}
+.ev.mid .card{background:#1A1838}
+.ev.mid .card h3{color:#fff}.ev.mid .card p{color:#CFCBE0}
+.tlnote{margin:26px 20px 0;text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:#2A2668}
+
+/* checkout card */
+.cart{margin:40px 30px 0;background:#1A1838;border-radius:24px;padding:28px 26px 26px;position:relative;color:#fff}
+.tab{position:absolute;right:26px;top:-16px;background:#D4A27F;color:#14121F;font-size:11px;font-weight:700;letter-spacing:1.8px;padding:8px 14px;border-radius:10px 10px 0 0;text-transform:uppercase}
+.row{display:flex;align-items:center;gap:18px;background:rgba(247,243,238,.06);border:1px solid #3b3772;border-radius:16px;padding:12px 18px 12px 12px}
+.ph{flex:0 0 120px;height:130px;border-radius:12px;background:url('https://lh3.googleusercontent.com/d/1PTDAQNR8MWDpeu6zWLyN9FVy-l0cYgTp=w800') center 50%/auto 150% no-repeat,radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)}
+.row .nm{font-family:'Playfair Display',serif;font-size:23px;font-weight:700}
+.row .pr{margin-top:4px;font-size:15px;color:#CFCBE0}
+.dynnote{margin-top:10px;text-align:center;font-size:12px;color:#8d89a6}
+.cart .btn{margin-top:18px}
+
+/* help */
+.help{margin:44px 30px 46px;display:flex;align-items:center;gap:22px;background:#EDE7DF;border-radius:22px;padding:26px 26px}
+.help .bub{flex:0 0 86px;height:86px;border-radius:50% 50% 50% 8px;background:#2A2668;display:flex;align-items:center;justify-content:center;transform:rotate(-6deg)}
+.help h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#1A1838}
+.help p{margin-top:6px;font-size:15px;color:#4A4760}
+.help .btn{margin-top:14px;font-size:14px;padding:12px 24px}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="{{event.checkout_url}}"><div class="hero"><div class="hero-in">
+  <div class="q">Wondering who reads your intake?</div>
+  <h1>A licensed US clinician does.</h1>
+  <p class="sub">Here's what the next 24 hours look like once you finish checking out.</p>
+  <span class="btn">Finish My Checkout</span>
+</div>
+<div class="lic">Reviewed by<b>A US-licensed clinician</b></div>
+</div></a>
+
+<a href="{{event.checkout_url}}"><div class="tl">
+  <div class="lbl">After you submit</div>
+  <h2>The next 24 hours</h2>
+  <div class="ev"><div class="when"><b>Now</b><small>You</small></div><div class="rail"><i></i></div><div class="card"><h3>You finish checkout</h3><p>Your answers go to a secure, private intake.</p></div></div>
+  <div class="ev mid"><div class="when"><b>24h</b><small>Within</small></div><div class="rail"><i></i></div><div class="card"><h3>A clinician reviews it</h3><p>A US-licensed clinician reads your health history and decides whether {{protocol}} is right for you.</p></div></div>
+  <div class="ev"><div class="when"><b>Then</b><small>If prescribed</small></div><div class="rail"><i></i></div><div class="card"><h3>The pharmacy fills it</h3><p>Your protocol ships from a 503A pharmacy in discreet packaging.</p></div></div>
+  <p class="tlnote">If {{protocol}} isn't the right fit, the clinician will tell you.</p>
+</div></a>
+
+<a href="{{event.checkout_url}}"><div class="cart">
+  <span class="tab">Still in your checkout</span>
+  <div class="row"><div class="ph"></div><div><div class="nm">{{item.product_name}}</div><div class="pr">{{item.price}}</div></div></div>
+  <div class="dynnote">One row per item from the checkout (example image shown)</div>
+  <span class="btn btn--full">Finish My Checkout</span>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com/contact"><div class="help">
+  <div class="bub"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#E9C3A4" stroke-width="1.6"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
+  <div><h3>Rather ask a person first?</h3><p>Reply to this email and our team will answer.</p><span class="btn btn--dark">Talk to Us</span></div>
+</div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

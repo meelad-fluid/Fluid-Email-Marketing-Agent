@@ -40,6 +40,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 - 2026-11-26 · Gloria: emails didn't match the website. FACT: precisionpeptidecompany.com sells ONLY the nine prescription protocols (Semaglutide $159.67, Tirzepatide $233, Sermorelin $199, BPC-157 $139, TB-500 $125, NAD+ $179, Epitalon $199, MOTS-c $199, Semax $249 per month, "as low as/from"), Get Started → /protocols/<handle>#intake. No retail range, no Recovery Patch/KPV/BPC capsules, no discount codes. Real product renders: https://www.precisionpeptidecompany.com/images/products/product-{semaglutide,tirzepatide,new-sermorelin,bpc-157,tb-500,new-nad-plus,epitalon,mots-c,semax}.png. Rewrote copy/welcome-flow.md (pop-up answers now by protocol group, Email #1 has 4 versions, #5 = from $125/month instead of 15%) and site + browse in copy/abandonment-flows.md; rebuilt + republished all 7 Welcome designs (+ new #1 v4 longevity) and 5 abandonment designs. Footer now adds the site's compounded-medication disclaimer. Kept out the site's outcome lines ("Lose weight...", "Feel the Difference") and "FDA-regulated pharmacy". Abandoned cart, post-purchase and winback copy still have old retail/code content and need the same rewrite.
 
+- 2026-11-26 · Gloria comment on Welcome #1 v4 longevity: hero desk bottle → real Semaglutide vial (site render floated over the generated scene). Republished + resolved.
+
 ## Preferences (added)
 - 2026-11-26 · Gloria: "Use only products on the website and match the website messaging" → always check precisionpeptidecompany.com/protocols before writing; use its product names, prices, CTAs and lines.
 
