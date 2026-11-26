@@ -33,6 +33,9 @@ Read before any work for this client. Append (dated) after every change. Rules h
 
 - 2026-11-24 · Meelad: "build me the welcome flow" → published Welcome #1 (publish block is gone) and designed + published the other 6: #1 needle-free, #1 Rx, #2 founder letter, #3 FAQ chat bubbles, #4 two ways in, #5 15% upgrade. Flow review page: https://fluid-email-marketing-agent-production.up.railway.app/f/qbDPo_LdzsonsHx4B9B1I7ie. Review links added to strategy/customerio-flow-setup.md (Welcome build sheet). New images: needle-free weekender bag, Rx dusk desk. Patch sachets are plain stand-ins until the real Recovery Patch render. Founder note greets "Hi there," because it ships as images. All draft, needs approval. Automation itself is set up by a person in Customer.io (API can't create automations).
 
+- 2026-11-26 · Gloria's review comments on Welcome flow, all done + republished: #1 headline cut to 2 lines ("A peptide company you can look up"), removed about-page line, product photos in "Where most people start", WELCOME10 callout above bottom button · #1b product photos in retail range · #1c programs use site renders (/images/products/product-semaglutide.png, product-new-sermorelin.png, product-new-nad-plus.png) linked to protocol pages · #4 removed best sellers section. Retail patches (Recovery Patch, KPV, BPC) aren't on the website: generated plain unlabeled sachets (brand/assets/generated/2026-11-26-pp-patch-sachet-*.jpg) as stand-ins until real photos arrive. product_images tool can't find products on this site (not Shopify).
+- 2026-11-26 · preference (Gloria): hero headlines max 2 lines; product sections need real product images, not type-only cards
+
 ## Open questions
 <!-- - … -->
 - Counsel: may Fluid market the Rx programs and the retail line by email/SMS? Approved claims, safety wording, disclaimers, CTAs, offers per line
