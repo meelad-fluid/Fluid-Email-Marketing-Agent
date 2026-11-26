@@ -1,6 +1,6 @@
 # Meta Molecule — Black Friday email (Campaign #2 of the month-1 plan)
 
-Status: draft · needs client approval · goes live Fri Nov 27, 2026
+Status: approved by gloria on 2026-11-26 · goes live Fri Nov 27, 2026
 
 **Talking to:** the independent lab buyer who keeps a running "to order" list of compounds they've been putting off, when Black Friday morning gives them a reason to place the whole list in one order.
 **Idea:** the receipt. We do the maths on a real five-vial order so they see the 35%, the free shipping and the total before they open the catalog.
