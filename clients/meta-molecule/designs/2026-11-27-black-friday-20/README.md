@@ -1,7 +1,7 @@
 # Campaign — Black Friday: 20% off everything through Monday (BF20)
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/707sSxIouChZHdEkllPfVoBm
 
-Status: draft · needs client approval · goes live Fri Nov 27, 2026
+Status: approved by gloria on 2026-11-26 (v3) · goes live Fri Nov 27, 2026
 Copy: copy/2026-11-27-black-friday.md · Guardrails: checked
 From: Meta Molecule · Subject: 35% off everything, through Monday · Preview: Code BFCM. Order by 1 p.m. CT and it ships today.
 Send: Fri Nov 27, 8:00 a.m. CT · To: FC | Engaged 90 · Excluding: FC | Placed Order 7d
