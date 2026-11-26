@@ -48,6 +48,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria: "work on the abandoned checkout flow" → rewrote the cart copy for prescription protocols only (no discount, MYSTERY dropped): #1 checkout saved (progress bar), #2 next 24 hours (timeline), #3 doorstep (shipping label), #4 what stopped you (self-sorting choices) + 2 SMS, in copy/abandonment-flows.md. Designed + published all 4: flow page https://fluid-email-marketing-agent-production.up.railway.app/f/bTjoPX7G-Cz72ztDQ4AW0ylP. Style: dark cinematic photo heroes, folder-tab checkout cards. New images: couch evening, clinician desk, doorstep box, note desk. Example vials in the dynamic card are real Drive shots. Build sheet updated in strategy/customerio-flow-setup.md. All draft, need approval.
 - 2026-11-26 · NOTE: copy/welcome-flow.md says (Gloria) the site sells prescription protocols only now; retail line + WELCOME codes gone. Welcome designs still show retail products/codes from earlier today; browse designs show the retail version too. Flag before those go out.
 
+- 2026-11-26 · Gloria comment on Abandoned Checkout #2: hero headline "A licensed US clinician does." in one line → set to 35px, no wrap. Republished + resolved.
+
 ## Open questions
 <!-- - … -->
 - Counsel: may Fluid market the Rx programs and the retail line by email/SMS? Approved claims, safety wording, disclaimers, CTAs, offers per line
