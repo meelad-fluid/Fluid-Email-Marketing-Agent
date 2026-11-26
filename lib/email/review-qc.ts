@@ -127,6 +127,12 @@ function avatars(clientDir: string): string {
   return existsSync(f) ? readFileSync(f, "utf8").slice(0, 7000) : "(no customer research doc yet: judge the avatar from the Talking to line and the brand)";
 }
 
+/** The client's compliance profile (claims, disclaimers, prescription rules), if it has one. */
+function compliance(clientDir: string): string {
+  const f = join(clientDir, "compliance.md");
+  return existsSync(f) ? readFileSync(f, "utf8").slice(0, 8000) : "";
+}
+
 const anthropic = () => new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 /** Run the checklist on a design. Throws only if the email can't be rendered or reviewed at all. */
@@ -185,9 +191,16 @@ DESIGN
 - design_brand_colors: the colors match the brand; nothing looks like it came from another brand.
 - design_badges: no badge, sticker, pill, stamp or label that is random, meaningless, overlapping something important, floating oddly or repeated for no reason.
 ${o.ruo ? "\nThis is a research-use-only peptide brand: the avatar is the research buyer (procurement, documentation, purity, shipping). Copy must never imply human use, a body benefit or a dose; fail copy_avatar if it does.\n" : ""}
+COMPLIANCE (when a compliance profile is given below)
+- Its "Working rules" section is the current truth: anything it says is approved (claims, disclaimers, offers, CTAs) IS approved, even where an older section below still says HOLD, ESCALATE or "none approved yet". Those older notes are background only.
+- Its working rules win over every check. Never suggest a fix that adds a claim, number, result or promise it doesn't allow, removes a required disclaimer, or breaks its prescription rules (e.g. calling a compounded medication FDA-approved or the same as a brand-name drug).
+- Required disclaimers and legal lines are judged only on being readable (footer size rules); they are exempt from the reading-level, plain-language and goal checks, and their approved wording is never rewritten.
+- If the email itself breaks the profile (an unapproved claim, a missing required disclaimer, a forbidden phrase), fail copy_goal and quote it.
+
 For each failed check, quote the exact line or name the exact element, and give a concrete fix (for copy, write the replacement line in the brand's voice). Keep each problem and fix to one or two sentences.`;
 
-  const user = `Brand customer research (who the avatars are):\n<<<\n${avatars(o.clientDir)}\n>>>\n\nAbout this email:\n${copyContext(dirname(o.dcPath), o.clientDir) || "(no copy file found)"}\n\nMeasured facts:\n${factLines}\n\nAll text in the email:\n<<<\n${emailText(html).replace(/\n\s*\n+/g, "\n").slice(0, 9000)}\n>>>\n\nImage 1 is the first screen as it shows on a phone (${PHONE}px wide). Images 2+ are the full email from top to bottom at 600px.`;
+  const comp = compliance(o.clientDir);
+  const user = `Brand customer research (who the avatars are):\n<<<\n${avatars(o.clientDir)}\n>>>\n\n${comp ? `Client compliance profile (its "Working rules" section is current; notes it says are superseded are background only):\n<<<\n${comp}\n>>>\n\n` : ""}About this email:\n${copyContext(dirname(o.dcPath), o.clientDir) || "(no copy file found)"}\n\nMeasured facts:\n${factLines}\n\nAll text in the email:\n<<<\n${emailText(html).replace(/\n\s*\n+/g, "\n").slice(0, 9000)}\n>>>\n\nImage 1 is the first screen as it shows on a phone (${PHONE}px wide). Images 2+ are the full email from top to bottom at 600px.`;
 
   const r = await anthropic().messages.parse({
     model: o.model ?? process.env.FLUID_BOT_QC_MODEL ?? "claude-opus-5-5",
