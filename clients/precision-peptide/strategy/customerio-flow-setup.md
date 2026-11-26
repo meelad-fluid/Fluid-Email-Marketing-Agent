@@ -32,15 +32,18 @@ _Prepared 2026-11-24 · Goes with the flow plan · Status: draft, nothing built 
 ## 3. Pop-up
 - **Tool:** to confirm. Customer.io stores the answer from any form tool that can pass attributes.
 - **Steps**
-  1. Question: "What brings you to Precision Peptide?"
-     - A company I can actually verify → `popup_answer` = `verify`
-     - A needle-free option → `popup_answer` = `needle_free`
-     - A prescription program → `popup_answer` = `rx`
+  1. Question: "Which protocol brought you here?" (updated 2026-11-26)
+     - Semaglutide or Tirzepatide → `popup_answer` = `weight_loss`
+     - Sermorelin, BPC-157 or TB-500 → `popup_answer` = `performance`
+     - NAD+, Epitalon, MOTS-c or Semax → `popup_answer` = `longevity`
+     - Not sure yet → `popup_answer` = `not_sure`
   2. Email
   3. Phone, skippable, with the consent line → `sms_consent` = true
-  4. Confirmation with the welcome code and one button
-- **Offer:** 10% (proposed, retail only until counsel decides on Rx)
-- **Wording:** held for compliance approval
+  4. Confirmation ("You're in.") with Get Started
+- **Offer:** none (prescription protocols aren't discounted)
+- **Wording:** copy/welcome-flow.md "Pop-up"
+- **Design:** designs/2026-11-26-popup-form (all 4 steps; mobile drops the image panel)
+- **Show:** desktop after 8 seconds or 40% scroll, mobile after 10 seconds; not on /protocols/*#intake or checkout; hide for 14 days after close, forever after sign-up
 
 ## 4. Automations
 Every automation: conversion goal = `order_created` within 5 days. Smart sending off. SMS steps filtered to `sms_consent` = true.
