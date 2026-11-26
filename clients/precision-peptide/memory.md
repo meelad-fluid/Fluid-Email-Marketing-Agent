@@ -61,6 +61,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria comment on Abandoned Checkout #3: removed the three-vial row from the "checkout still saved" card, kept the line + button. Republished + resolved.
 - 2026-11-26 · Gloria comment on Abandoned Checkout #4: removed the three-vial row from the "Still saved for you" card, kept the line + button (matches #3). Republished + resolved.
 - 2026-11-26 · Gloria comments on the pop-up form: Step 2 + Step 3 headlines set to one line (23px, nowrap). She asked to "use the answers the welcome flow was built on": they already are the same four (weight_loss/performance/longevity/not_sure → Welcome #1 v2/v3/v4/v1), so kept them and explained in the reply. Republished + resolved.
+- 2026-11-26 · Gloria asked why no 10% in the pop-up/welcome flow → explained: counsel-approved offers were retail-only (no discounts on prescription protocols) and the site now only sells Rx protocols with no codes. Will add a 10% if the client/counsel OKs it for protocols.
 
 ## Open questions
 <!-- - … -->
