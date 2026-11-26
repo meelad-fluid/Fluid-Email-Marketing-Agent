@@ -38,10 +38,12 @@ a{text-decoration:none;color:inherit}
 .cart{margin:44px 30px 0;background:#EDE7DF;border-radius:24px;padding:28px 26px 26px;position:relative}
 .tab{position:absolute;left:26px;top:-16px;background:#D4A27F;color:#14121F;font-size:11px;font-weight:700;letter-spacing:1.8px;padding:8px 14px;border-radius:10px 10px 0 0;text-transform:uppercase}
 .row{display:flex;align-items:center;gap:18px;background:#fff;border-radius:16px;padding:12px 18px 12px 12px}
-.ph{flex:0 0 120px;height:130px;border-radius:12px;background:url('https://lh3.googleusercontent.com/d/1xgjV6lUuqU4F4duqI1pNsN_cbZKZgfYN=w800') center 50%/auto 150% no-repeat,radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)}
+.row{justify-content:center;padding:12px}
+.vials{display:flex;gap:12px;width:100%}
+.ph{flex:1;height:150px;border-radius:12px;background-position:center 50%,center;background-size:auto 150%,cover;background-repeat:no-repeat}
 .row .nm{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:#1A1838}
 .row .pr{margin-top:4px;font-size:15px;color:#4A4760}
-.dynnote{margin-top:10px;text-align:center;font-size:12px;color:#8a8599}
+.dynnote{margin-top:16px;text-align:center;font-family:'Playfair Display',serif;font-size:19px;line-height:1.4;color:#1A1838}
 .cart .btn{margin-top:18px}
 .sign{padding:40px 50px 48px;text-align:center}
 .sign p{font-family:'Playfair Display',serif;font-size:21px;line-height:1.4;color:#1A1838}
@@ -59,7 +61,7 @@ a{text-decoration:none;color:inherit}
 <a href="{{event.checkout_url}}"><div class="hero"><div class="hero-in">
   <span class="hand">This is my last note about it.</span>
   <h1>Can I ask <em>what stopped you?</em></h1>
-  <p class="sub">Your {{protocol}} checkout is still saved. Pick whichever sounds like you.</p>
+  <p class="sub">Your protocol and intake answers are still saved. Pick whichever reason sounds like you.</p>
   <span class="btn">Finish My Checkout</span>
 </div>
 <div class="cardnote">Your checkout is<br>still saved for you.<br>Sarah</div>
@@ -75,8 +77,8 @@ a{text-decoration:none;color:inherit}
 
 <a href="{{event.checkout_url}}"><div class="cart">
   <span class="tab">Still saved for you</span>
-  <div class="row"><div class="ph"></div><div><div class="nm">{{item.product_name}}</div><div class="pr">{{item.price}}</div></div></div>
-  <div class="dynnote">One row per item from the checkout (example image shown)</div>
+  <div class="row"><div class="vials"><div class="ph" style="background-image:url('https://lh3.googleusercontent.com/d/1PTDAQNR8MWDpeu6zWLyN9FVy-l0cYgTp=w800'),radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)"></div><div class="ph" style="background-image:url('https://lh3.googleusercontent.com/d/11kgyQpHEuvSVUvVi4urioYCxqNInCqQE=w800'),radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)"></div><div class="ph" style="background-image:url('https://lh3.googleusercontent.com/d/1xgjV6lUuqU4F4duqI1pNsN_cbZKZgfYN=w800'),radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)"></div></div></div>
+  <div class="dynnote">Your protocol is right where you left it.</div>
   <span class="btn btn--dark btn--full">Finish My Checkout</span>
 </div></a>
 

@@ -51,6 +51,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria comment on Abandoned Checkout #2: hero headline "A licensed US clinician does." in one line → set to 35px, no wrap. Republished + resolved.
 - 2026-11-26 · Gloria comment on Abandoned Checkout #3: no merge tags on image-based emails → hero sub rewritten without {{protocol}}; checkout card's {{item}} row swapped for real Semaglutide/Sermorelin/NAD+ vials + static line. Republished + resolved.
 - 2026-11-26 · preference (Gloria): never put merge tags ({{...}}) in visible design copy; emails ship as images so tags show raw. Check the other flow designs for this.
+- 2026-11-26 · Gloria comment on Abandoned Checkout #4: "no tag on an image, construct better" → removed {{protocol}} from the hero line and rebuilt the {{item}} cart card as a static three-vial row (Tirzepatide, Sermorelin, NAD+) + "Your protocol is right where you left it." Republished + resolved.
+- 2026-11-26 · preference (Gloria): never put merge tags ({{...}}) in image-based designs; write static lines instead
 
 ## Open questions
 <!-- - … -->
