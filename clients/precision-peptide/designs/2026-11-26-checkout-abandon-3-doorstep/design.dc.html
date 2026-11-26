@@ -1,0 +1,100 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+.btn--full{display:block;text-align:center;padding:18px 0}
+
+.bar{background:#0b0a16;text-align:center;padding:18px 0}
+.bar img{height:40px}
+
+.hero{position:relative;height:800px;background:#12142a url('asset:brand/assets/generated/2026-11-26-pp-checkout-doorstep-box.jpg') center bottom/600px auto no-repeat;color:#fff;text-align:center}
+.hero:before{content:"";position:absolute;left:0;right:0;top:0;height:440px;background:linear-gradient(180deg,rgba(12,12,26,.94) 0%,rgba(12,12,26,.75) 60%,rgba(12,12,26,0) 100%)}
+.hero-in{position:relative;padding:44px 40px 0}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:46px;line-height:1.06;letter-spacing:-.4px}
+.hero h1 em{font-weight:500;color:#E9C3A4}
+.hero .sub{margin:16px auto 0;max-width:460px;font-size:16.5px;line-height:1.55;color:#DAD6E8}
+.hero .btn{margin-top:22px}
+
+/* shipping label device */
+.labelwrap{position:relative;margin-top:-90px;padding:0 50px;z-index:3}
+.label{background:#FFFDF9;border-radius:6px;transform:rotate(-2.5deg);box-shadow:0 22px 40px rgba(12,12,26,.35);font-family:'IBM Plex Mono',monospace;color:#1A1838;border:1.5px solid #1A1838}
+.label .top{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #1A1838;padding:12px 18px;font-size:12px;font-weight:600;letter-spacing:1.5px}
+.label .top span:last-child{background:#1A1838;color:#F7F3EE;padding:3px 8px;border-radius:3px}
+.label .ln{display:flex;border-bottom:1px dashed #9F9AC2;padding:14px 18px;align-items:baseline}
+.label .ln:last-of-type{border-bottom:0}
+.label .k{flex:0 0 120px;font-size:12px;letter-spacing:2px;color:#8a8599}
+.label .v{font-size:19px;font-weight:600}
+.label .v.big{font-family:'Playfair Display',serif;font-size:30px;font-weight:700}
+.label .bars{height:46px;margin:4px 18px 16px;background:repeating-linear-gradient(90deg,#1A1838 0 2px,transparent 2px 5px,#1A1838 5px 9px,transparent 9px 11px,#1A1838 11px 12px,transparent 12px 16px)}
+
+/* count on */
+.count{padding:54px 40px 10px}
+.count h2{text-align:center;font-family:'Playfair Display',serif;font-weight:700;font-size:32px;color:#1A1838}
+.count h2 em{font-weight:500;color:#A8774F}
+.ck{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.c{background:#fff;border-radius:16px;padding:20px 18px;box-shadow:0 8px 20px rgba(26,24,56,.07);display:flex;gap:12px;align-items:flex-start}
+.c i{flex:0 0 30px;height:30px;border-radius:50%;background:#2A2668;color:#E9C3A4;font-style:normal;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.c p{font-size:15px;line-height:1.45;color:#1A1838;font-weight:600}
+
+/* checkout */
+.cart{margin:40px 30px 46px;background:#EDE7DF;border-radius:24px;padding:28px 26px 26px;position:relative}
+.tab{position:absolute;left:26px;top:-16px;background:#2A2668;color:#F1E4D8;font-size:11px;font-weight:700;letter-spacing:1.8px;padding:8px 14px;border-radius:10px 10px 0 0;text-transform:uppercase}
+.row{display:flex;align-items:center;gap:18px;background:#fff;border-radius:16px;padding:12px 18px 12px 12px}
+.ph{flex:0 0 120px;height:130px;border-radius:12px;background:url('https://lh3.googleusercontent.com/d/11kgyQpHEuvSVUvVi4urioYCxqNInCqQE=w800') center 50%/auto 150% no-repeat,radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)}
+.row .nm{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:#1A1838}
+.row .pr{margin-top:4px;font-size:15px;color:#4A4760}
+.dynnote{margin-top:10px;text-align:center;font-size:12px;color:#8a8599}
+.cart .btn{margin-top:18px}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="{{event.checkout_url}}"><div class="hero"><div class="hero-in">
+  <h1>The only thing on the box is <em>your name.</em></h1>
+  <p class="sub">If prescribed, {{protocol}} ships from a 503A pharmacy in plain, discreet packaging.</p>
+  <span class="btn">Finish My Checkout</span>
+</div></div></a>
+
+<a href="{{event.checkout_url}}"><div class="labelwrap"><div class="label">
+  <div class="top"><span>SHIP TO</span><span>DISCREET</span></div>
+  <div class="ln"><span class="k">TO</span><span class="v big">You</span></div>
+  <div class="ln"><span class="k">FROM</span><span class="v">A 503A pharmacy</span></div>
+  <div class="ln"><span class="k">CONTENTS</span><span class="v">Your business</span></div>
+  <div class="bars"></div>
+</div></div></a>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="count">
+  <h2>What you can <em>count on</em></h2>
+  <div class="ck">
+    <div class="c"><i>✓</i><p>Discreet packaging, every order</p></div>
+    <div class="c"><i>✓</i><p>Filled by a 503A pharmacy, never a gray-market seller</p></div>
+    <div class="c"><i>✓</i><p>Prescribed by a US-licensed clinician after review</p></div>
+    <div class="c"><i>✓</i><p>A publicly listed company: CSE: BPC and OTCQB: PNGAF</p></div>
+  </div>
+</div></a>
+
+<a href="{{event.checkout_url}}"><div class="cart">
+  <span class="tab">Your checkout is still saved</span>
+  <div class="row"><div class="ph"></div><div><div class="nm">{{item.product_name}}</div><div class="pr">{{item.price}}</div></div></div>
+  <div class="dynnote">One row per item from the checkout (example image shown)</div>
+  <span class="btn btn--dark btn--full">Finish My Checkout</span>
+</div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>

@@ -1,4 +1,5 @@
 # Abandoned Checkout Email #2 — What happens after you submit (1 day later)
+Review link: fluid-email-marketing-agent-production.up.railway.app/r/TjGxQscZyz0V6uBdYt8MpMMl
 Status: draft · needs approval · goes live when the Abandoned Checkout flow is built in Customer.io
 Copy: copy/abandonment-flows.md (Abandoned checkout, Email #2)
 Subject: What happens after you hit submit · Preview: A licensed clinician, within 24 hours

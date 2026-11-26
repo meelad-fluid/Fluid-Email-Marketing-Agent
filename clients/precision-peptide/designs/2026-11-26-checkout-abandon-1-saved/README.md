@@ -1,4 +1,5 @@
 # Abandoned Checkout Email #1 — Your checkout is saved (30 minutes after checkout_started)
+Review link: fluid-email-marketing-agent-production.up.railway.app/r/_5EPvXIfCnDNcZtYs1GSdHcG
 Status: draft · needs approval · goes live when the Abandoned Checkout flow is built in Customer.io
 Copy: copy/abandonment-flows.md (Abandoned checkout, Email #1)
 Subject: Your {{protocol}} checkout is saved · Preview: Pick it up right where you stopped

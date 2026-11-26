@@ -92,12 +92,17 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
   - Email 3 (code ends tonight): https://fluid-email-marketing-agent-production.up.railway.app/r/D9XT-w-ZSS_2Z9YWh6BsLIZP
   - SMS 1 text: copy/abandonment-flows.md
 
-**Abandoned cart (4 emails + 2 SMS)**
+**Abandoned checkout (4 emails + 2 SMS)** · no discount (protocols only) · flow review page: https://fluid-email-marketing-agent-production.up.railway.app/f/bTjoPX7G-Cz72ztDQ4AW0ylP
 - Trigger: event `checkout_started`
 - Frequency: every 1 day at most
 - Exit: performs `order_created`
 - Steps: wait 30 min → Email 1 → SMS 1 · wait 1 day → Email 2 · wait 1 day → Email 3 → SMS 2 · wait 1 day → Email 4
-- Liquid: `{% for item in event.items %}` loop for the cart table, `{{event.checkout_url}}`
+- Liquid: `{% assign protocol = event.items[0].product_name %}` at the top; `{% for item in event.items %}` loop for the checkout card (image_url, product_name, price); every checkout button → `{{event.checkout_url}}`
+  - Email 1 (your checkout is saved): https://fluid-email-marketing-agent-production.up.railway.app/r/_5EPvXIfCnDNcZtYs1GSdHcG
+  - Email 2 (what happens after you submit): https://fluid-email-marketing-agent-production.up.railway.app/r/TjGxQscZyz0V6uBdYt8MpMMl
+  - Email 3 (what shows up at your door): https://fluid-email-marketing-agent-production.up.railway.app/r/QKlVLN3Wc1gt7DosJ9I_hJaF
+  - Email 4 (what stopped you?): https://fluid-email-marketing-agent-production.up.railway.app/r/WEomPmOFWN0WBmbQ58hPeweK
+  - SMS 1 and 2: copy/abandonment-flows.md
 
 **Post-purchase (4 emails + 1 SMS)**
 - Trigger: event `order_created`
@@ -120,7 +125,7 @@ Every automation: conversion goal = `order_created` within 5 days. Smart sending
 - WELCOME10 · 10%
 - WELCOME15 · 15%, 24 hours
 - BROWSE10 · 10%
-- MYSTERY · real 15%, teased as "up to 25%"
+- MYSTERY · dropped 2026-11-26: the abandoned checkout flow has no discount (prescription protocols aren't discounted)
 - Second order · 15%
 - Winback · 20%
 - Created on their custom platform by the client (we can't create codes there)

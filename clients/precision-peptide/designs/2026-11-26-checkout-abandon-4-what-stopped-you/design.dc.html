@@ -1,0 +1,96 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#e9e5df;font-family:Inter,Arial,sans-serif}
+.email{width:600px;margin:0 auto;background:#F7F3EE;overflow:hidden}
+a{text-decoration:none;color:inherit}
+.btn{display:inline-block;background:#D4A27F;color:#14121F;font-weight:700;font-size:16px;padding:17px 46px;border-radius:10px}
+.btn--dark{background:#1A1838;color:#F7F3EE}
+.btn--line{background:transparent;border:2px solid #1A1838;color:#1A1838}
+.btn--full{display:block;text-align:center;padding:18px 0}
+
+.bar{background:#0b0a16;text-align:center;padding:18px 0}
+.bar img{height:40px}
+
+.hero{position:relative;height:800px;background:#F3EEE6 url('asset:brand/assets/generated/2026-11-26-pp-checkout-note-desk.jpg') center bottom/600px auto no-repeat;text-align:center}
+.hero-in{position:relative;padding:46px 46px 0}
+.hand{font-family:'Caveat',cursive;font-size:30px;color:#A8774F;transform:rotate(-3deg);display:inline-block}
+.hero h1{margin-top:6px;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:40px;line-height:1.12;color:#1A1838;letter-spacing:-.3px}
+.hero h1 em{font-weight:500;color:#2A2668}
+.hero .sub{margin:14px auto 0;max-width:440px;font-size:16.5px;line-height:1.55;color:#4A4760}
+.hero .btn{margin-top:20px}
+.cardnote{position:absolute;left:104px;top:356px;width:240px;font-family:'Caveat',cursive;font-size:27px;line-height:1.15;color:#1A1838;transform:rotate(-2deg);text-align:left}
+
+/* choices */
+.pick{background:#1A1838;padding:54px 30px 46px;border-radius:40px 40px 0 0;margin-top:-34px;position:relative;color:#fff}
+.pick .lbl{text-align:center;font-size:12px;letter-spacing:3px;font-weight:700;color:#D4A27F;text-transform:uppercase}
+.pick h2{text-align:center;margin-top:8px;font-family:'Playfair Display',serif;font-weight:700;font-size:30px}
+.ch{display:block;margin-top:18px;background:#F7F3EE;color:#1A1838;border-radius:18px;padding:22px 24px;position:relative}
+.ch .n{position:absolute;right:20px;top:14px;font-family:'Playfair Display',serif;font-style:italic;font-size:54px;line-height:1;color:#E4DFE9}
+.ch h3{position:relative;font-family:'Playfair Display',serif;font-style:italic;font-size:24px;font-weight:500;color:#2A2668;max-width:420px}
+.ch p{position:relative;margin-top:8px;font-size:15px;line-height:1.5;color:#4A4760;max-width:430px}
+.ch .btn{margin-top:14px;font-size:14px;padding:12px 24px}
+.ch:nth-child(3){transform:rotate(-1deg)}
+.ch:nth-child(4){transform:rotate(1deg)}
+
+/* checkout + sign-off */
+.cart{margin:44px 30px 0;background:#EDE7DF;border-radius:24px;padding:28px 26px 26px;position:relative}
+.tab{position:absolute;left:26px;top:-16px;background:#D4A27F;color:#14121F;font-size:11px;font-weight:700;letter-spacing:1.8px;padding:8px 14px;border-radius:10px 10px 0 0;text-transform:uppercase}
+.row{display:flex;align-items:center;gap:18px;background:#fff;border-radius:16px;padding:12px 18px 12px 12px}
+.ph{flex:0 0 120px;height:130px;border-radius:12px;background:url('https://lh3.googleusercontent.com/d/1xgjV6lUuqU4F4duqI1pNsN_cbZKZgfYN=w800') center 50%/auto 150% no-repeat,radial-gradient(circle at 50% 50%,#5a5296 0%,#2a2668 50%,#1d1a40 85%)}
+.row .nm{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:#1A1838}
+.row .pr{margin-top:4px;font-size:15px;color:#4A4760}
+.dynnote{margin-top:10px;text-align:center;font-size:12px;color:#8a8599}
+.cart .btn{margin-top:18px}
+.sign{padding:40px 50px 48px;text-align:center}
+.sign p{font-family:'Playfair Display',serif;font-size:21px;line-height:1.4;color:#1A1838}
+.sign .nm{margin-top:12px;font-family:'Caveat',cursive;font-size:36px;color:#A8774F}
+.sign small{display:block;font-size:13px;color:#6a6680}
+
+.foot{background:#0b0a16;color:#8d89a6;text-align:center;padding:30px 44px 34px;font-size:11.5px;line-height:1.6}
+.foot .logo{height:38px}
+.foot .tag{font-family:'Playfair Display',serif;font-style:italic;color:#E9C3A4;font-size:17px;margin:12px 0 14px}
+.foot .links{margin-top:12px;color:#c9c5dd}
+</style>
+
+<a href="https://www.precisionpeptidecompany.com"><div class="bar"><img src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company"></div></a>
+
+<a href="{{event.checkout_url}}"><div class="hero"><div class="hero-in">
+  <span class="hand">This is my last note about it.</span>
+  <h1>Can I ask <em>what stopped you?</em></h1>
+  <p class="sub">Your {{protocol}} checkout is still saved. Pick whichever sounds like you.</p>
+  <span class="btn">Finish My Checkout</span>
+</div>
+<div class="cardnote">Your checkout is<br>still saved for you.<br>Sarah</div>
+</div></a>
+
+<div class="pick">
+  <div class="lbl">Pick the one that sounds like you</div>
+  <h2>What got in the way?</h2>
+  <a class="ch" href="https://www.precisionpeptidecompany.com/faq"><span class="n">1</span><h3>"I had a question first."</h3><p>Our FAQ covers prescriptions, side effects and how the review works.</p><span class="btn btn--dark">Read the FAQ</span></a>
+  <a class="ch" href="https://www.precisionpeptidecompany.com/protocols"><span class="n">2</span><h3>"I wasn't sure it was the right protocol."</h3><p>That's the clinician's call, and they'll tell you if it isn't the right fit.</p><span class="btn btn--line">Compare Protocols</span></a>
+  <a class="ch" href="{{event.checkout_url}}"><span class="n">3</span><h3>"I got busy."</h3><p>Fair enough. Everything you entered is saved.</p><span class="btn">Finish My Checkout</span></a>
+</div>
+
+<a href="{{event.checkout_url}}"><div class="cart">
+  <span class="tab">Still saved for you</span>
+  <div class="row"><div class="ph"></div><div><div class="nm">{{item.product_name}}</div><div class="pr">{{item.price}}</div></div></div>
+  <div class="dynnote">One row per item from the checkout (example image shown)</div>
+  <span class="btn btn--dark btn--full">Finish My Checkout</span>
+</div></a>
+
+<a href="https://www.precisionpeptidecompany.com/contact"><div class="sign">
+  <p>Or just reply and tell me. I read every one.</p>
+  <div class="nm">Sarah</div>
+  <small>The Precision Peptide Company</small>
+</div></a>
+
+<div class="foot">
+  <img class="logo" src="https://www.precisionpeptidecompany.com/images/logo/logo-full-light.svg" alt="The Precision Peptide Company">
+  <div class="tag">Done properly. Done legally. Done once.</div>
+  <div>The Precision Peptide Company · CSE: BPC | OTCQB: PNGAF · [business address needed]</div>
+  <div style="margin-top:8px">Content on this site is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Individual results may vary. Prescription products may not be appropriate for all individuals. The products and services offered by The Precision Peptide Company require a prescription issued by a licensed US clinician following a clinical review. Compounded medications are not FDA-approved and have not been evaluated by the FDA for safety, effectiveness or quality. A prescription is required and all treatment is subject to clinician review.</div>
+  <div class="links">Manage preferences | Unsubscribe</div>
+</div>
+</div>
