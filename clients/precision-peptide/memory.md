@@ -62,6 +62,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · Gloria comment on Abandoned Checkout #4: removed the three-vial row from the "Still saved for you" card, kept the line + button (matches #3). Republished + resolved.
 - 2026-11-26 · Gloria comments on the pop-up form: Step 2 + Step 3 headlines set to one line (23px, nowrap). She asked to "use the answers the welcome flow was built on": they already are the same four (weight_loss/performance/longevity/not_sure → Welcome #1 v2/v3/v4/v1), so kept them and explained in the reply. Republished + resolved.
 - 2026-11-26 · Gloria asked why no 10% in the pop-up/welcome flow → explained: counsel-approved offers were retail-only (no discounts on prescription protocols) and the site now only sells Rx protocols with no codes. Will add a 10% if the client/counsel OKs it for protocols.
+- 2026-11-26 · Gloria: "add 15% to the pop-up and the other emails needed" → added and republished: pop-up (Step 1 offer line, Step 4 WELCOME15 + terms), Welcome #1 v1–v4 (kicker, badge, coupon with maths), Welcome #5 (now the 15% reminder, before/after prices), Browse #3 + Checkout #4 (PROTOCOL15, 15% first month, 72h; new "cost more than I'd planned" choice), Winback #2 (COMEBACK15, 15% next month, 7 days). Also removed {{event.product_name}} from Browse #3's visible copy. Offer spec in copy/welcome-flow.md. Codes don't exist yet (site isn't Shopify: client creates them). Conflicts with counsel's "no Rx discounts": needs client/counsel OK before sending.
 
 ## Open questions
 <!-- - … -->

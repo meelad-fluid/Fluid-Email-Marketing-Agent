@@ -5,6 +5,15 @@ From: Sarah from The Precision Peptide Company (proposed persona) · founder not
 
 **What changed (2026-11-26, Gloria):** the website sells prescription protocols only. Every retail product (Recovery Patch, KPV, BPC capsules), the "retail range", the needle-free angle and the WELCOME10 / WELCOME15 codes are gone. Products are the nine protocols on /protocols, with the site's prices, names, CTAs and messaging. No discounts (prescription protocols are never discounted).
 
+**Offer added (2026-11-26, Gloria): 15% off.** Overrides "no discounts" above. Needs the client/counsel OK (counsel's approval was no discounts on prescription protocols) and the codes created on their site before anything sends.
+- Pop-up + Welcome: WELCOME15 · 15% off the first month of any protocol · one use per customer · valid 14 days after sign-up · prescription still required after clinician review
+- Pop-up Step 1 SUB: Tell us and get 15% off your first month, plus the plain-English version: how it works, what it costs and who reviews it.
+- Pop-up Step 4 SUB: Here's 15% off your first month of any protocol. It's in your inbox too. · CODE: WELCOME15 · TERMS: One use per customer, valid for 14 days. A prescription is still required after clinician review.
+- Email #1 (all versions): kicker "Welcome · 15% off your first month", 15% badge, coupon under the hero (v2 maths: Semaglutide $159.67 → $135.72; v3: TB-500 $125 → $106.25; v4: NAD+ $179 → $152.15)
+- Email #5 now the 15% reminder: HEADLINE "Your welcome code still takes" · "15%" · "off your first month" · "Enter WELCOME15 at checkout, on any protocol. It ends 14 days after you signed up." · BUTTON "Use My 15%" · first-month prices TB-500 $106.25, BPC-157 $118.15, Semaglutide $135.72, NAD+ $152.15 · banner "Code: WELCOME15 / Start your intake before your 15% ends..."
+- SMS #2: Precision Peptide: your 15% off your first month ends soon. Use WELCOME15 on any protocol, prescription still required: https://www.precisionpeptidecompany.com/protocols
+- Elsewhere: Browse #3 + Checkout #4 use PROTOCOL15 (15% off first month, 72 hours); Winback #2 uses COMEBACK15 (15% off next month, 7 days).
+
 **Products (from /protocols, prices verbatim)**
 - Semaglutide · As low as $159.67/month · /protocols/semaglutide
 - Tirzepatide · As low as $233/month · /protocols/tirzepatide
