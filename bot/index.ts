@@ -13,7 +13,8 @@ import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb, type ReviewAction } from "./web";
-import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink } from "./onboarding";
+import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink, STYLE_COPY_PROMPT, STYLE_DESIGN_PROMPT, STYLE_OPTIONS } from "./onboarding";
+import { flowLink } from "./review";
 import { foreignNames, scanText } from "../lib/leaks";
 import { filesNote, receiveFiles, type SlackFile } from "./slack-files";
 import { proactiveTick, type Client as ProactiveClient } from "./proactive";
@@ -262,6 +263,13 @@ app.command("/fluid", async ({ command, ack, respond }) => {
   const who = await checkUser(app.client, command.user_id, TEAM_ID);
   if (!who.ok) return reply("Sorry, I only take requests from Fluid's team.");
 
+  if (sub === "style-options") {
+    const c = await clientForChannel(command.channel_id, TEAM_ID);
+    if (!c) return reply("Run this inside the client's channel.");
+    const head = await app.client.chat.postMessage({ channel: command.channel_id, text: `Making ${c.name}'s style options: the same welcome email in three design styles for the client to pick from.` });
+    runStyleOptions(c, command.channel_id, head.ts!).catch((e) => console.error("[style-options]", e));
+    return reply("Started. I'll post the link in the channel when the three designs are ready.");
+  }
   if (sub === "status") {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     return reply(c ? `This channel is linked to *${c.name}* (folder \`${c.folder}\`). I only work on ${c.name} here.` : "This channel isn't linked to a client.");
@@ -341,7 +349,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`.");
+  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`, `/fluid style-options` (the welcome email in three design styles for the client to pick the account's look).");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
@@ -372,6 +380,33 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
   await saveThread(ch.channel_id, head.ts!, f.clientId, res.sessionId);
   await db().from("onboarding_runs").update({ status: res.error ? "failed" : "done", error: res.error ?? null, updated_at: new Date().toISOString() }).eq("client_id", f.clientId).eq("status", "running");
   await audit({ team_id: TEAM_ID, channel_id: ch.channel_id, thread_ts: head.ts!, client_id: f.clientId, request: "automatic onboarding", outcome: res.error ? "error" : "ran", reason: res.error, cost_usd: res.costUsd });
+  if (!res.error) await runStyleOptions({ id: f.clientId, folder: f.folder, name: f.name }, ch.channel_id, head.ts!).catch((e) => console.error("[style-options]", e));
+}
+
+// Onboarding style test: the welcome email copy once, then three designs (bold / minimal / balanced) in parallel,
+// each its own job, all behind one "Style Options" review link. The client picks one with "Choose this style".
+async function runStyleOptions(c: { id: string; folder: string; name: string }, channel: string, thread: string) {
+  const web = app.client;
+  const intro = `Step 3: designing Welcome Email #1 in three styles (bold & graphic, clean & minimal, balanced) so ${c.name} can pick the look for their account, about 15–20 minutes.`;
+  const status = await web.chat.postMessage({ channel, thread_ts: thread, text: intro });
+  const notes = progressNotes(web, channel, thread, 20, { ts: status.ts!, text: intro });
+  await pullLatest();
+  const copy = await runAgent({ folder: c.folder, clientId: c.id, clientName: c.name, slack: { channel, thread }, prompt: STYLE_COPY_PROMPT(c.name), onProgress: () => {} });
+  let cost = copy.costUsd ?? 0;
+  const errors: string[] = copy.error ? [`copy: ${copy.error}`] : [];
+  if (!copy.error) {
+    const runs = await Promise.all(STYLE_OPTIONS.map((o) => runAgent({ folder: c.folder, clientId: c.id, clientName: c.name, slack: { channel, thread }, prompt: STYLE_DESIGN_PROMPT(c.name, o), onProgress: () => {} }).then((r) => ({ o, r }))));
+    for (const { o, r } of runs) { cost += r.costUsd ?? 0; if (r.error) errors.push(`${o.name}: ${r.error}`); }
+  }
+  await notes.done();
+  await saveClientFolder(c.folder, `${c.folder}: onboarding style options`);
+  const { data: made } = await db().from("design_reviews").select("design_path").eq("client_id", c.id).like("design_path", "designs/style-options/%");
+  const link = made?.length ? await flowLink(c.id, "Style Options") : null;
+  const text = link
+    ? `Here are ${c.name}'s [style options](${link}): the same welcome email in ${made!.length === 3 ? "three" : made!.length} styles${errors.length ? ` (${errors.length} didn't finish: ${errors.join("; ")}. Ask me to "redo the style options" in this thread)` : ""}.\nSend the link to the client: they click *Choose this style* on the one they like (or tell me here), and I'll design every email for the account at that level.`
+    : `I couldn't finish the style options (${errors.join("; ") || "no designs were published"}). Ask me to "redo the style options" in this thread, or run \`/fluid style-options\`.`;
+  await web.chat.update({ channel, ts: status.ts!, text });
+  await audit({ team_id: TEAM_ID, channel_id: channel, thread_ts: thread, client_id: c.id, request: "onboarding style options", outcome: errors.length ? "error" : "ran", reason: errors.join("; ") || undefined, cost_usd: cost });
 }
 
 // ── Review page buttons: "Approve & build" and "Submit comments" start the bot without anyone going to Slack.
@@ -384,12 +419,15 @@ async function reviewAction(a: ReviewAction) {
   if (!client) return console.error("[review] channel not linked", channel);
   const short = a.title.split(/\s+[—–-]\s+/)[0];
   // One open message in the channel that turns into the result when the work is done (chat.update), no thread intro.
-  const intro = a.kind === "comments" ? `Working on the comments for ${short}…`
+  const intro = a.kind === "style" ? `${a.author} chose the ${a.title.split(/\s+[—–-]\s+/).slice(1).join(" — ") || short} style. Locking it in…`
+    : a.kind === "comments" ? `Working on the comments for ${short}…`
     : a.kind === "build_flow" ? `Building the ${a.flow!.toLowerCase()} as a draft…`
     : `Building ${short} as a draft…`;
   const posted = await web.chat.postMessage({ channel, text: intro });
   const threadTs = posted.ts!;
-  const request = a.kind === "comments"
+  const request = a.kind === "style"
+    ? `${a.author} clicked "Choose this style" on "${a.title}" (${a.designPath}), one of the onboarding style options. Lock it in as this client's design style, following ../../brain/design/fluid-email-designer/references/style-directions.md ("The onboarding style test"): put the line "Design style: <style name> (chosen by ${a.author}, <today>, from the onboarding style options)" at the top of brand/direction.md (replace any older Design style line; create the file if missing), add 3–5 bullets under it on what this option does (hero, type, imagery, how busy it is), and add a dated memory.md line. Don't build anything in Klaviyo. Reply in one or two lines like a teammate: which style is locked in and what that means for their emails.`
+    : a.kind === "comments"
     ? `${a.author} clicked "Submit comments" on the review page for "${a.title}" (${a.designPath}). Call design_comments, make every change in design.dc.html, publish_design (note = what changed), reply_to_comment under each comment saying what you did (resolve=true), then reply here like a teammate: "Updated [<email>](<link>): <changes>. Take a look."`
     : a.kind === "build_flow" ? `${a.author} approved every email in the ${a.flow} on the review page and clicked "Approve & build". Build the flow in Klaviyo now: write the flow plan from the flow strategy and copy (emails: ${a.designs!.join(", ")}) and call build_klaviyo_flow. Reply with the Klaviyo link and any manual steps.`
     : `${a.author} approved "${a.title}" on the review page and clicked "Approve & build". Build it now as a draft in the client's email platform (push_to_klaviyo, or push_to_customerio for Customer.io clients) with design folder ${a.designPath} and the audiences in its copy file. Reply in one or two lines with the result.`;
@@ -401,7 +439,8 @@ async function reviewAction(a: ReviewAction) {
   } catch (e: any) { console.error("[review]", e.message); }
   finally {
     busy.delete(key);
-    if (a.kind === "comments") await db().from("design_reviews").update({ working_since: null }).eq("id", a.reviewId);
+    if (a.kind === "style") { /* nothing to reset */ }
+    else if (a.kind === "comments") await db().from("design_reviews").update({ working_since: null }).eq("id", a.reviewId);
     else {
       const { data: last } = await db().from("slack_audit").select("outcome").eq("channel_id", channel).eq("thread_ts", threadTs).order("at", { ascending: false }).limit(1).maybeSingle();
       const state = last?.outcome === "ran" ? "built" : "failed";

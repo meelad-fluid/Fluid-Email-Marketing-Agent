@@ -297,3 +297,20 @@ Follow ../../brain/skills/fluid-client-onboarding/SKILL.md fully and produce, in
 4. strategy/flow-plan.md: the core flow system, 22 emails + 7 SMS (Welcome with its 3 pop-up versions of email 1, Site abandonment, Browse abandonment, Abandoned cart with the mystery offer, Post-purchase with the plain-text founder email, Winback; SMS: Welcome x2, Browse x1, Abandoned cart x2, Post-purchase x1, Winback x1), filled in for this brand (../../brain/flows/OVERVIEW.md).
 5. Append the key facts and open questions to memory.md.
 Write all three docs and the Slack summary in the format in ../../knowledge/sops/readable-writing.md (lists and sub-bullets, never dense paragraphs). Then call publish_doc for the onboarding doc, the month-1 plan and the flow plan, and reply with the three docs as hyperlinked names, one per line (e.g. "[Onboarding Doc](link)"), then the open questions that block anything as a short numbered list. No raw URLs.`;
+
+// ── Onboarding style test: the same Welcome Email #1 in three design styles, so the client picks one ──
+export const STYLE_OPTIONS = [
+  { n: 1, slug: "1-bold", name: "Bold & graphic", section: "1. Bold & graphic" },
+  { n: 2, slug: "2-minimal", name: "Clean & minimal", section: "2. Clean & minimal" },
+  { n: 3, slug: "3-balanced", name: "Balanced", section: "3. Balanced (the healthy medium)" },
+] as const;
+
+export const STYLE_COPY_PROMPT = (name: string) => `Write the onboarding style-test copy for ${name}: the templated Welcome Email #1 in ../../brain/skills/fluid-email-copywriter/references/welcome-style-test.md. Fill every slot from research/onboarding-doc.md, brand/brand-kit.md, the website and memory.md only (no invented offers, numbers or reviews) and save it as copy/style-options-welcome.md exactly in that format. Don't design anything and don't edit memory.md. Reply with one line: the subject line you picked.`;
+
+export const STYLE_DESIGN_PROMPT = (name: string, o: (typeof STYLE_OPTIONS)[number]) => `Design option ${o.n} of ${name}'s onboarding style test: Welcome Email #1 in the "${o.name}" style. The client will compare three versions of this same email to pick the design style for their whole account, so this one must be a clear, beautiful example of "${o.name}" and look clearly different from the other two styles.
+- Read ../../brain/design/fluid-email-designer/references/style-directions.md and follow section "${o.section}" exactly (how many devices, floating elements, type rules). Ignore any "Design style:" line in brand/direction.md for this job.
+- Copy: copy/style-options-welcome.md, word for word (it's shared by all three options).
+- Folder: designs/style-options/${o.slug}/ with design.dc.html, assets.json and a README.md whose first line is exactly "# Style Options Email #${o.n} — ${o.name}" and that has "- **Copy:** \`../../../copy/style-options-welcome.md\`".
+- Follow the normal design steps (brand book, style_options with mood "${o.n === 1 ? "bold" : o.n === 2 ? "minimal" : "balanced"}", imagery, render_preview checks, Fluid QC), then publish_design.
+- Only touch your own design folder (and images you generate): don't edit memory.md, brand/direction.md, the copy file or the other options.
+Reply with one line: the review link.`;

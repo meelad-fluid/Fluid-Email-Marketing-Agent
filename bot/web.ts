@@ -25,7 +25,7 @@ import { readdirSync } from "node:fs";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
 /** Work the review page hands to the bot: build an approved email/flow, or apply submitted comments. */
-export type ReviewAction = { kind: "build" | "build_flow" | "comments"; reviewId: string; clientId: string; title: string; designPath: string; author: string; channel: string | null; thread: string | null; flow?: string; designs?: string[]; count?: number };
+export type ReviewAction = { kind: "build" | "build_flow" | "comments" | "style"; reviewId: string; clientId: string; title: string; designPath: string; author: string; channel: string | null; thread: string | null; flow?: string; designs?: string[]; count?: number };
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
 const hits = new Map<string, number[]>();
 
@@ -267,6 +267,14 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
             saveClientFolder(r.clients.folder, `${r.clients.folder}: ${r.title} approved by ${author} (v${r.current_version}, via review link)`).catch(() => {});
           }
           const clientId = (r as any).client_id as string;
+          // Onboarding style options: "Choose this style" locks the account's design style; only one option stays chosen.
+          if (flowOf(r.title)?.flow.toLowerCase() === "style options") {
+            const { data: all } = await db().from("design_reviews").select("id, title").eq("client_id", clientId);
+            const others = (all ?? []).filter((d) => d.id !== r.id && flowOf(d.title)?.flow.toLowerCase() === "style options").map((d) => d.id);
+            if (others.length) await db().from("design_reviews").update({ status: "in_review", approved_version: null, approved_by: null }).in("id", others);
+            onReviewAction({ kind: "style", reviewId: r.id, clientId, title: r.title, designPath: r.design_path, author, channel: r.slack_channel, thread: r.slack_thread });
+            return json(res, 200, { ok: true, style: true });
+          }
           if (!b.build) { if (r.slack_channel) queueApproval(notify, { channel: r.slack_channel, thread: r.slack_thread, clientId, title: r.title, author }); return json(res, 200, { ok: true }); }
           // "Approve & build": a campaign builds now; a flow email builds the whole flow once every email in it is approved.
           const base = { reviewId: r.id, clientId, title: r.title, designPath: r.design_path, author, channel: r.slack_channel, thread: r.slack_thread };
@@ -356,7 +364,8 @@ async function api(p,b){const r=await fetch("/r/"+token+p,b?{method:"POST",heade
 async function load(keep){S=await api("/data");if(!keep||ver===null)ver=S.current;$("t").firstChild.nodeValue=S.title;$("sub").textContent=S.client+" · design review";
 const ok=S.status==="approved"&&S.approved_version===S.current,building=ok&&S.build_state==="queued",built=ok&&S.build_state==="built";
 $("status").className="pill "+(S.working?"review":ok?"ok":"review");$("status").textContent=S.working?"Fluid is updating this email…":building?"Approved · building in Klaviyo…":built?"Approved · draft in Klaviyo":ok?"Approved by "+S.approved_by:"Waiting for approval";
-$("ap").disabled=ok||S.working;$("ap").textContent=ok?"Approved":"Approve & build";
+const sty=/^style options\\s+email/i.test(S.title);if(sty)$("status").textContent=S.working?"Fluid is updating this email…":ok?"Chosen by "+S.approved_by:"Style option";
+$("ap").disabled=ok||S.working;$("ap").textContent=sty?(ok?"Chosen":"Choose this style"):ok?"Approved":"Approve & build";
 const n=newOpen().length;$("sc").disabled=!n||S.working;$("sc").textContent=S.working?"Working on comments…":n?"Submit comments ("+n+")":"Submit comments";
 $("ver").innerHTML=S.versions.map(v=>'<option value="'+v.version+'"'+(v.version===ver?" selected":"")+">Version "+v.version+(v.version===S.current?" (latest)":"")+"</option>").join("");render()}
 let H=0,mobile=false;
@@ -379,7 +388,7 @@ $("csave").onclick=async()=>{const n=who();if(!n||!pending)return;const t=$("cte
 $("cm").onclick=()=>{$("main").classList.toggle("commenting");$("cm").classList.toggle("on")};$("main").classList.add("commenting");
 $("view").onclick=()=>{mobile=!mobile;$("view").textContent=mobile?"Desktop view":"Mobile view";fit()};
 $("ver").onchange=()=>{ver=Number($("ver").value);sel=null;frame();render()};
-$("ap").onclick=async()=>{const n=who();if(!n)return;const waiting=newOpen().length;
+$("ap").onclick=async()=>{const n=who();if(!n)return;if(/^style options\\s+email/i.test(S.title)){const nm=S.title.split(/\\s+[—–-]\\s+/).slice(1).join(" — ")||"this";if(!confirm("Choose the "+nm+" style for all of your emails? (Every email still gets its own design, at this level of graphics.)"))return;try{await api("/approve",{author:n,build:false});alert("Thanks! Fluid will design your emails in the "+nm+" style from now on.")}catch(a){alert(a.message)}await load(true);return}const waiting=newOpen().length;
 if(!confirm((waiting?"You have "+waiting+" comment"+(waiting>1?"s":"")+" you haven't submitted. They won't be made.\\n\\n":"")+"Approve version "+S.current+" and build it in Klaviyo as a draft? (Nothing is sent or scheduled.)"))return;
 try{const r=await api("/approve",{author:n,build:true});alert(r.building==="email"?"Approved. Fluid is building it in Klaviyo as a draft now, and will post in Slack when it's done.":r.building==="flow"?"Approved. Every email in this flow is approved, so Fluid is building the whole flow in Klaviyo as a draft now.":"Approved. The flow builds in Klaviyo once the other "+r.waiting+" email"+(r.waiting>1?"s are":" is")+" approved.")}catch(a){alert(a.message)}await load(true)};
 $("sc").onclick=async()=>{const n=who();if(!n)return;const k=newOpen().length;if(!k)return;if(!confirm("Send "+k+" comment"+(k>1?"s":"")+" to Fluid? It will make the changes and post a new version here."))return;
@@ -477,12 +486,12 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}</style>
 const token=location.pathname.split("/")[2];let D=null,i=0;const $=(id)=>document.getElementById(id);
 const esc=(s)=>String(s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function pick(){const h=decodeURIComponent(location.hash.slice(1)).replace(/^email-/,"");const k=D.emails.findIndex(e=>e.label.replace(/[# ]/g,"")===h.replace(/[# ]/g,""));return k>=0?k:0}
-function bar(){const n=D.emails.length;$("go").innerHTML='<span>Go to email</span><button class="arrow" id="prev" aria-label="Previous email" '+(i===0?"disabled":"")+'>←</button>'+D.emails.map((e,k)=>'<button data-k="'+k+'" class="'+(k===i?"on ":"")+(e.approved?"ok":"")+'" title="'+esc(e.title)+(e.approved?" (approved)":"")+'">'+esc(e.label)+'</button>').join("")+'<button class="arrow" id="next" aria-label="Next email" '+(i===n-1?"disabled":"")+'>→</button>';
-const e=D.emails[i];$("now").innerHTML="<b>Email "+esc(e.label)+"</b> · "+esc(e.title)+(e.approved?" · ✓ approved":"");
+function bar(){const n=D.emails.length,sty=/^style options$/i.test(D.flow);$("go").innerHTML='<span>'+(sty?"Style":"Go to email")+'</span><button class="arrow" id="prev" aria-label="Previous email" '+(i===0?"disabled":"")+'>←</button>'+D.emails.map((e,k)=>'<button data-k="'+k+'" class="'+(k===i?"on ":"")+(e.approved?"ok":"")+'" title="'+esc(e.title)+(e.approved?" (approved)":"")+'">'+esc(e.label)+'</button>').join("")+'<button class="arrow" id="next" aria-label="Next email" '+(i===n-1?"disabled":"")+'>→</button>';
+const e=D.emails[i];$("now").innerHTML="<b>"+(sty?"Option ":"Email ")+esc(e.label)+"</b> · "+esc(e.title)+(e.approved?(sty?" · ✓ chosen":" · ✓ approved"):"");
 $("prev").onclick=()=>go(i-1);$("next").onclick=()=>go(i+1);$("go").querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>go(+b.dataset.k))}
 function go(k){if(k<0||k>=D.emails.length)return;i=k;history.replaceState(null,"","#email-"+D.emails[i].label.replace(/[# ]/g,""));$("f").src="/r/"+D.emails[i].token;bar()}
 async function load(first){const r=await fetch(location.pathname+"/data");D=await r.json();if(!D.emails.length){document.body.innerHTML="<p style='padding:24px'>No emails in this flow yet.</p>";return}
-$("t").firstChild.nodeValue=D.flow+" flow";$("sub").textContent=D.client+" · "+D.emails.length+" emails · "+D.emails.filter(e=>e.approved).length+" approved";if(first){go(pick())}else bar()}
+const sty=/^style options$/i.test(D.flow);$("t").firstChild.nodeValue=sty?"Pick your email style":D.flow+" flow";$("sub").textContent=sty?D.client+" · the same email in "+D.emails.length+" styles. Open each one and click \u201cChoose this style\u201d on your favorite.":D.client+" · "+D.emails.length+" emails · "+D.emails.filter(e=>e.approved).length+" approved";if(first){go(pick())}else bar()}
 addEventListener("keydown",(e)=>{if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT")return;if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1)});
 load(true).catch(()=>{document.body.innerHTML="<p style='padding:24px'>Couldn't load this flow.</p>"});setInterval(()=>load(false).catch(()=>{}),30000);
 </script></body></html>`;

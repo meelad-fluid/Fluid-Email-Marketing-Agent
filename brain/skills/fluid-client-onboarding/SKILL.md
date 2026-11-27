@@ -61,6 +61,9 @@ Then one line per campaign on **why this one, now** (the number or gap behind it
 ### 5b. The sender persona
 Propose the client's sender persona (see the strategist skill, "The sender persona"): a warm woman's first name + brand ("Hannah from Dolce"), with one line on why it fits. It goes in the hand-over for approval and into the Onboarding Doc's Voice section; the campaign briefs use it as their From.
 
+### 5c. The style test (runs automatically after the docs)
+After the Onboarding Doc and plans, the bot designs the templated Welcome Email #1 (`../fluid-email-copywriter/references/welcome-style-test.md`) in three styles (Bold & graphic, Clean & minimal, Balanced: `../../design/fluid-email-designer/references/style-directions.md`) and posts one "Style Options" review link. The client clicks *Choose this style* on the one they like; that locks the account's design style in `brand/direction.md`. It's the overall guide for how their emails look, never a template.
+
 ### 6. Hand over
 Publish the Onboarding Doc for the team (Claude Docs when available, else the markdown file), then reply with: the doc link, 5 lines on what you learned, the proposed sender persona, the 2-3 campaign briefs, and the open questions for the client.
 
