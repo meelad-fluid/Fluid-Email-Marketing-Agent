@@ -231,7 +231,7 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
           if (existsSync(mem)) writeFileSync(mem, readFileSync(mem, "utf8").trimEnd() + `\n- ${day} · Pop-up style chosen: ${name} (by ${author}, on the pop-up style page). Build the pop-up in Alia in this style.\n`);
           saveClientFolder(c.folder, `${c.folder}: pop-up style ${name} chosen by ${author}`).catch(() => {});
           const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", d.client_id).limit(1).maybeSingle();
-          if (ch) await notify(ch.channel_id, null, `${author} chose the *${name}* pop-up for ${c.name}. It's saved as their pop-up style.`).catch(() => {});
+          if (ch) await notify(ch.channel_id, null, `${author} chose the *${name}* popup.`).catch(() => {});
           return json(res, 200, { ok: true });
         }
         return send(res, 404, "Not found");

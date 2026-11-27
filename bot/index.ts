@@ -112,7 +112,7 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
   if (/\bpk_[A-Za-z0-9_]{12,}|\bsk-ant-[A-Za-z0-9_-]{10,}|\bshp(at|ss)_[A-Za-z0-9]{10,}|\bxox[bpa]-|\bgithub_pat_/.test(request)) {
     await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request: "[message with an API key, not stored]", outcome: "refused_request", reason: "API key pasted in Slack" });
     const link = await newConnectLink(client.id).catch(() => null);
-    await ephemeral(`Only you can see this: please don't paste API keys in Slack (they stay in the channel history). I didn't use it. ${link ? `Paste it here instead, it's stored encrypted: ${link}` : "Use the client's onboarding link instead."} Then say "run the onboarding". Since this key was posted, it's safest to delete that message and create a new key in Klaviyo.`);
+    await ephemeral(`Please don't paste API keys in Slack, so I didn't use it. ${link ? `Add it on the <${link}|Klaviyo connect page> instead. ` : ""}It's best to delete that message and make a new key in Klaviyo.`);
     return;
   }
 
@@ -120,7 +120,7 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
   if (/(link|connect|send|add|give|share|paste|submit|where)[^.?!]{0,60}(klaviyo|api)[^.?!]{0,20}(key|access|account)?|klaviyo[^.?!]{0,30}(key|connect)[^.?!]{0,40}(link|where|how)|onboarding link|connect link/i.test(request) && !/\b(draft|push|build|template|campaign|email|design|segment|audience)\b/i.test(request)) {
     const link = await newConnectLink(client.id).catch(() => null);
     await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "ran", reason: "sent a connect link" });
-    await web.chat.postMessage({ channel, thread_ts: threadTs, text: link ? `Here's a secure link to connect Klaviyo (works once, key stored encrypted): ${link}\nOnce it's in, I'll start the onboarding automatically.` : "I couldn't make a link right now, try again in a minute." });
+    await web.chat.postMessage({ channel, thread_ts: threadTs, text: link ? `Here's the <${link}|Klaviyo connect page>. Once it's in, I'll start the onboarding.` : "I couldn't make a link right now, try again in a minute." });
     return;
   }
 
@@ -137,13 +137,13 @@ async function handle(args: { text: string; channel: string; ts: string; threadT
   if (!screen.allowed && screen.reason.startsWith("screen unavailable")) {
     // Our own setup problem (e.g. a missing API key), not the request: fail closed, but say what's wrong.
     await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "error", reason: screen.reason });
-    await ephemeral(`Only you can see this: I couldn't run my safety check, so I didn't answer. Setup problem: ${screen.reason.replace(/^screen unavailable \((.*)\)$/, "$1").replace(/ from \.env\.local/, "")}.`);
+    await ephemeral(`I couldn't run my safety check, so I didn't answer. Setup problem: ${screen.reason.replace(/^screen unavailable \((.*)\)$/, "$1").replace(/ from \.env\.local/, "")}.`);
     return;
   }
   if (!screen.allowed) {
     await audit({ team_id: team, channel_id: channel, thread_ts: threadTs, user_id: user, client_id: client.id, request, outcome: "refused_request", reason: screen.reason });
     await web.chat.postMessage({ channel, thread_ts: threadTs, text: REFUSAL(client.name) });
-    await ephemeral(`Only you can see this: I refused because the request ${screen.reason.replace(/\(.*\)/, "").trim() || "is outside this client"}. Each channel only gets its own client's work.`);
+    await ephemeral(`I didn't answer because the request ${screen.reason.replace(/\(.*\)/, "").trim() || "is outside this client"}. Each channel only gets its own client's work.`);
     return;
   }
 
@@ -268,19 +268,19 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can update API keys.");
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     if (!c) return reply("Run this inside the client's channel.");
-    return reply(`Update ${c.name}'s API keys (Klaviyo, Customer.io, Shopify). Only you can see this; the link works once and expires in 7 days: ${await keysLink(c.id)}`);
+    return reply(`<${await keysLink(c.id)}|API keys page>`);
   }
   if (sub === "popups") {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     if (!c) return reply("Run this inside the client's channel.");
-    return reply(`"Choose your pop-up style" page for ${c.name} (send it to the client; same link every time): ${await popupStyleLink(c.id, c.name)}`);
+    return reply(`<${await popupStyleLink(c.id, c.name)}|Popup style page>`);
   }
   if (sub === "style-options") {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     if (!c) return reply("Run this inside the client's channel.");
-    const head = await app.client.chat.postMessage({ channel: command.channel_id, text: `Making ${c.name}'s style options: the same welcome email in three design styles for the client to pick from.` });
+    const head = await app.client.chat.postMessage({ channel: command.channel_id, text: `Working on the email style page for ${c.name}…` });
     runStyleOptions(c, command.channel_id, head.ts!).catch((e) => console.error("[style-options]", e));
-    return reply("Started. I'll post the link in the channel when the three designs are ready.");
+    return reply("On it.");
   }
   if (sub === "status") {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
@@ -294,7 +294,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     if (!rest) {
       const c = await clientForChannel(command.channel_id, TEAM_ID);
       if (!c) return reply("Run `/fluid onboard Client Name` inside the client's internal channel.");
-      return reply(`Onboarding upload link for ${c.name} (only you can see this, works once, 14 days): ${await internalLink(c.id)}`);
+      return reply(`<${await internalLink(c.id)}|Onboarding upload page>`);
     }
     const [name, website] = rest.split("|").map((x) => x.trim()); // "| brand.com" still works but isn't needed
     if (!name) return reply("Use: `/fluid onboard Client Name` inside the client's internal channel.");
@@ -336,7 +336,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can do that.");
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     if (!c) return reply("Run this inside the client's channel.");
-    if (sub === "shopify") return reply(`Shopify connect link for ${c.name} (only you can see this, works once, 14 days): ${await shopifyLink(c.id)}`);
+    if (sub === "shopify") return reply(`<${await shopifyLink(c.id)}|Shopify connect page>`);
     const on = arg === "on", off = arg === "off";
     const col = sub === "shopify-discounts" ? "shopify_write" : "klaviyo_write", val = sub === "shopify-discounts" ? "discounts" : "drafts";
     if (!on && !off) { const { data } = await db().from("clients").select(col).eq("id", c.id).single(); return reply(`${sub === "shopify-discounts" ? "Shopify discount codes" : "Klaviyo drafts"} for ${c.name}: *${(data as any)?.[col] === val ? "on" : "off"}*. Use \`/fluid ${sub} on\` or \`off\`.`); }
@@ -399,7 +399,7 @@ async function runOnboarding(f: { clientId: string; folder: string; name: string
 // each its own job, all behind one "Style Options" review link. The client picks one with "Choose this style".
 async function runStyleOptions(c: { id: string; folder: string; name: string }, channel: string, thread: string) {
   const web = app.client;
-  const intro = `Step 3: designing Welcome Email #1 in three styles (bold & graphic, clean & minimal, balanced) so ${c.name} can pick the look for their account, about 15–20 minutes.`;
+  const intro = `Step 3: making the email and popup style pages, about 15–20 minutes.`;
   const status = await web.chat.postMessage({ channel, thread_ts: thread, text: intro });
   const notes = progressNotes(web, channel, thread, 20, { ts: status.ts!, text: intro });
   await pullLatest();
@@ -415,8 +415,8 @@ async function runStyleOptions(c: { id: string; folder: string; name: string }, 
   const { data: made } = await db().from("design_reviews").select("design_path").eq("client_id", c.id).like("design_path", "designs/style-options/%");
   const link = made?.length ? await flowLink(c.id, "Style Options") : null;
   const text = link
-    ? `Here are ${c.name}'s two style pages to send the client:\n• [Email style options](${link}): the same welcome email in ${made!.length === 3 ? "three" : made!.length} styles. They click *Choose this style* on the one they like, and every email for the account is designed at that level.${errors.length ? ` (${errors.length} didn't finish: ${errors.join("; ")}. Ask me to "redo the style options" in this thread.)` : ""}\n• [Pop-up style options](${await popupStyleLink(c.id, c.name)}): Plinko, Pick 3 cards and the classic 4-step, playable in their brand. They choose one there.\nI'll post here when they choose (or tell me in this thread).`
-    : `I couldn't finish the style options (${errors.join("; ") || "no designs were published"}). Ask me to "redo the style options" in this thread, or run \`/fluid style-options\`.`;
+    ? `Style pages for ${c.name} are ready:\n• <${link}|Email style page>\n• <${await popupStyleLink(c.id, c.name)}|Popup style page>${errors.length ? `\n${errors.length === 1 ? "One design" : `${errors.length} designs`} didn't finish. Say "redo the style options" to try again.` : ""}`
+    : `I couldn't finish the email style page. Say "redo the style options" to try again.`;
   await web.chat.update({ channel, ts: status.ts!, text });
   await audit({ team_id: TEAM_ID, channel_id: channel, thread_ts: thread, client_id: c.id, request: "onboarding style options", outcome: errors.length ? "error" : "ran", reason: errors.join("; ") || undefined, cost_usd: cost });
 }

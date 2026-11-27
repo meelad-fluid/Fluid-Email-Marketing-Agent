@@ -86,7 +86,7 @@ export function hasExistingForm(folder: string) {
   return existsSync(onb) && readdirSync(onb).some((f) => /form/i.test(f) && !/^form-answers\.md$/.test(f));
 }
 
-const INTERNAL_MSG = (name: string, url: string) => `*${name}* onboarding (Fluid team only): ${url}\nUpload their onboarding doc (PDF), add the Klaviyo or Customer.io key and their Shopify app credentials if you have them, and I'll run the onboarding here. The link works once and expires in 14 days.`;
+const INTERNAL_MSG = (name: string, url: string) => `*${name}* <${url}|onboarding upload page>. Add their onboarding doc and keys there, and I'll run the onboarding here.`;
 
 /** A one-use link for the Fluid team: brand guidelines upload + Klaviyo key, for clients we already work with. */
 export async function internalLink(clientId: string) {
