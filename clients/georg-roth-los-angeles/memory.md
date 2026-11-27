@@ -17,6 +17,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · no Klaviyo history (audit failed), no orders, Shopify not connected; brief says they send from Mailchimp
 - 2026-11-26 · proposed: sender persona "Sophie from Georg Roth"; founder emails from Georg; offer ladder capped at 10% (upgrades = + free shipping)
 - 2026-11-26 · brand fonts not verified; brand book proposes Cormorant Garamond + Montserrat (draft)
+- 2026-11-27 · Klaviyo audit re-run (asked by Meelad): same failure. Flow revenue report 400 (no usable Placed Order conversion metric), no orders, reporting sync failed, Shopify not connected. Likely Shopify isn't integrated in their Klaviyo (they still send from Mailchimp)
 
 ## Open questions
 - BF spend-and-save is up to 20% vs 10% cap: OK to use in email?
