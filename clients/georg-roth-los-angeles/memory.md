@@ -14,14 +14,13 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · onboarding done: brand book v1 (draft), research/onboarding-doc.md, strategy/2026-11-26-month-1-plan.md, strategy/flow-plan.md
 - 2026-11-26 · verified (brief): max discount 10%; welcome 10% exists; best seller Pima Luxe tees ($98 SS, $138 LS, 3-pack $265); men 35-65 + women buying for men; they call every customer after an order because sizes get ordered wrong
 - 2026-11-26 · verified (site): free U.S. shipping over $150; BF offer $50 off/$250, $100 off/$500; 14-day returns, holiday orders returnable to Jan 15, 2027; customer pays return shipping; fit rules differ by product (tees trim/size up, sweaters size down, belts +1 pant size, Magnanni half size down)
-- 2026-11-26 · no Klaviyo history (audit failed), no orders, Shopify not connected; brief says they send from Mailchimp
+- 2026-11-27 · CORRECTION (Meelad/Fluid): the earlier "no Klaviyo history / no orders" was a bug in the audit (their Klaviyo has two Shopify "Placed Order" metrics; it read the empty duplicate from a Nov 4 reconnect). Real data: Shopify IS integrated in Klaviyo, they send from Klaviyo (8 live flows, 21 email campaigns in the last 60 days, 53 campaigns synced), 2,678 orders from 1,912 customers over the last 365 days. Re-run the onboarding audits and use research/klaviyo-audit-*.json and klaviyo-orders-*.json.
 - 2026-11-26 · proposed: sender persona "Sophie from Georg Roth"; founder emails from Georg; offer ladder capped at 10% (upgrades = + free shipping)
 - 2026-11-26 · brand fonts not verified; brand book proposes Cormorant Garamond + Montserrat (draft)
-- 2026-11-27 · Klaviyo audit re-run (asked by Meelad): same failure. Flow revenue report 400 (no usable Placed Order conversion metric), no orders, reporting sync failed, Shopify not connected. Likely Shopify isn't integrated in their Klaviyo (they still send from Mailchimp)
 
 ## Open questions
 - BF spend-and-save is up to 20% vs 10% cap: OK to use in email?
-- Moving off Mailchimp? Need list export (and SMS list) into Klaviyo
+- Mailchimp: the brief mentions it, but they already send from Klaviyo. Is anything still sent from Mailchimp (a list to bring over)?
 - Welcome code name and which tool runs the pop-up today
 - What is the "World Cup challenge", still running?
 - Holiday shipping cutoff date
