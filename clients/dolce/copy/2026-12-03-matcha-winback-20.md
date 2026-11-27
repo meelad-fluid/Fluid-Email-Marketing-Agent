@@ -1,6 +1,7 @@
 # Matcha win-back, 20% off — Thu Dec 3, 2026
 Client: Dolce Superfoods · Campaign · Designed · Brief: Meelad (Slack, Nov 17): 20% off matcha for lapsed customers
-Status: needs approval · goes live Thu Dec 3, 2026
+Status: approved (Meelad, 2026-11-27) · goes live Thu Dec 3, 2026
+Klaviyo: draft "DRAFT · Matcha win-back, 20% off" (2026-11-27) · include FC | Matcha buyers, all time (email) · exclude FC | Placed Order 120d, FC | Shopify Tags contains wholesale, HIGH VALUE - CO-PACKING CLIENTS, IS | Wholesale Leads
 From: Hannah from Dolce (pending approval; fallback "Dolce Superfoods")
 Sent to (segment to build, needs OK): Lapsed matcha buyers = has ordered any matcha product (Ceremonial, Ceremonial Reserve, Culinary) at least once, AND no order of anything in the last 120 days, AND last order within the last 2 years
 Excluding: anyone who purchased Nov 18 – Dec 3; FC | Shopify Tags contains wholesale; HIGH VALUE - CO-PACKING CLIENTS; IS | Wholesale Leads (Do not use this list for marketing emails); suppressed profiles

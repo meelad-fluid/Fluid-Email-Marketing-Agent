@@ -1,0 +1,35 @@
+{
+  "template_id": "UDh9Mj",
+  "template_name": "FC | Matcha win-back, 20% off (sliced)",
+  "images": [
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/b852cd38-cbc1-4510-8fdc-fa1f0a8cb3df.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/f6dd5068-ffe1-46a9-b67e-499fca580c3e.jpeg",
+    [
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/1e4b823d-f3ea-49ec-be2d-93275dd92cba.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/e89d28d4-55c9-42af-adf1-4f2342d470f9.jpeg",
+      "https://cdn.klaviyomail.com/company/WVFzi6/images/116bf2a3-86ee-4d61-9278-f74e06f025fe.jpeg"
+    ],
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/1038a5da-671c-4669-930b-e7c474706111.jpeg",
+    "https://cdn.klaviyomail.com/company/WVFzi6/images/5c95b238-a762-4277-b70e-e29ca94acbb5.jpeg"
+  ],
+  "audiences": {
+    "included": [
+      "FC | Matcha buyers, all time (email)"
+    ],
+    "excluded": [
+      "FC | Placed Order 120d",
+      "FC | Shopify Tags contains wholesale",
+      "HIGH VALUE - CO-PACKING CLIENTS",
+      "IS | Wholesale Leads (Do not use this list for marketing emails)"
+    ]
+  },
+  "missing_audiences": [],
+  "suggestions": {},
+  "campaign": {
+    "id": "01M8FEWDXT7ERRXRNWEK37RNAX",
+    "name": "DRAFT · Matcha win-back, 20% off",
+    "message_id": "01M8FEWDY7YSTS5X1CNPTRW2DZ",
+    "status": "Draft",
+    "url": "https://www.klaviyo.com/campaign/01M8FEWDXT7ERRXRNWEK37RNAX/wizard"
+  }
+}
