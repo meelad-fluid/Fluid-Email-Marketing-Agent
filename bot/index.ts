@@ -15,6 +15,7 @@ import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb, type ReviewAction } from "./web";
 import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink, STYLE_COPY_PROMPT, STYLE_DESIGN_PROMPT, STYLE_OPTIONS } from "./onboarding";
 import { flowLink } from "./review";
+import { popupStyleLink } from "./library-tools";
 import { foreignNames, scanText } from "../lib/leaks";
 import { filesNote, receiveFiles, type SlackFile } from "./slack-files";
 import { proactiveTick, type Client as ProactiveClient } from "./proactive";
@@ -263,6 +264,11 @@ app.command("/fluid", async ({ command, ack, respond }) => {
   const who = await checkUser(app.client, command.user_id, TEAM_ID);
   if (!who.ok) return reply("Sorry, I only take requests from Fluid's team.");
 
+  if (sub === "popups") {
+    const c = await clientForChannel(command.channel_id, TEAM_ID);
+    if (!c) return reply("Run this inside the client's channel.");
+    return reply(`"Choose your pop-up style" page for ${c.name} (send it to the client; same link every time): ${await popupStyleLink(c.id, c.name)}`);
+  }
   if (sub === "style-options") {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     if (!c) return reply("Run this inside the client's channel.");
@@ -349,7 +355,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`, `/fluid style-options` (the welcome email in three design styles for the client to pick the account's look).");
+  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`, `/fluid style-options` (the welcome email in three design styles for the client to pick the account's look), `/fluid popups` (the client's pop-up style page).");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
@@ -403,7 +409,7 @@ async function runStyleOptions(c: { id: string; folder: string; name: string }, 
   const { data: made } = await db().from("design_reviews").select("design_path").eq("client_id", c.id).like("design_path", "designs/style-options/%");
   const link = made?.length ? await flowLink(c.id, "Style Options") : null;
   const text = link
-    ? `Here are ${c.name}'s [style options](${link}): the same welcome email in ${made!.length === 3 ? "three" : made!.length} styles${errors.length ? ` (${errors.length} didn't finish: ${errors.join("; ")}. Ask me to "redo the style options" in this thread)` : ""}.\nSend the link to the client: they click *Choose this style* on the one they like (or tell me here), and I'll design every email for the account at that level.`
+    ? `Here are ${c.name}'s two style pages to send the client:\n• [Email style options](${link}): the same welcome email in ${made!.length === 3 ? "three" : made!.length} styles. They click *Choose this style* on the one they like, and every email for the account is designed at that level.${errors.length ? ` (${errors.length} didn't finish: ${errors.join("; ")}. Ask me to "redo the style options" in this thread.)` : ""}\n• [Pop-up style options](${await popupStyleLink(c.id, c.name)}): Plinko, Pick 3 cards and the classic 4-step, playable in their brand. They choose one there.\nI'll post here when they choose (or tell me in this thread).`
     : `I couldn't finish the style options (${errors.join("; ") || "no designs were published"}). Ask me to "redo the style options" in this thread, or run \`/fluid style-options\`.`;
   await web.chat.update({ channel, ts: status.ts!, text });
   await audit({ team_id: TEAM_ID, channel_id: channel, thread_ts: thread, client_id: c.id, request: "onboarding style options", outcome: errors.length ? "error" : "ran", reason: errors.join("; ") || undefined, cost_usd: cost });

@@ -24,6 +24,15 @@ export async function brandBookLink(clientId: string, clientName: string) {
   return `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/b/${token}`;
 }
 
+/** The "Choose your pop-up style" page link for a client (created once, same link forever). */
+export async function popupStyleLink(clientId: string, clientName: string) {
+  const path = "popups/style";
+  const { data: existing } = await db().from("doc_links").select("token").eq("client_id", clientId).eq("path", path).maybeSingle();
+  const token = existing?.token ?? randomBytes(18).toString("base64url");
+  if (!existing) await db().from("doc_links").insert({ token, client_id: clientId, path, title: `${clientName} pop-up styles` });
+  return `${(process.env.PUBLIC_URL ?? "").replace(/\/+$/, "")}/p/${token}`;
+}
+
 export function libraryToolsServer(clientId: string, folder: string, clientName: string, requester?: string) {
   const base = join(CLIENTS_DIR, folder);
   const inFolder = (p: string) => { const f = resolve(base, p.replace(/^\.\//, "")); return f.startsWith(base + sep) && !f.includes(`${sep}.claude${sep}`) ? f : null; };

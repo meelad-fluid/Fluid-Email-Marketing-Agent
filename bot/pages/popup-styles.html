@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Choose your pop-up style</title>
+<style>
+:root{--bg:#f6f4ef;--panel:#fff;--ink:#1d1d1d;--muted:#666;--line:#e4e0d8;--brand:#E03400;--brand-ink:#fff;--soft:#f3efe6;--font:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;--display:var(--font);--radius:999px}
+*{box-sizing:border-box}html,body{margin:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 16px 80px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:8px}.top img{max-height:38px;max-width:160px}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:8px 0 10px}
+.lead{color:var(--muted);max-width:720px;margin:0 0 28px;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+@media (max-width:980px){.grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
+.opt{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;position:relative}
+.opt.chosen{border:2px solid var(--ink);box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.opt h2{font-size:20px;margin:0}.opt p{margin:0;color:var(--muted);font-size:15px}
+.tag{position:absolute;top:-12px;left:18px;background:var(--ink);color:#fff;font-size:12px;font-weight:700;letter-spacing:.04em;padding:5px 10px;border-radius:999px}
+.steps{font-size:14px;color:var(--muted);margin:0;padding-left:18px}
+.choose{font:inherit;font-weight:700;border:0;border-radius:12px;padding:14px;background:var(--ink);color:#fff;cursor:pointer;min-height:48px}
+.choose:disabled{opacity:.6;cursor:default}.opt.chosen .choose{background:#1a7f37}
+.note{font-size:13px;color:var(--muted);margin-top:28px;text-align:center}
+
+/* phone + site behind the pop-up */
+.phone{width:100%;max-width:310px;aspect-ratio:310/560;margin:0 auto;border-radius:34px;background:#111;padding:10px;position:relative}
+.screen{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:var(--soft)}
+.site{position:absolute;inset:0;padding:40px 14px;filter:blur(1.5px);opacity:.55}
+.site i{display:block;background:rgba(0,0,0,.12);border-radius:8px;margin-bottom:10px}
+.shade{position:absolute;inset:0;background:rgba(0,0,0,.38)}
+.pop{position:absolute;left:12px;right:12px;top:50%;transform:translateY(-50%);background:#fff;border-radius:18px;padding:20px 16px 18px;text-align:center;font-family:var(--font);color:var(--ink);box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.pop .x{position:absolute;top:8px;right:12px;font-size:18px;color:#999;cursor:pointer;background:none;border:0}
+.pop h3{font-family:var(--display);font-size:24px;line-height:1.1;margin:4px 0 6px}
+.pop .sm{font-size:13px;color:var(--muted);margin:0 0 12px}
+.pop input{width:100%;font:inherit;font-size:15px;padding:12px;border:1px solid #ccc;border-radius:10px;margin-bottom:10px}
+.btn{width:100%;font:inherit;font-weight:700;font-size:15px;border:0;border-radius:var(--radius);padding:13px;background:var(--brand);color:var(--brand-ink);cursor:pointer;min-height:46px}
+.btn.ghost{background:transparent;color:var(--muted);font-weight:500;min-height:30px;padding:6px}
+.choice{display:block;width:100%;font:inherit;font-size:15px;border:1.5px solid var(--line);border-radius:12px;padding:11px;margin-bottom:8px;background:#fff;cursor:pointer;text-align:center}
+.choice:hover{border-color:var(--brand)}
+.code{display:inline-block;border:2px dashed var(--brand);border-radius:10px;padding:8px 16px;font-weight:800;letter-spacing:.08em;margin:6px 0 10px}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}.dots b{width:7px;height:7px;border-radius:50%;background:#ddd}.dots b.on{background:var(--brand)}
+
+/* plinko */
+.board{position:relative;height:250px;margin:4px 0 10px;border-radius:12px;background:var(--soft);overflow:hidden}
+.peg{position:absolute;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.25);transform:translate(-50%,-50%)}
+.ball{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--brand);box-shadow:0 2px 6px rgba(0,0,0,.3);transform:translate(-50%,-50%);transition:left .16s ease-in,top .16s ease-in;z-index:2}
+.buckets{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:0 3px 3px}
+.bucket{background:#fff;border-radius:0 0 8px 8px;border-top:3px solid var(--brand);font-size:11px;font-weight:800;line-height:1.1;padding:6px 2px;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center}
+.bucket.win{background:var(--brand);color:var(--brand-ink)}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 12px;perspective:600px}
+.card{position:relative;aspect-ratio:3/4;cursor:pointer;transform-style:preserve-3d;transition:transform .5s;border:0;background:none;padding:0}
+.card.flip{transform:rotateY(180deg)}
+.card span{position:absolute;inset:0;border-radius:10px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;font-weight:800;font-size:13px;line-height:1.1;padding:4px;text-align:center}
+.card .back{background:var(--brand);color:var(--brand-ink);font-size:22px}
+.card .face{background:#fff;border:2px solid var(--brand);transform:rotateY(180deg)}
+.card.best .face{background:var(--brand);color:var(--brand-ink)}
+.card.dim .face{background:#f2f2f2;color:#9a9a9a;border-color:#dcdcdc}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top" id="top"></div>
+  <h1>Choose your pop-up style</h1>
+  <p class="lead" id="lead">Here are the three pop-up styles we can run on your site. Each one is a working example: play with them on this page (nothing is sent anywhere), then choose the one you'd like.</p>
+  <div class="grid">
+    <section class="opt" id="opt-plinko">
+      <span class="tag">Highest submit rates</span>
+      <h2>Plinko game</h2>
+      <p>Visitors drop a ball and it lands in a prize bucket. Then they enter their email and phone to claim it.</p>
+      <div class="phone"><div class="screen"><div class="site"><i style="height:26px;width:40%"></i><i style="height:160px"></i><i style="height:14px;width:80%"></i><i style="height:14px;width:60%"></i></div><div class="shade"></div><div class="pop" id="plinko"></div></div></div>
+      <button class="choose" data-style="plinko">Choose this style</button>
+    </section>
+    <section class="opt" id="opt-cards">
+      <span class="tag">Highest submit rates</span>
+      <h2>Pick 3 cards</h2>
+      <p>Visitors flip 3 of 6 cards and see the offer they unlocked. Then they enter their email and phone to claim it.</p>
+      <div class="phone"><div class="screen"><div class="site"><i style="height:26px;width:40%"></i><i style="height:160px"></i><i style="height:14px;width:80%"></i><i style="height:14px;width:60%"></i></div><div class="shade"></div><div class="pop" id="cards"></div></div></div>
+      <button class="choose" data-style="cards">Choose this style</button>
+    </section>
+    <section class="opt" id="opt-standard">
+      <h2>Classic 4-step</h2>
+      <p>A straight offer with one quick question (it's saved to their profile, so emails can match what they're shopping for), then email, phone and a confirmation.</p>
+      <div class="phone"><div class="screen"><div class="site"><i style="height:26px;width:40%"></i><i style="height:160px"></i><i style="height:14px;width:80%"></i><i style="height:14px;width:60%"></i></div><div class="shade"></div><div class="pop" id="standard"></div></div></div>
+      <button class="choose" data-style="standard">Choose this style</button>
+    </section>
+  </div>
+  <p class="note" id="note">The prizes and the question here are examples. We set the real offers with you (never above your max discount) and write the question for your customers.</p>
+</div>
+<script>
+const token = location.pathname.split("/")[2];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const NAMES = { plinko: "Plinko game", cards: "Pick 3 cards", standard: "Classic 4-step" };
+let D = { client: "", offer: 10, max: 20, casing: "Title Case", choice: null };
+
+const cased = (s) => D.casing === "ALL CAPS" ? s.toUpperCase() : s;
+const dots = (n, k) => '<div class="dots">' + Array.from({ length: n }, (_, i) => '<b class="' + (i === k ? "on" : "") + '"></b>').join("") + "</div>";
+const prize = (p) => typeof p === "number" ? p + "% OFF" : p;
+// Three prize tiers, never above the max discount: the welcome offer, the max, and one in between (spread out when they're equal).
+const prizes = () => {
+  const hi = Math.max(5, D.max); let lo = Math.min(D.offer, hi);
+  if (hi - lo < 10) lo = Math.max(5, hi - 10);
+  const mid = Math.min(hi - 5, Math.max(lo + 5, Math.round((lo + hi) / 10) * 5));
+  return { lo, mid: mid > lo && mid < hi ? mid : lo, hi };
+};
+
+// Shared claim steps: email → phone → confirmation.
+function claim(el, label, restart) {
+  const step = (k) => {
+    if (k === 0) { el.innerHTML = '<button class="x" aria-label="Close">×</button><p class="sm">You won</p><h3>' + esc(label) + '</h3><p class="sm">Enter your email to claim it.</p><input type="email" placeholder="Email address" aria-label="Email"><button class="btn">' + cased("Claim My Offer") + "</button>" + dots(3, 0); el.querySelector(".btn").onclick = () => step(1); }
+    if (k === 1) { el.innerHTML = '<button class="x" aria-label="Close">×</button><h3>One last step</h3><p class="sm">Add your phone number to get your code by text.</p><input type="tel" placeholder="Phone number" aria-label="Phone"><button class="btn">' + cased("Text Me My Code") + '</button><button class="btn ghost">No thanks</button>' + dots(3, 1); el.querySelectorAll(".btn").forEach((b) => b.onclick = () => step(2)); }
+    if (k === 2) { el.innerHTML = '<h3>You\'re in!</h3><p class="sm">Here\'s your code for ' + esc(label) + ':</p><div class="code">WELCOME</div><button class="btn">' + cased("Start Shopping") + '</button><button class="btn ghost">Play again</button>' + dots(3, 2); el.querySelector(".btn.ghost").onclick = restart; }
+    el.querySelectorAll(".x").forEach((x) => x.onclick = restart);
+  };
+  step(0);
+}
+
+// 1. Plinko: the ball bounces left/right off 8 rows of pegs into one of 5 buckets.
+function plinko() {
+  const el = $("plinko"), { lo, mid, hi } = prizes();
+  const buckets = [prize(hi), prize(lo), "FREE SHIPPING", prize(lo), prize(mid)];
+  el.innerHTML = '<p class="sm">Play to win</p><h3>Drop the ball, win a prize</h3><div class="board" id="pb"><div class="ball" id="ball"></div><div class="buckets">' + buckets.map((b) => '<div class="bucket">' + esc(b) + "</div>").join("") + '</div></div><button class="btn" id="drop">' + cased("Drop The Ball") + "</button>";
+  const board = $("pb"), W = () => board.clientWidth, ROWS = 8, top0 = 16, gap = 22;
+  const xAt = (c) => (c + 0.5) * (W() / 5);
+  for (let r = 0; r < ROWS; r++) for (let k = 0; k < (r % 2 ? 9 : 10); k++) { const p = document.createElement("div"); p.className = "peg"; p.style.left = ((k + (r % 2 ? 1 : 0.5)) * W() / 10) + "px"; p.style.top = (top0 + 14 + r * gap) + "px"; board.appendChild(p); }
+  const ball = $("ball"); let c = 2; ball.style.left = xAt(c) + "px"; ball.style.top = top0 + "px";
+  $("drop").onclick = () => {
+    $("drop").disabled = true; let r = 0;
+    const tick = () => {
+      if (r < ROWS) { c = Math.min(4, Math.max(0, c + (Math.random() < 0.5 ? -0.5 : 0.5))); ball.style.left = xAt(c) + "px"; ball.style.top = (top0 + 14 + r * gap) + "px"; r++; return setTimeout(tick, 170); }
+      const b = Math.round(c); ball.style.left = xAt(b) + "px"; ball.style.top = (board.clientHeight - 30) + "px";
+      board.querySelectorAll(".bucket")[b].classList.add("win");
+      setTimeout(() => claim(el, buckets[b], plinko), 900);
+    };
+    tick();
+  };
+}
+
+// 2. Cards: 6 face-down cards, pick 3, the best one is their offer.
+function cards() {
+  const el = $("cards"), { lo, mid, hi } = prizes();
+  const deck = [lo, mid, hi, "FREE SHIPPING", lo, mid].sort(() => Math.random() - 0.5);
+  const value = (p) => typeof p === "number" ? p : lo + 0.5; // free shipping ranks just above the lowest %
+  el.innerHTML = '<p class="sm">Pick 3 cards</p><h3>Reveal your offer</h3><div class="cards">' + deck.map((p, i) => '<button class="card" data-i="' + i + '" aria-label="Card ' + (i + 1) + '"><span class="back">?</span><span class="face">' + esc(prize(p)) + "</span></button>").join("") + '</div><p class="sm" id="left">3 picks left</p>';
+  const picked = [];
+  el.querySelectorAll(".card").forEach((b) => b.onclick = () => {
+    if (picked.length >= 3 || b.classList.contains("flip")) return;
+    b.classList.add("flip"); picked.push(+b.dataset.i);
+    $("left").textContent = picked.length < 3 ? (3 - picked.length) + " pick" + (picked.length === 2 ? "" : "s") + " left" : "";
+    if (picked.length === 3) {
+      const best = picked.reduce((a, i) => value(deck[i]) > value(deck[a]) ? i : a, picked[0]);
+      el.querySelectorAll(".card").forEach((x) => { const i = +x.dataset.i; if (i === best) x.classList.add("best"); else if (!picked.includes(i)) { x.classList.add("flip", "dim"); } });
+      $("left").innerHTML = "Your best card: <b>" + esc(prize(deck[best])) + "</b>";
+      setTimeout(() => claim(el, prize(deck[best]), cards), 1600);
+    }
+  });
+}
+
+// 3. Classic: offer + one profile question → email → phone → confirmation.
+function standard() {
+  const el = $("standard"), off = D.offer;
+  const step = (k) => {
+    if (k === 0) { el.innerHTML = '<button class="x" aria-label="Close">×</button><h3>Want ' + off + '% off?</h3><p class="sm">First, what brings you here today?</p>' + ["Shopping for me", "Shopping for a gift", "Just looking around"].map((o) => '<button class="choice">' + o + "</button>").join("") + dots(4, 0); el.querySelectorAll(".choice").forEach((b) => b.onclick = () => step(1)); }
+    if (k === 1) { el.innerHTML = '<button class="x" aria-label="Close">×</button><h3>Your ' + off + '% off is ready</h3><p class="sm">Where should we send it?</p><input type="email" placeholder="Email address" aria-label="Email"><button class="btn">' + cased("Get My " + off + "% Off") + "</button>" + dots(4, 1); el.querySelector(".btn").onclick = () => step(2); }
+    if (k === 2) { el.innerHTML = '<button class="x" aria-label="Close">×</button><h3>Want it by text too?</h3><p class="sm">Add your number for early access and texts-only offers.</p><input type="tel" placeholder="Phone number" aria-label="Phone"><button class="btn">' + cased("Text Me") + '</button><button class="btn ghost">No thanks</button>' + dots(4, 2); el.querySelectorAll(".btn").forEach((b) => b.onclick = () => step(3)); }
+    if (k === 3) { el.innerHTML = '<h3>You\'re in!</h3><p class="sm">Use this code at checkout for ' + off + '% off:</p><div class="code">WELCOME' + off + '</div><button class="btn">' + cased("Start Shopping") + '</button><button class="btn ghost">Start over</button>' + dots(4, 3); el.querySelector(".btn.ghost").onclick = () => step(0); }
+    el.querySelectorAll(".x").forEach((x) => x.onclick = () => step(0));
+  };
+  step(0);
+}
+
+function marks() {
+  document.querySelectorAll(".opt").forEach((o) => o.classList.remove("chosen"));
+  document.querySelectorAll(".choose").forEach((b) => { const on = D.choice === b.dataset.style; b.textContent = on ? "✓ Chosen" : "Choose this style"; b.disabled = on; if (on) $("opt-" + b.dataset.style).classList.add("chosen"); });
+}
+document.querySelectorAll(".choose").forEach((b) => b.onclick = async () => {
+  let n = ""; try { n = localStorage.getItem("fluid-review-name") || ""; } catch {}
+  if (!n) { n = (prompt("Your name:") || "").trim(); if (!n) return; try { localStorage.setItem("fluid-review-name", n); } catch {} }
+  if (!confirm("Choose the " + NAMES[b.dataset.style] + " pop-up for your site?")) return;
+  b.disabled = true;
+  try {
+    const r = await fetch("/p/" + token + "/choose", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ style: b.dataset.style, author: n }) });
+    const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || "Something went wrong");
+    D.choice = b.dataset.style; marks(); alert("Thanks! We'll build the " + NAMES[D.choice] + " pop-up for your site.");
+  } catch (e) { alert(e.message); b.disabled = false; }
+});
+
+fetch("/p/" + token + "/data").then((r) => r.ok ? r.json() : Promise.reject()).then((d) => {
+  D = { ...D, ...d };
+  const s = document.documentElement.style;
+  if (d.brand) s.setProperty("--brand", d.brand);
+  if (d.brandInk) s.setProperty("--brand-ink", d.brandInk);
+  if (d.soft) s.setProperty("--soft", d.soft);
+  if (d.radius != null) s.setProperty("--radius", d.radius + "px");
+  for (const f of d.fontFaces || []) { const st = document.createElement("style"); st.textContent = "@font-face{font-family:'" + f.family.replace(/'/g, "") + "';src:url('" + f.url + "');font-display:swap}"; document.head.appendChild(st); }
+  if (d.fontsHref) { const l = document.createElement("link"); l.rel = "stylesheet"; l.href = d.fontsHref; document.head.appendChild(l); }
+  if (d.body) s.setProperty("--font", "'" + d.body + "', sans-serif");
+  if (d.display) s.setProperty("--display", "'" + d.display + "', serif");
+  $("top").innerHTML = d.logo ? '<img src="' + esc(d.logo) + '" alt="' + esc(d.client) + '">' : "<b>" + esc(d.client) + "</b>";
+  document.title = d.client + " · Choose your pop-up style";
+  plinko(); cards(); standard(); marks();
+}).catch(() => { document.querySelector(".wrap").innerHTML = "<p>This link doesn't exist or has been removed.</p>"; });
+</script>
+</body>
+</html>

@@ -7,10 +7,11 @@
 //   POST /r/:token/resolve      {comment_id, resolved}
 //   POST /r/:token/approve      {author, build?}  "Approve & build": approve, then the bot builds it in Klaviyo
 //   POST /r/:token/submit       {author}          "Submit comments": the bot makes every open comment's change
+//   GET  /p/:token              "Choose your pop-up style": 3 playable pop-up examples in the client's brand (/data, /file, POST /choose {style, author})
 //   GET  /b/:token              a client's brand book + client library (/data as JSON, /file?p=brand/... for logos & fonts)
 // A link's token only ever opens its own design. Nothing here can send email or touch Klaviyo.
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
-import { existsSync, readFileSync, writeFileSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { extname, join, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
 import { CLIENTS_DIR } from "./config";
@@ -21,6 +22,8 @@ import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInte
 import { marked } from "marked";
 import { parseCalendarMarkdown } from "../lib/strategy/calendar";
 import { currentBrandBook, listLibrary, signedUrl } from "../lib/library/store";
+import { maxDiscount } from "../lib/shopify/discounts";
+import { fileURLToPath } from "node:url";
 import { readdirSync } from "node:fs";
 
 type Notify = (channel: string, thread: string | null, text: string) => Promise<void>;
@@ -28,6 +31,8 @@ type Notify = (channel: string, thread: string | null, text: string) => Promise<
 export type ReviewAction = { kind: "build" | "build_flow" | "comments" | "style"; reviewId: string; clientId: string; title: string; designPath: string; author: string; channel: string | null; thread: string | null; flow?: string; designs?: string[]; count?: number };
 const TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2", ".ttf": "font/ttf", ".otf": "font/otf" };
 const hits = new Map<string, number[]>();
+const POPUP_PAGE = join(fileURLToPath(new URL(".", import.meta.url)), "pages", "popup-styles.html");
+export const POPUP_STYLES = { plinko: "Plinko game", cards: "Pick 3 cards", standard: "Classic 4-step" } as const;
 
 // ── Approval updates: people approve several emails in a row, so collect them for a minute and post one
 // teammate-style line ("Nick approved the welcome flow") instead of one log line per email.
@@ -147,6 +152,76 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
         if (!file.startsWith(base + sep) || !existsSync(file)) return json(res, 404, { error: "This calendar isn't available." });
         const cal = parseCalendarMarkdown(readFileSync(file, "utf8"));
         return json(res, 200, { client: c.name, title: cal.title, status: cal.status ?? null, sends: cal.sends, sections: cal.sections.map((x) => ({ heading: x.heading, html: marked.parse(x.markdown) as string })) });
+      }
+
+      // ── Choose your pop-up style (onboarding): examples only, nothing here talks to the pop-up platform ──
+      const pm = url.pathname.match(/^\/p\/([A-Za-z0-9_-]{16,64})(\/data|\/file|\/choose)?$/);
+      if (pm) {
+        const { data: d } = await db().from("doc_links").select("client_id, path, clients(name, folder)").eq("token", pm[1]).maybeSingle();
+        if (!d || d.path !== "popups/style") return send(res, 404, "Not found");
+        const c: any = (d as any).clients, base = join(CLIENTS_DIR, c.folder), dirFile = join(base, "brand", "direction.md");
+        if (req.method === "GET" && !pm[2]) return send(res, 200, readFileSync(POPUP_PAGE, "utf8"), "text/html; charset=utf-8", { "cache-control": "no-store" });
+        if (req.method === "GET" && pm[2] === "/file") {
+          const file = resolve(base, url.searchParams.get("p") ?? ""), type = TYPES[extname(file).toLowerCase()];
+          if (!file.startsWith(join(base, "brand") + sep) || !type || !existsSync(file)) return send(res, 404, "Not found");
+          return send(res, 200, readFileSync(file), type, { "cache-control": "private, max-age=300" });
+        }
+        const chosen = () => { const t = existsSync(dirFile) ? readFileSync(dirFile, "utf8").match(/^\W*Pop-up style:\s*([^(\n]+)/im)?.[1]?.trim().toLowerCase() : ""; return t ? (Object.entries(POPUP_STYLES).find(([, n]) => t.startsWith(n.toLowerCase()))?.[0] ?? null) : null; };
+        if (req.method === "GET" && pm[2] === "/data") {
+          const book = await currentBrandBook(db(), d.client_id).catch(() => null), k: any = book?.kit;
+          const hex = (h?: string) => (h && /^#[0-9a-f]{6}$/i.test(h) ? h : undefined);
+          const lum = (h: string) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+          const colors: string[] = (k?.colors ?? []).map((x: any) => hex(x.hex)).filter(Boolean);
+          const brand = hex(k?.buttons?.fill) ?? colors.filter((h) => lum(h) > 40 && lum(h) < 200)[0] ?? colors[0];
+          const soft = colors.filter((h) => lum(h) > 215 && lum(h) < 252)[0];
+          const font = (role: RegExp) => (k?.fonts ?? []).find((f: any) => role.test(f.role));
+          const head = font(/head|display|title/i) ?? k?.fonts?.[0], bodyF = font(/body|text|paragraph/i) ?? head;
+          const google = [head, bodyF].filter((f: any) => f && f.source === "google").map((f: any) => f.family);
+          const fontsHref = google.length ? `https://fonts.googleapis.com/css2?${[...new Set(google)].map((f) => `family=${encodeURIComponent(f).replace(/%20/g, "+")}:wght@400;700`).join("&")}&display=swap` : undefined;
+          const logo = (k?.logos ?? []).find((l: any) => l.path && existsSync(join(base, l.path)) && TYPES[extname(l.path).toLowerCase()]);
+          const max = maxDiscount(base);
+          const read = (f: string) => (existsSync(join(base, f)) ? readFileSync(join(base, f), "utf8") : "");
+          const offer = Number(read("copy/style-options-welcome.md").match(/\*\*Offer:\*\*[^\n]*?(\d{1,2})\s*%/i)?.[1] ?? read("memory.md").match(/welcome[^\n%]{0,40}?(\d{1,2})\s*%/i)?.[1] ?? Math.min(10, max));
+          const shape = k?.buttons?.shape;
+          // No brand book in the database yet: fall back to brand/brand-kit.md (colors, logo, radius, casing, fonts).
+          const md = read("brand/brand-kit.md");
+          const mdColors = [...md.matchAll(/^[^\n#]*?(#[0-9a-f]{6})\b.*$/gim)].map((m) => ({ hex: m[1], line: m[0] }));
+          const mdBrand = (mdColors.find((x) => /button|brand|primary/i.test(x.line)) ?? mdColors[0])?.hex;
+          const mdSoft = mdColors.map((x) => x.hex).find((h) => lum(h) > 215 && lum(h) < 252);
+          const mdLogo = md.match(/(brand\/assets\/[^\s)`,;]*logo[^\s)`,;]*\.(?:png|svg|jpe?g|webp))/i)?.[1];
+          const mdFont = (role: string) => md.match(new RegExp(`([A-Z][A-Za-z0-9 ]{1,40}?)\\s+(?:for|on)\\s+(?:the\\s+)?${role}`, "i"))?.[1]?.trim();
+          const display = head?.family ?? mdFont("headings?|headlines?|display"), bodyFam = bodyF?.family ?? mdFont("body|text");
+          // Custom fonts: serve the client's own font files.
+          const fontsDir = join(base, "brand", "fonts"), files = existsSync(fontsDir) ? readdirSync(fontsDir).filter((f) => /\.(woff2?|ttf|otf)$/i.test(f)) : [];
+          const squash = (x: string) => x.toLowerCase().replace(/[^a-z0-9]/g, "");
+          const fontFaces = [display, bodyFam].filter(Boolean).map((fam) => { const f = files.find((x) => squash(x).includes(squash(fam!))) ; return f ? { family: fam, url: `/p/${pm[1]}/file?p=${encodeURIComponent(`brand/fonts/${f}`)}` } : null; }).filter(Boolean);
+          const logoPath = logo?.path ?? (mdLogo && existsSync(join(base, mdLogo)) ? mdLogo : undefined);
+          const finalBrand = brand ?? mdBrand;
+          return json(res, 200, { client: c.name, brand: finalBrand, brandInk: hex(k?.buttons?.text) ?? (finalBrand && lum(finalBrand) > 170 ? "#1d1d1d" : "#ffffff"), soft: soft ?? mdSoft,
+            radius: shape === "pill" ? 999 : shape === "square" ? 0 : k?.buttons?.radius_px ?? Number(md.match(/(\d{1,3})\s*px radius/i)?.[1] ?? 10),
+            fontsHref, fontFaces, display, body: bodyFam, logo: logoPath ? `/p/${pm[1]}/file?p=${encodeURIComponent(logoPath)}` : null,
+            offer: Math.min(offer, max), max, casing: k?.buttons?.casing ?? (/CTA casing:?\**:?\s*ALL CAPS/i.test(md) ? "ALL CAPS" : "Title Case"), choice: chosen() });
+        }
+        if (req.method === "POST" && pm[2] === "/choose") {
+          if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
+          const b = await body(req);
+          const style = String(b.style ?? ""), author = String(b.author ?? "").trim().slice(0, 60) || "The client";
+          if (!(style in POPUP_STYLES)) return json(res, 400, { error: "Pick one of the three styles." });
+          const name = POPUP_STYLES[style as keyof typeof POPUP_STYLES], day = new Date().toISOString().slice(0, 10);
+          const line = `Pop-up style: ${name} (chosen by ${author}, ${day}, on the pop-up style page)`;
+          const cur = existsSync(dirFile) ? readFileSync(dirFile, "utf8") : "";
+          const next = /^\W*Pop-up style:.*$/im.test(cur) ? cur.replace(/^\W*Pop-up style:.*$/im, line)
+            : /^\W*Design style:.*$/im.test(cur) ? cur.replace(/^(\W*Design style:.*)$/im, `$1\n${line}`) : `${line}\n\n${cur}`;
+          mkdirSync(join(base, "brand"), { recursive: true });
+          writeFileSync(dirFile, next.trimEnd() + "\n");
+          const mem = join(base, "memory.md");
+          if (existsSync(mem)) writeFileSync(mem, readFileSync(mem, "utf8").trimEnd() + `\n- ${day} · Pop-up style chosen: ${name} (by ${author}, on the pop-up style page). Build the pop-up in Alia in this style.\n`);
+          saveClientFolder(c.folder, `${c.folder}: pop-up style ${name} chosen by ${author}`).catch(() => {});
+          const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", d.client_id).limit(1).maybeSingle();
+          if (ch) await notify(ch.channel_id, null, `${author} chose the *${name}* pop-up for ${c.name}. It's saved as their pop-up style.`).catch(() => {});
+          return json(res, 200, { ok: true });
+        }
+        return send(res, 404, "Not found");
       }
 
       // ── Brand book + client library ──
