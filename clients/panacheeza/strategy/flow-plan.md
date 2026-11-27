@@ -1,5 +1,5 @@
 # Panacheeza — Flow Plan
-_Prepared 2026-11-26 · Status: draft, needs client approval · Version: replenishable (CPG food)_
+_Prepared 2026-11-26 · updated 2026-11-27 (pop-up styles) · Status: draft, needs client approval · Version: replenishable (CPG food)_
 
 **The plan in one line:** keep the flows that earn, fix the two leaking ones (post-purchase and abandoned checkout), and steer every first order toward the refill bag and subscribe & save.
 
@@ -54,7 +54,21 @@ _Prepared 2026-11-26 · Status: draft, needs client approval · Version: repleni
 
 ---
 
-## Opt-in Pop-up (4 steps) · Fix
+## Opt-in Pop-up · Fix (built in Alia)
+
+**Pop-up style: client picks one on the "Choose your pop-up style" page**
+- **Plinko game** (recommended): ball drops into one of 5 prize buckets → email → phone → code
+- **Pick 3 cards** (recommended): flip 3 of 6 cards, best card is the offer → email → phone → code
+- **Classic 4-step**: the question version below; the answer feeds the welcome flow
+- Plinko and Pick 3 get the highest submit rates. Classic gives us the avatar question.
+
+**Prize ladder for Plinko / Pick 3** (proposal, never above 15%)
+- 10% off first order · WELCOME10 (exists) · most common prize
+- 15% off first order · WELCOME15 (exists) · rare prize
+- Free shipping on first order · new code, needs approval
+- Every prize needs its own Welcome #1 version that names the prize won
+
+**Classic 4-step version**
 
 **Step 1: Teaser + question**
 - Headline: Want 10% off your first shaker?

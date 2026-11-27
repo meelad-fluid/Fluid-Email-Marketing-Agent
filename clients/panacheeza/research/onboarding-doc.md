@@ -1,5 +1,5 @@
 # Panacheeza — Onboarding Doc
-_Prepared 2026-11-26 · Sources: onboarding answers, panacheeza.com, Klaviyo audit (last 60 days), Klaviyo order events (last 90 days / 365 days), public reviews and press_
+_Prepared 2026-11-26 · updated 2026-11-27 (design style, pop-up style) · Sources: onboarding answers, panacheeza.com, Klaviyo audit (last 60 days), Klaviyo order events (last 90 days / 365 days), public reviews and press_
 
 **In one line:** a flavor-first, 5-ingredient dairy-free parmesan that people use up and rebuy, so email's job is trial → refill → subscribe.
 
@@ -385,5 +385,31 @@ _37 verbatim lines so far. To reach 60, we need the Okendo review export (the li
 - **Nooch It:** "cleanest ingredients" cashew parm, but "not a parmesan copycat." We win on taste plus a clean label.
 
 **Our lane:** the one that tastes like nonna's parmesan and still has only 5 ingredients.
+
+---
+
+## 7. Look and sign-up: the two choices we need from you
+
+**Design style (email look)**
+- We design Welcome Email #1 in three styles and you pick one:
+  - **Bold & graphic:** floating shakers, stickers, big type, lots of color
+  - **Balanced:** graphics mostly in the hero, clean sections below
+  - **Clean & minimal:** photography and type only, lots of space
+- The one you pick sets the look for every email after it (a guide, not a template)
+- Our lean for Panacheeza: Balanced. The red cap and rustic Italian kitchen photos carry the brand; a few graphic moments keep it fun.
+
+**Pop-up style (built in Alia)**
+- Pick one of three on the "Choose your pop-up style" page:
+  - **Plinko game:** drop a ball, win one of 5 prizes
+  - **Pick 3 cards:** flip 3 cards, keep the best offer
+  - **Classic 4-step:** "Want 10% off?" plus one question about why they're here
+- Our lean: Plinko or Pick 3 for sign-ups (highest submit rates). Classic if you'd rather learn each sign-up's reason (dairy-free, clean label or heavy user).
+- Prizes stay at 15% or less. Details in the flow plan.
+
+**The plans**
+- Month 1 calendar: 12 emails + 5 SMS for December
+- Flow plan: 22 emails + 7 SMS across pop-up, welcome, abandonment, post-purchase and winback
+
+---
 
 _Sources: panacheeza.com · Green Matters · VENU Magazine · RIT news · GoDairyFree · VegNews · Minimalist Baker · Love & Lemons · Veganhuggs · Feasty Vegan · Amazon listing · Klaviyo audit_
