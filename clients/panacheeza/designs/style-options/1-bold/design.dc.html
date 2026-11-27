@@ -1,0 +1,170 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Lato:wght@400;700;900&family=Pinyon+Script&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#FAF5EA;font-family:Lato,Helvetica,Arial,sans-serif;color:#2B2420}
+a{text-decoration:none;color:inherit}
+.email{width:600px;margin:0 auto;background:#FAF5EA;overflow:hidden}
+.pf{font-family:'Playfair Display',Georgia,serif}
+.email,.email *{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+
+/* HERO */
+.hero{display:block;position:relative;background:#C8202E;color:#FAF5EA;text-align:center;padding:22px 30px 0}
+.logo{font-family:'Pinyon Script',cursive;font-size:48px;line-height:1.05;color:#FAF5EA}
+.crown{color:#C9A04A;font-size:14px;letter-spacing:4px;margin-top:2px}
+.h1{margin-top:14px;line-height:1}
+.h1 .w{display:block;font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:76px;letter-spacing:-1px;color:#FAF5EA}
+.h1 .band{display:inline-block;background:#2B2420;color:#FAF5EA;font-family:'Playfair Display',serif;font-weight:900;font-size:40px;padding:8px 18px 12px;transform:rotate(-2deg);margin-top:10px;box-shadow:0 8px 0 rgba(0,0,0,.12)}
+.h1 .band b{color:#C9A04A;font-size:52px}
+.h1 .rest{display:block;font-family:'Playfair Display',serif;font-weight:900;font-size:38px;margin-top:10px}
+.sub{font-size:18px;line-height:1.45;font-weight:700;max-width:470px;margin:16px auto 0}
+.coupon{display:inline-block;margin-top:18px;background:#FAF5EA;color:#C8202E;border:3px dashed #C8202E;outline:6px solid #FAF5EA;padding:10px 22px;font-weight:900;font-size:18px;letter-spacing:.5px;transform:rotate(1.5deg)}
+.coupon span{color:#2B2420}
+.btn{display:inline-block;background:#FAF5EA;color:#C8202E;font-weight:900;font-size:20px;padding:17px 56px;border-radius:6px;margin-top:22px;box-shadow:0 6px 0 #8f1520}
+.heroimg{position:relative;height:330px;margin:4px -30px 0;background:url('asset:brand/assets/generated/2026-11-27-2026-11-27-bold-welcome-hero-red.jpg') center 78%/600px auto no-repeat}
+.heroimg:before{content:"";position:absolute;left:0;right:0;top:0;height:120px;background:linear-gradient(#C8202E,rgba(200,32,46,0))}
+.sticker{position:absolute;left:34px;top:30px;width:132px;height:132px;transform:rotate(-12deg);z-index:2}
+.sticker svg{position:absolute;inset:0;filter:drop-shadow(0 8px 10px rgba(0,0,0,.25))}
+.sticker .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#2B2420;line-height:1}
+.sticker .t b{font-family:'Playfair Display',serif;font-weight:900;font-size:40px;color:#C8202E}
+.sticker .t span{font-weight:900;font-size:17px;letter-spacing:2px}
+
+.edge{line-height:0}
+.edge svg{display:block;width:600px}
+
+/* WHY */
+.why{display:block;background:#FAF5EA;padding:26px 36px 40px;position:relative}
+.kicker{font-family:'Playfair Display',serif;font-weight:900;font-size:46px;line-height:1;color:#2B2420;text-align:center}
+.kicker i{color:#C8202E}
+.row{display:flex;align-items:center;gap:22px;margin-top:30px}
+.row.flip{flex-direction:row-reverse}
+.big{flex:0 0 190px;height:190px;border-radius:50%;background:#C8202E;color:#FAF5EA;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-4deg);box-shadow:0 12px 24px rgba(43,36,32,.18)}
+.big b{font-family:'Playfair Display',serif;font-weight:900;font-size:78px;line-height:.95}
+.big span{color:#C9A04A;font-size:26px;letter-spacing:4px}
+.arch{flex:0 0 200px;height:240px;border-radius:100px 100px 14px 14px;background:url('asset:brand/assets/generated/2026-11-27-2026-11-27-bold-welcome-five-ingredients.jpg') center/cover;position:relative;border:5px solid #C9A04A}
+.arch .n{position:absolute;right:-22px;top:-18px;width:76px;height:76px;border-radius:50%;background:#2B2420;color:#FAF5EA;font-family:'Playfair Display',serif;font-weight:900;font-size:46px;line-height:72px;text-align:center;transform:rotate(8deg);border:3px solid #C9A04A}
+.polaroid{flex:0 0 206px;background:#fff;padding:10px 10px 34px;transform:rotate(4deg);box-shadow:0 14px 26px rgba(43,36,32,.22);position:relative}
+.polaroid div{height:220px;background:url('asset:brand/assets/generated/2026-11-27-2026-11-27-bold-welcome-nonna-kitchen.jpg') center 60%/cover}
+.polaroid:before{content:"";position:absolute;top:-12px;left:70px;width:70px;height:24px;background:rgba(201,160,74,.75);transform:rotate(-6deg)}
+.pt{font-size:20px;line-height:1.4;font-weight:700}
+.pt b{display:block;font-family:'Playfair Display',serif;font-weight:900;font-size:27px;line-height:1.15;color:#C8202E;margin-bottom:6px}
+
+/* BEST SELLERS */
+.best{background:#C8202E;padding:36px 24px 44px;text-align:center;color:#FAF5EA}
+.best .kicker{color:#FAF5EA;font-size:42px}
+.best .kicker i{color:#FAF5EA;display:inline-block;background:#2B2420;padding:2px 14px 8px;transform:rotate(-2deg);margin-top:8px;color:#C9A04A}
+.grid{display:flex;gap:14px;margin-top:28px;align-items:flex-start}
+.card{flex:1;display:block;background:#FAF5EA;color:#2B2420;border-radius:16px;overflow:hidden;box-shadow:0 12px 22px rgba(0,0,0,.22)}
+.card:nth-child(1){transform:rotate(-2deg)}
+.card:nth-child(2){transform:translateY(16px)}
+.card:nth-child(3){transform:rotate(2deg)}
+.card img{display:block;width:100%;height:200px;object-fit:cover;object-position:center 45%}
+.card .in{padding:12px 10px 16px}
+.cname{font-family:'Playfair Display',serif;font-weight:900;font-size:19px;line-height:1.15;min-height:44px}
+.cline{font-size:15px;line-height:1.35;margin-top:6px;min-height:62px}
+.cprice{font-family:'Playfair Display',serif;font-weight:900;font-size:22px;color:#C8202E;margin-top:6px}
+.cbtn{display:block;background:#C8202E;color:#fff;font-weight:900;font-size:16px;padding:12px 4px;border-radius:6px;margin-top:10px}
+.btn2{display:inline-block;background:#FAF5EA;color:#C8202E;font-weight:900;font-size:19px;padding:17px 44px;border-radius:6px;margin-top:40px;box-shadow:0 6px 0 #8f1520}
+
+/* REVIEW */
+.rev{display:block;background:#FAF5EA;padding:40px 30px 50px;position:relative}
+.bubble{position:relative;margin:0 0 0 20px;width:380px;background:#fff;border:4px solid #C8202E;border-radius:26px;padding:28px 26px 26px;text-align:center;box-shadow:10px 10px 0 #C9A04A}
+.bubble:after{content:"";position:absolute;left:60px;bottom:-26px;width:40px;height:40px;background:#fff;border-right:4px solid #C8202E;border-bottom:4px solid #C8202E;transform:rotate(45deg) skew(10deg,10deg)}
+.qm{position:absolute;left:-18px;top:-38px;font-family:'Playfair Display',serif;font-weight:900;font-size:120px;line-height:1;color:#C8202E}
+.stars{color:#C9A04A;font-size:28px;letter-spacing:5px}
+.quote{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:32px;line-height:1.2;margin-top:8px;color:#2B2420}
+.who{font-weight:900;font-size:17px;margin-top:12px;color:#C8202E;letter-spacing:1px}
+.shaker{position:absolute;right:18px;top:46px;width:170px;height:208px;border-radius:85px;overflow:hidden;border:6px solid #fff;box-shadow:0 14px 26px rgba(43,36,32,.25);transform:rotate(8deg);background:url('asset:brand/assets/products/panacheeza-original/1.jpg') center 45%/cover}
+
+/* CLOSE */
+.close{display:block;background:#2B2420;color:#FAF5EA;text-align:center;padding:44px 30px 48px}
+.close .h{font-family:'Playfair Display',serif;font-weight:900;font-size:46px;line-height:1.08}
+.close .h i{color:#C9A04A}
+.close .code{display:inline-block;background:#C8202E;color:#FAF5EA;font-family:'Playfair Display',serif;font-weight:900;font-size:34px;padding:8px 22px 12px;margin-top:16px;transform:rotate(-2deg)}
+.btn3{display:inline-block;background:#C8202E;color:#fff;font-weight:900;font-size:20px;padding:17px 60px;border-radius:6px;margin-top:28px;border:2px solid #FAF5EA}
+
+.foot{display:block;background:#C8202E;color:#FAF5EA;text-align:center;padding:22px 30px 26px}
+.foot .logo{font-size:36px}
+.foot p{font-size:13px;margin-top:6px;font-weight:700}
+</style>
+
+  <!-- HERO -->
+  <a class="hero" href="https://www.panacheeza.com/products/panacheeza-original">
+    <div class="logo">Panacheeza</div>
+    <div class="crown">♛</div>
+    <div class="h1">
+      <span class="w">Welcome!</span>
+      <span class="band">Here's <b>10% off</b></span>
+      <span class="rest">your first order.</span>
+    </div>
+    <div class="sub">Panacheeza is a dairy-free parmesan made with just 5 ingredients. Shake it on pasta like you used to.</div>
+    <div class="coupon">CODE WELCOME10 <span>· 10% off your first order</span></div>
+    <div><span class="btn">Shop Now</span></div>
+    <div class="heroimg"></div>
+  </a>
+
+  <!-- WHY -->
+  <div class="edge"><svg viewBox="0 0 600 40" preserveAspectRatio="none" style="height:40px;background:#C8202E"><path d="M0 40 V20 C100 0 200 40 300 20 S500 0 600 20 V40Z" fill="#FAF5EA"/></svg></div>
+  <a class="why" href="https://www.panacheeza.com/products/panacheeza-original">
+    <div class="kicker">Why <i>Panacheeza</i></div>
+    <div class="row">
+      <div class="big"><b>4.9</b><span>★★★★★</span></div>
+      <div class="pt"><b>It tastes like parmesan.</b>4.9 stars from 500+ reviews.</div>
+    </div>
+    <div class="row flip">
+      <div class="arch"><div class="n">5</div></div>
+      <div class="pt"><b>Just 5 ingredients:</b>organic cashews, nutritional yeast, garlic powder, pink salt and vinegar powder.</div>
+    </div>
+    <div class="row">
+      <div class="polaroid"><div></div></div>
+      <div class="pt">It started in <b style="display:inline;font-size:22px">our founder Janessa's Italian family kitchen,</b> with her grandmother's cooking.</div>
+    </div>
+  </a>
+
+  <!-- BEST SELLERS -->
+  <div class="edge"><svg viewBox="0 0 600 40" preserveAspectRatio="none" style="height:40px;background:#FAF5EA"><path d="M0 40 L600 0 V40Z" fill="#C8202E"/></svg></div>
+  <div class="best">
+    <div class="kicker">Start with our<br><i>best sellers</i></div>
+    <div class="grid">
+      <a class="card" href="https://www.panacheeza.com/products/panacheeza-original">
+        <img src="asset:brand/assets/products/panacheeza-original/1.jpg" alt="Original Shaker">
+        <div class="in"><div class="cname">Original Shaker</div><div class="cline">Shake it on pasta, pizza and garlic bread</div><div class="cprice">$13.99</div><span class="cbtn">Shop Now</span></div>
+      </a>
+      <a class="card" href="https://www.panacheeza.com/products/1lb-bulk-bag">
+        <img src="asset:brand/assets/products/1lb-bulk-bag/1.jpg" alt="1 Pound Bulk Bag">
+        <div class="in"><div class="cname">1 Pound Bulk Bag</div><div class="cline">Refill your shaker for less</div><div class="cprice">$22.99</div><span class="cbtn">Shop Now</span></div>
+      </a>
+      <a class="card" href="https://www.panacheeza.com/products/panacheeza-tasting-trio">
+        <img src="asset:brand/assets/products/panacheeza-tasting-trio/1.jpg" alt="Tasting Trio">
+        <div class="in"><div class="cname">Tasting Trio</div><div class="cline">Three jars to find your favorite flavor</div><div class="cprice">$29.99</div><span class="cbtn">Shop Now</span></div>
+      </a>
+    </div>
+    <a href="https://www.panacheeza.com/collections/all"><span class="btn2">Shop Best Sellers</span></a>
+  </div>
+
+  <!-- REVIEW -->
+  <div class="edge"><svg viewBox="0 0 600 40" preserveAspectRatio="none" style="height:40px;background:#FAF5EA"><path d="M0 0 H600 V0 C450 40 150 40 0 0Z" fill="#C8202E"/></svg></div>
+  <a class="rev" href="https://www.panacheeza.com/products/panacheeza-original">
+    <div class="kicker" style="text-align:left;margin:0 0 44px 20px;font-size:40px">What customers <i>say</i></div>
+    <div class="bubble">
+      <div class="qm">“</div>
+      <div class="stars">★★★★★</div>
+      <div class="quote">"Best Dairy Free Cheese Ever!"</div>
+      <div class="who">— DEBBIE</div>
+    </div>
+    <div class="shaker" style="top:118px"></div>
+  </a>
+
+  <!-- CLOSE -->
+  <div class="edge"><svg viewBox="0 0 600 40" preserveAspectRatio="none" style="height:40px;background:#FAF5EA"><path d="M0 40 V18 C150 0 450 40 600 14 V40Z" fill="#2B2420"/></svg></div>
+  <a class="close" href="https://www.panacheeza.com/products/panacheeza-original">
+    <div class="h">Your <i>10% off</i><br>is waiting.</div>
+    <div class="code">Use WELCOME10.</div>
+    <div><span class="btn3">Shop Now</span></div>
+  </a>
+
+  <a class="foot" href="https://www.panacheeza.com">
+    <div class="logo">Panacheeza</div>
+    <p>Panacheeza · Rochester, NY · Unsubscribe</p>
+  </a>
+</div>
