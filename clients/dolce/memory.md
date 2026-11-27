@@ -46,6 +46,8 @@ Read before any work for Dolce Superfoods. Append (dated) after every change. Ru
 - 2026-11-17 · reporting · Meelad re-pulled the last-7-day report (Nov 11–17). Same numbers as above, still synced only to Nov 16.
 - 2026-11-17 · copy · Meelad asked for a 20% off matcha email for lapsed customers. Wrote copy/2026-12-03-matcha-winback-20.md (designed, BAB, Hannah). Proposed Thu Dec 3 so it doesn't undercut the BF tiers; segment = matcha buyers with no order in 120+ days; proposed code MATCHA20 (matcha only, ends Dec 6), not created yet. SMS Sat Dec 5. Needs approval + code + segment OK.
 
+- 2026-11-27 · reporting · Meelad pulled the last-7-day report (Nov 21–27, synced Nov 27): email $13,632 / 68 orders / 7 sends (campaigns $8,657, flows $4,974); SMS $627; store $47,498. Top: "The Thanksgiving baking loadout" $4,200 / 12; "The coffee for the 8 PM pie" $1,170 / 9; Site Abandonment flow $2,876.
+
 ## Design log
 - 2026-11-16 · design v1 · FREEMATCHA last call: canvas https://claude.ai/artifact/RmXPmtNaiRtRJb66tCk6tM, source designs/2026-11-18-freematcha-last-call/. Brand kit from the site (brand/brand-kit.md): Bigola Display + Karl, orange #E03400, cream. Product images are the site's white-bowl shots, cut out with a soft shadow (brand/assets/bowls).
 - 2026-11-16 · design v2 · FREEMATCHA: hero texture made full-bleed per comment. Preference: background photos run edge to edge, never inset or arched so they look cut off.
