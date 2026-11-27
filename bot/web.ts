@@ -18,7 +18,7 @@ import { CLIENTS_DIR } from "./config";
 import { db } from "./db";
 import { saveClientFolder } from "./git";
 import { flowOf, reviewLink, type Review } from "./review";
-import { formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveShopifyForm, saveUpload } from "./onboarding";
+import { connectionStatus, formLink, formSections, hasExistingForm, MAX_UPLOAD, saveForm, saveInternalForm, saveKeysForm, saveShopifyForm, saveUpload } from "./onboarding";
 import { marked } from "marked";
 import { parseCalendarMarkdown } from "../lib/strategy/calendar";
 import { currentBrandBook, listLibrary, signedUrl } from "../lib/library/store";
@@ -99,6 +99,19 @@ export function startWeb(notify: Notify, onFormSubmitted: (r: { clientId: string
         const l = await formLink(ob[1]);
         if (!l) return send(res, 404, "This onboarding link has expired or was already used. Ask your Fluid contact for a new one.");
         const internal = l.kind === "internal";
+        if (l.kind === "keys") {
+          if (req.method === "GET" && !ob[2]) return send(res, 200, keysPage(l.clients.name, await connectionStatus(l.client_id)), "text/html; charset=utf-8", { "cache-control": "no-store" });
+          if (req.method === "POST" && ob[2] === "/submit") {
+            if (limited(ip)) return json(res, 429, { error: "Too many tries, wait a few minutes." });
+            try {
+              const r = await saveKeysForm(ob[1], await body(req));
+              const { data: ch } = await db().from("slack_channels").select("channel_id").eq("client_id", r.clientId).limit(1).maybeSingle();
+              if (ch) await notify(ch.channel_id, null, `API keys updated for ${r.name}: ${r.done.join(" · ")}.`).catch(() => {});
+              return json(res, 200, { ok: true, done: r.done });
+            } catch (e: any) { return json(res, 400, { error: e.message }); }
+          }
+          return send(res, 404, "Not found");
+        }
         if (l.kind === "shopify") {
           if (req.method === "GET" && !ob[2]) return send(res, 200, shopifyPage(l.clients.name), "text/html; charset=utf-8", { "cache-control": "no-store" });
           if (req.method === "POST" && ob[2] === "/submit") {
@@ -723,6 +736,26 @@ fetch(location.pathname+"/data").then(r=>r.json()).then(j=>{D=j;if(D.book)loadFo
 }
 
 /** Fluid-team page to connect a client's Shopify store (no onboarding run). */
+/** Update a client's stored API keys (Fluid team only). Shows what's connected, never the keys. */
+export function keysPage(client: string, st: Record<string, { account: string | null; status: string; updated: string }>) {
+  const row = (p: string, label: string) => { const c = st[p]; return `<p class="now">${c ? `${c.status === "connected" ? "✓ Connected" : "⚠ " + esc(c.status)}${c.account ? ` to <b>${esc(c.account)}</b>` : ""}${c.updated ? `, last updated ${esc(c.updated)}` : ""}` : `Not connected`}</p>`; };
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Update API keys</title>
+<style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px 32px;margin-bottom:20px}@media (max-width:600px){section{padding:22px 18px}}h2{font-size:22px;margin:0 0 4px}.now{margin:0 0 14px;color:var(--muted);font-size:16px}.q{margin-top:14px}label{display:block;font-weight:650;font-size:17px;margin-bottom:6px}.help{color:var(--muted);font-size:15px;margin:4px 0 0}input{width:100%;font:inherit;font-size:17px;padding:14px;border:1px solid #ccc;border-radius:10px}
+button{font:inherit;font-weight:650;font-size:19px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:18px 24px;min-height:60px;cursor:pointer;width:100%}button:disabled{opacity:.6}#msg{margin-top:14px;font-weight:600}.tag{display:inline-block;background:#1d1d1d;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;margin-bottom:10px}</style></head>
+<body><div class="wrap"><span class="tag">Fluid team only</span><h1>Update ${esc(client)}'s API keys</h1><p class="sub">Fill in only the ones you want to change; empty fields keep the current key. Each new key is checked with the platform first, then stored encrypted. Keys are never shown here. This link works once.</p>
+<form id="f" autocomplete="off">
+<section><h2>Klaviyo</h2>${row("klaviyo", "Klaviyo")}<div class="q"><label for="k">New private API key</label><input id="k" type="password" placeholder="pk_…"><p class="help">Klaviyo → Settings → API keys → Create Private API Key (full access).</p></div></section>
+<section><h2>Customer.io</h2>${row("customerio", "Customer.io")}<div class="q"><label for="c">New App API key</label><input id="c" type="password" placeholder="App API key"><p class="help">Customer.io → Settings → API Credentials → App API Keys.</p></div></section>
+<section><h2>Shopify</h2>${row("shopify", "Shopify")}<div class="q"><label for="shop">Store address</label><input id="shop" placeholder="brand.myshopify.com"></div><div class="q"><label for="sid">App Client ID</label><input id="sid" placeholder="Leave empty if you paste an Admin API token"></div><div class="q"><label for="ssec">Client secret or Admin API token</label><input id="ssec" type="password" placeholder="shpss_… or shpat_…"></div></section>
+<button type="submit" id="go">Update keys</button><div id="msg" role="status"></div></form></div>
+<script>
+const $=(id)=>document.getElementById(id),f=$("f"),msg=$("msg"),go=$("go");
+f.onsubmit=async(e)=>{e.preventDefault();go.disabled=true;msg.textContent="Checking the keys…";
+try{const r=await fetch(location.pathname+"/submit",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({klaviyo:$("k").value,customerio:$("c").value,shopify:{shop:$("shop").value,client_id:$("sid").value,secret:$("ssec").value}})});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||"Something went wrong");
+f.innerHTML="<section><h2>Updated</h2><p>"+j.done.map(d=>d.replace(/</g,"&lt;")).join("<br>")+"</p><p class='now'>A note was posted in ${esc(client)}'s Slack channel. This link is now used up.</p></section>"}catch(err){msg.textContent=err.message;go.disabled=false}};
+</script></body></html>`;
+}
+
 export function shopifyPage(client: string) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Connect Shopify</title>
 <style>${BASE_CSS}section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:20px}h2{font-size:24px;margin:0 0 6px}.q{margin-top:22px}label{display:block;font-weight:650;font-size:18px}.help{color:var(--muted);font-size:16px;margin:4px 0 8px}input{width:100%;font:inherit;font-size:18px;border:1px solid #d9d4ca;border-radius:10px;padding:14px 16px;background:#fff;min-height:54px}

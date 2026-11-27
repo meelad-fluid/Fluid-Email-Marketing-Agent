@@ -102,6 +102,33 @@ export async function shopifyLink(clientId: string) {
   return `${publicUrl()}/onboard/${token}`;
 }
 
+/** A one-use page (7 days) for the Fluid team to update a client's stored Klaviyo, Customer.io and Shopify keys. */
+export async function keysLink(clientId: string) {
+  const token = randomBytes(24).toString("base64url");
+  await db().from("onboarding_links").insert({ client_id: clientId, token_hash: hashToken(token), kind: "keys", expires_at: new Date(Date.now() + 7 * 86400_000).toISOString() });
+  return `${publicUrl()}/onboard/${token}`;
+}
+
+/** What's stored for a client, without the keys themselves (shown on the keys page). */
+export async function connectionStatus(clientId: string) {
+  const { data } = await db().from("client_connections").select("provider, account_name, status, connected_at, meta").eq("client_id", clientId);
+  return Object.fromEntries((data ?? []).map((c: any) => [c.provider, { account: c.account_name ?? c.meta?.shop ?? null, status: c.status, updated: String(c.connected_at ?? "").slice(0, 10) }])) as Record<string, { account: string | null; status: string; updated: string }>;
+}
+
+/** Save the keys page: each filled-in key is checked with its platform, then replaces the stored one. Empty = unchanged. */
+export async function saveKeysForm(token: string, input: { klaviyo?: string; customerio?: string; shopify?: { shop?: string; client_id?: string; secret?: string } }) {
+  const l = await formLink(token);
+  if (!l || l.kind !== "keys") throw new Error("This link has expired or was already used. Run /fluid keys in the client's channel for a new one.");
+  const before = await connectionStatus(l.client_id);
+  const done: string[] = [];
+  if (input.klaviyo?.trim()) done.push(`Klaviyo ${await storeKlaviyoKey(l.client_id, input.klaviyo)}${before.klaviyo?.account ? ` (was ${before.klaviyo.account})` : ""}`);
+  if (input.customerio?.trim()) done.push(`Customer.io ${await storeCioKey(l.client_id, input.customerio)}`);
+  if (input.shopify?.secret?.trim() || input.shopify?.shop?.trim()) { const r = await storeShopify(l.client_id, input.shopify!); if (r) done.push(`Shopify connected (${r.name}, ${r.shop})${r.missing_read.length ? `, missing ${r.missing_read.join(", ")}` : ""}`); }
+  if (!done.length) throw new Error("Fill in at least one key to update.");
+  await db().from("onboarding_links").update({ revoked_at: new Date().toISOString() }).eq("id", l.id);
+  return { clientId: l.client_id, name: l.clients.name, done };
+}
+
 /** Verify Shopify credentials (store + Admin token, or Dev Dashboard Client ID + secret) and store them encrypted. */
 export async function storeShopify(clientId: string, input: { shop?: string; client_id?: string; secret?: string }) {
   if (!input.shop?.trim() && !input.secret?.trim()) return null;
@@ -158,10 +185,10 @@ export async function formLink(token: string) {
   if (!/^[A-Za-z0-9_-]{20,64}$/.test(token)) return null;
   const { data } = await db().from("onboarding_links").select("id, client_id, kind, expires_at, revoked_at, clients(name, folder, website_url)").eq("token_hash", hashToken(token)).maybeSingle();
   if (!data || data.revoked_at || Date.parse(data.expires_at) < Date.now()) return null;
-  return data as any as { id: string; client_id: string; kind: "client" | "internal" | "shopify"; clients: { name: string; folder: string; website_url: string } };
+  return data as any as { id: string; client_id: string; kind: "client" | "internal" | "shopify" | "keys"; clients: { name: string; folder: string; website_url: string } };
 }
 
-async function storeKlaviyoKey(clientId: string, klaviyoKey?: string) {
+export async function storeKlaviyoKey(clientId: string, klaviyoKey?: string) {
   if (!klaviyoKey?.trim()) return "not provided";
   const key = klaviyoKey.trim();
   const r = await fetch("https://a.klaviyo.com/api/accounts/", { headers: { Authorization: `Klaviyo-API-Key ${key}`, revision: "2025-10-15", accept: "application/vnd.api+json" } });
@@ -224,7 +251,7 @@ export async function saveInternalForm(token: string, answers: Record<string, un
   return { clientId: l.client_id, folder: l.clients.folder, name: l.clients.name, klaviyo: connection, internal: true };
 }
 
-async function storeCioKey(clientId: string, key: string) {
+export async function storeCioKey(clientId: string, key: string) {
   const { verifyCioKey } = await import("../lib/customerio/api");
   const v = await verifyCioKey(key.trim());
   if (!v) throw new Error("That Customer.io key didn't work. Use an App API key (Settings → API Credentials → App API Keys).");

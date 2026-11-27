@@ -13,7 +13,7 @@ import { checkUser, REFUSAL, screenRequest } from "./security";
 import { runAgent } from "./agent";
 import { pullLatest, saveClientFolder, watchForCodeUpdates } from "./git";
 import { startWeb, type ReviewAction } from "./web";
-import { internalLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink, STYLE_COPY_PROMPT, STYLE_DESIGN_PROMPT, STYLE_OPTIONS } from "./onboarding";
+import { internalLink, keysLink, newConnectLink, ONBOARDING_PROMPT, runAudits, setupInChannel, shopifyLink, STYLE_COPY_PROMPT, STYLE_DESIGN_PROMPT, STYLE_OPTIONS } from "./onboarding";
 import { flowLink } from "./review";
 import { popupStyleLink } from "./library-tools";
 import { foreignNames, scanText } from "../lib/leaks";
@@ -264,6 +264,12 @@ app.command("/fluid", async ({ command, ack, respond }) => {
   const who = await checkUser(app.client, command.user_id, TEAM_ID);
   if (!who.ok) return reply("Sorry, I only take requests from Fluid's team.");
 
+  if (sub === "keys") {
+    if (!config.adminUserIds().includes(command.user_id)) return reply("Only Fluid admins can update API keys.");
+    const c = await clientForChannel(command.channel_id, TEAM_ID);
+    if (!c) return reply("Run this inside the client's channel.");
+    return reply(`Update ${c.name}'s API keys (Klaviyo, Customer.io, Shopify). Only you can see this; the link works once and expires in 7 days: ${await keysLink(c.id)}`);
+  }
   if (sub === "popups") {
     const c = await clientForChannel(command.channel_id, TEAM_ID);
     if (!c) return reply("Run this inside the client's channel.");
@@ -355,7 +361,7 @@ app.command("/fluid", async ({ command, ack, respond }) => {
     await audit({ team_id: TEAM_ID, channel_id: command.channel_id, user_id: command.user_id, client_id: c.id, outcome: "linked", reason: existing && existing.id !== c.id ? `relinked from ${existing.folder}` : undefined });
     return reply(`Linked. This channel now belongs to *${c.name}*, and I'll only work on ${c.name} here.`);
   }
-  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`, `/fluid style-options` (the welcome email in three design styles for the client to pick the account's look), `/fluid popups` (the client's pop-up style page).");
+  return reply("`/fluid onboard Client Name` (inside the client's internal channel) links the channel to the client and posts an upload link for their onboarding doc and Klaviyo or Customer.io key. Mention me with what you need for this channel's client, like `@Fluid write the copy for the cacao guide`, then reply in the thread to keep going.\n`/fluid status` shows which client this channel belongs to. Admins: `/fluid link <folder>`, `/fluid unlink`, `/fluid shopify` (connect link), `/fluid klaviyo-drafts on|off`, `/fluid shopify-discounts on|off`, `/fluid proactive` (weekly report, wins, approval reminders), `/fluid timezone`, `/fluid style-options` (the welcome email in three design styles for the client to pick the account's look), `/fluid popups` (the client's pop-up style page), `/fluid keys` (update the stored Klaviyo, Customer.io or Shopify keys).");
 });
 
 // After a client submits the onboarding form: audits, then the onboarding skill, posted in their channel.
