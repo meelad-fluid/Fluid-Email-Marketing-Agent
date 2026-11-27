@@ -3,7 +3,7 @@ Review link: fluid-email-marketing-agent-production.up.railway.app/r/p7pT9hgWE-l
 Copy: ../../copy/2026-12-03-matcha-winback-20.md · Send: Thu Dec 3, 2026
 Canvas: https://claude.ai/artifact/FAgMrjqhqPxxEHPUzA6KQj (private until shared)
 Review link: https://fluid-email-marketing-agent-production.up.railway.app/r/p7pT9hgWE-lgEIqWVKRZ0NNH
-Status: needs approval · goes live Thu Dec 3, 2026
+Status: approved by Meelad on 2026-11-27 (v2) · goes live Thu Dec 3, 2026
 
 | Version | Date | What changed |
 |---|---|---|
