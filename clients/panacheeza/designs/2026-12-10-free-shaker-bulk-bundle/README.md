@@ -3,7 +3,7 @@ Review link: fluid-email-marketing-agent-production.up.railway.app/r/NL7Axsy2RES
 
 Status: approved by Meelad on 2026-11-27 (v1) · goes live Thu Dec 10, 2026
 QC: passed
-Copy: copy/2026-12-10-free-shaker-bulk-bundle.md
+Copy: ../../copy/2026-12-10-free-shaker-bulk-bundle.md
 Subject: Your free shaker is waiting
 Preview: Any 3 lb bundle gets a free Truffle or Hot & Spicy. No code.
 From: Panacheeza <hello@panacheeza.com>

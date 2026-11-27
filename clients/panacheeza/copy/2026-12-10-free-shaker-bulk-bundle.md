@@ -1,8 +1,10 @@
 Talking to: the home cook who shakes Panacheeza on everything, who is writing the grocery list for two weeks of holiday cooking when they check the pantry and see the shaker is almost empty.
 Idea: The holiday pantry list, done for them: one 3 lb bundle covers every dish on it, and the last line (a new flavor) costs $0.
 
-Status: needs approval · goes live Thu Dec 10, 2026
+Status: approved by Meelad on 2026-11-27 · goes live Thu Dec 10, 2026
 Campaign name: FC | Free Shaker With Any Bulk Bundle
+SUBJECT (pick): Your free shaker is waiting
+PREVIEW (pick): Any 3 lb bundle gets a free Truffle or Hot & Spicy. No code.
 From: Panacheeza <hello@panacheeza.com>
 Send: Thu Dec 10, 2026
 Audience: Newsletter
