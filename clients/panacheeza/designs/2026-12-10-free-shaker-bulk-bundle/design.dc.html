@@ -1,0 +1,229 @@
+<div class="email">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Lato:wght@400;700;900&family=Pinyon+Script&family=Caveat:wght@600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#FAF5EA;font-family:Lato,Helvetica,Arial,sans-serif;color:#2B2420}
+a{text-decoration:none;color:inherit}
+.notepad,.card,.sticker,.pcard,.bcard{display:block}
+.email{width:600px;margin:0 auto;background:#FAF5EA;overflow:hidden}
+
+/* HERO */
+.hero{position:relative;height:960px;background:#efe3cf url('asset:brand/assets/generated/2026-11-27-holiday-pantry-bundle-hero.jpg') center bottom/600px auto no-repeat}
+.card{position:absolute;left:28px;right:28px;top:26px;background:#C8202E;border-radius:22px;padding:26px 34px 34px;text-align:center;color:#FAF5EA;box-shadow:0 18px 40px rgba(43,36,32,.28)}
+.logo{font-family:'Pinyon Script',cursive;font-size:46px;line-height:1.1;color:#FAF5EA}
+.crest-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0 16px;color:#C9A04A;font-size:13px;letter-spacing:3px;font-weight:900}
+.crest-rule:before,.crest-rule:after{content:"";height:1px;width:70px;background:#C9A04A}
+.h1{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:46px;line-height:1.08;letter-spacing:-.3px}
+.h1 .free{display:inline-block;background:#FAF5EA;color:#C8202E;padding:0 14px 4px;border-radius:10px;transform:rotate(-2deg);margin-top:6px}
+.sub{font-size:19px;line-height:1.45;margin:18px auto 0;max-width:440px;font-weight:700}
+.btn{display:inline-block;background:#FAF5EA;color:#C8202E;font-weight:900;font-size:19px;padding:17px 38px;border-radius:6px;margin-top:22px}
+.ends{font-size:15px;margin-top:14px;font-weight:700;color:#FAF5EA;opacity:.95}
+.sticker{position:absolute;right:52px;top:560px;width:150px;height:150px;transform:rotate(10deg)}
+.sticker svg{position:absolute;inset:0}
+.sticker .t{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#2B2420;font-weight:900;line-height:1.05}
+.sticker .t b{font-family:'Playfair Display',serif;font-size:34px;color:#C8202E}
+.sticker .t span{font-size:14px}
+
+/* LIST */
+.wave-top{display:block;width:600px;height:40px;margin-top:-39px;position:relative}
+.list{position:relative;background:#FAF5EA;padding:20px 0 30px;text-align:center}
+.sec-title{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:36px;line-height:1.15;color:#C8202E}
+.sec-title i{font-style:italic;color:#2B2420}
+.notepad{position:relative;width:560px;height:418px;margin:20px auto 0;border-radius:18px;overflow:hidden;background:url('asset:brand/assets/generated/2026-11-27-holiday-list-notepad.jpg') center/cover}
+.notepad ul{position:absolute;left:204px;top:104px;width:226px;list-style:none;text-align:left}
+.notepad li{font-family:'Caveat',cursive;font-weight:700;font-size:22px;line-height:38px;color:#2B2420;white-space:nowrap}
+.notepad li:before{content:"✓ ";color:#C8202E}
+.notepad li.free{color:#C8202E}
+.notepad li.free s{color:#8a7f76}
+.body{font-size:18px;line-height:1.5;margin:22px auto 0;max-width:440px}
+
+/* MATHS */
+.maths{background:#2B2420;color:#FAF5EA;padding:46px 40px 50px;position:relative;text-align:center}
+.maths .sec-title{color:#FAF5EA}
+.maths .sec-title i{color:#C9A04A}
+.receipt{background:#FAF5EA;color:#2B2420;width:440px;margin:24px auto 0;padding:26px 30px 22px;border-radius:4px;position:relative;transform:rotate(-1.5deg);box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.receipt:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:radial-gradient(circle at 10px 0,#FAF5EA 7px,transparent 8px) 0 0/20px 10px repeat-x}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:19px;font-weight:700;padding:12px 0;border-bottom:1px dashed #c9b9a0;text-align:left}
+.row s{color:#8a7f76;font-weight:400;margin-right:8px}
+.row .fr{color:#C8202E;font-weight:900}
+.total{font-family:'Playfair Display',serif;font-weight:900;font-size:26px;line-height:1.25;padding-top:16px;color:#2B2420}
+.total span{color:#C8202E}
+
+/* STEPS */
+.steps{background:#FAF5EA;padding:50px 30px 34px;text-align:center}
+.stepgrid{display:flex;gap:14px;margin-top:26px}
+.step{flex:1;background:#fff;border-radius:16px;padding:44px 14px 22px;position:relative;box-shadow:0 6px 18px rgba(43,36,32,.08);border-top:5px solid #C8202E}
+.step .n{position:absolute;top:-24px;left:50%;margin-left:-24px;width:48px;height:48px;border-radius:50%;background:#C8202E;color:#FAF5EA;font-family:'Playfair Display',serif;font-weight:900;font-size:26px;line-height:48px;border:3px solid #C9A04A}
+.step .ic{font-size:34px;line-height:1;margin-bottom:10px}
+.step p{font-size:16px;line-height:1.4;font-weight:700}
+.note{font-size:15px;line-height:1.5;margin-top:20px;color:#5a4d44}
+
+/* FREE FLAVORS */
+.flav{background:#FAF5EA;padding:14px 30px 40px;text-align:center}
+.pgrid{display:flex;gap:18px;margin-top:24px}
+.pcard{flex:1;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(43,36,32,.1);position:relative}
+.pcard img{display:block;width:100%;height:290px;object-fit:cover;object-position:center 40%}
+.pcard .tag{position:absolute;top:14px;left:14px;background:#C8202E;color:#FAF5EA;font-weight:900;font-size:15px;padding:7px 12px;border-radius:999px;transform:rotate(-4deg)}
+.pcard .in{padding:18px 16px 22px}
+.pname{font-family:'Playfair Display',serif;font-weight:800;font-size:23px;line-height:1.2}
+.price{font-size:17px;font-weight:900;margin-top:6px}
+.price s{color:#8a7f76;font-weight:400;margin-right:6px}
+.price b{color:#C8202E}
+.pline{font-size:15px;line-height:1.4;margin-top:8px;min-height:42px}
+.pbtn{display:block;background:#C8202E;color:#fff;font-weight:900;font-size:16px;padding:14px 8px;border-radius:6px;margin-top:14px}
+
+/* BUNDLES */
+.bund{background:#C8202E;color:#FAF5EA;padding:50px 24px 46px;text-align:center;position:relative}
+.bund .sec-title{color:#FAF5EA}
+.bgrid{display:flex;gap:12px;margin-top:24px}
+.bcard{flex:1;background:#FAF5EA;color:#2B2420;border-radius:16px;overflow:hidden}
+.bcard img{display:block;width:100%;height:180px;object-fit:cover}
+.bcard .in{padding:14px 10px 16px}
+.bname{font-family:'Playfair Display',serif;font-weight:800;font-size:18px;line-height:1.2;min-height:44px}
+.bprice{font-size:18px;font-weight:900;color:#C8202E;margin-top:4px}
+.bbtn{display:block;background:#C8202E;color:#fff;font-weight:900;font-size:15px;padding:12px 4px;border-radius:6px;margin-top:10px}
+.keeps{font-size:17px;line-height:1.45;margin-top:22px;font-weight:700}
+
+/* PROOF + CLOSE */
+.close{background:#FAF5EA;padding:46px 40px 50px;text-align:center}
+.stars{color:#C9A04A;font-size:28px;letter-spacing:4px}
+.quote{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:25px;line-height:1.35;margin-top:12px}
+.who{font-size:15px;margin-top:10px;font-weight:700;color:#5a4d44}
+.rating{font-size:16px;font-weight:900;margin-top:6px;color:#2B2420}
+.divider{width:90px;height:3px;background:#C9A04A;margin:34px auto}
+.endh{font-family:'Playfair Display',serif;font-weight:900;font-size:34px;line-height:1.15;color:#C8202E}
+.btn2{display:inline-block;background:#C8202E;color:#fff;font-weight:900;font-size:19px;padding:18px 44px;border-radius:6px;margin-top:22px}
+
+/* FOOTER */
+.foot{background:#2B2420;color:#FAF5EA;text-align:center;padding:30px 30px 34px;position:relative}
+.foot .logo{font-size:40px}
+.foot p{font-size:12px;line-height:1.6;opacity:.85;margin-top:8px}
+.foot .links{font-size:12px;margin-top:10px}
+</style>
+
+
+  <!-- HERO -->
+  <div class="hero">
+    <a class="card" href="https://www.panacheeza.com/products/3-pound-bulk-bundle">
+      <div class="logo">Panacheeza</div>
+      <div class="crest-rule">♛</div>
+      <div class="h1">Buy a 3 lb Bundle.<br><span class="free">Get a Shaker Free.</span></div>
+      <div class="sub">Stock up on your dairy-free parm for the holidays, and try Truffle or Hot &amp; Spicy on us. No code needed.</div>
+      <span class="btn">Get My Free Shaker</span>
+      <div class="ends">FREE shaker (up to $17.99 value) · Ends Sun, Dec 13</div>
+    </a>
+    <a class="sticker" href="https://www.panacheeza.com/products/panacheeza-truffle">
+      <svg viewBox="0 0 150 150"><path fill="#C9A04A" d="M75 2l9 10 13-5 5 13 14-1 1 14 13 4-4 13 11 9-9 10 6 12-12 7 2 14-14 2-4 13-13-3-9 11-9-10-13 5-5-13-14 1-1-14-13-4 4-13-11-9 9-10-6-12 12-7-2-14 14-2 4-13 13 3z" transform="translate(0 2)"/><circle cx="75" cy="77" r="54" fill="#FAF5EA"/></svg>
+      <div class="t"><span>YOURS</span><b>FREE</b><span>with any<br>3 lb bundle</span></div>
+    </a>
+  </div>
+
+  <!-- LIST -->
+  <svg class="wave-top" viewBox="0 0 600 40" preserveAspectRatio="none"><path d="M0 22 C100 0 200 40 300 20 S500 0 600 22 V40 H0Z" fill="#FAF5EA"/></svg>
+  <div class="list">
+    <div class="sec-title">One bundle covers your <i>holiday cooking</i></div>
+    <a class="notepad" href="https://www.panacheeza.com/products/3-pound-bulk-bundle">
+      <ul>
+        <li>Christmas Eve pasta</li>
+        <li>Scalloped potatoes</li>
+        <li>Bruschetta for the party</li>
+        <li>Popcorn for movie night</li>
+        <li class="free">A new flavor to try:</li>
+        <li class="free" style="padding-left:24px">FREE</li>
+      </ul>
+    </a>
+    <div class="body">One 3 lb bundle covers all of it, with plenty left for January.</div>
+  </div>
+
+  <!-- MATHS -->
+  <svg style="display:block;width:600px;height:36px;background:#FAF5EA" viewBox="0 0 600 36" preserveAspectRatio="none"><path d="M0 36 C150 0 450 0 600 36Z" fill="#2B2420"/></svg>
+  <a class="maths" href="https://www.panacheeza.com/products/3-pound-bulk-bundle" style="display:block">
+    <div class="sec-title">Here's what <i>you pay</i></div>
+    <div class="receipt">
+      <div class="row"><span>3 lb Original Bundle</span><span>$54.99</span></div>
+      <div class="row"><span>Truffle shaker</span><span><s>$17.99</s><span class="fr">FREE</span></span></div>
+      <div class="total">You pay $54.99.<br><span>You save $17.99.</span></div>
+    </div>
+  </a>
+  <svg style="display:block;width:600px;height:36px;background:#FAF5EA" viewBox="0 0 600 36" preserveAspectRatio="none"><path d="M0 0 C150 36 450 36 600 0Z" fill="#2B2420"/></svg>
+
+  <!-- STEPS -->
+  <a class="steps" href="https://www.panacheeza.com/products/3-pound-bulk-bundle" style="display:block">
+    <div class="sec-title">How to get it</div>
+    <div class="stepgrid">
+      <div class="step"><div class="n">1</div><div class="ic">🛍️</div><p>Add any 3 lb Bulk Bundle to your cart.</p></div>
+      <div class="step"><div class="n">2</div><div class="ic">🧂</div><p>Add a Truffle or Hot &amp; Spicy shaker.</p></div>
+      <div class="step"><div class="n">3</div><div class="ic">🎁</div><p>Check out. The shaker drops to $0.</p></div>
+    </div>
+    <div class="note">Works with the Original, Truffle and Hot &amp; Spicy bundles. One free shaker per order.</div>
+  </a>
+
+  <!-- FREE FLAVORS -->
+  <div class="flav">
+    <div class="sec-title">Pick your <i>free</i> flavor</div>
+    <div class="pgrid">
+      <a class="pcard" href="https://www.panacheeza.com/products/panacheeza-truffle">
+        <img src="asset:brand/assets/products/panacheeza-truffle/1.jpg" alt="Panacheeza Truffle shaker">
+        <span class="tag">FREE with 3 lb</span>
+        <div class="in">
+          <div class="pname">Truffle shaker</div>
+          <div class="price"><s>$17.99</s><b>FREE</b></div>
+          <div class="pline">Real truffle from Italy. Shake it on fries and potatoes.</div>
+          <span class="pbtn">I'll Take Truffle</span>
+        </div>
+      </a>
+      <a class="pcard" href="https://www.panacheeza.com/products/panacheeza-hot-spicy">
+        <img src="asset:brand/assets/products/panacheeza-hot-spicy/1.jpg" alt="Panacheeza Hot &amp; Spicy shaker">
+        <span class="tag">FREE with 3 lb</span>
+        <div class="in">
+          <div class="pname">Hot &amp; Spicy shaker</div>
+          <div class="price"><s>$13.99</s><b>FREE</b></div>
+          <div class="pline">A little heat for popcorn night.</div>
+          <span class="pbtn">I'll Take Hot &amp; Spicy</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- BUNDLES -->
+  <svg style="display:block;width:600px;height:40px;background:#FAF5EA" viewBox="0 0 600 40" preserveAspectRatio="none"><path d="M0 40 V18 C100 40 200 0 300 18 S500 40 600 18 V40Z" fill="#C8202E"/></svg>
+  <div class="bund">
+    <div class="sec-title">Pick your bundle</div>
+    <div class="bgrid">
+      <a class="bcard" href="https://www.panacheeza.com/products/3-pound-bulk-bundle">
+        <img src="asset:brand/assets/products/3-pound-bulk-bundle/1.jpg" alt="3 lb Original Bundle">
+        <div class="in"><div class="bname">Original 3 lb Bundle</div><div class="bprice">$54.99</div><span class="bbtn">Shop Original</span></div>
+      </a>
+      <a class="bcard" href="https://www.panacheeza.com/products/3-pound-truffle-bulk-bundle">
+        <img src="asset:brand/assets/products/3-pound-truffle-bulk-bundle/1.jpg" alt="3 lb Truffle Bundle">
+        <div class="in"><div class="bname">Truffle 3 lb Bundle</div><div class="bprice">$74.99</div><span class="bbtn">Shop Truffle</span></div>
+      </a>
+      <a class="bcard" href="https://www.panacheeza.com/products/1-pound-truffle-bulk-bag">
+        <img src="asset:brand/assets/products/1-pound-truffle-bulk-bag/1.jpg" alt="3 lb Hot &amp; Spicy Bundle">
+        <div class="in"><div class="bname">Hot &amp; Spicy 3 lb Bundle</div><div class="bprice">$59.99</div><span class="bbtn">Shop Hot &amp; Spicy</span></div>
+      </a>
+    </div>
+    <div class="keeps">Keeps over a year unopened, so stocking up is safe.</div>
+  </div>
+  <svg style="display:block;width:600px;height:40px;background:#FAF5EA" viewBox="0 0 600 40" preserveAspectRatio="none"><path d="M0 0 V22 C100 0 200 40 300 22 S500 0 600 22 V0Z" fill="#C8202E"/></svg>
+
+  <!-- PROOF + CLOSE -->
+  <a class="close" href="https://www.panacheeza.com/products/3-pound-bulk-bundle" style="display:block">
+    <div class="stars">★★★★★</div>
+    <div class="quote">"Best Dairy Free Cheese Ever!"</div>
+    <div class="who">Debbie</div>
+    <div class="rating">4.9 stars from 500+ reviews</div>
+    <div class="divider"></div>
+    <div class="endh">Ends Sunday, Dec 13<br>at 11:59 PM ET</div>
+    <span class="btn2">Stock My Pantry</span>
+  </a>
+
+  <!-- FOOTER -->
+  <svg style="display:block;width:600px;height:36px;background:#FAF5EA" viewBox="0 0 600 36" preserveAspectRatio="none"><path d="M0 36 V16 C150 40 450 -6 600 16 V36Z" fill="#2B2420"/></svg>
+  <a class="foot" href="https://www.panacheeza.com" style="display:block">
+    <div class="logo">Panacheeza</div>
+    <p>Dairy-free parmesan-style. 5 ingredients. Contains cashews.</p>
+    <div class="links">Manage preferences | Unsubscribe</div>
+    <p>© 2026 Panacheeza · Rochester, NY</p>
+  </a>
+</div>
