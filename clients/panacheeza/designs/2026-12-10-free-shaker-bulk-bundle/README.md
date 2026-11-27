@@ -1,7 +1,7 @@
 # FC | Free Shaker With Any Bulk Bundle
 Review link: fluid-email-marketing-agent-production.up.railway.app/r/NL7Axsy2RESPMwJmFm539-_8
 
-Status: needs approval · goes live Thu Dec 10, 2026
+Status: approved by Meelad on 2026-11-27 (v1) · goes live Thu Dec 10, 2026
 QC: passed
 Copy: copy/2026-12-10-free-shaker-bulk-bundle.md
 Subject: Your free shaker is waiting
