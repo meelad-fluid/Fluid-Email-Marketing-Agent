@@ -16,6 +16,8 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-26 · verified (site): free U.S. shipping over $150; BF offer $50 off/$250, $100 off/$500; 14-day returns, holiday orders returnable to Jan 15, 2027; customer pays return shipping; fit rules differ by product (tees trim/size up, sweaters size down, belts +1 pant size, Magnanni half size down)
 - 2026-11-27 · CORRECTION (Meelad/Fluid): the earlier "no Klaviyo history / no orders" was a bug in the audit (their Klaviyo has two Shopify "Placed Order" metrics; it read the empty duplicate from a Nov 4 reconnect). Real data: Shopify IS integrated in Klaviyo, they send from Klaviyo (8 live flows, 21 email campaigns in the last 60 days, 53 campaigns synced), 2,678 orders from 1,912 customers over the last 365 days. Re-run the onboarding audits and use research/klaviyo-audit-*.json and klaviyo-orders-*.json.
 - 2026-11-26 · proposed: sender persona "Sophie from Georg Roth"; founder emails from Georg; offer ladder capped at 10% (upgrades = + free shipping)
+- 2026-11-28 · re-ran audits: #1 seller last 90d = Men's Pima Long-Sleeve Crew (TCLS-Core), ~420 units across two listings; 90d AOV $302, 1,056 orders (research/klaviyo-orders-2026-11-28.json)
+- 2026-11-28 · wrote BF "still on" plain-text email from Georg featuring the LS crew (asked by Meelad), copy/2026-11-28-bf-still-on-plain-text.md, draft
 - 2026-11-26 · brand fonts not verified; brand book proposes Cormorant Garamond + Montserrat (draft)
 
 ## Open questions

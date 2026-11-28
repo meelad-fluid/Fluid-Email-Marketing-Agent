@@ -1,0 +1,286 @@
+{
+ "pulled_at": "2026-11-28T11:15:50.018Z",
+ "source": "Klaviyo Shopify Placed Order events",
+ "window_days": 365,
+ "orders": 2710,
+ "customers": 1939,
+ "last_90d": {
+  "orders": 1056,
+  "revenue": 318499,
+  "aov": 301.61,
+  "order_value_p25_p50_p75_p90": [
+   150.03,
+   215.62,
+   372.6,
+   555.11
+  ],
+  "share_orders_over_160": 0.656,
+  "b2b_sized_orders_1000_plus": 26,
+  "best_sellers": [
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Crew-Neck T-Shirt (TCLS-Core)",
+    "units": 294,
+    "revenue": 40623,
+    "orders": 281,
+    "firstOrders": 190
+   },
+   {
+    "name": "Luxury Crew-Neck Long Sleeves Pima TCLS-Core",
+    "units": 126,
+    "revenue": 17388,
+    "orders": 125,
+    "firstOrders": 91
+   },
+   {
+    "name": "Men's Pima Cotton Short-Sleeve Crew-Neck T-Shirt (TCSS-Core)",
+    "units": 154,
+    "revenue": 15174,
+    "orders": 135,
+    "firstOrders": 80
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve V-neck T-Shirt (TVLS-Core)",
+    "units": 98,
+    "revenue": 13524,
+    "orders": 95,
+    "firstOrders": 67
+   },
+   {
+    "name": "Men's Pima Cotton Short-Sleeve V-Neck T-Shirt (TVSS-Core)",
+    "units": 122,
+    "revenue": 11956,
+    "orders": 107,
+    "firstOrders": 62
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Henley (THLS Core)",
+    "units": 72,
+    "revenue": 11160,
+    "orders": 67,
+    "firstOrders": 48
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Polo (POLS)",
+    "units": 56,
+    "revenue": 10028,
+    "orders": 55,
+    "firstOrders": 34
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Button-Up Shirt (SHLS)",
+    "units": 37,
+    "revenue": 9805,
+    "orders": 37,
+    "firstOrders": 14
+   },
+   {
+    "name": "Luxe Pima Cotton Button Up Stretch Long Sleeves Shirt SHLS",
+    "units": 36,
+    "revenue": 9540,
+    "orders": 36,
+    "firstOrders": 26
+   },
+   {
+    "name": "Luxury V-Neck Short Sleeves Pima TVSS-Core",
+    "units": 96,
+    "revenue": 9408,
+    "orders": 69,
+    "firstOrders": 29
+   },
+   {
+    "name": "Luxury Crew Neck Short Sleeves Pima TCSS-Core",
+    "units": 87,
+    "revenue": 8526,
+    "orders": 82,
+    "firstOrders": 42
+   },
+   {
+    "name": "Men's Sherpa-Lined Full-Zip Hoodie (FH)",
+    "units": 31,
+    "revenue": 7378,
+    "orders": 31,
+    "firstOrders": 20
+   },
+   {
+    "name": "Luxury V-Neck Long Sleeves Pima TVLS-Core",
+    "units": 43,
+    "revenue": 5934,
+    "orders": 42,
+    "firstOrders": 29
+   },
+   {
+    "name": "Men's Pima Cotton Short-Sleeve Henley (THSS)",
+    "units": 37,
+    "revenue": 5106,
+    "orders": 37,
+    "firstOrders": 30
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve V-Neck T-Shirt (TVLS-Dyed)",
+    "units": 31,
+    "revenue": 4278,
+    "orders": 29,
+    "firstOrders": 16
+   }
+  ],
+  "best_first_order_products": [
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Crew-Neck T-Shirt (TCLS-Core)",
+    "firstOrders": 190
+   },
+   {
+    "name": "Luxury Crew-Neck Long Sleeves Pima TCLS-Core",
+    "firstOrders": 91
+   },
+   {
+    "name": "Men's Pima Cotton Short-Sleeve Crew-Neck T-Shirt (TCSS-Core)",
+    "firstOrders": 80
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve V-neck T-Shirt (TVLS-Core)",
+    "firstOrders": 67
+   },
+   {
+    "name": "Men's Pima Cotton Short-Sleeve V-Neck T-Shirt (TVSS-Core)",
+    "firstOrders": 62
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Henley (THLS Core)",
+    "firstOrders": 48
+   },
+   {
+    "name": "Luxury Crew Neck Short Sleeves Pima TCSS-Core",
+    "firstOrders": 42
+   },
+   {
+    "name": "Men's Pima Cotton Long-Sleeve Polo (POLS)",
+    "firstOrders": 34
+   },
+   {
+    "name": "Men's Pima Cotton Short-Sleeve Henley (THSS)",
+    "firstOrders": 30
+   },
+   {
+    "name": "Luxury V-Neck Long Sleeves Pima TVLS-Core",
+    "firstOrders": 29
+   }
+  ],
+  "discount_codes": [
+   {
+    "code": "Welcome10",
+    "orders": 242,
+    "revenue": 64145
+   },
+   {
+    "code": "Welcome10%Off",
+    "orders": 78,
+    "revenue": 23619
+   },
+   {
+    "code": "EARLY20",
+    "orders": 42,
+    "revenue": 12367
+   },
+   {
+    "code": "ComeBackSoonAndSave15",
+    "orders": 20,
+    "revenue": 6667
+   },
+   {
+    "code": "GR10",
+    "orders": 12,
+    "revenue": 3967
+   },
+   {
+    "code": "Audrie10",
+    "orders": 6,
+    "revenue": 3104
+   },
+   {
+    "code": "STYLE10",
+    "orders": 4,
+    "revenue": 917
+   },
+   {
+    "code": "COMPLETE15",
+    "orders": 3,
+    "revenue": 476
+   },
+   {
+    "code": "MYSTERY",
+    "orders": 3,
+    "revenue": 542
+   },
+   {
+    "code": "SALE15",
+    "orders": 3,
+    "revenue": 2160
+   }
+  ]
+ },
+ "repeat": {
+  "first_time_buyers_60d_plus_ago": 1222,
+  "came_back": 290,
+  "repeat_rate": 0.237,
+  "reordered_same_product": 0.455,
+  "days_to_2nd_order_p25_p50_p75": [
+   6,
+   19,
+   52
+  ],
+  "top_paths": [
+   [
+    "Luxury V-Neck Short Sleeves Pima TVSS-Core → Luxury V-Neck Short Sleeves Pima TVSS-Core (same)",
+    19
+   ],
+   [
+    "Luxury Crew Neck Short Sleeves Pima TCSS-Core → Luxury Crew Neck Short Sleeves Pima TCSS-Core (same)",
+    12
+   ],
+   [
+    "Luxury V-Neck Short Sleeves Pima TVSS-Dyed → Luxury V-Neck Short Sleeves Pima TVSS-Core",
+    6
+   ],
+   [
+    "Luxury V-Neck Short Sleeves Pima TVSS-Core → Luxury V-Neck Short Sleeves Pima TVSS-Dyed",
+    6
+   ],
+   [
+    "Luxe Pima Cotton Button Up Stretch Long Sleeves Shirt SHLS → Luxe Pima Cotton Button Up Stretch Long Sleeves Shirt SHLS (same)",
+    6
+   ],
+   [
+    "Men's Pima Cotton Long-Sleeve Crew-Neck T-Shirt (TCLS-Core) → Men's Pima Cotton Long-Sleeve Crew-Neck T-Shirt (TCLS-Core) (same)",
+    6
+   ],
+   [
+    "Luxury Crew-Neck Long Sleeves Pima TCLS-Core → Men's Pima Cotton Long-Sleeve Crew-Neck T-Shirt (TCLS-Core)",
+    5
+   ],
+   [
+    "Luxe Henley Short Sleeve THSS → Luxe Henley Short Sleeve THSS (same)",
+    4
+   ],
+   [
+    "Luxe Pima Cotton Button Up Stretch Short Sleeves Shirt SHSS → Luxe Pima Cotton Button Up Stretch Short Sleeves Shirt SHSS (same)",
+    4
+   ],
+   [
+    "Luxury V-Neck Short Sleeves Pima TVSS-Dyed → Luxury V-Neck Short Sleeves Pima TVSS-Dyed (same)",
+    3
+   ]
+  ]
+ },
+ "cohorts": {
+  "one_time_30_60d": 205,
+  "one_time_60_120d": 309,
+  "due_to_reorder": 46,
+  "lapsed_repeat_buyers": 272,
+  "vip_top10pct": {
+   "customers": 194,
+   "min_spend": 904
+  },
+  "b2b_sized_buyers": 81,
+  "cross_sell": {}
+ }
+}

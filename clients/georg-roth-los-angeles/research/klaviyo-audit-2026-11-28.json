@@ -1,0 +1,525 @@
+{
+ "pulled_at": "2026-11-28T11:15:08.585Z",
+ "window_days": 60,
+ "account": {
+  "name": "Georg Roth Los Angeles",
+  "sender": "info@georgrothlosangeles.com",
+  "timezone": "America/Los_Angeles",
+  "currency": "USD"
+ },
+ "lists": [
+  {
+   "id": "TAjMdd",
+   "name": "Text Messaging List",
+   "created": "2026-06-28"
+  },
+  {
+   "id": "WJkjSb",
+   "name": "FC | Out Of Stock",
+   "created": "2026-11-04"
+  },
+  {
+   "id": "WiPYZQ",
+   "name": "FC | B2B",
+   "created": "2026-11-03"
+  },
+  {
+   "id": "X6yhSM",
+   "name": "Preview List",
+   "created": "2026-06-28"
+  },
+  {
+   "id": "YkAp83",
+   "name": "Email List",
+   "created": "2026-06-28"
+  }
+ ],
+ "forms": [],
+ "flows": {
+  "live_count": 8,
+  "live": [
+   "FC | Welcome Email #1 (Mens)",
+   "FC | Post Purchase",
+   "FC | Site Abandonment",
+   "FC | Welcome Email #1 (Gift)",
+   "FC | Winback",
+   "FC | Abandoned Checkout",
+   "FC | Welcome Email #1 (Womens)",
+   "FC | Browse Abandonment"
+  ],
+  "top10_60d": [
+   {
+    "name": "FC | Browse Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 1517,
+    "revenue": 8387,
+    "rpr": 5.53,
+    "conversions": 20
+   },
+   {
+    "name": "FC | Post Purchase",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 2273,
+    "revenue": 6751,
+    "rpr": 2.97,
+    "conversions": 23
+   },
+   {
+    "name": "FC | Welcome Email #1 (Mens)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email+sms",
+    "recipients": 232,
+    "revenue": 5546,
+    "rpr": 23.91,
+    "conversions": 8
+   },
+   {
+    "name": "FC | Abandoned Checkout",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email+sms",
+    "recipients": 241,
+    "revenue": 1187,
+    "rpr": 4.93,
+    "conversions": 6
+   },
+   {
+    "name": "FC | Welcome Email #1 (Womens)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email",
+    "recipients": 9,
+    "revenue": 490,
+    "rpr": 54.4,
+    "conversions": 1
+   },
+   {
+    "name": "FC | Site Abandonment",
+    "status": "live",
+    "trigger": "Metric",
+    "channels": "email",
+    "recipients": 819,
+    "revenue": 463,
+    "rpr": 0.57,
+    "conversions": 3
+   },
+   {
+    "name": "FC | Welcome Email #1 (Gift)",
+    "status": "live",
+    "trigger": "Added to List",
+    "channels": "email+sms",
+    "recipients": 65,
+    "revenue": 248,
+    "rpr": 3.82,
+    "conversions": 1
+   }
+  ]
+ },
+ "campaigns_60d": {
+  "email_sends": 22,
+  "sms_sends": 0,
+  "per_week": 2.6,
+  "avg_open_rate": 0.5957,
+  "avg_click_rate": 0.0094,
+  "best": [
+   {
+    "name": "FC | Her Fall, Her Way ",
+    "channel": "email",
+    "sent": "2026-10-20T15:00:00+00:00",
+    "status": "Sent",
+    "subject": "Start with one good top.",
+    "preview": "Two outfits, one long sleeve V neck.",
+    "audiences": {
+     "included": [
+      "TVky89"
+     ],
+     "excluded": []
+    },
+    "recipients": 1263,
+    "open_rate": 0.5529,
+    "click_rate": 0.01671,
+    "conversions": 7,
+    "revenue": 3067,
+    "rpr": 2.44029,
+    "unsub_rate": 0.00716
+   },
+   {
+    "name": "FC | Give Your Neutrals a New Companion",
+    "channel": "email",
+    "sent": "2026-10-25T15:00:00+00:00",
+    "status": "Sent",
+    "subject": "Same wardrobe. One new color.",
+    "preview": "Plum, coffee, indigo, basalt grey. Pick one.",
+    "audiences": {
+     "included": [
+      "VdpKyT"
+     ],
+     "excluded": []
+    },
+    "recipients": 3808,
+    "open_rate": 0.73626,
+    "click_rate": 0.01453,
+    "conversions": 13,
+    "revenue": 5967,
+    "rpr": 1.57683,
+    "unsub_rate": 0.00661
+   },
+   {
+    "name": "FC | A Wardrobe With Personality ",
+    "channel": "email",
+    "sent": "2026-10-28T15:00:00+00:00",
+    "status": "Sent",
+    "subject": "Why the shirts look like that.",
+    "preview": "Color, contrast, and a few rules worth breaking.",
+    "audiences": {
+     "included": [
+      "VdpKyT"
+     ],
+     "excluded": []
+    },
+    "recipients": 3876,
+    "open_rate": 0.72466,
+    "click_rate": 0.01659,
+    "conversions": 7,
+    "revenue": 4646,
+    "rpr": 1.20467,
+    "unsub_rate": 0.0057
+   },
+   {
+    "name": "FC | Your Weekend, Already Styled ",
+    "channel": "email",
+    "sent": "2026-10-30T16:45:00+00:00",
+    "status": "Sent",
+    "subject": "Saturday, decided.",
+    "preview": "3 outfits. Morning through dinner.",
+    "audiences": {
+     "included": [
+      "VdpKyT"
+     ],
+     "excluded": []
+    },
+    "recipients": 3851,
+    "open_rate": 0.71809,
+    "click_rate": 0.00887,
+    "conversions": 8,
+    "revenue": 3431,
+    "rpr": 0.89548,
+    "unsub_rate": 0.00444
+   },
+   {
+    "name": "FC | VIP Early Access Launch",
+    "channel": "email",
+    "sent": "2026-11-16T16:00:00+00:00",
+    "status": "Sent",
+    "subject": "Your VIP 20% off starts now",
+    "preview": "Use code EARLY20",
+    "audiences": {
+     "included": [
+      "VdpKyT"
+     ],
+     "excluded": []
+    },
+    "recipients": 6090,
+    "open_rate": 0.69233,
+    "click_rate": 0.01438,
+    "conversions": 18,
+    "revenue": 4665,
+    "rpr": 0.77078,
+    "unsub_rate": 0.00463
+   }
+  ],
+  "worst": [
+   {
+    "name": "FC | Still considering Georg Roth for your shop?",
+    "channel": "email",
+    "sent": "2026-11-24T15:04:55.667261+00:00",
+    "status": "Sent",
+    "subject": "A quick follow-up about Georg Roth",
+    "preview": "",
+    "audiences": {
+     "included": [
+      "WiPYZQ"
+     ],
+     "excluded": []
+    },
+    "recipients": 3478,
+    "open_rate": 0.4523,
+    "click_rate": 0.00205,
+    "conversions": 0,
+    "revenue": 0,
+    "rpr": 0,
+    "unsub_rate": 0.00704
+   },
+   {
+    "name": "FC | Your Invitation to Become a Georg Roth Reseller",
+    "channel": "email",
+    "sent": "2026-11-03T18:15:00+00:00",
+    "status": "Sent",
+    "subject": "Carry Georg Roth in your shop",
+    "preview": "Reseller applications are open for pro shops, clubs and retailers.",
+    "audiences": {
+     "included": [
+      "WiPYZQ"
+     ],
+     "excluded": []
+    },
+    "recipients": 3867,
+    "open_rate": 0.52965,
+    "click_rate": 0.00325,
+    "conversions": 0,
+    "revenue": 0,
+    "rpr": 0,
+    "unsub_rate": 0.00975
+   },
+   {
+    "name": "FC | Bring Something Distinctive to Your Shop",
+    "channel": "email",
+    "sent": "2026-11-05T18:30:00+00:00",
+    "status": "Sent",
+    "subject": "Reseller applications are still open",
+    "preview": "Add Georg Roth to next season’s assortment.",
+    "audiences": {
+     "included": [
+      "WiPYZQ"
+     ],
+     "excluded": []
+    },
+    "recipients": 3629,
+    "open_rate": 0.53147,
+    "click_rate": 0.00308,
+    "conversions": 0,
+    "revenue": 0,
+    "rpr": 0,
+    "unsub_rate": 0.00951
+   }
+  ],
+  "all": [
+   {
+    "name": "FC | Her Fall, Her Way ",
+    "sent": "2026-10-20T15:00:00+00:00",
+    "subject": "Start with one good top.",
+    "open_rate": 0.5529,
+    "click_rate": 0.01671,
+    "revenue": 3067,
+    "rpr": 2.44029,
+    "recipients": 1263
+   },
+   {
+    "name": "FC | Give Your Neutrals a New Companion",
+    "sent": "2026-10-25T15:00:00+00:00",
+    "subject": "Same wardrobe. One new color.",
+    "open_rate": 0.73626,
+    "click_rate": 0.01453,
+    "revenue": 5967,
+    "rpr": 1.57683,
+    "recipients": 3808
+   },
+   {
+    "name": "FC | A Wardrobe With Personality ",
+    "sent": "2026-10-28T15:00:00+00:00",
+    "subject": "Why the shirts look like that.",
+    "open_rate": 0.72466,
+    "click_rate": 0.01659,
+    "revenue": 4646,
+    "rpr": 1.20467,
+    "recipients": 3876
+   },
+   {
+    "name": "FC | Your Weekend, Already Styled ",
+    "sent": "2026-10-30T16:45:00+00:00",
+    "subject": "Saturday, decided.",
+    "open_rate": 0.71809,
+    "click_rate": 0.00887,
+    "revenue": 3431,
+    "rpr": 0.89548,
+    "recipients": 3851
+   },
+   {
+    "name": "FC | VIP Early Access Launch",
+    "sent": "2026-11-16T16:00:00+00:00",
+    "subject": "Your VIP 20% off starts now",
+    "open_rate": 0.69233,
+    "click_rate": 0.01438,
+    "revenue": 4665,
+    "rpr": 0.77078,
+    "recipients": 6090
+   },
+   {
+    "name": "FC | The Detail That Finishes the Look ",
+    "sent": "2026-10-22T14:15:00+00:00",
+    "subject": "The last thing you put on.",
+    "open_rate": 0.72023,
+    "click_rate": 0.01238,
+    "revenue": 2878,
+    "rpr": 0.75817,
+    "recipients": 3838
+   },
+   {
+    "name": "FC | One Shirt. Three Ways to Wear It. ",
+    "sent": "2026-10-16T14:45:00+00:00",
+    "subject": "One shirt, 3 ways to wear it.",
+    "open_rate": 0.68434,
+    "click_rate": 0.01345,
+    "revenue": 2684,
+    "rpr": 0.70782,
+    "recipients": 3814
+   },
+   {
+    "name": "FC | Start With the Layer Closest to You ",
+    "sent": "2026-10-14T15:15:00+00:00",
+    "subject": "Crew or V. Pick your side.",
+    "open_rate": 0.68471,
+    "click_rate": 0.01182,
+    "revenue": 2486,
+    "rpr": 0.65318,
+    "recipients": 3841
+   },
+   {
+    "name": "FC | The Los Angeles Point of View",
+    "sent": "2026-10-06T16:00:00+00:00",
+    "subject": "Relaxed, with an edge.",
+    "open_rate": 0.69932,
+    "click_rate": 0.01463,
+    "revenue": 2449,
+    "rpr": 0.63983,
+    "recipients": 3846
+   },
+   {
+    "name": "FC | VIP Early Access Last Call",
+    "sent": "2026-11-19T16:00:00+00:00",
+    "subject": "Your 20% off ends tonight",
+    "open_rate": 0.69604,
+    "click_rate": 0.00867,
+    "revenue": 2948,
+    "rpr": 0.50152,
+    "recipients": 5913
+   },
+   {
+    "name": "FC | VIP Style Discovery",
+    "sent": "2026-11-17T15:15:00+00:00",
+    "subject": "Your 20% off is here",
+    "open_rate": 0.41796,
+    "click_rate": 0.00668,
+    "revenue": 4866,
+    "rpr": 0.45135,
+    "recipients": 10955
+   },
+   {
+    "name": "FC | A Fresh Perspective on Fall",
+    "sent": "2026-10-12T16:00:00+00:00",
+    "subject": "October, handled.",
+    "open_rate": 0.70473,
+    "click_rate": 0.01829,
+    "revenue": 1156,
+    "rpr": 0.30208,
+    "recipients": 3861
+   },
+   {
+    "name": "FC | An Invitation to Dress Well",
+    "sent": "2026-10-01T15:00:00+00:00",
+    "subject": "What are you saving it for?",
+    "open_rate": 0.66789,
+    "click_rate": 0.00761,
+    "revenue": 1123,
+    "rpr": 0.29481,
+    "recipients": 3825
+   },
+   {
+    "name": "FC | Public Pre-Sale Launch",
+    "sent": "2026-11-22T21:50:46.217521+00:00",
+    "subject": "Buy 2, save 15% on both",
+    "open_rate": 0.39798,
+    "click_rate": 0.00401,
+    "revenue": 1604,
+    "rpr": 0.1532,
+    "recipients": 10593
+   },
+   {
+    "name": "FC | Pre-Sale Style Pairings",
+    "sent": "2026-11-25T19:00:00+00:00",
+    "subject": "Buy 2, save 15%. Start here.",
+    "open_rate": 0.65244,
+    "click_rate": 0.00382,
+    "revenue": 758,
+    "rpr": 0.13149,
+    "recipients": 5808
+   },
+   {
+    "name": "FC | Black Friday Launch",
+    "sent": "2026-11-27T14:30:00+00:00",
+    "subject": "$50 off orders over $250",
+    "open_rate": 0.34898,
+    "click_rate": 0.00301,
+    "revenue": 1351,
+    "rpr": 0.131,
+    "recipients": 10441
+   },
+   {
+    "name": "FC | Pre-Sale Product Spotlight",
+    "sent": "2026-11-24T16:00:00+00:00",
+    "subject": "Pre-Sale Product Spotlight",
+    "open_rate": 0.67217,
+    "click_rate": 0.00671,
+    "revenue": 739,
+    "rpr": 0.12709,
+    "recipients": 5851
+   },
+   {
+    "name": "FC | After Dark, Effortlessly",
+    "sent": "2026-11-03T15:15:19.407016+00:00",
+    "subject": "Dinner, drinks, whatever follows.",
+    "open_rate": 0.6986,
+    "click_rate": 0.01372,
+    "revenue": 472,
+    "rpr": 0.12222,
+    "recipients": 3888
+   },
+   {
+    "name": "FC | Black Friday Launch (Resend)",
+    "sent": "2026-11-27T22:00:00+00:00",
+    "subject": "Black Friday: Spend $250, Get $50 OFF",
+    "open_rate": 0.12255,
+    "click_rate": 0.00163,
+    "revenue": 594,
+    "rpr": 0.08079,
+    "recipients": 7427
+   },
+   {
+    "name": "FC | Bring Something Distinctive to Your Shop",
+    "sent": "2026-11-05T18:30:00+00:00",
+    "subject": "Reseller applications are still open",
+    "open_rate": 0.53147,
+    "click_rate": 0.00308,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 3629
+   },
+   {
+    "name": "FC | Your Invitation to Become a Georg Roth Reseller",
+    "sent": "2026-11-03T18:15:00+00:00",
+    "subject": "Carry Georg Roth in your shop",
+    "open_rate": 0.52965,
+    "click_rate": 0.00325,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 3867
+   },
+   {
+    "name": "FC | Still considering Georg Roth for your shop?",
+    "sent": "2026-11-24T15:04:55.667261+00:00",
+    "subject": "A quick follow-up about Georg Roth",
+    "open_rate": 0.4523,
+    "click_rate": 0.00205,
+    "revenue": 0,
+    "rpr": 0,
+    "recipients": 3478
+   }
+  ],
+  "sms": []
+ }
+}
