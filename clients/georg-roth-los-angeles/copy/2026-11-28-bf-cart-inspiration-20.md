@@ -11,11 +11,11 @@ Status: draft · needs approval · goes live Sat Nov 28, 2026
 - Offer: 20% off everything, code COLOR20, ends Mon Nov 30, 11:59 PM PT. Not combinable with the $50 off $250 offer. Code must exist in Shopify before send.
 
 ## Hero
-Headline: BLACK FRIDAY
-Tag: 20% OFF everything
-Code: COLOR20 · Ends Mon, Nov 30, 11:59 PM PT
+Eyebrow: BLACK FRIDAY
+Headline: Get 20% off.
+Code: Use code COLOR20 · Ends Mon, Nov 30, 11:59 PM PT
 Button: Shop Black Friday
-Image: man wearing the pearl grey Pima long-sleeve crew
+Image: full-bleed bright LA lifestyle shot, man in the pearl grey Pima long-sleeve crew with coffee by a sunlit wall
 
 ## Products
 Title: The tee he'll wear all week.
