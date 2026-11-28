@@ -10,27 +10,28 @@
 .email a.btn{color:#111111}
 .email a.btn.dark{color:#FFFFFF}
 
-/* hero */
-.hero{background:#111111;color:#FFFFFF;text-align:center;padding:30px 40px 0;position:relative}
+/* hero: split, model is the main piece */
+.hero{background:#E9E4DC;color:#111111;display:flex;align-items:stretch}
+.htxt{width:280px;flex:none;padding:30px 20px 30px 28px;text-align:left}
 .wordmark{font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:5px}
-.eyebrow{margin-top:34px;display:inline-block;border-top:1px solid #6B6B6B;border-bottom:1px solid #6B6B6B;padding:8px 14px;font-size:13px;font-weight:600;letter-spacing:3px}
-.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:60px;line-height:1.02;margin-top:20px}
-.hero h1 em{font-style:italic;font-weight:500;display:block;font-size:64px}
-.hero .sub{font-size:17px;line-height:1.55;margin:18px auto 0;max-width:470px;color:#E9E4DC}
-.hero .sub b{color:#FFFFFF}
-.hero .cta{margin-top:24px}
-.code{margin:22px auto 0;display:inline-block;background:#E9E4DC;color:#111111;padding:12px 34px 14px;border:2px dashed #111111;outline:6px solid #E9E4DC}
-.code .lbl{font-size:13px;font-weight:700;letter-spacing:3px;color:#1F2A44}
-.code .big{font-family:'Montserrat',sans-serif;font-size:44px;font-weight:700;letter-spacing:6px;line-height:1.1;margin-top:2px}
-.code .end{font-size:13px;font-weight:600;letter-spacing:1px;color:#333333;margin-top:2px}
-.hero-img{position:relative;margin:30px -40px 0;height:560px;background:url('asset:brand/assets/generated/2026-11-28-man-plum-pima-tee-hero.jpg') center 22%/cover}
-.hero-img:before{content:"";position:absolute;left:0;right:0;top:0;height:200px;background:linear-gradient(#111111,rgba(17,17,17,0))}
-.swatches{position:absolute;left:0;right:0;bottom:26px;display:flex;justify-content:center;gap:10px}
-.sw{background:rgba(255,255,255,.92);padding:8px 12px;font-size:12px;font-weight:600;letter-spacing:1.5px;color:#111111;display:flex;align-items:center;gap:7px}
-.sw i{display:inline-block;width:12px;height:12px;border-radius:50%}
+.htxt .wordmark{font-size:11px;letter-spacing:3px;line-height:1.5}
+.eyebrow{margin-top:26px;display:inline-block;background:#111111;color:#FFFFFF;padding:7px 10px;font-size:12px;font-weight:700;letter-spacing:2px}
+.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:44px;line-height:1.0;margin-top:16px}
+.hero h1 em{font-style:italic;font-weight:500;display:block;color:#1F2A44}
+.hero .sub{font-size:15px;line-height:1.5;margin-top:14px;color:#333333}
+.hero .sub b{color:#111111}
+.code{margin-top:18px;display:block;background:#FFFFFF;color:#111111;padding:10px 12px 12px;border:2px dashed #111111;text-align:center}
+.code .lbl{font-size:12px;font-weight:700;letter-spacing:2px;color:#1F2A44}
+.code .big{font-family:'Montserrat',sans-serif;font-size:34px;font-weight:700;letter-spacing:4px;line-height:1.15;margin-top:2px}
+.code .end{font-size:12px;font-weight:600;color:#333333;margin-top:2px}
+.hero .cta{margin-top:18px}
+.hero .cta .btn{display:block;text-align:center;padding:17px 10px}
+.hero-img{width:320px;flex:none;min-height:620px;background:url('asset:brand/assets/generated/2026-11-28-man-plum-pima-tee-bright-rooftop.jpg') 42% 0/cover}
 
 /* wears */
-.wears{background:#E9E4DC;padding:56px 40px;display:flex;gap:30px;align-items:center}
+.wears{background:#111111;color:#FFFFFF;padding:56px 40px;display:flex;gap:30px;align-items:center}
+.wears .kicker{color:#B5B0A8}
+.wears .tags span{border-left-color:#E9E4DC}
 .arch{width:250px;height:340px;flex:none;border-radius:125px 125px 0 0;background:url('asset:brand/assets/generated/2026-11-28-plum-tee-rooftop-blazer.jpg') center 30%/cover;box-shadow:0 14px 30px rgba(17,17,17,.18)}
 .wears .txt{flex:1}
 .kicker{font-size:12px;letter-spacing:3px;font-weight:600;color:#6B6B6B}
@@ -79,13 +80,15 @@
 <div class="email">
 
   <div class="hero">
-    <a href="https://georgrothlosangeles.com/"><div class="wordmark">GEORG ROTH LOS ANGELES</div></a>
-    <a href="https://georgrothlosangeles.com/"><div class="eyebrow">20% OFF EVERYTHING · ENDS MONDAY</div></a>
-    <a href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes"><h1>Same wardrobe.<em>One new color.</em></h1></a>
-    <p class="sub">Your navy, white and black are covered. Add plum, coffee, indigo or grey, and take <b>20% off.</b></p>
-    <a href="https://georgrothlosangeles.com/"><div class="code"><div class="lbl">20% OFF WITH CODE</div><div class="big">COLOR20</div><div class="end">Ends Mon, Nov 30, 11:59 PM PT</div></div></a>
-    <div class="cta"><a class="btn" href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes">Pick My Color</a></div>
-    <a href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes"><div class="hero-img"></div></a>
+    <div class="htxt">
+      <a href="https://georgrothlosangeles.com/"><div class="wordmark">GEORG ROTH<br>LOS ANGELES</div></a>
+      <a href="https://georgrothlosangeles.com/"><div class="eyebrow">20% OFF · ENDS MONDAY</div></a>
+      <a href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes"><h1>Same wardrobe.<em>One new color.</em></h1></a>
+      <p class="sub">Your navy, white and black are covered. Add plum, coffee, indigo or grey, and take <b>20% off.</b></p>
+      <a href="https://georgrothlosangeles.com/"><div class="code"><div class="lbl">20% OFF WITH CODE</div><div class="big">COLOR20</div><div class="end">Ends Mon, Nov 30, 11:59 PM PT</div></div></a>
+      <div class="cta"><a class="btn dark" href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes">Pick My Color</a></div>
+    </div>
+    <a href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes" style="display:block;width:320px;flex:none"><div class="hero-img" style="height:100%"></div></a>
   </div>
 
   <a href="https://georgrothlosangeles.com/products/luxury-crew-neck-short-sleeves-pima-cotton-mens-garment-tvss-dyes"><div class="wears">
