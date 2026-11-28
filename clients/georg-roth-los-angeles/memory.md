@@ -20,6 +20,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-28 · wrote BF "still on" plain-text email from Georg featuring the LS crew (asked by Meelad), copy/2026-11-28-bf-still-on-plain-text.md, draft
 - 2026-11-28 · Meelad asked for a 20% off email modeled on their "best campaign in 90 days" (Klaviyo web-view link 01M4XH60PKWZCA9J0MSJSGFA0G). Web view won't load for us and it's not in the library; asked for a screenshot. Top by revenue in audit = "Give Your Neutrals a New Companion" ($5,967, Oct 25). 20% has been run before (EARLY20 VIP), despite the 10% cap in the brief
 - 2026-11-28 · Meelad confirmed the reference = "Give Your Neutrals a New Companion". Built "One New Color — 20% Off" (copy/2026-11-29-one-new-color-20.md, designs/2026-11-29-one-new-color-20/), draft for Sun Nov 29, code COLOR20 placeholder (confirm + create in Shopify), ends Mon Nov 30 11:59 PM PT. render_preview kept timing out ("element not visible") and QC didn't run on publish, so the layout hasn't been checked by eye yet
+- 2026-11-28 · One New Color v2 · Meelad comments: CTAs unreadable (link color rule overrode button text color, fixed on all 3 buttons), code bigger/standout (now a big coupon box above CTA), hero image → person wearing the tee (generated man in plum tee, LA rooftop), swatch chips removed. render_preview still times out; QC didn't run
 - 2026-11-26 · brand fonts not verified; brand book proposes Cormorant Garamond + Montserrat (draft)
 
 ## Open questions
