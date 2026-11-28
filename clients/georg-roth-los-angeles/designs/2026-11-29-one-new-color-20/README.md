@@ -3,7 +3,7 @@ Review link: fluid-email-marketing-agent-production.up.railway.app/r/eLPk-0vs71J
 
 Status: approved by Meelad on 2026-11-28 (v4) · goes live Sun Nov 29, 2026
 
-- Copy: copy/2026-11-29-one-new-color-20.md
+Copy: ../../copy/2026-11-29-one-new-color-20.md
 - Subject: One new color. 20% off. · Preview: Plum, coffee, indigo or grey. Pick one by Monday.
 - Modeled on: "Give Your Neutrals a New Companion" (Oct 25, best campaign by revenue, $5,967)
 - Offer: 20% off sitewide, code COLOR20 (name to confirm, create in Shopify on approval), ends Mon Nov 30, 11:59 PM PT

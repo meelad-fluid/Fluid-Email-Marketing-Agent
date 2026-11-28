@@ -3,8 +3,8 @@ Idea: Same wardrobe, one new color. 20% off makes the new color an easy yes. (Bu
 
 Status: draft · needs approval · goes live Sun Nov 29, 2026
 
-- Subject: One new color. 20% off.
-- Preview: Plum, coffee, indigo or grey. Pick one by Monday.
+SUBJECT (pick): One new color. 20% off.
+PREVIEW (pick): Plum, coffee, indigo or grey. Pick one by Monday.
 - Sender: Georg Roth Los Angeles
 - Audience: Email List (engaged), confirm before scheduling
 - Offer: 20% off sitewide, code COLOR20 (code name to confirm; needs creating in Shopify), ends Mon Nov 30, 11:59 PM PT. Not combinable with the Black Friday $50 off $250 offer.
