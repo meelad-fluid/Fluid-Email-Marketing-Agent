@@ -4,17 +4,16 @@ Idea: Same wardrobe, one new color. 20% off makes the new color an easy yes. (Bu
 Status: draft · needs approval · goes live Sun Nov 29, 2026
 
 SUBJECT (pick): One new color. 20% off.
-PREVIEW (pick): Plum, coffee, indigo or grey. Pick one by Monday.
+PREVIEW (pick): Plum or a new blue. No code needed, ends Monday.
 - Sender: Georg Roth Los Angeles
 - Audience: Email List (engaged), confirm before scheduling
-- Offer: 20% off sitewide, code COLOR20 (code name to confirm; needs creating in Shopify), ends Mon Nov 30, 11:59 PM PT. Not combinable with the Black Friday $50 off $250 offer.
+- Offer: 20% off sitewide, AUTOMATIC at checkout (no code; Meelad 2026-11-28), ends Mon Nov 30, 11:59 PM PT. Needs an automatic discount set up in Shopify. Not combinable with the Black Friday $50 off $250 offer.
 
 ## Hero
-Eyebrow: 20% OFF EVERYTHING · ENDS MONDAY
 Headline: Same wardrobe. One new color.
-Sub: Your navy, white and black are covered. Add plum, coffee, indigo or grey, and take 20% off with code COLOR20.
+Sub: Your navy, white and black tees are covered. Add a plum or a new blue one, and take 20% off.
 Button: Pick My Color
-Code: CODE COLOR20 · ENDS MON, NOV 30, 11:59 PM PT
+Offer box: NO CODE NEEDED · 20% OFF · Taken off at checkout. Ends Mon, Nov 30, 11:59 PM PT
 
 ## How it wears
 Title: One tee. A whole new look.
@@ -31,12 +30,12 @@ Button: Shop 20% Off
 
 ## How it works
 1. Pick your color.
-2. Use COLOR20 at checkout.
-3. We call to check your size.
+2. 20% comes off at checkout.
+3. Not sure of your size? We'll call to check.
 Fit tip: Trim fit. Between sizes? Go up one.
 
 ## Close
 Headline: 20% off ends Monday night.
 Line: Mon, Nov 30, 11:59 PM PT. Free U.S. shipping over $150.
 Button: Shop 20% Off
-Fine print: One code per order. Can't be combined with the Black Friday $50 off offer. Holiday orders can be returned until Jan 15, 2027.
+Fine print: 20% off applies automatically at checkout. Can't be combined with the Black Friday $50 off offer. Holiday orders can be returned until Jan 15, 2027.
