@@ -23,6 +23,7 @@ Read before any work for this client. Append (dated) after every change. Rules h
 - 2026-11-28 · One New Color v2 · Meelad comments: CTAs unreadable (link color rule overrode button text color, fixed on all 3 buttons), code bigger/standout (now a big coupon box above CTA), hero image → person wearing the tee (generated man in plum tee, LA rooftop), swatch chips removed. render_preview still times out; QC didn't run
 - 2026-11-28 · One New Color v3 · Meelad: hero photo too dark, show the model more, make him the main piece → new bright daylight rooftop photo (2026-11-28-man-plum-pima-tee-bright-rooftop.jpg), split hero with model full-height on the right, no dark overlay; "how it wears" row now black. Preview still times out, QC didn't run → standing pref: Meelad wants bright, well-lit model shots as the hero, not moody/dark
 - 2026-11-28 · Meelad asked to update "FC | Black Friday Cart Inspiration" (Klaviyo campaign, subject "You are close to $50 off", SCHEDULED Sat Nov 28 10 AM PT) to the 20% offer + hero of a person wearing the shirt. Not built by us, not in library/audit; asked for a screenshot and which 20% (assumed VIP EARLY20). Fluid can't edit a scheduled Klaviyo campaign: rebuild as new draft, someone unschedules the old one
+- 2026-11-28 · One New Color v4 · Meelad: flip the hero so the text and button are on the right → model photo now on the left, copy/code/CTA on the right. Preview still times out, QC didn't run
 - 2026-11-26 · brand fonts not verified; brand book proposes Cormorant Garamond + Montserrat (draft)
 
 ## Open questions
